@@ -114,7 +114,8 @@ INCS_Release := \
 	-I/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api
 
 OBJS := \
-	$(obj).target/$(TARGET)/cppsrc/main.o
+	$(obj).target/$(TARGET)/cppsrc/main.o \
+	$(obj).target/$(TARGET)/cppsrc/Samples/functionexample.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)

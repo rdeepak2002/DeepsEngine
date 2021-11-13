@@ -6,7 +6,8 @@ Release/obj.target/testaddon/cppsrc/main.o: ../cppsrc/main.cpp \
   /Users/deepakramalingam/Library/Caches/node-gyp/14.17.6/include/node/js_native_api_types.h \
   /Users/deepakramalingam/Library/Caches/node-gyp/14.17.6/include/node/node_api_types.h \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.h \
-  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.deprecated.h
+  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.deprecated.h \
+  ../cppsrc/Samples/functionexample.h
 ../cppsrc/main.cpp:
 /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi.h:
 /Users/deepakramalingam/Library/Caches/node-gyp/14.17.6/include/node/node_api.h:
@@ -15,3 +16,4 @@ Release/obj.target/testaddon/cppsrc/main.o: ../cppsrc/main.cpp \
 /Users/deepakramalingam/Library/Caches/node-gyp/14.17.6/include/node/node_api_types.h:
 /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.h:
 /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.deprecated.h:
+../cppsrc/Samples/functionexample.h:

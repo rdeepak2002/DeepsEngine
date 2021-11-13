@@ -6,9 +6,9 @@
 const fs = require ('fs');
 const testAddon = require('./build/Release/testaddon.node');
 
-console.log('hello world');
-
 const frameImagePath = '../engine/cmake-build-debug/frame.png';
+
+console.log(testAddon.hello());
 
 try {
   const bitmap = fs.readFileSync(frameImagePath);
@@ -17,3 +17,5 @@ try {
 } catch (err) {
   console.error('error getting frame', err);
 }
+
+ module.exports = testAddon;
