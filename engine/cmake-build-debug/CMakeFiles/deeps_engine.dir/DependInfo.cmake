@@ -19,6 +19,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/local/Cellar/glfw/3.3.4/include/GLFW"
   "/usr/local/include/glad"
   "/usr/local/include/KHR"
+  "/usr/local/include/stb"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/main.cpp" "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/main.cpp.o"
@@ -31,6 +32,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/local/Cellar/glfw/3.3.4/include/GLFW"
   "/usr/local/include/glad"
   "/usr/local/include/KHR"
+  "/usr/local/include/stb"
   )
 
 # The set of dependency files which are needed:

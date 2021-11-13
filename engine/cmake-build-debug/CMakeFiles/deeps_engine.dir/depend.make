@@ -8,4 +8,5 @@ CMakeFiles/deeps_engine.dir/src/glad.c.o: \
 CMakeFiles/deeps_engine.dir/main.cpp.o: \
  ../main.cpp \
  /usr/local/Cellar/glew/2.2.0_1/include/GL/glew.h \
- /usr/local/Cellar/glfw/3.3.4/include/GLFW/glfw3.h
+ /usr/local/Cellar/glfw/3.3.4/include/GLFW/glfw3.h \
+ /usr/local/include/stb/stb_image_write.h

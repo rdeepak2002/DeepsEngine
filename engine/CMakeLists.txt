@@ -7,7 +7,8 @@ set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
 set(GLFW_H /usr/local/Cellar/glfw/3.3.4/include/GLFW)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H})
+set(stb /usr/local/include/stb)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${stb})
 
 # Add target link
 set(GLEW_LINK /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)

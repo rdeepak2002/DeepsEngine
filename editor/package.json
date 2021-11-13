@@ -1,0 +1,21 @@
+{
+  "name": "editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "gypfile":true,
+  "scripts": {
+    "start": "node index.js",
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "node-addon-api": "^4.2.0"
+  },
+  "devDependencies": {
+    "node-gyp": "^8.4.0"
+  }
+}

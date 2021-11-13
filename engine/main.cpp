@@ -1,7 +1,14 @@
 #include <glew.h>
 #include <glfw3.h>
 #include <iostream>
-using namespace std;
+#include <vector>
+//#define STB_IMAGE_IMPLEMENTATION
+//#include <stb_image.h>
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include <stb_image_write.h>
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#include <stdio.h>
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
@@ -11,8 +18,33 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
     std::cout<<"ESC"<<mode;
 }
 
+std::string get_current_dir() {
+    char buff[FILENAME_MAX]; //create string buffer to hold path
+    GetCurrentDir( buff, FILENAME_MAX );
+    std::string current_working_dir(buff);
+    return current_working_dir;
+}
+
+void saveImage(char* filepath, GLFWwindow* w) {
+    int width, height;
+    glfwGetFramebufferSize(w, &width, &height);
+    GLsizei nrChannels = 3;
+    GLsizei stride = nrChannels * width;
+    stride += (stride % 4) ? (4 - stride % 4) : 0;
+    GLsizei bufferSize = stride * height;
+    std::vector<char> buffer(bufferSize);
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glReadBuffer(GL_FRONT);
+    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+    stbi_flip_vertically_on_write(true);
+    stbi_write_png(filepath, width, height, nrChannels, buffer.data(), stride);
+//    printf("exported frame to %s/%s\n", get_current_dir().c_str(), filepath);
+}
+
 int main(void)
 {
+    socketServer();
+
     //Initialize GLFW Library
     if(!glfwInit())
         return -1;
@@ -27,6 +59,9 @@ int main(void)
     glfwMakeContextCurrent(window);
 
     glfwSetKeyCallback(window, key_callback); //Registering Callbacks
+
+    float trapezoidColor = 0.5;
+
     //Loop until the user closes the window
     while(!glfwWindowShouldClose(window))
     {
@@ -53,13 +88,22 @@ int main(void)
 
         glBegin(GL_POLYGON);
         //Draw another trapezoid, and pay attention to the stroke order
-        glColor3f(0.5, 0.5, 0.5); //Grey
+        glColor3f(trapezoidColor, trapezoidColor, trapezoidColor); //Grey
         glVertex2d(0.5, 0.5);
         glVertex2d(1, 1);
         glVertex2d(1, 0);
         glVertex2d(0.5, 0);
         glEnd();
 
+        // change trapezoid color
+        trapezoidColor += 0.05;
+
+        if(trapezoidColor > 1) {
+            trapezoidColor = 0;
+        }
+
+        // save frame to image file
+        saveImage("frame.png", window);
 
         /******Exchange buffer, update content on window******/
         glfwSwapBuffers(window);

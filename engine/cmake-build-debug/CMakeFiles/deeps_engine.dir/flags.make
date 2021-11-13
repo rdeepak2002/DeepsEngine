@@ -5,13 +5,13 @@
 # compile CXX with /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/usr/local/Cellar/glew/2.2.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.4/include/GLFW -I/usr/local/include/glad -I/usr/local/include/KHR
+C_INCLUDES = -I/usr/local/Cellar/glew/2.2.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.4/include/GLFW -I/usr/local/include/glad -I/usr/local/include/KHR -I/usr/local/include/stb
 
 C_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk -mmacosx-version-min=11.6
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/usr/local/Cellar/glew/2.2.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.4/include/GLFW -I/usr/local/include/glad -I/usr/local/include/KHR
+CXX_INCLUDES = -I/usr/local/Cellar/glew/2.2.0_1/include/GL -I/usr/local/Cellar/glfw/3.3.4/include/GLFW -I/usr/local/include/glad -I/usr/local/include/KHR -I/usr/local/include/stb
 
 CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk -mmacosx-version-min=11.6 -std=gnu++14
 

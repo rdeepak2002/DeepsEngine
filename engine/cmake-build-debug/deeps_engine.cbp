@@ -48,6 +48,7 @@
 					<Add directory="/usr/local/Cellar/glfw/3.3.4/include/GLFW"/>
 					<Add directory="/usr/local/include/glad"/>
 					<Add directory="/usr/local/include/KHR"/>
+					<Add directory="/usr/local/include/stb"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>
@@ -73,6 +74,7 @@
 					<Add directory="/usr/local/Cellar/glfw/3.3.4/include/GLFW"/>
 					<Add directory="/usr/local/include/glad"/>
 					<Add directory="/usr/local/include/KHR"/>
+					<Add directory="/usr/local/include/stb"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/13.0.0/include"/>

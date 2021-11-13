@@ -13,6 +13,22 @@ glfw3.h
 -
 iostream
 -
+vector
+-
+stb_image_write.h
+-
+unistd.h
+-
+stdio.h
+-
+sys/socket.h
+-
+stdlib.h
+-
+netinet/in.h
+-
+string.h
+-
 
 /usr/local/Cellar/glew/2.2.0_1/include/GL/glew.h
 cstddef
@@ -80,5 +96,21 @@ OpenGL/gl.h
 GL/gl.h
 -
 GL/glext.h
+-
+
+/usr/local/include/stb/stb_image_write.h
+stdlib.h
+-
+stdio.h
+-
+stdarg.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+assert.h
 -
 
