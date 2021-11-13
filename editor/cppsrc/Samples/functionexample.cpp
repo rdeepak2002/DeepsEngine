@@ -1,7 +1,7 @@
 #include "functionexample.h"
 
-std::string functionexample::hello(){
-  return "Hello World from NAPI";
+std::string functionexample::hello(int num){
+  return "Hello World " + std::to_string(num);
 }
 
 Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info)
@@ -14,7 +14,7 @@ Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo& info)
   }
   Napi::Number num = info[0].As<Napi::Number>();
 
-  Napi::String returnValue = Napi::String::New(env, functionexample::hello());
+  Napi::String returnValue = Napi::String::New(env, functionexample::hello(num.Int64Value()));
 
   return returnValue;
 }

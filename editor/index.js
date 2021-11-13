@@ -4,7 +4,7 @@
 // better: use callback function to call node whenever new image has been saved
 
 const fs = require ('fs');
-const testAddon = require('./build/Release/testaddon.node');
+const testAddon = require('./build/Release/addon.node');
 
 const frameImagePath = '../engine/cmake-build-debug/frame.png';
 
