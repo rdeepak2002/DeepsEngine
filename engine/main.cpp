@@ -43,8 +43,6 @@ void saveImage(char* filepath, GLFWwindow* w) {
 
 int main(void)
 {
-    socketServer();
-
     //Initialize GLFW Library
     if(!glfwInit())
         return -1;

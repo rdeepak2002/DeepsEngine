@@ -21,14 +21,6 @@ unistd.h
 -
 stdio.h
 -
-sys/socket.h
--
-stdlib.h
--
-netinet/in.h
--
-string.h
--
 
 /usr/local/Cellar/glew/2.2.0_1/include/GL/glew.h
 cstddef
