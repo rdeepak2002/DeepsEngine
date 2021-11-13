@@ -14,7 +14,6 @@
     "node-addon-api": "^4.2.0"
   },
   "devDependencies": {
-    "cmake-js": "^6.2.1",
-    "node-gyp": "^8.4.0"
+    "cmake-js": "^6.2.1"
   }
 }
