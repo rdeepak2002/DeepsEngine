@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "gypfile":true,
+  "gypfile": true,
   "scripts": {
     "start": "node index.js",
     "build": "node-gyp rebuild",
@@ -16,6 +16,7 @@
     "node-addon-api": "^4.2.0"
   },
   "devDependencies": {
+    "cmake-js": "^6.2.1",
     "node-gyp": "^8.4.0"
   }
 }

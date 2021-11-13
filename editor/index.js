@@ -8,7 +8,7 @@ const testAddon = require('./build/Release/testaddon.node');
 
 const frameImagePath = '../engine/cmake-build-debug/frame.png';
 
-console.log(testAddon.hello());
+console.log(testAddon.hello(2));
 
 try {
   const bitmap = fs.readFileSync(frameImagePath);
