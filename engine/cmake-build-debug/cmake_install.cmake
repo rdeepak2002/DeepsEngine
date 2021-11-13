@@ -1,4 +1,4 @@
-# Install script for directory: /Users/deepakramalingam/CLionProjects/deeps-engine
+# Install script for directory: /Users/deepakramalingam/Documents/Projects/deeps-engine/engine
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

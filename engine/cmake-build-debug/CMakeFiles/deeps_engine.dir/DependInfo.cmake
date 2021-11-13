@@ -9,7 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/deepakramalingam/CLionProjects/deeps-engine/src/glad.c" "/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/src/glad.c.o"
+  "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/glad.c" "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/src/glad.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
@@ -21,7 +21,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/usr/local/include/KHR"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/deepakramalingam/CLionProjects/deeps-engine/main.cpp" "/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/main.cpp.o"
+  "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/main.cpp" "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

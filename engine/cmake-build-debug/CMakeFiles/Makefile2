@@ -54,10 +54,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/deepakramalingam/CLionProjects/deeps-engine
+CMAKE_SOURCE_DIR = /Users/deepakramalingam/Documents/Projects/deeps-engine/engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -81,14 +81,14 @@ clean: CMakeFiles/deeps_engine.dir/clean
 CMakeFiles/deeps_engine.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/deeps_engine.dir/build.make CMakeFiles/deeps_engine.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/deeps_engine.dir/build.make CMakeFiles/deeps_engine.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target deeps_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target deeps_engine"
 .PHONY : CMakeFiles/deeps_engine.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/deeps_engine.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/deeps_engine.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/deeps_engine.dir/rule
 
 # Convenience name for target.

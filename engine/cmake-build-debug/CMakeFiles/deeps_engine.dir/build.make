@@ -53,10 +53,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/deepakramalingam/CLionProjects/deeps-engine
+CMAKE_SOURCE_DIR = /Users/deepakramalingam/Documents/Projects/deeps-engine/engine
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/deeps_engine.dir/depend.make
@@ -68,29 +68,29 @@ include CMakeFiles/deeps_engine.dir/flags.make
 
 CMakeFiles/deeps_engine.dir/src/glad.c.o: CMakeFiles/deeps_engine.dir/flags.make
 CMakeFiles/deeps_engine.dir/src/glad.c.o: ../src/glad.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/deeps_engine.dir/src/glad.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/deeps_engine.dir/src/glad.c.o -c /Users/deepakramalingam/CLionProjects/deeps-engine/src/glad.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/deeps_engine.dir/src/glad.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/deeps_engine.dir/src/glad.c.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/glad.c
 
 CMakeFiles/deeps_engine.dir/src/glad.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/deeps_engine.dir/src/glad.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/deepakramalingam/CLionProjects/deeps-engine/src/glad.c > CMakeFiles/deeps_engine.dir/src/glad.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/glad.c > CMakeFiles/deeps_engine.dir/src/glad.c.i
 
 CMakeFiles/deeps_engine.dir/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/deeps_engine.dir/src/glad.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/deepakramalingam/CLionProjects/deeps-engine/src/glad.c -o CMakeFiles/deeps_engine.dir/src/glad.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/glad.c -o CMakeFiles/deeps_engine.dir/src/glad.c.s
 
 CMakeFiles/deeps_engine.dir/main.cpp.o: CMakeFiles/deeps_engine.dir/flags.make
 CMakeFiles/deeps_engine.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/deeps_engine.dir/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/deeps_engine.dir/main.cpp.o -c /Users/deepakramalingam/CLionProjects/deeps-engine/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/deeps_engine.dir/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/deeps_engine.dir/main.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/main.cpp
 
 CMakeFiles/deeps_engine.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/deeps_engine.dir/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/CLionProjects/deeps-engine/main.cpp > CMakeFiles/deeps_engine.dir/main.cpp.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/main.cpp > CMakeFiles/deeps_engine.dir/main.cpp.i
 
 CMakeFiles/deeps_engine.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/deeps_engine.dir/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/CLionProjects/deeps-engine/main.cpp -o CMakeFiles/deeps_engine.dir/main.cpp.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/main.cpp -o CMakeFiles/deeps_engine.dir/main.cpp.s
 
 # Object files for target deeps_engine
 deeps_engine_OBJECTS = \
@@ -106,7 +106,7 @@ deeps_engine: CMakeFiles/deeps_engine.dir/build.make
 deeps_engine: /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib
 deeps_engine: /usr/local/Cellar/glfw/3.3.4/lib/libglfw.3.dylib
 deeps_engine: CMakeFiles/deeps_engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable deeps_engine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable deeps_engine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/deeps_engine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -118,6 +118,6 @@ CMakeFiles/deeps_engine.dir/clean:
 .PHONY : CMakeFiles/deeps_engine.dir/clean
 
 CMakeFiles/deeps_engine.dir/depend:
-	cd /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/deepakramalingam/CLionProjects/deeps-engine /Users/deepakramalingam/CLionProjects/deeps-engine /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug /Users/deepakramalingam/CLionProjects/deeps-engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/deepakramalingam/Documents/Projects/deeps-engine/engine /Users/deepakramalingam/Documents/Projects/deeps-engine/engine /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug /Users/deepakramalingam/Documents/Projects/deeps-engine/engine/cmake-build-debug/CMakeFiles/deeps_engine.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/deeps_engine.dir/depend
 
