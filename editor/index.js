@@ -11,7 +11,6 @@ const frameImagePath = './frame.png';
 // console.log(testAddon.hello(2));
 console.log(testAddon.startRenderer());
 
-
 try {
   const bitmap = fs.readFileSync(frameImagePath);
   const buffer = new Buffer(bitmap).toString('base64');
@@ -19,3 +18,9 @@ try {
 } catch (err) {
   console.error('error getting frame', err);
 }
+
+while(true) {
+
+}
+
+console.log("program ended");

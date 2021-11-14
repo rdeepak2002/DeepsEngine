@@ -6,8 +6,23 @@ std::string functionexample::hello(int num) {
 }
 
 void functionexample::startRenderer() {
+    // TODO: issue is that NAPI calls on different thread, so we need to get the main thread
+    // possibly use std packaged task
+
     Renderer renderer;
     renderer.startOpenGL();
+
+//    // Define a Lambda Expression
+//    auto f = [](int x) {
+//        for (int i = 0; i < x; i++)
+//            printf("thread called using lambda");
+//    };
+//
+//    // This thread is launched by using
+//    // lamda expression as callable
+//    std::thread th3(f, 3);
+//
+//    th3.join();
 }
 
 Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo &info) {

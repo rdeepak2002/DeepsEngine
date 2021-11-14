@@ -19,6 +19,8 @@ public:
     void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
     std::string get_current_dir();
     void saveImage(char *filepath, GLFWwindow *w);
+    void test(void);
+    void startNewThread(void);
     int startOpenGL(void);
 };
 

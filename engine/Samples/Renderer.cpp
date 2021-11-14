@@ -38,6 +38,18 @@ void Renderer::saveImage(char *filepath, GLFWwindow *w) {
 //    printf("exported frame to %s/%s\n", get_current_dir().c_str(), filepath);
 }
 
+void Renderer::startNewThread(void) {
+    std::thread( [this] { test(); } ).detach();
+}
+
+void Renderer::test(void) {
+    int i = 0;
+    while (1) {
+        printf("called within thread %d\n", i);
+        i++;
+    }
+}
+
 int Renderer::startOpenGL(void) {
     //Initialize GLFW Library
     if (!glfwInit())
@@ -96,6 +108,8 @@ int Renderer::startOpenGL(void) {
 
         // save frame to image file
         saveImage("frame.png", window);
+
+        printf("OpenGL saved frame\n");
 
         /******Exchange buffer, update content on window******/
         glfwSwapBuffers(window);
