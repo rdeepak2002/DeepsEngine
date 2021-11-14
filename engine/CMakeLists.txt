@@ -47,8 +47,8 @@ target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 #string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 #target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE
-        ${CMAKE_SOURCE_DIR}/../node_modules/node-addon-api
-        ${CMAKE_SOURCE_DIR}/../node_modules/node-addon-api/src
+        ${CMAKE_SOURCE_DIR}/../editor/node_modules/node-addon-api
+        ${CMAKE_SOURCE_DIR}/../editor/node_modules/node-addon-api/src
         ${CMAKE_JS_INC})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_JS_LIB})
 
