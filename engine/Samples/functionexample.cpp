@@ -1,28 +1,48 @@
 #include "functionexample.h"
 #include "Renderer.h"
 
+#include <thread>
+
+
 std::string functionexample::hello(int num) {
     return "Hello World " + std::to_string(num);
 }
 
+
+int threadFunc(Renderer* renderer) {
+//    Renderer* renderer;
+//    renderer = new Renderer();
+//
+//    renderer->init();
+
+    while(!renderer->shuttingDown()) {
+//        // TODO: call pollEvents() on main thread
+//        renderer->pollEvents();
+
+        printf("calling render\n");
+        renderer->render();
+    }
+
+    printf("render shut down\n");
+
+    return 0;
+}
+
 void functionexample::startRenderer() {
-    // TODO: issue is that NAPI calls on different thread, so we need to get the main thread
-    // possibly use std packaged task
+    Renderer* renderer;
+    renderer = new Renderer();
 
-    Renderer renderer;
-    renderer.startOpenGL();
+    renderer->init();
 
-//    // Define a Lambda Expression
-//    auto f = [](int x) {
-//        for (int i = 0; i < x; i++)
-//            printf("thread called using lambda");
-//    };
-//
-//    // This thread is launched by using
-//    // lamda expression as callable
-//    std::thread th3(f, 3);
-//
-//    th3.join();
+    std::thread th3(threadFunc, renderer);
+    th3.detach();
+
+    while(!renderer->shuttingDown()) {
+        // TODO: call pollEvents() on main thread
+        renderer->pollEvents();
+    }
+
+//    threadFunc(renderer);
 }
 
 Napi::String functionexample::HelloWrapped(const Napi::CallbackInfo &info) {

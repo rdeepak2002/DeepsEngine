@@ -8,19 +8,21 @@ const testAddon = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
+console.log('calling napi');
+
 // console.log(testAddon.hello(2));
-console.log(testAddon.startRenderer());
+testAddon.startRenderer();
 
-try {
-  const bitmap = fs.readFileSync(frameImagePath);
-  const buffer = new Buffer(bitmap).toString('base64');
-  // console.log('frame buffer', buffer);
-} catch (err) {
-  console.error('error getting frame', err);
-}
+// try {
+//   const bitmap = fs.readFileSync(frameImagePath);
+//   const buffer = new Buffer(bitmap).toString('base64');
+//   // console.log('frame buffer', buffer);
+//   console.log('got frame buffer');
+// } catch (err) {
+//   console.error('error getting frame', err);
+// }
 
-while(true) {
+// keep process running
+setInterval(() => {}, 1 << 30);
 
-}
-
-console.log("program ended");
+console.log('program ended');
