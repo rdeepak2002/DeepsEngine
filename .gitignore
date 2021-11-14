@@ -1,1 +1,9 @@
 **/.DS_Store
+
+node_modules/
+
+cmake-build-debug/
+
+build/
+
+frame.png
