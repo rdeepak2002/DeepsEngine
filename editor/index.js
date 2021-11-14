@@ -4,7 +4,7 @@
 // better: use callback function to call node whenever new image has been saved
 
 const fs = require ('fs');
-const testAddon = require('./build/Release/addon.node');
+const testAddon = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
