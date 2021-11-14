@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install": "cmake-js -d ../engine compile",
+    "prestart": "yarn",
     "start": "node index.js"
   },
   "author": "",

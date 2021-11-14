@@ -8,7 +8,9 @@ const testAddon = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
-console.log(testAddon.hello(2));
+// console.log(testAddon.hello(2));
+console.log(testAddon.startRenderer());
+
 
 try {
   const bitmap = fs.readFileSync(frameImagePath);
@@ -17,5 +19,3 @@ try {
 } catch (err) {
   console.error('error getting frame', err);
 }
-
- module.exports = testAddon;
