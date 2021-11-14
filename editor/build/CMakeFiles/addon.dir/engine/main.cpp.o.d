@@ -1,5 +1,5 @@
-CMakeFiles/addon.dir/cppsrc/main.cpp.o: \
-  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/main.cpp \
+CMakeFiles/addon.dir/engine/main.cpp.o: \
+  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/main.cpp \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi.h \
   /Users/deepakramalingam/.cmake-js/node-x64/v14.17.6/include/node/node_api.h \
   /Users/deepakramalingam/.cmake-js/node-x64/v14.17.6/include/node/js_native_api.h \
@@ -191,7 +191,7 @@ CMakeFiles/addon.dir/cppsrc/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/usr/include/c++/v1/__split_buffer \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.h \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/node_modules/node-addon-api/napi-inl.deprecated.h \
-  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/Samples/functionexample.h \
+  /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/Samples/functionexample.h \
   /usr/local/Cellar/glew/2.2.0_1/include/GL/glew.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/glu.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/Library/Frameworks/OpenGL.framework/Headers/OpenGLAvailability.h \

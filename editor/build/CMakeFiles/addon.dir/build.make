@@ -69,47 +69,65 @@ include CMakeFiles/addon.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/addon.dir/flags.make
 
-CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o: CMakeFiles/addon.dir/flags.make
-CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o: ../cppsrc/Samples/functionexample.cpp
-CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o: CMakeFiles/addon.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o -MF CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o.d -o CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/Samples/functionexample.cpp
+CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o: CMakeFiles/addon.dir/flags.make
+CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o: ../engine/Samples/functionexample.cpp
+CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o: CMakeFiles/addon.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o -MF CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o.d -o CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/Samples/functionexample.cpp
 
-CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/Samples/functionexample.cpp > CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.i
+CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/Samples/functionexample.cpp > CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.i
 
-CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/Samples/functionexample.cpp -o CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.s
+CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/Samples/functionexample.cpp -o CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.s
 
-CMakeFiles/addon.dir/cppsrc/main.cpp.o: CMakeFiles/addon.dir/flags.make
-CMakeFiles/addon.dir/cppsrc/main.cpp.o: ../cppsrc/main.cpp
-CMakeFiles/addon.dir/cppsrc/main.cpp.o: CMakeFiles/addon.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/addon.dir/cppsrc/main.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/addon.dir/cppsrc/main.cpp.o -MF CMakeFiles/addon.dir/cppsrc/main.cpp.o.d -o CMakeFiles/addon.dir/cppsrc/main.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/main.cpp
+CMakeFiles/addon.dir/engine/main.cpp.o: CMakeFiles/addon.dir/flags.make
+CMakeFiles/addon.dir/engine/main.cpp.o: ../engine/main.cpp
+CMakeFiles/addon.dir/engine/main.cpp.o: CMakeFiles/addon.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/addon.dir/engine/main.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/addon.dir/engine/main.cpp.o -MF CMakeFiles/addon.dir/engine/main.cpp.o.d -o CMakeFiles/addon.dir/engine/main.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/main.cpp
 
-CMakeFiles/addon.dir/cppsrc/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/addon.dir/cppsrc/main.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/main.cpp > CMakeFiles/addon.dir/cppsrc/main.cpp.i
+CMakeFiles/addon.dir/engine/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/addon.dir/engine/main.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/main.cpp > CMakeFiles/addon.dir/engine/main.cpp.i
 
-CMakeFiles/addon.dir/cppsrc/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/addon.dir/cppsrc/main.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/main.cpp -o CMakeFiles/addon.dir/cppsrc/main.cpp.s
+CMakeFiles/addon.dir/engine/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/addon.dir/engine/main.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/main.cpp -o CMakeFiles/addon.dir/engine/main.cpp.s
+
+CMakeFiles/addon.dir/engine/src/glad.c.o: CMakeFiles/addon.dir/flags.make
+CMakeFiles/addon.dir/engine/src/glad.c.o: ../engine/src/glad.c
+CMakeFiles/addon.dir/engine/src/glad.c.o: CMakeFiles/addon.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/addon.dir/engine/src/glad.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/addon.dir/engine/src/glad.c.o -MF CMakeFiles/addon.dir/engine/src/glad.c.o.d -o CMakeFiles/addon.dir/engine/src/glad.c.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/src/glad.c
+
+CMakeFiles/addon.dir/engine/src/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/addon.dir/engine/src/glad.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/src/glad.c > CMakeFiles/addon.dir/engine/src/glad.c.i
+
+CMakeFiles/addon.dir/engine/src/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/addon.dir/engine/src/glad.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/src/glad.c -o CMakeFiles/addon.dir/engine/src/glad.c.s
 
 # Object files for target addon
 addon_OBJECTS = \
-"CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o" \
-"CMakeFiles/addon.dir/cppsrc/main.cpp.o"
+"CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o" \
+"CMakeFiles/addon.dir/engine/main.cpp.o" \
+"CMakeFiles/addon.dir/engine/src/glad.c.o"
 
 # External object files for target addon
 addon_EXTERNAL_OBJECTS =
 
-Release/addon.node: CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o
-Release/addon.node: CMakeFiles/addon.dir/cppsrc/main.cpp.o
+Release/addon.node: CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o
+Release/addon.node: CMakeFiles/addon.dir/engine/main.cpp.o
+Release/addon.node: CMakeFiles/addon.dir/engine/src/glad.c.o
 Release/addon.node: CMakeFiles/addon.dir/build.make
+Release/addon.node: /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib
+Release/addon.node: /usr/local/Cellar/glfw/3.3.4/lib/libglfw.3.dylib
 Release/addon.node: CMakeFiles/addon.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX shared library Release/addon.node"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared library Release/addon.node"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/addon.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

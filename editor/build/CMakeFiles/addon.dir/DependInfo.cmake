@@ -8,8 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/Samples/functionexample.cpp" "CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o" "gcc" "CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o.d"
-  "/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/cppsrc/main.cpp" "CMakeFiles/addon.dir/cppsrc/main.cpp.o" "gcc" "CMakeFiles/addon.dir/cppsrc/main.cpp.o.d"
+  "/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/src/glad.c" "CMakeFiles/addon.dir/engine/src/glad.c.o" "gcc" "CMakeFiles/addon.dir/engine/src/glad.c.o.d"
+  "/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/Samples/functionexample.cpp" "CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o" "gcc" "CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o.d"
+  "/Users/deepakramalingam/Documents/Projects/deeps-engine/editor/engine/main.cpp" "CMakeFiles/addon.dir/engine/main.cpp.o" "gcc" "CMakeFiles/addon.dir/engine/main.cpp.o.d"
   )
 
 # Targets to which this target links.

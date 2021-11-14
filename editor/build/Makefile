@@ -129,53 +129,77 @@ addon/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/build
 .PHONY : addon/fast
 
-cppsrc/Samples/functionexample.o: cppsrc/Samples/functionexample.cpp.o
-.PHONY : cppsrc/Samples/functionexample.o
+engine/Samples/functionexample.o: engine/Samples/functionexample.cpp.o
+.PHONY : engine/Samples/functionexample.o
 
 # target to build an object file
-cppsrc/Samples/functionexample.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.o
-.PHONY : cppsrc/Samples/functionexample.cpp.o
+engine/Samples/functionexample.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.o
+.PHONY : engine/Samples/functionexample.cpp.o
 
-cppsrc/Samples/functionexample.i: cppsrc/Samples/functionexample.cpp.i
-.PHONY : cppsrc/Samples/functionexample.i
+engine/Samples/functionexample.i: engine/Samples/functionexample.cpp.i
+.PHONY : engine/Samples/functionexample.i
 
 # target to preprocess a source file
-cppsrc/Samples/functionexample.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.i
-.PHONY : cppsrc/Samples/functionexample.cpp.i
+engine/Samples/functionexample.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.i
+.PHONY : engine/Samples/functionexample.cpp.i
 
-cppsrc/Samples/functionexample.s: cppsrc/Samples/functionexample.cpp.s
-.PHONY : cppsrc/Samples/functionexample.s
+engine/Samples/functionexample.s: engine/Samples/functionexample.cpp.s
+.PHONY : engine/Samples/functionexample.s
 
 # target to generate assembly for a file
-cppsrc/Samples/functionexample.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/Samples/functionexample.cpp.s
-.PHONY : cppsrc/Samples/functionexample.cpp.s
+engine/Samples/functionexample.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/Samples/functionexample.cpp.s
+.PHONY : engine/Samples/functionexample.cpp.s
 
-cppsrc/main.o: cppsrc/main.cpp.o
-.PHONY : cppsrc/main.o
+engine/main.o: engine/main.cpp.o
+.PHONY : engine/main.o
 
 # target to build an object file
-cppsrc/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/main.cpp.o
-.PHONY : cppsrc/main.cpp.o
+engine/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/main.cpp.o
+.PHONY : engine/main.cpp.o
 
-cppsrc/main.i: cppsrc/main.cpp.i
-.PHONY : cppsrc/main.i
+engine/main.i: engine/main.cpp.i
+.PHONY : engine/main.i
 
 # target to preprocess a source file
-cppsrc/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/main.cpp.i
-.PHONY : cppsrc/main.cpp.i
+engine/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/main.cpp.i
+.PHONY : engine/main.cpp.i
 
-cppsrc/main.s: cppsrc/main.cpp.s
-.PHONY : cppsrc/main.s
+engine/main.s: engine/main.cpp.s
+.PHONY : engine/main.s
 
 # target to generate assembly for a file
-cppsrc/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/cppsrc/main.cpp.s
-.PHONY : cppsrc/main.cpp.s
+engine/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/main.cpp.s
+.PHONY : engine/main.cpp.s
+
+engine/src/glad.o: engine/src/glad.c.o
+.PHONY : engine/src/glad.o
+
+# target to build an object file
+engine/src/glad.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/src/glad.c.o
+.PHONY : engine/src/glad.c.o
+
+engine/src/glad.i: engine/src/glad.c.i
+.PHONY : engine/src/glad.i
+
+# target to preprocess a source file
+engine/src/glad.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/src/glad.c.i
+.PHONY : engine/src/glad.c.i
+
+engine/src/glad.s: engine/src/glad.c.s
+.PHONY : engine/src/glad.s
+
+# target to generate assembly for a file
+engine/src/glad.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/addon.dir/build.make CMakeFiles/addon.dir/engine/src/glad.c.s
+.PHONY : engine/src/glad.c.s
 
 # Help Target
 help:
@@ -186,12 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... addon"
-	@echo "... cppsrc/Samples/functionexample.o"
-	@echo "... cppsrc/Samples/functionexample.i"
-	@echo "... cppsrc/Samples/functionexample.s"
-	@echo "... cppsrc/main.o"
-	@echo "... cppsrc/main.i"
-	@echo "... cppsrc/main.s"
+	@echo "... engine/Samples/functionexample.o"
+	@echo "... engine/Samples/functionexample.i"
+	@echo "... engine/Samples/functionexample.s"
+	@echo "... engine/main.o"
+	@echo "... engine/main.i"
+	@echo "... engine/main.s"
+	@echo "... engine/src/glad.o"
+	@echo "... engine/src/glad.i"
+	@echo "... engine/src/glad.s"
 .PHONY : help
 
 
