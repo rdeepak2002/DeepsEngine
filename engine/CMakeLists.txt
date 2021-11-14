@@ -28,7 +28,7 @@ link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 # you should add this line in every CMake.js based project.
 include_directories(${CMAKE_JS_INC})
 # Declare the location of the source files
-file(GLOB SOURCE_FILES "engine/*.cpp" "engine/*.h" "engine/Samples/*.cpp" "engine/Samples/*.h" "engine/src/*.c")
+file(GLOB SOURCE_FILES "*.cpp" "*.h" "Samples/*.cpp" "Samples/*.h" "src/*.c" "src/*.h")
 # This line will tell CMake that we're building a shared library
 # from the above source files
 # named after the project's name
@@ -47,8 +47,8 @@ target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
 #string(REPLACE "\"" "" NODE_ADDON_API_DIR ${NODE_ADDON_API_DIR})
 #target_include_directories(${PROJECT_NAME} PRIVATE ${NODE_ADDON_API_DIR})
 target_include_directories(${PROJECT_NAME} PRIVATE
-        ${CMAKE_SOURCE_DIR}/node_modules/node-addon-api
-        ${CMAKE_SOURCE_DIR}/node_modules/node-addon-api/src
+        ${CMAKE_SOURCE_DIR}/../node_modules/node-addon-api
+        ${CMAKE_SOURCE_DIR}/../node_modules/node-addon-api/src
         ${CMAKE_JS_INC})
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_JS_LIB})
 
