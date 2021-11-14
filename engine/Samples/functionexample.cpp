@@ -19,7 +19,7 @@ int threadFunc(Renderer* renderer) {
 //        // TODO: call pollEvents() on main thread
 //        renderer->pollEvents();
 
-        printf("calling render\n");
+//        printf("calling render\n");
         renderer->render();
     }
 
@@ -38,8 +38,10 @@ void functionexample::startRenderer() {
     th3.detach();
 
     while(!renderer->shuttingDown()) {
-        // TODO: call pollEvents() on main thread
+        // call pollEvents() on main thread
+        // TODO: use this guide to call poll events async on main thread https://stackoverflow.com/questions/17354260/c-stdasync-run-on-main-thread
         renderer->pollEvents();
+        std::this_thread::sleep_for(std::chrono::milliseconds(16));
     }
 
 //    threadFunc(renderer);

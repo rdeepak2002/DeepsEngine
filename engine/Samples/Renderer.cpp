@@ -37,7 +37,7 @@ void Renderer::init() {
 }
 
 void Renderer::render() {
-    printf("render loop called\n");
+//    printf("render loop called\n");
 
     /*******Polling events*******/
 //    glfwPollEvents();
