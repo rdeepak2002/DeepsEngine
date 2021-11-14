@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "cmake-js -d engine compile",
+    "install": "cmake-js -d ../engine compile",
     "start": "node index.js"
   },
   "author": "",
