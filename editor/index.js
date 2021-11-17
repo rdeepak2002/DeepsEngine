@@ -8,50 +8,64 @@ const testAddon = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
-console.log('calling napi');
-
-// console.log(testAddon.hello(2));
-testAddon.createRenderer();
-
-const render = () => {
+// update OpenGL Window
+const update = (delta) => {
     if(!testAddon.rendererShuttingDown()) {
         testAddon.updateRenderer();
     }
+    else {
+        testAddon.shutDownRenderer();
+    }
 }
 
-const hrtimeMs = function() {
-    let time = process.hrtime()
-    return time[0] * 1000 + time[1] / 1000000
+// length of a tick in milliseconds
+const fps = 30;
+let tickLengthMs = 1000 / fps;
+
+/* renderLoop related variables */
+// timestamp of each loop
+let previousTick = Date.now();
+
+// number of times gameLoop gets called
+let actualTicks = 0
+
+const renderLoop = function () {
+    // get the time now and number of ticks
+    const now = Date.now();
+    actualTicks++;
+
+    // update when allowed to
+    if (previousTick + tickLengthMs <= now) {
+        const delta = (now - previousTick) / 1000;
+        previousTick = now;
+
+        update(delta);
+
+        if(testAddon.rendererShuttingDown()) {
+            return;
+        }
+
+        console.log('delta', delta, '(target: ' + tickLengthMs +' ms)', 'node ticks', actualTicks);
+        actualTicks = 0;
+    }
+
+    // blend setImmediate (which is accurate) and setTimeout (which uses less CPU) to have accurate update loop
+    if (Date.now() - previousTick < tickLengthMs - 16) {
+        setTimeout(renderLoop);
+    } else {
+        setImmediate(renderLoop);
+    }
 }
 
-const TICK_RATE = 20
-let tick = 0
-let previous = hrtimeMs()
-let tickLengthMs = 1000 / TICK_RATE
+// method to create render loop
+const startRenderLoop = () => {
+    // init OpenGL
+    testAddon.createRenderer();
 
-const loop = () => {
-    setTimeout(loop, tickLengthMs)
-    let now = hrtimeMs()
-    let delta = (now - previous) / 1000
-    console.log('delta', delta)
-    render();
-    // game.update(delta, tick) // game logic would go here
-    previous = now
-    tick++
+    // begin the game loop!
+    renderLoop();
 }
 
-loop() // starts the loop
-
-// try {
-//   const bitmap = fs.readFileSync(frameImagePath);
-//   const buffer = new Buffer(bitmap).toString('base64');
-//   // console.log('frame buffer', buffer);
-//   console.log('got frame buffer');
-// } catch (err) {
-//   console.error('error getting frame', err);
-// }
-
-// keep process running
-// setInterval(() => {}, 1 << 30);
+startRenderLoop();
 
 console.log('program ended');
