@@ -11,7 +11,11 @@ const frameImagePath = './frame.png';
 console.log('calling napi');
 
 // console.log(testAddon.hello(2));
-testAddon.startRenderer();
+testAddon.createRenderer();
+
+while(!testAddon.rendererShuttingDown()) {
+    testAddon.updateRenderer();
+}
 
 // try {
 //   const bitmap = fs.readFileSync(frameImagePath);
@@ -23,6 +27,6 @@ testAddon.startRenderer();
 // }
 
 // keep process running
-setInterval(() => {}, 1 << 30);
+// setInterval(() => {}, 1 << 30);
 
 console.log('program ended');

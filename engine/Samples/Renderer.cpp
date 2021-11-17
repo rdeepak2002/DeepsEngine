@@ -88,7 +88,6 @@ void Renderer::render() {
 
 bool Renderer::shuttingDown() {
     if(glfwWindowShouldClose(window)) {
-        shutDown();
         return true;
     }
 

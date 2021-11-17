@@ -3,11 +3,17 @@
 namespace functionexample {
     std::string hello(int num);
 
-    void startRenderer();
+    void createRenderer();
+    void updateRenderer();
+    bool rendererShuttingDown();
 
     Napi::String HelloWrapped(const Napi::CallbackInfo &info);
 
-    void StartRendererWrapped(const Napi::CallbackInfo &info);
+    void CreateRendererWrapped(const Napi::CallbackInfo &info);
+
+    void UpdateRendererWrapped(const Napi::CallbackInfo &info);
+
+    Napi::Boolean RendererShuttingDownWrapped(const Napi::CallbackInfo &info);
 
     Napi::Object Init(Napi::Env env, Napi::Object exports);
 }
