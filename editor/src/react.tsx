@@ -36,10 +36,20 @@ const Index = () => {
                     setMessage(`gotPong: ${JSON.stringify(arg)}`);
                     break;
                 case 'image-data':
-                    const imageType: string = arg.data.imageType;
-                    const imageData: string = arg.data.imageData;
-                    const encoded = `data:image/${imageType};base64, ${imageData}`;
-                    setFrameData(encoded);
+                    const status = arg.status;
+                    const data = arg.data;
+
+                    if(status === 'success') {
+                        const imageType: string = data.imageType;
+                        const imageEncoding: string = data.imageEncoding;
+                        const imageData: string = data.imageData;
+                        const encoded = `data:image/${imageType};${imageEncoding}, ${imageData}`;
+                        setFrameData(encoded);
+                    }
+                    else {
+                        console.error('error status when getting image frame from server');
+                    }
+
                     break;
                 default:
                     console.warn('unknown message: ', arg);
