@@ -1,3 +1,37 @@
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
+
+function createWindow () {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
+    })
+
+    win.loadFile(path.join(__dirname, 'index.html'));
+}
+
+app.whenReady().then(() => {
+    createWindow()
+
+    app.on('activate', () => {
+        if (BrowserWindow.getAllWindows().length === 0) {
+            createWindow();
+        }
+    });
+});
+
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
+
+    process.exit(0);
+});
+
+
 // sockets:
 // https://stackoverflow.com/questions/7045614/can-node-js-listen-on-unix-socket
 
@@ -75,5 +109,3 @@ const startRenderLoop = () => {
 }
 
 startRenderLoop();
-
-console.log('program ended');
