@@ -21,9 +21,8 @@ link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 # you should add this line in every CMake.js based project.
 include_directories(${CMAKE_JS_INC})
 # Declare the location of the source files
-file(GLOB SOURCE_FILES "src/glad.c" "src/Renderer.h" "main.cpp" "Samples/functionexample.cpp" "Samples/functionexample.h" "src/Renderer.cpp")
-# This line will tell CMake that we're building a shared library
-# from the above source files
+file(GLOB SOURCE_FILES "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "main.cpp" "EditorBinding/functionexample.cpp" "EditorBinding/functionexample.h")
+# This line will tell CMake that we're building a shared library from the above source files
 # named after the project's name
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
 # This line will give our library file a .node extension without any "lib" prefix

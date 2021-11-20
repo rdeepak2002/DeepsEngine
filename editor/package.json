@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "cmake-js -d ../engine clean",
+    "preinstall": "yarn clean",
     "install": "cmake-js -d ../engine compile",
     "prestart": "yarn",
     "start": "node index.js"
