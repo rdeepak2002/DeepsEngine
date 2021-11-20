@@ -6,7 +6,7 @@ cmake-build-debug/
 
 dist/
 
-src/electron.ts
+src/electron.js
 
 frame.png
 
