@@ -10,13 +10,30 @@ const Index = () => {
 
     useEffect(() => {
         // send ping message to server
-        ipcRenderer.send('asynchronous-message', 'ping');
+        const message = {
+          name: 'ping',
+          data: {}
+        };
+
+        ipcRenderer.send('asynchronous-message', message);
 
         // get message from server
         ipcRenderer.on('asynchronous-reply', (event, arg) => {
-            switch (arg) {
+            console.log('got reply', arg);
+
+            // handle invalid reply
+            if(!arg || !arg.name) {
+                console.error('invalid reply format: ', arg);
+                return;
+            }
+
+            // handle valid reply
+            switch (arg.name) {
                 case 'pong':
-                    setMessage('got pong');
+                    setMessage(`gotPong: ${JSON.stringify(arg)}`);
+                    break;
+                default:
+                    console.warn('unknown message: ', arg);
                     break;
             }
         });
