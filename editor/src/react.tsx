@@ -1,13 +1,27 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-
+import {useState} from "react";
 const electron = require('electron');
-console.log(electron);
-
-// console.log(core);
+const { ipcRenderer, remote } = electron;
 
 const Index = () => {
-    return <div>Hello React!</div>;
+    // message hook
+    const [message, setMessage] = useState('no message');
+
+    // send ping message to server
+    ipcRenderer.send('asynchronous-message', 'ping');
+
+    // get message from server
+    ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        switch (arg) {
+            case 'pong':
+                setMessage('got pong');
+                break;
+        }
+    })
+
+    // render message
+    return <div>{message}</div>;
 };
 
 ReactDOM.render(<Index />, document.getElementById('app'));

@@ -2,16 +2,26 @@
   "name": "editor",
   "version": "1.0.0",
   "description": "",
-  "main": "electron.js",
+  "main": "dist/electron.js",
   "scripts": {
-    "build-all": "webpack --config ./webpack.config.js && cmake-js -d ../engine compile",
-    "clean": "cmake-js -d ../engine clean && rm -rf ./dist",
-    "preinstall": "yarn clean",
-    "install": "",
-    "prestart": "yarn build-all",
-    "start": "electron electron.js"
+    "clean": "echo \"Cleaning...\" && cmake-js -d ../engine clean && rm -rf ./dist",
+
+    "build-electron": "echo \"Building Electron...\" && (tsc ./src/electron.ts) && (mv ./src/electron.js ./dist/electron.js)",
+    "build-react": "echo \"Building React...\" && webpack --config ./webpack.config.js",
+    "build-engine": "echo \"Building Engine...\" && cmake-js -d ../engine compile",
+    "build-all": "echo \"Building All...\" && yarn build-engine && yarn build-react && yarn build-electron",
+
+    "launch-electron": "echo \"Luanching Electron...\" && electron dist/electron.js",
+
+    "preinstall": "yarn clean && yarn build-all",
+
+    "prestart": "yarn",
+    "start": "yarn launch-electron",
+
+    "prestart-editor": "yarn build-react && yarn build-electron",
+    "start-editor": "yarn launch-electron"
   },
-  "author": "",
+  "author": "Deepak Ramalingam",
   "license": "ISC",
   "dependencies": {
     "fs": "^0.0.1-security",
