@@ -1,6 +1,6 @@
 #include <napi.h>
 
-namespace functionexample {
+namespace bindings {
     std::string hello(int num);
 
     void createRenderer();
