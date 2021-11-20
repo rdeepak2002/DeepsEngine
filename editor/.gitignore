@@ -4,7 +4,9 @@ node_modules/
 
 cmake-build-debug/
 
-build/
+dist/
+
+electron.js
 
 frame.png
 
@@ -59,5 +61,5 @@ fabric.properties
 
 # *.iml
 # modules.xml
-# .idea/misc.xml 
-# *.ipr 
+# .idea/misc.xml
+# *.ipr
