@@ -7,6 +7,7 @@ const { ipcRenderer, remote } = electron;
 const Index = () => {
     // message hook
     const [message, setMessage] = useState('no message');
+    const [frameData, setFrameData] = useState(undefined);
 
     useEffect(() => {
         // send ping message to server
@@ -34,6 +35,12 @@ const Index = () => {
                 case 'pong':
                     setMessage(`gotPong: ${JSON.stringify(arg)}`);
                     break;
+                case 'image-data':
+                    const imageType: string = arg.data.imageType;
+                    const imageData: string = arg.data.imageData;
+                    const encoded = `data:image/${imageType};base64, ${imageData}`;
+                    setFrameData(encoded);
+                    break;
                 default:
                     console.warn('unknown message: ', arg);
                     break;
@@ -48,11 +55,26 @@ const Index = () => {
             <button onClick={() => {
                 const messageObj = {
                     name: 'start-renderer',
-                    data: {}
+                    data: {
+                        "createdAt": Date.now()
+                    }
                 };
 
                 ipcRenderer.send('asynchronous-message', messageObj);
             }}>Start Renderer</button>
+            <button onClick={() => {
+                const messageObj = {
+                    name: 'get-frame',
+                    data: {
+                        "createdAt": Date.now()
+                    }
+                };
+
+                ipcRenderer.send('asynchronous-message', messageObj);
+            }}>Get Frame</button>
+            { frameData &&
+                <img src={frameData}></img>
+            }
         </>
     );
 };

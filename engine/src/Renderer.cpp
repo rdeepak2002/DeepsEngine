@@ -6,9 +6,26 @@
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
-#define GetCurrentDir getcwd
 
+void Renderer::saveImage(char *filepath) {
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    GLsizei nrChannels = 3;
+    GLsizei stride = nrChannels * width;
+    stride += (stride % 4) ? (4 - stride % 4) : 0;
+    GLsizei bufferSize = stride * height;
+    std::vector<char> buffer(bufferSize);
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glReadBuffer(GL_FRONT);
+    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+    stbi_flip_vertically_on_write(true);
+    stbi_write_png(filepath, width, height, nrChannels, buffer.data(), stride);
 
+//  if saving frame to current dir:
+//    char *cwd_buffer = (char *) malloc(sizeof(char) * 1024);
+//    char *cwd_result = getcwd(cwd_buffer, 1024);
+//    printf("saved frame to %s\n", cwd_result);
+}
 
 void Renderer::init() {
     //Initialize GLFW Library
@@ -78,9 +95,7 @@ void Renderer::render() {
     }
 
     // save frame to image file
-//    saveImage("frame.png", window);
-
-//    printf("OpenGL saved frame\n");
+    saveImage("/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/frame.png");
 
     /******Exchange buffer, update content on window******/
     glfwSwapBuffers(window);
