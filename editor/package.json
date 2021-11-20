@@ -4,20 +4,21 @@
   "description": "",
   "main": "dist/electron.js",
   "scripts": {
-    "clean": "echo \"Cleaning...\" && cmake-js -d ../engine clean && rm -rf ./dist",
-
-    "build-electron": "echo \"Building Electron...\" && (tsc ./src/electron.ts) && (mv ./src/electron.js ./dist/electron.js)",
-    "build-react": "echo \"Building React...\" && webpack --config ./webpack.config.js",
-    "build-engine": "echo \"Building Engine...\" && cmake-js -d ../engine compile",
-    "build-all": "echo \"Building All...\" && yarn build-engine && yarn build-react && yarn build-electron",
-
-    "launch-electron": "echo \"Luanching Electron...\" && electron dist/electron.js",
-
+    "preclean": "echo \"\\x1b[101m\\x1b[97m[ Cleaning ]\\x1b[0m\"",
+    "clean": "(echo \"Cleaning...\") && cmake-js -d ../engine clean && rm -rf ./dist",
+    "prebuild-electron": "echo \"\\x1b[102m\\x1b[97m[ Building Electron ]\\x1b[0m\"",
+    "build-electron": "(echo \"Building Electron...\") && (tsc ./src/electron.ts) && (mv ./src/electron.js ./dist/electron.js)",
+    "prebuild-react": "echo \"\\x1b[106m\\x1b[97m[ Building React ]\\x1b[0m\"",
+    "build-react": "(echo \"Building React...\") && webpack --config ./webpack.config.js",
+    "prebuild-engine": "echo \"\\x1b[103m\\x1b[97m[ Building Engine ]\\x1b[0m\"",
+    "build-engine": "(echo \"Building Engine...\") && cmake-js -d ../engine compile",
+    "prebuild-all": "echo \"\\x1b[104m\\x1b[97m[ Building All ]\\x1b[0m\"",
+    "build-all": "yarn build-engine && yarn build-react && yarn build-electron",
+    "prelaunch-electron": "echo \"\\x1b[105m\\x1b[97m[ Launching Electron ]\\x1b[0m\"",
+    "launch-electron": "electron dist/electron.js",
     "preinstall": "yarn clean && yarn build-all",
-
     "prestart": "yarn",
     "start": "yarn launch-electron",
-
     "prestart-editor": "yarn build-react && yarn build-electron",
     "start-editor": "yarn launch-electron"
   },
@@ -28,6 +29,7 @@
     "node-addon-api": "^4.2.0"
   },
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "@types/react": "^17.0.35",
     "@types/react-dom": "^17.0.11",
     "cmake-js": "^6.2.1",
