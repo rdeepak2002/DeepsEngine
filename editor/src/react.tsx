@@ -9,7 +9,24 @@ const Index = () => {
     const [message, setMessage] = useState('no message');
     const [frameData, setFrameData] = useState(undefined);
 
+    const renderLoop = () => {
+        console.log("TODO: HAVE CALLBACK FUNCTION INSTEAD OF POLLING LIKE THIS");
+        window.requestAnimationFrame(renderLoop);
+
+        const messageObj = {
+            name: 'get-frame',
+            data: {
+                "createdAt": Date.now()
+            }
+        };
+
+        ipcRenderer.send('asynchronous-message', messageObj);
+    }
+
     useEffect(() => {
+        // TODO: use callback function for this / call every time render is called in electron
+        renderLoop();
+
         // send ping message to server
         const messageObj = {
           name: 'ping',
@@ -43,7 +60,7 @@ const Index = () => {
                         const imageType: string = data.imageType;
                         const imageEncoding: string = data.imageEncoding;
                         const imageData: string = data.imageData;
-                        const encoded = `data:image/${imageType};${imageEncoding}, ${imageData}`;
+                        const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
                         setFrameData(encoded);
                     }
                     else {
@@ -72,16 +89,6 @@ const Index = () => {
 
                 ipcRenderer.send('asynchronous-message', messageObj);
             }}>Start Renderer</button>
-            <button onClick={() => {
-                const messageObj = {
-                    name: 'get-frame',
-                    data: {
-                        "createdAt": Date.now()
-                    }
-                };
-
-                ipcRenderer.send('asynchronous-message', messageObj);
-            }}>Get Frame</button>
             { frameData &&
                 <img src={frameData}></img>
             }

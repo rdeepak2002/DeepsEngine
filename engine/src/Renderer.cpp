@@ -36,8 +36,11 @@ void Renderer::init() {
 
     printf("init OpenGL\n");
 
+    // make window invisible
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+
     //Create window and context
-    window = glfwCreateWindow(640, 480, "hello world", NULL, NULL);
+    window = glfwCreateWindow(640, 480, "Deeps Engine", NULL, NULL);
 
     if (!window) {
         printf("OpenGL window creation failed\n");
