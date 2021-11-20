@@ -1,5 +1,5 @@
 #include "functionexample.h"
-#include "Renderer.h"
+#include "../src/Renderer.h"
 
 #include <thread>
 

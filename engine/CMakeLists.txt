@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 # Name of the project (will be the name of the plugin)
-project(addon)
+project(core)
 set(CMAKE_CXX_STANDARD 14)
 # Don't add this line if you will try_compile with boost.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,9 +19,9 @@ link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 
 # Essential include files to build a node addon,
 # you should add this line in every CMake.js based project.
-include_directories(${CMAKE_JS_INC} /usr/local/include/node/node_api.h)
+include_directories(${CMAKE_JS_INC})
 # Declare the location of the source files
-file(GLOB SOURCE_FILES "src/glad.c" "main.cpp" "Samples/functionexample.cpp" "Samples/functionexample.h" "Samples/Renderer.cpp" "Samples/Renderer.h")
+file(GLOB SOURCE_FILES "src/glad.c" "src/Renderer.h" "main.cpp" "Samples/functionexample.cpp" "Samples/functionexample.h" "src/Renderer.cpp")
 # This line will tell CMake that we're building a shared library
 # from the above source files
 # named after the project's name

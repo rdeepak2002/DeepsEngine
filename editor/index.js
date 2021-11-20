@@ -4,19 +4,19 @@
 // better: use callback function to call node whenever new image has been saved
 
 const fs = require ('fs');
-const testAddon = require('../engine/build/Release/addon.node');
+const core = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
-console.log(testAddon.hello(3));
+console.log(core.hello(3));
 
 // update OpenGL Window
 const update = (delta) => {
-    if(!testAddon.rendererShuttingDown()) {
-        testAddon.updateRenderer();
+    if(!core.rendererShuttingDown()) {
+        core.updateRenderer();
     }
     else {
-        testAddon.shutDownRenderer();
+        core.shutDownRenderer();
     }
 }
 
@@ -43,7 +43,7 @@ const renderLoop = function () {
 
         update(delta);
 
-        if(testAddon.rendererShuttingDown()) {
+        if(core.rendererShuttingDown()) {
             return;
         }
 
@@ -62,7 +62,7 @@ const renderLoop = function () {
 // method to create render loop
 const startRenderLoop = () => {
     // init OpenGL
-    testAddon.createRenderer();
+    core.createRenderer();
 
     // begin the game loop!
     renderLoop();
