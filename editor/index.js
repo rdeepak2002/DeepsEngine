@@ -8,6 +8,8 @@ const testAddon = require('../engine/build/Release/addon.node');
 
 const frameImagePath = './frame.png';
 
+console.log(testAddon.hello(3));
+
 // update OpenGL Window
 const update = (delta) => {
     if(!testAddon.rendererShuttingDown()) {
@@ -45,7 +47,7 @@ const renderLoop = function () {
             return;
         }
 
-        console.log('delta', delta, '(target: ' + tickLengthMs +' ms)', 'node ticks', actualTicks);
+        // console.log('delta', delta, '(target: ' + tickLengthMs +' ms)', 'node ticks', actualTicks);
         actualTicks = 0;
     }
 
