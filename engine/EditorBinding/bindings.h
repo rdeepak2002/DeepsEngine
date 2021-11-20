@@ -1,14 +1,14 @@
 #include <napi.h>
 
 namespace bindings {
-    std::string hello(int num);
+    std::string checkEngineStatus(int num);
 
     void createRenderer();
     void updateRenderer();
     bool rendererShuttingDown();
     void shutDownRenderer();
 
-    Napi::String HelloWrapped(const Napi::CallbackInfo &info);
+    Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
 
     void CreateRendererWrapped(const Napi::CallbackInfo &info);
 

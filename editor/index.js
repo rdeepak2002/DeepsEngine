@@ -8,7 +8,13 @@ const core = require('../engine/build/Release/core');
 
 const frameImagePath = './frame.png';
 
-console.log(core.hello(3));
+try {
+    console.log(core.checkEngineStatus(3));
+}
+catch (e) {
+    console.error('error connecting to engine: ', e);
+    process.exit(1);
+}
 
 // update OpenGL Window
 const update = (delta) => {

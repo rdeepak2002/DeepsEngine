@@ -5,8 +5,8 @@
 
 Renderer* renderer;
 
-std::string bindings::hello(int num) {
-    return "Hello World " + std::to_string(num);
+std::string bindings::checkEngineStatus(int num) {
+    return "Engine Running, received input " + std::to_string(num);
 }
 
 void bindings::createRenderer() {
@@ -29,7 +29,7 @@ void bindings::shutDownRenderer() {
 //    delete renderer;
 }
 
-Napi::String bindings::HelloWrapped(const Napi::CallbackInfo &info) {
+Napi::String bindings::CheckEngineStatusWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
@@ -38,7 +38,7 @@ Napi::String bindings::HelloWrapped(const Napi::CallbackInfo &info) {
     }
     Napi::Number num = info[0].As<Napi::Number>();
 
-    Napi::String returnValue = Napi::String::New(env, bindings::hello(num.Int64Value()));
+    Napi::String returnValue = Napi::String::New(env, bindings::checkEngineStatus(num.Int64Value()));
 
     return returnValue;
 }
@@ -66,7 +66,7 @@ Napi::Boolean bindings::RendererShuttingDownWrapped(const Napi::CallbackInfo &in
 
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
-            "hello", Napi::Function::New(env, bindings::HelloWrapped)
+            "checkEngineStatus", Napi::Function::New(env, bindings::CheckEngineStatusWrapped)
     );
 
     exports.Set(
