@@ -10,12 +10,14 @@ const Index = () => {
 
     useEffect(() => {
         // send ping message to server
-        const message = {
+        const messageObj = {
           name: 'ping',
-          data: {}
+          data: {
+              "createdAt": Date.now()
+          }
         };
 
-        ipcRenderer.send('asynchronous-message', message);
+        ipcRenderer.send('asynchronous-message', messageObj);
 
         // get message from server
         ipcRenderer.on('asynchronous-reply', (event, arg) => {
@@ -40,7 +42,19 @@ const Index = () => {
     }, []);
 
     // render message
-    return <div>{message}</div>;
+    return (
+        <>
+            <div>{message}</div>
+            <button onClick={() => {
+                const messageObj = {
+                    name: 'start-renderer',
+                    data: {}
+                };
+
+                ipcRenderer.send('asynchronous-message', messageObj);
+            }}>Start Renderer</button>
+        </>
+    );
 };
 
 ReactDOM.render(<Index />, document.getElementById('app'));

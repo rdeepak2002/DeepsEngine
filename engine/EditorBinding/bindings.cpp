@@ -10,6 +10,9 @@ std::string bindings::checkEngineStatus(int num) {
 }
 
 void bindings::createRenderer() {
+    if(renderer)
+        renderer->shutDown();
+
     renderer = new Renderer();
 
     renderer->init();
@@ -26,7 +29,6 @@ void bindings::updateRenderer() {
 
 void bindings::shutDownRenderer() {
     renderer->shutDown();
-//    delete renderer;
 }
 
 Napi::String bindings::CheckEngineStatusWrapped(const Napi::CallbackInfo &info) {
