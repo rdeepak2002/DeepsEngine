@@ -7,21 +7,18 @@ const core = require('../../engine/build/Release/core.node');
 // import file reading
 const fs = require('fs')
 // auto reload file changes
-require('electron-reload')(__dirname);
+// require('electron-reload')(__dirname);
 
 // reference to window
 let win = null;
-
-// prevent resending of same frame
-let frameSent = false;
 
 /**
  * Function to create a window
  */
 const createWindow = () => {
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1240,
+        height: 800,
         webPreferences: {
             // preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
@@ -30,9 +27,16 @@ const createWindow = () => {
             enableRemoteModule: true,
             devTools: true
         }
-    })
+    });
 
     win.loadFile(path.join(__dirname, './index.html'));
+    win.webContents.openDevTools();
+
+    win.on('closed', () => {
+        win = null;
+    });
+
+    return win;
 }
 
 /**
@@ -43,7 +47,7 @@ app.whenReady().then(() => {
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow();
+            win = createWindow();
         }
     });
 });
@@ -71,14 +75,21 @@ try {
 const update = (delta) => {
     if (!core.rendererShuttingDown()) {
         core.updateRenderer();
-        frameSent = false;
+        if (win) {
+            try {
+                win.webContents.send('asynchronous-message', {name: 'new-frame-available', data: {}, status: 'success'});
+            }
+            catch(e) {
+                console.error('error sending async message to window', e);
+            }
+        }
     } else {
         core.shutDownRenderer();
     }
 }
 
 // length of a tick in milliseconds
-const fps = 30;
+const fps = 20;
 let tickLengthMs = 1000 / fps;
 
 /* renderLoop related variables */
@@ -143,14 +154,14 @@ ipcMain.on('asynchronous-message', (event, arg) => {
     switch (arg.name) {
         // when client asks for ping
         case 'ping':
-            console.log('got ping');
-
             const reply = {
                 name: 'pong',
                 data: {
                     "pingTime": Date.now() - arg.data.createdAt,
-                    "createdAt": Date.now()
-                }
+                    "createdAt": Date.now(),
+                    "status": "success"
+                },
+                status: 'success'
             };
 
             event.reply('asynchronous-reply', reply);
@@ -158,10 +169,6 @@ ipcMain.on('asynchronous-message', (event, arg) => {
             break;
         case 'get-frame':
             // dont send (same) frame if it was already sent
-            if (frameSent) {
-                break;
-            }
-
             const imagePath: string = path.join(__dirname, '../../engine/frame.png') || "";
             fs.readFile(imagePath, (err, data) => {
                 // send 'undefined' data if error reading image
@@ -204,8 +211,6 @@ ipcMain.on('asynchronous-message', (event, arg) => {
                 };
 
                 event.reply('asynchronous-reply', reply);
-
-                frameSent = true;
             });
             break;
         case 'start-renderer':

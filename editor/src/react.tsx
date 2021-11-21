@@ -10,10 +10,7 @@ const Index = () => {
     const [message, setMessage] = useState('no message');
     const [frameData, setFrameData] = useState(undefined);
 
-    const renderLoop = () => {
-        // console.log("TODO: HAVE CALLBACK FUNCTION INSTEAD OF POLLING LIKE THIS");
-        window.requestAnimationFrame(renderLoop);
-
+    const requestForNewFrame = () => {
         const messageObj = {
             name: 'get-frame',
             data: {
@@ -24,9 +21,17 @@ const Index = () => {
         ipcRenderer.send('asynchronous-message', messageObj);
     }
 
+    const updateImageFrame = (data) => {
+        const imageType: string = data.imageType;
+        const imageEncoding: string = data.imageEncoding;
+        const imageData: string = data.imageData;
+        const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
+        setFrameData(encoded);
+    }
+
     useEffect(() => {
         // TODO: use callback function for this / call every time render is called in electron
-        renderLoop();
+        // renderLoop();
 
         // send ping message to server
         const messageObj = {
@@ -43,8 +48,17 @@ const Index = () => {
             // console.log('got reply', arg);
 
             // handle invalid reply
-            if (!arg || !arg.name) {
+            if (!arg || !arg.name || !arg.data || !arg.status) {
                 console.error('invalid reply format: ', arg);
+                return;
+            }
+
+            // get data and status retrieved
+            const status = arg.status;
+            const data = arg.data;
+
+            // failure status received
+            if (status === 'failure') {
                 return;
             }
 
@@ -53,20 +67,11 @@ const Index = () => {
                 case 'pong':
                     setMessage(`gotPong: ${JSON.stringify(arg)}`);
                     break;
+                case 'new-frame-available':
+                    requestForNewFrame();
+                    break;
                 case 'image-data':
-                    const status = arg.status;
-                    const data = arg.data;
-
-                    if (status === 'success') {
-                        const imageType: string = data.imageType;
-                        const imageEncoding: string = data.imageEncoding;
-                        const imageData: string = data.imageData;
-                        const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
-                        setFrameData(encoded);
-                    } else {
-                        // console.error('error status when getting image frame from server');
-                    }
-
+                    updateImageFrame(data);
                     break;
                 default:
                     console.warn('unknown message: ', arg);
@@ -76,6 +81,8 @@ const Index = () => {
 
         // get message or reply from server
         ipcRenderer.on('asynchronous-reply', messageHandler);
+
+        ipcRenderer.on('asynchronous-message', messageHandler);
     }, []);
 
     // render message
