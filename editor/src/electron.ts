@@ -7,11 +7,17 @@ const core = require('../../engine/build/Release/core.node');
 // import file reading
 const fs = require('fs')
 
+// reference to window
+let win = null;
+
+// prevent resending of same frame
+let frameSent = false;
+
 /**
  * Function to create a window
  */
 const createWindow = () => {
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
@@ -64,6 +70,7 @@ catch (e) {
 const update = (delta) => {
     if(!core.rendererShuttingDown()) {
         core.updateRenderer();
+        frameSent = false;
     }
     else {
         core.shutDownRenderer();
@@ -118,12 +125,11 @@ const startRenderLoop = () => {
     renderLoop();
 }
 // ENGINE STUFF
-
 /**
  * Handle async message received from client
  */
 ipcMain.on('asynchronous-message', (event, arg) => {
-    console.log('got message', arg);
+    // console.log('got message', arg);
 
     // handle invalid message
     if(!arg || !arg.name) {
@@ -149,8 +155,12 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
             break;
         case 'get-frame':
+            // dont send (same) frame if it was already sent
+            if(frameSent) {
+                break;
+            }
+
             const imagePath: string = path.join(__dirname, '../../engine/frame.png') || "";
-            console.log('image path 1', imagePath);
             fs.readFile(imagePath, (err, data) => {
                 // send 'undefined' data if error reading image
                 if (err || !data) {
@@ -164,8 +174,6 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
                     return;
                 }
-
-                console.log('image path 2', imagePath);
 
                 let imageData;
 
@@ -195,6 +203,8 @@ ipcMain.on('asynchronous-message', (event, arg) => {
                 };
 
                 event.reply('asynchronous-reply', reply);
+
+                frameSent = true;
             });
             break;
         case 'start-renderer':

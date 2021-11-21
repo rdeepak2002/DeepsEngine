@@ -37,8 +37,8 @@ const Index = () => {
 
         ipcRenderer.send('asynchronous-message', messageObj);
 
-        // get message from server
-        ipcRenderer.on('asynchronous-reply', (event, arg) => {
+        // handle message or reply received from server
+        const messageHandler = (event, arg) => {
             console.log('got reply', arg);
 
             // handle invalid reply
@@ -72,7 +72,10 @@ const Index = () => {
                     console.warn('unknown message: ', arg);
                     break;
             }
-        });
+        }
+
+        // get message or reply from server
+        ipcRenderer.on('asynchronous-reply', messageHandler);
     }, []);
 
     // render message
