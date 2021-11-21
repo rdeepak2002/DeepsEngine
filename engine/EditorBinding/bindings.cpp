@@ -3,17 +3,17 @@
 
 #include <thread>
 
-Renderer* renderer;
+Renderer *renderer;
 
 std::string bindings::checkEngineStatus(int num) {
     return "Engine Running, received input " + std::to_string(num);
 }
 
-void bindings::createRenderer() {
-    if(renderer)
+void bindings::createRenderer(bool showWindow, bool saveOutputRender) {
+    if (renderer)
         renderer->shutDown();
 
-    renderer = new Renderer();
+    renderer = new Renderer(showWindow, saveOutputRender);
 
     renderer->init();
 }
@@ -35,8 +35,9 @@ Napi::String bindings::CheckEngineStatusWrapped(const Napi::CallbackInfo &info) 
     Napi::HandleScope scope(env);
 
     if (info.Length() != 1 || !info[0].IsNumber()) {
-        Napi::TypeError::New(env, "Numberexpected").ThrowAsJavaScriptException();
+        Napi::TypeError::New(env, "Number expected").ThrowAsJavaScriptException();
     }
+
     Napi::Number num = info[0].As<Napi::Number>();
 
     Napi::String returnValue = Napi::String::New(env, bindings::checkEngineStatus(num.Int64Value()));
@@ -45,7 +46,23 @@ Napi::String bindings::CheckEngineStatusWrapped(const Napi::CallbackInfo &info) 
 }
 
 void bindings::CreateRendererWrapped(const Napi::CallbackInfo &info) {
-    bindings::createRenderer();
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    if (info.Length() != 2) {
+        if (!info[0].IsBoolean()) {
+            Napi::TypeError::New(env, "Boolean expected for show window").ThrowAsJavaScriptException();
+        }
+
+        if (!info[1].IsBoolean()) {
+            Napi::TypeError::New(env, "Boolean expected for save output render").ThrowAsJavaScriptException();
+        }
+    }
+
+    Napi::Boolean showWindow = info[0].As<Napi::Boolean>();
+    Napi::Boolean saveOutputRender = info[1].As<Napi::Boolean>();
+
+    bindings::createRenderer(showWindow.Value(), saveOutputRender.Value());
 }
 
 void bindings::UpdateRendererWrapped(const Napi::CallbackInfo &info) {

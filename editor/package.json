@@ -20,7 +20,8 @@
     "prestart": "yarn",
     "start": "yarn launch-electron",
     "prestart-editor": "yarn build-react && yarn build-electron",
-    "start-editor": "yarn launch-electron"
+    "start-editor": "yarn launch-electron",
+    "reload": "yarn build-react"
   },
   "author": "Deepak Ramalingam",
   "license": "ISC",

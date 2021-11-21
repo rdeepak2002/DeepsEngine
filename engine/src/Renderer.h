@@ -13,6 +13,8 @@
 
 class Renderer {
 private:
+    bool showWindow;
+    bool saveOutputRender;
     const unsigned int SCR_WIDTH = 800;
     const unsigned int SCR_HEIGHT = 600;
     unsigned int shaderProgram;
@@ -30,15 +32,24 @@ private:
                                        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
                                        "}\n\0";
 public:
-    Renderer(void) { }
+    Renderer(bool showWindow, bool saveOutputRender) {
+        this->showWindow = showWindow;
+        this->saveOutputRender = saveOutputRender;
+    }
+
     GLFWwindow *window;
+
     void saveImage(char *filepath);
-    int init(void); // creates window/context
-    void render(void); //performs actual drawing
-    bool shuttingDown(void);
-    void shutDown(void);
+
+    int init(); // creates window/context
+    void render(); //performs actual drawing
+    bool shuttingDown();
+
+    void shutDown();
+
     void processInput(GLFWwindow *window);
-    ~Renderer(void) { }
+
+    ~Renderer() {}
 };
 
 

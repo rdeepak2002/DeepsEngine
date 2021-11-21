@@ -1,5 +1,5 @@
 // electron imports
-const { app, BrowserWindow, ipcMain } = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron')
 // get system path
 const path = require('path');
 // import engine code
@@ -60,19 +60,17 @@ app.on('window-all-closed', () => {
 // ENGINE STUFF
 try {
     console.log(core.checkEngineStatus(3));
-}
-catch (e) {
+} catch (e) {
     console.error('error connecting to engine: ', e);
     process.exit(1);
 }
 
 // update OpenGL Window
 const update = (delta) => {
-    if(!core.rendererShuttingDown()) {
+    if (!core.rendererShuttingDown()) {
         core.updateRenderer();
         frameSent = false;
-    }
-    else {
+    } else {
         core.shutDownRenderer();
     }
 }
@@ -100,7 +98,7 @@ const renderLoop = function () {
 
         update(delta);
 
-        if(core.rendererShuttingDown()) {
+        if (core.rendererShuttingDown()) {
             return;
         }
 
@@ -119,7 +117,9 @@ const renderLoop = function () {
 // method to create render loop
 const startRenderLoop = () => {
     // init OpenGL
-    core.createRenderer();
+    const showWindow = false;
+    const saveOutputRender = true;
+    core.createRenderer(showWindow, saveOutputRender);
 
     // begin the game loop!
     renderLoop();
@@ -132,7 +132,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
     // console.log('got message', arg);
 
     // handle invalid message
-    if(!arg || !arg.name) {
+    if (!arg || !arg.name) {
         console.error('invalid message format: ', arg);
         return;
     }
@@ -156,7 +156,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
             break;
         case 'get-frame':
             // dont send (same) frame if it was already sent
-            if(frameSent) {
+            if (frameSent) {
                 break;
             }
 
@@ -167,7 +167,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
                     const reply = {
                         name: 'image-data',
                         status: 'failure',
-                        data: { }
+                        data: {}
                     };
 
                     event.reply('asynchronous-reply', reply);
@@ -179,12 +179,11 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
                 try {
                     imageData = new Buffer(data).toString('base64');
-                }
-                catch (e) {
+                } catch (e) {
                     const reply = {
                         name: 'image-data',
                         status: 'failure',
-                        data: { }
+                        data: {}
                     };
 
                     event.reply('asynchronous-reply', reply);

@@ -1,8 +1,9 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import * as ReactDOM from 'react-dom';
-import {useEffect, useState} from "react";
+
 const electron = require('electron');
-const { ipcRenderer, remote } = electron;
+const {ipcRenderer, remote} = electron;
 
 const Index = () => {
     // message hook
@@ -10,7 +11,7 @@ const Index = () => {
     const [frameData, setFrameData] = useState(undefined);
 
     const renderLoop = () => {
-        console.log("TODO: HAVE CALLBACK FUNCTION INSTEAD OF POLLING LIKE THIS");
+        // console.log("TODO: HAVE CALLBACK FUNCTION INSTEAD OF POLLING LIKE THIS");
         window.requestAnimationFrame(renderLoop);
 
         const messageObj = {
@@ -29,20 +30,20 @@ const Index = () => {
 
         // send ping message to server
         const messageObj = {
-          name: 'ping',
-          data: {
-              "createdAt": Date.now()
-          }
+            name: 'ping',
+            data: {
+                "createdAt": Date.now()
+            }
         };
 
         ipcRenderer.send('asynchronous-message', messageObj);
 
         // handle message or reply received from server
         const messageHandler = (event, arg) => {
-            console.log('got reply', arg);
+            // console.log('got reply', arg);
 
             // handle invalid reply
-            if(!arg || !arg.name) {
+            if (!arg || !arg.name) {
                 console.error('invalid reply format: ', arg);
                 return;
             }
@@ -56,14 +57,13 @@ const Index = () => {
                     const status = arg.status;
                     const data = arg.data;
 
-                    if(status === 'success') {
+                    if (status === 'success') {
                         const imageType: string = data.imageType;
                         const imageEncoding: string = data.imageEncoding;
                         const imageData: string = data.imageData;
                         const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
                         setFrameData(encoded);
-                    }
-                    else {
+                    } else {
                         console.error('error status when getting image frame from server');
                     }
 
@@ -91,12 +91,13 @@ const Index = () => {
                 };
 
                 ipcRenderer.send('asynchronous-message', messageObj);
-            }}>Start Renderer</button>
-            { frameData &&
-                <img src={frameData}></img>
+            }}>Start Renderer
+            </button>
+            {frameData &&
+            <img style={{width: 300, height: 300}} src={frameData}/>
             }
         </>
     );
 };
 
-ReactDOM.render(<Index />, document.getElementById('app'));
+ReactDOM.render(<Index/>, document.getElementById('app'));

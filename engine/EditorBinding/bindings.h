@@ -3,9 +3,12 @@
 namespace bindings {
     std::string checkEngineStatus(int num);
 
-    void createRenderer();
+    void createRenderer(bool showWindow, bool saveOutputRender);
+
     void updateRenderer();
+
     bool rendererShuttingDown();
+
     void shutDownRenderer();
 
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
