@@ -6,6 +6,11 @@ module.exports = [
         entry: './src/react.tsx',
         target: 'electron-renderer',
         devtool: 'source-map',
+        // watch: true,
+        // watchOptions: {
+        //     aggregateTimeout: 200,
+        //     poll: 1000,
+        // },
         module: {
             rules: [{
                 test: /\.ts(x?)$/,

@@ -6,6 +6,8 @@ const path = require('path');
 const core = require('../../engine/build/Release/core.node');
 // import file reading
 const fs = require('fs')
+// auto reload file changes
+require('electron-reload')(__dirname);
 
 // reference to window
 let win = null;

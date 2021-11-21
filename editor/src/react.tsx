@@ -64,7 +64,7 @@ const Index = () => {
                         const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
                         setFrameData(encoded);
                     } else {
-                        console.error('error status when getting image frame from server');
+                        // console.error('error status when getting image frame from server');
                     }
 
                     break;
@@ -81,6 +81,7 @@ const Index = () => {
     // render message
     return (
         <>
+            <div>test wow</div>
             <div>{message}</div>
             <button onClick={() => {
                 const messageObj = {
