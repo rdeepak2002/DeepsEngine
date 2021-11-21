@@ -12,18 +12,14 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <thread>
+#include "Shader.h"
 
 class Renderer {
 private:
     GLFWwindow *window;
     float trapezoidColor;
 public:
-//    void key_callback(GLFWwindow *window, int key, int scancode, int action, int mode);
-//    std::string get_current_dir();
     void saveImage(char *filepath);
-//    void test(void);
-//    void startNewThread(void);
-//    int startOpenGL(void);
     Renderer(void) {
         trapezoidColor = 0.5;
     }
@@ -35,10 +31,7 @@ public:
      bool shuttingDown(void);
      void shutDown(void);
      void pollEvents(void);
-     ~Renderer(void) {
-//        window = nullptr;
-//        delete window;
-    }
+     ~Renderer(void) { }
 };
 
 

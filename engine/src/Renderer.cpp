@@ -63,6 +63,8 @@ void Renderer::render() {
 //    glfwPollEvents();
     glfwMakeContextCurrent(window);
 
+//    Shader ourShader = Shader("/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/shaders/shader.vert", "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/shaders/shader.frag");
+
     /*******Rendering*******/
     //Select empty color RGBA
     glClearColor(0.2, 0.3, 0.3, 1);
