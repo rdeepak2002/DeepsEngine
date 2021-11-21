@@ -5,7 +5,7 @@
   "main": "dist/electron.js",
   "scripts": {
     "preclean": "echo \"\\x1b[101m\\x1b[97m[ Cleaning ]\\x1b[0m\"",
-    "clean": "(echo \"Cleaning...\") && cmake-js -d ../engine clean && rm -rf ./dist",
+    "clean": "(echo \"Cleaning...\") && (cmake-js -d ../engine clean) && (rm -rf ./dist || true) && (rm ../engine/frame.png || true)",
     "prebuild-electron": "echo \"\\x1b[102m\\x1b[97m[ Building Electron ]\\x1b[0m\"",
     "build-electron": "(echo \"Building Electron...\") && (tsc ./src/electron.ts) && (mv ./src/electron.js ./dist/electron.js)",
     "prebuild-react": "echo \"\\x1b[106m\\x1b[97m[ Building React ]\\x1b[0m\"",

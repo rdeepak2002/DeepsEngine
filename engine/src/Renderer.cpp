@@ -7,6 +7,12 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include <stb_image_write.h>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    // make sure the viewport matches the new window dimensions; note that width and
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+}
+
 void Renderer::saveImage(char *filepath) {
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -19,218 +25,163 @@ void Renderer::saveImage(char *filepath) {
     glReadBuffer(GL_FRONT);
     glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
     stbi_flip_vertically_on_write(true);
+    // TODO: don't save to file - instead pass buffer.data() (which is a std::vector<char>)
     stbi_write_png(filepath, width, height, nrChannels, buffer.data(), stride);
-
-//  if saving frame to current dir:
-//    char *cwd_buffer = (char *) malloc(sizeof(char) * 1024);
-//    char *cwd_result = getcwd(cwd_buffer, 1024);
-//    printf("saved frame to %s\n", cwd_result);
 }
 
-void Renderer::init() {
-    //Initialize GLFW Library
-    if (!glfwInit()) {
-        printf("cannot init OpenGL\n");
-        return;
-    }
+int Renderer::init() {
+    // glfw: initialize and configure
+    // ------------------------------
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    printf("init OpenGL\n");
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     // make window invisible
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+//    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
-    //Create window and context
-    window = glfwCreateWindow(640, 480, "Deeps Engine", NULL, NULL);
-
-    if (!window) {
-        printf("OpenGL window creation failed\n");
-        //NULL will be returned if creation fails
+    // glfw window creation
+    // --------------------
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(window);
+    // TODO: fix this
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
     }
 
-    printf("OpenGL setting window context...\n");
+    // build and compile our shader program
+    // ------------------------------------
+    // vertex shader
+    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+    // check for shader compile errors
+    int success;
+    char infoLog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        return 1;
+    }
+    // fragment shader
+    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+    // check for shader compile errors
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        return 1;
+    }
+    // link shaders
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+    // check for linking errors
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
+        return 1;
+    }
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 
-    //Establish the context of the current window
-    glfwMakeContextCurrent(window);
+    // set up vertex data (and buffer(s)) and configure vertex attributes
+    // ------------------------------------------------------------------
+    float vertices[] = {
+            -0.5f, -0.5f, 0.0f, // left
+            0.5f, -0.5f, 0.0f, // right
+            0.0f,  0.5f, 0.0f  // top
+    };
 
-    printf("OpenGL set window context\n");
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
+    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
+    glBindVertexArray(0);
+
+    // return 0 on success
+    return 0;
 }
 
 void Renderer::render() {
-//    printf("render loop called\n");
+    // input
+    // -----
+    processInput(window);
 
-    /*******Polling events*******/
-//    glfwPollEvents();
-    glfwMakeContextCurrent(window);
-
-//    Shader ourShader = Shader("/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/shaders/shader.vert", "/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/src/shaders/shader.frag");
-
-    /*******Rendering*******/
-    //Select empty color RGBA
-    glClearColor(0.2, 0.3, 0.3, 1);
+    // render
+    // ------
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //Start drawing a triangle
-    glBegin(GL_TRIANGLES);
-    glColor3f(1, 0, 0); //Red
-    glVertex3f(0, 1, 1);
+    // draw our first triangle
+    glUseProgram(shaderProgram);
+    glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    // glBindVertexArray(0); // no need to unbind it every time
 
-    glColor3f(0, 1, 0); //Green
-    glVertex3f(-1, -1, 0);
-
-    glColor3f(0, 0, 1); //Blue
-    glVertex3f(1, -1, 0);
-    //End a drawing step
-    glEnd();
-
-    glBegin(GL_POLYGON);
-    //Draw another trapezoid, and pay attention to the stroke order
-    glColor3f(trapezoidColor, trapezoidColor, trapezoidColor); //Grey
-    glVertex2d(0.5, 0.5);
-    glVertex2d(1, 1);
-    glVertex2d(1, 0);
-    glVertex2d(0.5, 0);
-    glEnd();
-
-    // change trapezoid color
-    trapezoidColor += 0.05;
-
-    if (trapezoidColor > 1) {
-        trapezoidColor = 0;
-    }
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
 
     // save frame to image file
     saveImage("/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/frame.png");
-
-    /******Exchange buffer, update content on window******/
-    glfwSwapBuffers(window);
 }
 
 bool Renderer::shuttingDown() {
-    if(glfwWindowShouldClose(window)) {
-        return true;
-    }
-
-    return false;
+    // glfw: check whether window should close.
+    // ------------------------------------------------------------------
+    return glfwWindowShouldClose(window);
 }
 
 void Renderer::shutDown() {
-    printf("shutting down OpenGL\n");
+    // optional: de-allocate all resources once they've outlived their purpose:
+    // ------------------------------------------------------------------------
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
+
+    // glfw: terminate, clearing all previously allocated GLFW resources.
+    // ------------------------------------------------------------------
     glfwTerminate();
 }
 
-void Renderer::pollEvents() {
-    glfwPollEvents();
+void Renderer::processInput(GLFWwindow *window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
-
-//void Renderer::key_callback(GLFWwindow *window, int key, int scancode, int action, int mode) {
-//    //If you press ESC and set windowShouldClose to True, the external loop will close the application
-//    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-//        glfwSetWindowShouldClose(window, GL_TRUE);
-//    std::cout << "ESC" << mode;
-//}
-//
-//std::string Renderer::get_current_dir() {
-//    char buff[FILENAME_MAX]; //create string buffer to hold path
-//    GetCurrentDir(buff, FILENAME_MAX);
-//    std::string current_working_dir(buff);
-//    return current_working_dir;
-//}
-//
-//void Renderer::saveImage(char *filepath, GLFWwindow *w) {
-//    int width, height;
-//    glfwGetFramebufferSize(w, &width, &height);
-//    GLsizei nrChannels = 3;
-//    GLsizei stride = nrChannels * width;
-//    stride += (stride % 4) ? (4 - stride % 4) : 0;
-//    GLsizei bufferSize = stride * height;
-//    std::vector<char> buffer(bufferSize);
-//    glPixelStorei(GL_PACK_ALIGNMENT, 4);
-//    glReadBuffer(GL_FRONT);
-//    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
-//    stbi_flip_vertically_on_write(true);
-//    stbi_write_png(filepath, width, height, nrChannels, buffer.data(), stride);
-////    printf("exported frame to %s/%s\n", get_current_dir().c_str(), filepath);
-//}
-//
-//void Renderer::startNewThread(void) {
-//    std::thread( [this] { startOpenGL(); } ).detach();
-//}
-//
-//void Renderer::test(void) {
-//    int i = 0;
-//    while (1) {
-//        printf("called within thread %d\n", i);
-//        i++;
-//    }
-//}
-//
-//int Renderer::startOpenGL(void) {
-//    //Initialize GLFW Library
-//    if (!glfwInit()) {
-//        printf("cannot init OpenGL\n");
-//        return -1;
-//    }
-//    //Create window and context
-//    GLFWwindow *window = glfwCreateWindow(640, 480, "hello world", NULL, NULL);
-//    if (!window) {
-//        //NULL will be returned if creation fails
-//        glfwTerminate();
-//    }
-//    //Establish the context of the current window
-//    glfwMakeContextCurrent(window);
-//
-////    glfwSetKeyCallback(window, this->key_callback); //Registering Callbacks
-//
-//    float trapezoidColor = 0.5;
-//
-//    //Loop until the user closes the window
-//    while (!glfwWindowShouldClose(window)) {
-//        /*******Polling events*******/
-//        glfwPollEvents();
-//
-//        /*******Rendering*******/
-//        //Select empty color RGBA
-//        glClearColor(0.2, 0.3, 0.3, 1);
-//        glClear(GL_COLOR_BUFFER_BIT);
-//
-//        //Start drawing a triangle
-//        glBegin(GL_TRIANGLES);
-//        glColor3f(1, 0, 0); //Red
-//        glVertex3f(0, 1, 1);
-//
-//        glColor3f(0, 1, 0); //Green
-//        glVertex3f(-1, -1, 0);
-//
-//        glColor3f(0, 0, 1); //Blue
-//        glVertex3f(1, -1, 0);
-//        //End a drawing step
-//        glEnd();
-//
-//        glBegin(GL_POLYGON);
-//        //Draw another trapezoid, and pay attention to the stroke order
-//        glColor3f(trapezoidColor, trapezoidColor, trapezoidColor); //Grey
-//        glVertex2d(0.5, 0.5);
-//        glVertex2d(1, 1);
-//        glVertex2d(1, 0);
-//        glVertex2d(0.5, 0);
-//        glEnd();
-//
-//        // change trapezoid color
-//        trapezoidColor += 0.05;
-//
-//        if (trapezoidColor > 1) {
-//            trapezoidColor = 0;
-//        }
-//
-//        // save frame to image file
-//        saveImage("frame.png", window);
-//
-//        printf("OpenGL saved frame\n");
-//
-//        /******Exchange buffer, update content on window******/
-//        glfwSwapBuffers(window);
-//    }
-//    glfwTerminate();
-//    return 0;
-//}

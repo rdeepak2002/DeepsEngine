@@ -23,7 +23,6 @@ bool bindings::rendererShuttingDown() {
 }
 
 void bindings::updateRenderer() {
-    renderer->pollEvents();
     renderer->render();
 }
 

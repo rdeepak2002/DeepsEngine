@@ -17,11 +17,21 @@ set(GLEW_LINK /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)
 set(GLFW_LINK /usr/local/Cellar/glfw/3.3.4/lib/libglfw.3.dylib)
 link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 
+# specify whether this should run as a standalone or library
+set(RUN_STANDALONE FALSE)
+
+# standalone engine
+if(RUN_STANDALONE)
+file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "src/Shader.h")
+add_executable(engine_standalone ${SOURCE_FILES_EXEC})
+else()
+# library
 # Essential include files to build a node addon,
 # you should add this line in every CMake.js based project.
 include_directories(${CMAKE_JS_INC})
 # Declare the location of the source files
 file(GLOB SOURCE_FILES "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "EditorBinding/exportbindings.cpp" "EditorBinding/bindings.cpp" "EditorBinding/bindings.h" "src/Shader.h")
+
 # This line will tell CMake that we're building a shared library from the above source files
 # named after the project's name
 add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
@@ -50,4 +60,5 @@ add_definitions(-DNAPI_VERSION=3)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
     target_link_libraries(${PROJECT_NAME} "-framework GLUT")
+endif ()
 endif ()
