@@ -42,7 +42,7 @@ public:
 
     std::string cachedFrame;
 
-    void saveImage(char *filepath);
+    void saveImage();
 
     int init(); // creates window/context
     void render(); //performs actual drawing

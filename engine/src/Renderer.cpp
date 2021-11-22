@@ -84,7 +84,7 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
-void Renderer::saveImage(char *filepath) {
+void Renderer::saveImage() {
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
     GLsizei nrChannels = 3;
@@ -104,7 +104,7 @@ void Renderer::saveImage(char *filepath) {
     cvtColor(flipped_img,BGR_img, cv::COLOR_RGB2BGR);
     std::vector<uchar> buffer1;
     buffer1.resize(static_cast<size_t>(img.rows) * static_cast<size_t>(img.cols));
-    cv::imencode(".jpg", img, buffer1);
+    cv::imencode(".png", img, buffer1);
     std::string encoding = base64_encode(buffer1.data(), buffer1.size());
     cachedFrame = encoding;
 }
@@ -239,7 +239,7 @@ void Renderer::render() {
 
     // save frame to image file
     if (saveOutputRender)
-        saveImage("/Users/deepakramalingam/Documents/Projects/deeps-engine/engine/frame.png");
+        saveImage();
 }
 
 bool Renderer::shuttingDown() {
