@@ -96,15 +96,15 @@ void Renderer::saveImage() {
     glReadBuffer(GL_FRONT);
     glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
 
-    // conver the buffer to an opencv image and return the base64 encoded version of iit
+    // convert the buffer to an opencv image and return the base64 encoded version of iit
     cv::Mat img(height, width, CV_8UC3, buffer.data());
     cv::Mat flipped_img;
     flip(img,flipped_img,0);
     cv::Mat BGR_img;
     cvtColor(flipped_img,BGR_img, cv::COLOR_RGB2BGR);
     std::vector<uchar> buffer1;
-    buffer1.resize(static_cast<size_t>(img.rows) * static_cast<size_t>(img.cols));
-    cv::imencode(".png", img, buffer1);
+    buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
+    cv::imencode(".png", BGR_img, buffer1);
     std::string encoding = base64_encode(buffer1.data(), buffer1.size());
     cachedFrame = encoding;
 }
