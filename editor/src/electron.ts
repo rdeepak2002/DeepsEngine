@@ -4,8 +4,6 @@ const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path');
 // import engine code
 const core = require('../../engine/build/Release/core.node');
-// import file reading
-const fs = require('fs')
 // auto reload file changes
 // require('electron-reload')(__dirname);
 
@@ -168,50 +166,30 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
             break;
         case 'get-frame':
-            // dont send (same) frame if it was already sent
-            const imagePath: string = path.join(__dirname, '../../engine/frame.png') || "";
-            fs.readFile(imagePath, (err, data) => {
-                // send 'undefined' data if error reading image
-                if (err || !data) {
-                    const reply = {
-                        name: 'image-data',
-                        status: 'failure',
-                        data: {}
-                    };
+            // get image frame
+            const imageData = core.getCachedFrame();
 
-                    event.reply('asynchronous-reply', reply);
-
-                    return;
-                }
-
-                let imageData;
-
-                try {
-                    imageData = new Buffer(data).toString('base64');
-                } catch (e) {
-                    const reply = {
-                        name: 'image-data',
-                        status: 'failure',
-                        data: {}
-                    };
-
-                    event.reply('asynchronous-reply', reply);
-
-                    return;
-                }
-
+            if(imageData === 'no frame') {
                 const reply = {
                     name: 'image-data',
-                    status: 'success',
-                    data: {
-                        imageType: 'png',
-                        imageEncoding: 'base64',
-                        imageData: imageData
-                    }
+                    status: 'failure',
+                    data: {}
                 };
 
                 event.reply('asynchronous-reply', reply);
-            });
+            }
+
+            const imageReply = {
+                name: 'image-data',
+                status: 'success',
+                data: {
+                    imageType: 'png',
+                    imageEncoding: 'base64',
+                    imageData: imageData
+                }
+            };
+
+            event.reply('asynchronous-reply', imageReply);
             break;
         case 'start-renderer':
             startRenderLoop();

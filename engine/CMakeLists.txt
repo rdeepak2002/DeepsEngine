@@ -5,17 +5,20 @@ set(CMAKE_CXX_STANDARD 14)
 # Don't add this line if you will try_compile with boost.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(OpenCV_DIR /usr/local/Cellar/opencv/4.5.3_3/lib)
+find_package( OpenCV REQUIRED )
+
 set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
 set(GLFW_H /usr/local/Cellar/glfw/3.3.4/include/GLFW)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
 set(stb /usr/local/include/stb)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${stb})
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${stb} ${OpenCV_INCLUDE_DIRS})
 
 # Add target link
 set(GLEW_LINK /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)
 set(GLFW_LINK /usr/local/Cellar/glfw/3.3.4/lib/libglfw.3.dylib)
-link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${OpenCV_LIBS})
 
 # specify whether this should run as a standalone or library
 set(RUN_STANDALONE FALSE)

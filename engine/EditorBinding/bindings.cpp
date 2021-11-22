@@ -30,6 +30,25 @@ void bindings::shutDownRenderer() {
     renderer->shutDown();
 }
 
+std::string bindings::getCachedFrame() {
+    std::string res = "no frame";
+
+    if(renderer && !renderer->cachedFrame.empty()) {
+        res = renderer->cachedFrame;
+    }
+
+    return res;
+}
+
+Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    Napi::String returnValue = Napi::String::New(env, bindings::getCachedFrame());
+
+    return returnValue;
+}
+
 Napi::String bindings::CheckEngineStatusWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -86,6 +105,8 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
             "checkEngineStatus", Napi::Function::New(env, bindings::CheckEngineStatusWrapped)
     );
+
+    exports.Set("getCachedFrame", Napi::Function::New(env, bindings::GetCachedFrameWrapped));
 
     exports.Set(
             "createRenderer", Napi::Function::New(env, bindings::CreateRendererWrapped)

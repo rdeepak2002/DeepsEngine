@@ -11,6 +11,10 @@ namespace bindings {
 
     void shutDownRenderer();
 
+    std::string getCachedFrame();
+
+    Napi::String GetCachedFrameWrapped(const Napi::CallbackInfo &info);
+
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
 
     void CreateRendererWrapped(const Napi::CallbackInfo &info);

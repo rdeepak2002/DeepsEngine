@@ -9,6 +9,7 @@
 #include <glfw3.h>
 #include <iostream>
 #include <vector>
+#include <opencv2/opencv.hpp>
 //#include "Shader.h"
 
 class Renderer {
@@ -38,6 +39,8 @@ public:
     }
 
     GLFWwindow *window;
+
+    std::string cachedFrame;
 
     void saveImage(char *filepath);
 

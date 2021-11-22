@@ -5,7 +5,10 @@
 #include "Renderer.h"
 
 int main() {
-    Renderer *renderer = new Renderer(true, false);
+    bool showWindow = true;
+    bool saveOutputRender = false;
+
+    Renderer *renderer = new Renderer(showWindow, saveOutputRender);
 
     renderer->init();
 
