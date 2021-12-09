@@ -12,6 +12,7 @@ Deepak Ramalingam
 - Homebrew (https://brew.sh/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- Glad (generate files from https://glad.dav1d.de/ then move 'glad' and 'KHR' folders to '/usr/local/include')
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
 - GLEW (refer to below commands)
