@@ -25,6 +25,7 @@ Deepak Ramalingam
 - GLEW (refer to below commands)
   - change lines 11 and 19 (GLEW paths) of 'engine/CMakeLists.txt' if necessary
 - OpenCV (refer to below commands)
+  - change line 8 (OpenCV path) of 'engine/CMakeLists.txt' if necessary
 
 ```
 brew install cmake
