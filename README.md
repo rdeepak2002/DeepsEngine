@@ -15,7 +15,7 @@ Deepak Ramalingam
 - Glad
   - generate zip file from https://glad.dav1d.de/ (gl: 'Version 3.3', profile: 'Core', 'Generate a loader' ticked)
     - Permalink: https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on
-  - move 'glad' and 'KHR' folders to '/usr/local/include'
+  - extract zip, then move 'glad' and 'KHR' folders (located in 'include' folder) to '/usr/local/include'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
 - GLEW (refer to below commands)
