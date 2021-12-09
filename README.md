@@ -9,6 +9,7 @@ Deepak Ramalingam
 ## Requirements (macOS)
 
 - Xcode (https://apps.apple.com/us/app/xcode/id497799835?mt=12)
+  - create an arbitrary blank project and build it to ensure everything is working properly
 - Homebrew (https://brew.sh/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
