@@ -20,9 +20,9 @@ Deepak Ramalingam
   - change line 89 of 'glad.h' (located in /usr/local/include/glad) from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
-  - change lines 12 and 20 of CMakeLists.txt if necessary
+  - change lines 12 and 20 (GLFW paths) of CMakeLists.txt if necessary
 - GLEW (refer to below commands)
-  - change lines 11 and 19 of CMakeLists.txt if necessary
+  - change lines 11 and 19 (GLEW paths) of CMakeLists.txt if necessary
 - OpenCV (refer to below commands)
 
 ```
