@@ -40,7 +40,7 @@ yarn
 yarn start
 ```
 
-## Node Troubleshooting (macOS)
+## Node / NPM Troubleshooting (macOS)
 
 Solution to 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
 
