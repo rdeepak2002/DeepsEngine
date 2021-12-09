@@ -17,7 +17,7 @@ Deepak Ramalingam
   - generate zip file from https://glad.dav1d.de/ (gl: 'Version 3.3', profile: 'Core', 'Generate a loader' ticked)
     - Permalink: https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on
   - extract zip, then move 'glad' and 'KHR' folders (located in 'include' folder) to '/usr/local/include'
-  - change line 89 of 'glad.h' from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
+  - change line 89 of 'glad.h' (located in /usr/local/include/glad) from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
   - change lines 12 and 20 of CMakeLists.txt if necessary
