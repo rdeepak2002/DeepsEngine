@@ -23,7 +23,7 @@ brew install glew
 brew install opencv
 ```
 
-## Get Started
+## Get Started (macOS)
 
 ```
 cd editor
