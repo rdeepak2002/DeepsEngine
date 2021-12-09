@@ -32,12 +32,6 @@ brew install glew
 brew install opencv
 ```
 
-## Recommended Development Environment
-
-- Open 'engine' folder in CLion
-  - Enable autoreload for CMake changes
-- Open 'editor' folder in WebStorm
-
 ## Get Started (macOS)
 
 ```
@@ -45,3 +39,9 @@ cd editor
 yarn
 yarn start
 ```
+
+## Recommended Development Environment
+
+- Open 'engine' folder in CLion
+  - Enable autoreload for CMake changes
+- Open 'editor' folder in WebStorm
