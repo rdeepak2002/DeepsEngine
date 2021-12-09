@@ -13,7 +13,7 @@ Deepak Ramalingam
 - Homebrew (https://brew.sh/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-  - Refer to 'Node / NPM Troubleshooting (macOS)' section below
+  - refer to 'Node / NPM Troubleshooting (macOS)' section below
 - Glad
   - generate zip file from https://glad.dav1d.de/ (gl: 'Version 3.3', profile: 'Core', 'Generate a loader' ticked)
     - Permalink: https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on
@@ -56,6 +56,6 @@ sudo chown -R $USER /usr/local/share/
 
 ## Recommended Development Environment
 
-- Open 'engine' folder in CLion
-  - Enable autoreload for CMake changes
-- Open 'editor' folder in WebStorm
+- open 'engine' folder in CLion
+  - enable autoreload for CMake changes
+- open 'editor' folder in WebStorm
