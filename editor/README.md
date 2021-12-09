@@ -12,6 +12,9 @@ Deepak Ramalingam
 - cmake
 
 ## Installs (macOS)
+
+CMake (https://cmake.org/download/)
+
 ```
 brew install glfw3
 brew install glew
