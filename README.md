@@ -12,7 +12,9 @@ Deepak Ramalingam
 - Homebrew (https://brew.sh/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-- Glad (generate files from https://glad.dav1d.de/ then move 'glad' and 'KHR' folders to '/usr/local/include')
+- Glad
+  - generate zip file from https://glad.dav1d.de/ (gl: Version 3.3, profile: Core, 'generate a loader' ticked)
+  - move 'glad' and 'KHR' folders to '/usr/local/include'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
 - GLEW (refer to below commands)
