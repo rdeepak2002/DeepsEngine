@@ -4,11 +4,6 @@
 
 #include "Renderer.h"
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-
-#include <stb_image_write.h>
-
-////
 /*
 * Base64 encoding/decoding (RFC1341)
 * Copyright (c) 2005-2011, Jouni Malinen <j@w1.fi>
