@@ -40,6 +40,17 @@ yarn
 yarn start
 ```
 
+## Node Troubleshooting (macOS)
+
+Solution to 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
+
+```
+sudo chown -R $USER /usr/local/lib/
+sudo chown -R $USER /usr/local/lib/node_modules/
+sudo chown -R $USER /usr/local/bin/
+sudo chown -R $USER /usr/local/share/
+```
+
 ## Recommended Development Environment
 
 - Open 'engine' folder in CLion
