@@ -28,6 +28,10 @@ brew install glew
 brew install opencv
 ```
 
+## Recommended Development Environment
+
+Open 'engine' folder in CLion and open 'editor' folder in Webstorm
+
 ## Get Started (macOS)
 
 ```
