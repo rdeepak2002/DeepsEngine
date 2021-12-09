@@ -4,7 +4,7 @@
 Deepak Ramalingam
 
 ## About
-2D and 3D game engine using OpenGL, GLFW, GLEW, C++, Node, Node-API, React, Electron, and Typescript.
+2D and 3D game engine using OpenGL, GLFW, GLEW, C++, Node, Node-API, React, Electron, and Typescript
 
 ## Requirements (macOS)
 
