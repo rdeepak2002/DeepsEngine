@@ -10,18 +10,30 @@ Deepak Ramalingam
 
 - Xcode (https://apps.apple.com/us/app/xcode/id497799835?mt=12)
 - Homebrew (https://brew.sh/)
-- CMake (https://cmake.org/download/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- Glad
+  - generate zip file from https://glad.dav1d.de/ (gl: 'Version 3.3', profile: 'Core', 'Generate a loader' ticked)
+    - Permalink: https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on
+  - extract zip, then move 'glad' and 'KHR' folders (located in 'include' folder) to '/usr/local/include'
+  - change line 89 of 'glad.h' from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
+- CMake (refer to below commands)
 - GLFW (refer to below commands)
+  - change lines 12 and 20 of CMakeLists.txt if necessary
 - GLEW (refer to below commands)
+  - change lines 11 and 19 of CMakeLists.txt if necessary
 - OpenCV (refer to below commands)
 
 ```
+brew install cmake
 brew install glfw3
 brew install glew
 brew install opencv
 ```
+
+## Recommended Development Environment
+
+Open 'engine' folder in CLion and open 'editor' folder in WebStorm
 
 ## Get Started (macOS)
 
