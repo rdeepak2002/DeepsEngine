@@ -34,7 +34,9 @@ brew install opencv
 
 ## Recommended Development Environment
 
-Open 'engine' folder in CLion and open 'editor' folder in WebStorm
+- Open 'engine' folder in CLion
+  - Enable autoreload for CMake changes
+- Open 'editor' folder in WebStorm
 
 ## Get Started (macOS)
 
