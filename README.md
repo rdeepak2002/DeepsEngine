@@ -37,8 +37,8 @@ brew install opencv
 
 ```
 git clone https://github.com/rdeepak2002/deeps-engine.git
-cd deeps-engine
-cd editor
+cd deeps-engine/editor
+
 yarn
 yarn start
 ```
