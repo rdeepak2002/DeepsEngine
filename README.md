@@ -36,6 +36,7 @@ brew install opencv
 ## Get Started (macOS)
 
 ```
+git clone https://github.com/rdeepak2002/deeps-engine.git
 cd editor
 yarn
 yarn start
