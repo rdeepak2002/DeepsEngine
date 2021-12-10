@@ -59,4 +59,5 @@ sudo chown -R $USER /usr/local/share/
 
 - open 'engine' folder in CLion
   - enable autoreload for CMake changes
+  - recommended plugin for GLSL: https://plugins.jetbrains.com/plugin/6993-glsl-support
 - open 'editor' folder in WebStorm
