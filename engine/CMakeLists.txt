@@ -20,7 +20,13 @@ set(GLFW_LINK /usr/local/Cellar/glfw/3.3.5/lib/libglfw.3.dylib)
 link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${OpenCV_LIBS})
 
 # specify whether this should run as a standalone or library
-set(RUN_STANDALONE FALSE)
+if(DEFINED ENV{STANDALONE})
+    message(STATUS "running engine in standalone mode")
+    set(RUN_STANDALONE TRUE)
+else()
+    message(STATUS "building engine as compiled library")
+    set(RUN_STANDALONE FALSE)
+endif()
 
 # standalone engine
 if (RUN_STANDALONE)

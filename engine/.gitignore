@@ -3,6 +3,8 @@
 node_modules/
 
 cmake-build-debug/
+cmake-build-library/
+cmake-build-standalone/
 
 build/
 
