@@ -88,8 +88,8 @@ const Index = () => {
     // render message
     return (
         <>
-            <div>test wow</div>
             <div>{message}</div>
+            <div>test</div>
             <button onClick={() => {
                 const messageObj = {
                     name: 'start-renderer',
@@ -102,7 +102,7 @@ const Index = () => {
             }}>Start Renderer
             </button>
             {frameData &&
-            <img style={{width: 300, height: 300}} src={frameData}/>
+                <img style={{width: 300, height: 300}} src={frameData}/>
             }
         </>
     );

@@ -16,7 +16,7 @@
     "prebuild-all": "echo \"\\x1b[104m\\x1b[97m[ Building All ]\\x1b[0m\"",
     "build-all": "yarn build-engine && yarn build-react && yarn build-electron",
     "prelaunch-electron": "echo \"\\x1b[105m\\x1b[97m[ Launching Electron ]\\x1b[0m\"",
-    "launch-electron": "electron dist/electron.js & yarn watch-react",
+    "launch-electron": "concurrently \"electron dist/electron.js\" \"yarn watch-react\"",
     "prestart": "yarn clean && yarn build-all",
     "start": "yarn launch-electron",
     "prestart-editor": "yarn build-react && yarn build-electron",
@@ -26,6 +26,7 @@
   "author": "Deepak Ramalingam",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.4.0",
     "electron-reload": "^2.0.0-alpha.1",
     "fs": "^0.0.1-security",
     "node-addon-api": "^4.2.0"
