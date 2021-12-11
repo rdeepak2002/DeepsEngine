@@ -65,3 +65,4 @@ sudo chown -R $USER /usr/local/share/
     - Standalone
       - In "Environment" add "STANDALONE="
 - open 'editor' folder in WebStorm
+  - add a configuration for 'npm start'
