@@ -158,17 +158,17 @@ const Index = () => {
         <ColorModeContext.Provider value={colorMode}>
             <MUI.ThemeProvider theme={theme}>
                 <MUI.CssBaseline>
-                    <MUI.Grid container direction="row" alignItems="stretch" className={classes.maxHeight}>
+                    <MUI.Grid container direction="row" alignItems="stretch" justifyContent="center" className={classes.maxHeight}>
                         <MUI.Grid item xs>
-                            <MUI.Typography color="primary" variant="body1">
+                            <MUI.Typography color="primary" variant="body1" align="center">
                                 TODO: scene objects panel
                             </MUI.Typography>
                         </MUI.Grid>
 
                         <MUI.Grid item>
-                            <MUI.Grid container direction="column" alignItems="stretch">
+                            <MUI.Grid container direction="column" alignItems="stretch" justifyContent="center">
                                 <MUI.Grid item xs>
-                                    <MUI.Typography color="primary" variant="body1">
+                                    <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: header with play button to run game
                                     </MUI.Typography>
                                 </MUI.Grid>
@@ -180,7 +180,7 @@ const Index = () => {
                                         )
                                         :
                                         (
-                                            <MUI.Typography color="primary" variant="body1">
+                                            <MUI.Typography color="primary" variant="body1" align="center">
                                                 loading...
                                                 {/*<MUI.Button variant="contained" onClick={() => {*/}
                                                 {/*    const messageObj = {*/}
@@ -198,7 +198,7 @@ const Index = () => {
                                 </MUI.Grid>
 
                                 <MUI.Grid item xs>
-                                    <MUI.Typography color="primary" variant="body1">
+                                    <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: console
                                     </MUI.Typography>
                                 </MUI.Grid>
@@ -206,7 +206,7 @@ const Index = () => {
                         </MUI.Grid>
 
                         <MUI.Grid item xs>
-                            <MUI.Typography color="primary" variant="body1">
+                            <MUI.Typography color="primary" variant="body1" align="center">
                                 TODO: inspector
                             </MUI.Typography>
                         </MUI.Grid>
