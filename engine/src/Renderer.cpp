@@ -10,6 +10,8 @@
 static const unsigned char base64_table[65] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
+unsigned int shaderId;
+
 /**
 * base64_encode - Base64 encode
 * @src: Data to be encoded
@@ -195,6 +197,11 @@ int Renderer::init() {
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
+    std::string vertexShaderPath = enginePath + "src/shaders/shader.vert";
+    std::string fragmentShaderPath = enginePath + "src/shaders/shader.frag";
+    Shader ourShader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
+    shaderId = ourShader.ID;
+
     // return 0 on success
     return 0;
 }
@@ -211,10 +218,9 @@ void Renderer::render() {
 
     // draw our first triangle
 //    glUseProgram(shaderProgram);
-    std::string vertexShaderPath = enginePath + "src/shaders/shader.vert";
-    std::string fragmentShaderPath = enginePath + "src/shaders/shader.frag";
-    Shader ourShader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
-    ourShader.use();
+//    std::string vertexShaderPath = enginePath + "src/shaders/shader.vert";
+//    std::string fragmentShaderPath = enginePath + "src/shaders/shader.frag";
+    glUseProgram(shaderId);
 //    ourShader.setFloat("ourColor", )
     glBindVertexArray(
             VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
