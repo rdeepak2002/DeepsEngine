@@ -1,5 +1,6 @@
 import {PaletteMode} from "@mui/material";
-import {amber, deepOrange, grey} from "@mui/material/colors";
+import {makeStyles} from "@mui/styles";
+// import {amber, deepOrange, grey} from "@mui/material/colors";
 
 export const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -29,3 +30,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             }),
     },
 });
+
+export const useStyles = makeStyles(() => ({
+    maxHeight: {
+        height: "100%",
+    },
+}));

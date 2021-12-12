@@ -3,17 +3,17 @@ import * as React from 'react';
 
 import * as MUI from "@mui/material";
 import {createTheme, PaletteMode} from "@mui/material";
-import {makeStyles} from "@mui/styles";
 import {useEffect} from "react";
-import {getDesignTokens} from "./design-tokens";
+import {getDesignTokens, useStyles} from "./theme";
+import {imageData, messageData} from "./interfaces";
 
 const electron = window.require('electron');
-const {ipcRenderer, remote} = electron;
+const {ipcRenderer} = electron;
 
 const Index = () => {
     // message hook
-    const [message, setMessage] = React.useState('no message');
-    const [frameData, setFrameData] = React.useState<any>(undefined);
+    const [, setMessage] = React.useState('no message');
+    const [frameData, setFrameData] = React.useState<string | undefined>(undefined);
 
     const requestForNewFrame = () => {
         const messageObj = {
@@ -26,7 +26,7 @@ const Index = () => {
         ipcRenderer.send('asynchronous-message', messageObj);
     }
 
-    const updateImageFrame = (data: any) => {
+    const updateImageFrame = (data: imageData) => {
         const imageType: string = data.imageType;
         const imageEncoding: string = data.imageEncoding;
         const imageData: string = data.imageData;
@@ -46,7 +46,7 @@ const Index = () => {
         ipcRenderer.send('asynchronous-message', messageObj);
 
         // handle message or reply received from server
-        const messageHandler = (event: any, arg: any) => {
+        const messageHandler = (event: unknown, arg: messageData) => {
             // console.log('got reply', arg);
 
             // handle invalid reply
@@ -73,7 +73,7 @@ const Index = () => {
                     requestForNewFrame();
                     break;
                 case 'image-data':
-                    updateImageFrame(data);
+                    updateImageFrame(data as imageData);
                     break;
                 default:
                     console.warn('unknown message: ', arg);
@@ -117,13 +117,6 @@ const Index = () => {
     }});
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-
-    const useStyles = makeStyles((theme) => ({
-        maxHeight: {
-            height: "100%",
-        },
-    }));
-
     const classes = useStyles();
 
     // render message
