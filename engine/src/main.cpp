@@ -8,7 +8,7 @@ int main() {
     bool showWindow = true;
     bool saveOutputRender = false;
 
-    Renderer *renderer = new Renderer(showWindow, saveOutputRender);
+    Renderer *renderer = new Renderer(showWindow, saveOutputRender, "./");
 
     renderer->init();
 

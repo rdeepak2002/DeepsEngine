@@ -10,32 +10,33 @@
 #include <iostream>
 #include <vector>
 #include <opencv2/opencv.hpp>
-//#include "Shader.h"
 
 class Renderer {
 private:
+    std::string enginePath;
     bool showWindow;
     bool saveOutputRender;
     const unsigned int SCR_WIDTH = 800;
     const unsigned int SCR_HEIGHT = 600;
-    unsigned int shaderProgram;
+//    unsigned int shaderProgram;
     unsigned int VBO, VAO;
-    const char *vertexShaderSource = "#version 330 core\n"
-                                     "layout (location = 0) in vec3 aPos;\n"
-                                     "void main()\n"
-                                     "{\n"
-                                     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                     "}\0";
-    const char *fragmentShaderSource = "#version 330 core\n"
-                                       "out vec4 FragColor;\n"
-                                       "void main()\n"
-                                       "{\n"
-                                       "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-                                       "}\n\0";
+//    const char *vertexShaderSource = "#version 330 core\n"
+//                                     "layout (location = 0) in vec3 aPos;\n"
+//                                     "void main()\n"
+//                                     "{\n"
+//                                     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+//                                     "}\0";
+//    const char *fragmentShaderSource = "#version 330 core\n"
+//                                       "out vec4 FragColor;\n"
+//                                       "void main()\n"
+//                                       "{\n"
+//                                       "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+//                                       "}\n\0";
 public:
-    Renderer(bool showWindow, bool saveOutputRender) {
+    Renderer(bool showWindow, bool saveOutputRender, std::string enginePath) {
         this->showWindow = showWindow;
         this->saveOutputRender = saveOutputRender;
+        this->enginePath = enginePath;
     }
 
     GLFWwindow *window;

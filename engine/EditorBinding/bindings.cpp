@@ -9,11 +9,11 @@ std::string bindings::checkEngineStatus(int num) {
     return "Engine Running, received input " + std::to_string(num);
 }
 
-void bindings::createRenderer(bool showWindow, bool saveOutputRender) {
+void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::string enginePath) {
     if (renderer)
         renderer->shutDown();
 
-    renderer = new Renderer(showWindow, saveOutputRender);
+    renderer = new Renderer(showWindow, saveOutputRender, enginePath);
 
     renderer->init();
 }
@@ -68,7 +68,7 @@ void bindings::CreateRendererWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
 
-    if (info.Length() != 2) {
+    if (info.Length() != 3) {
         if (!info[0].IsBoolean()) {
             Napi::TypeError::New(env, "Boolean expected for show window").ThrowAsJavaScriptException();
         }
@@ -76,12 +76,17 @@ void bindings::CreateRendererWrapped(const Napi::CallbackInfo &info) {
         if (!info[1].IsBoolean()) {
             Napi::TypeError::New(env, "Boolean expected for save output render").ThrowAsJavaScriptException();
         }
+
+        if (!info[2].IsBoolean()) {
+            Napi::TypeError::New(env, "String expected for engine path").ThrowAsJavaScriptException();
+        }
     }
 
     Napi::Boolean showWindow = info[0].As<Napi::Boolean>();
     Napi::Boolean saveOutputRender = info[1].As<Napi::Boolean>();
+    Napi::String enginePath = info[2].As<Napi::String>();
 
-    bindings::createRenderer(showWindow.Value(), saveOutputRender.Value());
+    bindings::createRenderer(showWindow.Value(), saveOutputRender.Value(), enginePath.Utf8Value());
 }
 
 void bindings::UpdateRendererWrapped(const Napi::CallbackInfo &info) {

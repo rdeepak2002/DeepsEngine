@@ -3,7 +3,7 @@
 namespace bindings {
     std::string checkEngineStatus(int num);
 
-    void createRenderer(bool showWindow, bool saveOutputRender);
+    void createRenderer(bool showWindow, bool saveOutputRender, std::string enginePath);
 
     void updateRenderer();
 
