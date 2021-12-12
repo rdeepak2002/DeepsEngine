@@ -149,8 +149,8 @@ const Index = () => {
         <ColorModeContext.Provider value={colorMode}>
             <MUI.ThemeProvider theme={theme}>
                 <MUI.CssBaseline>
-                    <MUI.Grid container direction="row" alignItems="stretch">
-                        <MUI.Grid item>
+                    <MUI.Grid container direction="row" alignItems="stretch" flexGrow={1}>
+                        <MUI.Grid item xs>
                             <MUI.Typography color="primary" variant="body1">
                                 TODO: scene objects panel
                             </MUI.Typography>
@@ -158,13 +158,13 @@ const Index = () => {
 
                         <MUI.Grid item>
                             <MUI.Grid container direction="column" alignItems="stretch">
-                                <MUI.Grid item>
+                                <MUI.Grid item xs>
                                     <MUI.Typography color="primary" variant="body1">
                                         TODO: header with play button to run game
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item>
+                                <MUI.Grid item xs>
                                     {frameData ?
                                         (
                                             <img style={{width: 300, height: 300}} src={frameData}/>
@@ -188,7 +188,7 @@ const Index = () => {
                                     }
                                 </MUI.Grid>
 
-                                <MUI.Grid item>
+                                <MUI.Grid item xs>
                                     <MUI.Typography color="primary" variant="body1">
                                         TODO: console
                                     </MUI.Typography>
@@ -196,7 +196,7 @@ const Index = () => {
                             </MUI.Grid>
                         </MUI.Grid>
 
-                        <MUI.Grid item>
+                        <MUI.Grid item xs>
                             <MUI.Typography color="primary" variant="body1">
                                 TODO: inspector
                             </MUI.Typography>
