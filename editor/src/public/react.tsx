@@ -4,16 +4,16 @@ import * as React from 'react';
 import * as MUI from "@mui/material";
 import {createTheme, PaletteMode} from "@mui/material";
 import {makeStyles} from "@mui/styles";
-import {amber, deepOrange, grey} from "@mui/material/colors";
 import {useEffect} from "react";
+import {getDesignTokens} from "./design-tokens";
 
-const electron = require('electron');
+const electron = window.require('electron');
 const {ipcRenderer, remote} = electron;
 
 const Index = () => {
     // message hook
     const [message, setMessage] = React.useState('no message');
-    const [frameData, setFrameData] = React.useState(undefined);
+    const [frameData, setFrameData] = React.useState<any>(undefined);
 
     const requestForNewFrame = () => {
         const messageObj = {
@@ -26,11 +26,11 @@ const Index = () => {
         ipcRenderer.send('asynchronous-message', messageObj);
     }
 
-    const updateImageFrame = (data) => {
+    const updateImageFrame = (data: any) => {
         const imageType: string = data.imageType;
         const imageEncoding: string = data.imageEncoding;
         const imageData: string = data.imageData;
-        const encoded: string = `data:image/${imageType};${imageEncoding}, ${imageData}`;
+        const encoded = `data:image/${imageType};${imageEncoding}, ${imageData}`;
         setFrameData(encoded);
     }
 
@@ -46,7 +46,7 @@ const Index = () => {
         ipcRenderer.send('asynchronous-message', messageObj);
 
         // handle message or reply received from server
-        const messageHandler = (event, arg) => {
+        const messageHandler = (event: any, arg: any) => {
             // console.log('got reply', arg);
 
             // handle invalid reply
@@ -112,36 +112,9 @@ const Index = () => {
         [],
     );
 
-    const getDesignTokens = (mode: PaletteMode) => ({
-        palette: {
-            mode,
-            ...(mode === 'light'
-                ? {
-                    // palette values for light mode
-                    // primary: amber,
-                    // divider: amber[200],
-                    // text: {
-                    //     primary: grey[900],
-                    //     secondary: grey[800],
-                    // },
-                }
-                : {
-                    // palette values for dark mode
-                    // primary: deepOrange,
-                    // divider: deepOrange[700],
-                    // background: {
-                    //     default: deepOrange[900],
-                    //     paper: deepOrange[900],
-                    // },
-                    // text: {
-                    //     primary: '#fff',
-                    //     secondary: grey[500],
-                    // },
-                }),
-        },
-    });
-
-    const ColorModeContext = React.createContext({toggleColorMode: () => {}});
+    const ColorModeContext = React.createContext({toggleColorMode: () => {
+        console.log('unimplemented toggle color mode method')
+    }});
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
