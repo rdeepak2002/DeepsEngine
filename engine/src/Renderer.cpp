@@ -197,8 +197,8 @@ int Renderer::init() {
     // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
-    std::string vertexShaderPath = enginePath + "src/shaders/shader.vert";
-    std::string fragmentShaderPath = enginePath + "src/shaders/shader.frag";
+    std::string vertexShaderPath = projectPath + "/shaders/shader.vert";
+    std::string fragmentShaderPath = projectPath + "/shaders/shader.frag";
     Shader ourShader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
     shaderId = ourShader.ID;
 
@@ -218,8 +218,8 @@ void Renderer::render() {
 
     // draw our first triangle
 //    glUseProgram(shaderProgram);
-//    std::string vertexShaderPath = enginePath + "src/shaders/shader.vert";
-//    std::string fragmentShaderPath = enginePath + "src/shaders/shader.frag";
+//    std::string vertexShaderPath = projectPath + "src/shaders/shader.vert";
+//    std::string fragmentShaderPath = projectPath + "src/shaders/shader.frag";
     glUseProgram(shaderId);
 //    ourShader.setFloat("ourColor", )
     glBindVertexArray(

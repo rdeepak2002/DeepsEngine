@@ -13,7 +13,7 @@
 
 class Renderer {
 private:
-    std::string enginePath;
+    std::string projectPath;
     bool showWindow;
     bool saveOutputRender;
     const unsigned int SCR_WIDTH = 800;
@@ -33,10 +33,10 @@ private:
 //                                       "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 //                                       "}\n\0";
 public:
-    Renderer(bool showWindow, bool saveOutputRender, std::string enginePath) {
+    Renderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
         this->showWindow = showWindow;
         this->saveOutputRender = saveOutputRender;
-        this->enginePath = enginePath;
+        this->projectPath = projectPath;
     }
 
     GLFWwindow *window;

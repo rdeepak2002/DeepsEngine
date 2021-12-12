@@ -9,11 +9,11 @@ std::string bindings::checkEngineStatus(int num) {
     return "Engine Running, received input " + std::to_string(num);
 }
 
-void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::string enginePath) {
+void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
     if (renderer)
         renderer->shutDown();
 
-    renderer = new Renderer(showWindow, saveOutputRender, enginePath);
+    renderer = new Renderer(showWindow, saveOutputRender, projectPath);
 
     renderer->init();
 }
@@ -84,9 +84,9 @@ void bindings::CreateRendererWrapped(const Napi::CallbackInfo &info) {
 
     Napi::Boolean showWindow = info[0].As<Napi::Boolean>();
     Napi::Boolean saveOutputRender = info[1].As<Napi::Boolean>();
-    Napi::String enginePath = info[2].As<Napi::String>();
+    Napi::String projectPath = info[2].As<Napi::String>();
 
-    bindings::createRenderer(showWindow.Value(), saveOutputRender.Value(), enginePath.Utf8Value());
+    bindings::createRenderer(showWindow.Value(), saveOutputRender.Value(), projectPath.Utf8Value());
 }
 
 void bindings::UpdateRendererWrapped(const Napi::CallbackInfo &info) {
