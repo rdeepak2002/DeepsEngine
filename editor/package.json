@@ -17,7 +17,7 @@
     "launch-electron": "concurrently \"electron src/electron.js\" \"yarn watch-react\"",
     "prestart": "yarn clean && yarn build-all",
     "start": "yarn launch-electron",
-    "prestart-editor": "yarn build-react && yarn build-electron",
+    "prestart-editor": "yarn build-react",
     "start-editor": "yarn launch-electron",
     "reload": "yarn build-react"
   },
@@ -35,6 +35,7 @@
     "concurrently": "^6.4.0",
     "electron-reload": "^2.0.0-alpha.1",
     "fs": "^0.0.1-security",
+    "material-ui-image": "^3.3.2",
     "node-addon-api": "^4.2.0"
   },
   "devDependencies": {

@@ -13,7 +13,7 @@ const {ipcRenderer} = electron;
 const Index = () => {
     // message hook
     const [, setMessage] = React.useState('no message');
-    const [frameData, setFrameData] = React.useState<string | undefined>(undefined);
+    const [frameData, setFrameData] = React.useState<string>('');
 
     const requestForNewFrame = () => {
         const messageObj = {
@@ -124,61 +124,39 @@ const Index = () => {
         <ColorModeContext.Provider value={colorMode}>
             <MUI.ThemeProvider theme={theme}>
                 <MUI.CssBaseline>
-                    <MUI.Grid container direction="row" alignItems="stretch" justifyContent="center" className={classes.maxHeight}>
-                        <MUI.Grid item xs>
+                    <MUI.Grid container direction="column" justifyContent="center" className={classes.maxHeight}>
+                        <MUI.Grid item xs={2}>
                             <MUI.Typography color="primary" variant="body1" align="center">
-                                TODO: scene objects panel
+                                TODO: header with play button to run game
                             </MUI.Typography>
                         </MUI.Grid>
 
-                        <MUI.Grid item>
-                            <MUI.Grid container direction="column" alignItems="stretch" justifyContent="center">
-                                <MUI.Grid item xs>
+                        <MUI.Grid item xs={8}>
+                            <MUI.Grid container direction="row" justifyContent="center" className={classes.maxHeight}>
+                                <MUI.Grid item xs={3}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
-                                        TODO: header with play button to run game
+                                        TODO: scene objects panel
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs>
-                                    {frameData ?
-                                        (
-                                            <img style={{width: 300, height: 300}} src={frameData}/>
-                                        )
-                                        :
-                                        (
-                                            <MUI.Typography color="primary" variant="body1" align="center">
-                                                loading...
-                                                {/*<MUI.Button variant="contained" onClick={() => {*/}
-                                                {/*    const messageObj = {*/}
-                                                {/*        name: 'start-renderer',*/}
-                                                {/*        data: {*/}
-                                                {/*            "createdAt": Date.now()*/}
-                                                {/*        }*/}
-                                                {/*    };*/}
-
-                                                {/*    ipcRenderer.send('asynchronous-message', messageObj);*/}
-                                                {/*}}>Start Renderer</MUI.Button>*/}
-                                            </MUI.Typography>
-                                        )
-                                    }
+                                <MUI.Grid item xs={6} className={classes.scrollOverflow}>
+                                    <img src={frameData || 'loading'} className={classes.sceneViewScreen}/>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs>
+                                <MUI.Grid item xs={3}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
-                                        TODO: console
+                                        TODO: inspector
                                     </MUI.Typography>
                                 </MUI.Grid>
                             </MUI.Grid>
                         </MUI.Grid>
 
-                        <MUI.Grid item xs>
+                        <MUI.Grid item xs={2}>
                             <MUI.Typography color="primary" variant="body1" align="center">
-                                TODO: inspector
+                                TODO: console
                             </MUI.Typography>
                         </MUI.Grid>
                     </MUI.Grid>
-
-
                 </MUI.CssBaseline>
             </MUI.ThemeProvider>
         </ColorModeContext.Provider>
