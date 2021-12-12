@@ -60,6 +60,7 @@ sudo chown -R $USER /usr/local/share/
 - open 'engine' folder in CLion
   - enable autoreload for CMake changes
   - recommended plugin for GLSL: https://plugins.jetbrains.com/plugin/6993-glsl-support
+  - In configurations, set the working directory to the one the engine has
   - go to Preferences -> Build, Execution, Deployment -> CMake and add 2 profiles:
     - Library (same as default)
     - Standalone
