@@ -12,11 +12,13 @@ module.exports = [
         //     poll: 1000,
         // },
         module: {
-            rules: [{
-                test: /\.ts(x?)$/,
-                include: /src/,
-                use: [{loader: 'ts-loader'}]
-            }]
+            rules: [
+                {
+                    test: /\.ts(x?)$/,
+                    include: /src/,
+                    use: [{loader: 'ts-loader'}]
+                },
+            ]
         },
         output: {
             path: __dirname + '/dist',

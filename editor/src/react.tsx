@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import * as MUI from "@mui/material";
 import {createTheme, PaletteMode} from "@mui/material";
+import {makeStyles} from "@mui/styles";
 import {amber, deepOrange, grey} from "@mui/material/colors";
 import {useEffect} from "react";
 
@@ -144,12 +145,20 @@ const Index = () => {
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
+    const useStyles = makeStyles((theme) => ({
+        maxHeight: {
+            height: "100%",
+        },
+    }));
+
+    const classes = useStyles();
+
     // render message
     return (
         <ColorModeContext.Provider value={colorMode}>
             <MUI.ThemeProvider theme={theme}>
                 <MUI.CssBaseline>
-                    <MUI.Grid container direction="row" alignItems="stretch" flexGrow={1}>
+                    <MUI.Grid container direction="row" alignItems="stretch" className={classes.maxHeight}>
                         <MUI.Grid item xs>
                             <MUI.Typography color="primary" variant="body1">
                                 TODO: scene objects panel
