@@ -131,19 +131,19 @@ const Index = () => {
                             </MUI.Typography>
                         </MUI.Grid>
 
-                        <MUI.Grid item xs={8}>
+                        <MUI.Grid item xs={8} className={classes.hiddenOverflow}>
                             <MUI.Grid container direction="row" justifyContent="center" className={classes.maxHeight}>
-                                <MUI.Grid item xs={3}>
+                                <MUI.Grid item xs={3} className={classes.scrollOverflow}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: scene objects panel
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={6} className={classes.scrollOverflow}>
+                                <MUI.Grid item xs={6}  className={classes.scrollOverflow}>
                                     <img src={frameData || 'loading'} className={classes.sceneViewScreen}/>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={3}>
+                                <MUI.Grid item xs={3}  className={classes.scrollOverflow}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: inspector
                                     </MUI.Typography>

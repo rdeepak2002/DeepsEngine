@@ -34,16 +34,20 @@ export const getDesignTokens = (mode: PaletteMode) => ({
 export const useStyles = makeStyles(() => ({
     maxHeight: {
         height: "100%",
+        maxHeight: "100%"
     },
     flexGrow:  {
         flexGrow: 1
     },
     sceneViewScreen: {
         maxWidth: '100%',
-        maxHeight: '100%',
-        overflow: 'hidden'
+        maxHeight: '80vh',
+        height: 'auto'
     },
     scrollOverflow: {
+        overflow: 'scroll'
+    },
+    hiddenOverflow: {
         overflow: 'hidden'
     }
 }));
