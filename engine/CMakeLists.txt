@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 # Don't add this line if you will try_compile with boost.
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(OpenCV_DIR /usr/local/Cellar/opencv/4.5.3_3/lib)
+set(OpenCV_DIR /usr/local/Cellar/opencv/4.5.4/lib)
 find_package( OpenCV REQUIRED )
 
 set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
