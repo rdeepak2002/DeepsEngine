@@ -6,6 +6,9 @@
 #include <string>
 #include "Shader.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 // base 64 string table
 static const unsigned char base64_table[65] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
