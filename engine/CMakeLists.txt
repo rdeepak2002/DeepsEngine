@@ -12,7 +12,8 @@ set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
 set(GLFW_H /usr/local/Cellar/glfw/3.3.5/include/GLFW)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS})
+set(GLM /usr/local/include/glm)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS} ${GLM})
 
 # Add target link
 set(GLEW_LINK /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)

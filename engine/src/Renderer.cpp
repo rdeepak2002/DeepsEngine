@@ -5,6 +5,8 @@
 #include "Renderer.h"
 #include <string>
 #include "Shader.h"
+#include <glm.hpp>
+#include <ext/matrix_transform.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -241,52 +243,6 @@ int Renderer::init() {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
-//    // load and create texture1
-//    // -------------------------
-//    std::string texture1Path = projectPath + "/textures/container.jpg";
-//    glGenTextures(1, &texture1);
-//    glBindTexture(GL_TEXTURE_2D, texture1);
-//    // set the texture wrapping/filtering options (on the currently bound texture object)
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    // load and generate the texture
-//    int width, height, nrChannels;
-//    unsigned char *dataTex1 = stbi_load(texture1Path.c_str(), &width, &height, &nrChannels, 0);
-//    if (dataTex1)
-//    {
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTex1);
-//        glGenerateMipmap(GL_TEXTURE_2D);
-//    }
-//    else
-//    {
-//        std::cout << "Failed to load texture" << std::endl;
-//    }
-//    stbi_image_free(dataTex1);
-//
-//    // load and create texture2
-//    // -------------------------
-//    std::string texture2Path = projectPath + "/textures/awesomeface.png";
-//    glGenTextures(1, &texture2);
-//    glBindTexture(GL_TEXTURE_2D, texture2);
-//    // set the texture wrapping/filtering options (on the currently bound texture object)
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    // load and generate the texture
-//    unsigned char *dataTex2 = stbi_load(texture2Path.c_str(), &width, &height, &nrChannels, 0);
-//    if (dataTex2)
-//    {
-//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataTex2);
-//        glGenerateMipmap(GL_TEXTURE_2D);
-//    }
-//    else
-//    {
-//        std::cout << "Failed to load texture" << std::endl;
-//    }
-//    stbi_image_free(dataTex2);
 
     // return 0 on success
     return 0;
