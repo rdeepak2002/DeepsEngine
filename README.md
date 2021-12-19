@@ -31,6 +31,7 @@ Deepak Ramalingam
 brew install cmake
 brew install glfw3
 brew install glew
+brew install glm
 brew install opencv
 ```
 
