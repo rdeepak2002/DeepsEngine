@@ -133,13 +133,6 @@ int Renderer::init() {
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-//    float vertices[] = {
-//            // positions
-//            0.5f,  0.5f, 0.0f,
-//            0.5f, -0.5f, 0.0f,
-//            -0.5f, -0.5f, 0.0f,
-//            -0.5f,  0.5f, 0.0f,
-//    };
     float vertices[] = {
             // positions          // colors           // texture coords
             0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
@@ -164,9 +157,6 @@ int Renderer::init() {
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
-//    glEnableVertexAttribArray(0);
 
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
@@ -233,7 +223,6 @@ void Renderer::render() {
     // draw our first triangle
     glUseProgram(shaderProgramId);
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-//    glDrawArrays(GL_TRIANGLES, 0, 3);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
