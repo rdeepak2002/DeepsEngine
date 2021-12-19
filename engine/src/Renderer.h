@@ -20,7 +20,7 @@ private:
     const unsigned int SCR_HEIGHT = 600;
     unsigned int VBO, VAO, EBO;
     unsigned int shaderProgramId;
-    unsigned int texture1;
+    unsigned int texture1, texture2;
 public:
     Renderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
         this->showWindow = showWindow;
