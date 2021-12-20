@@ -39,13 +39,15 @@ export const useStyles = makeStyles(() => ({
     flexGrow:  {
         flexGrow: 1
     },
+    screenViewContainer: {
+        maxWidth: '500px',
+        maxHeight: '500px'
+    },
     sceneViewScreen: {
-        // maxWidth: '100%',
-        // maxHeight: '80vh',
-        // width: '100%',
-        // height: 'auto'
         width: '100%',
         height: '100%'
+        // maxWidth: '100%',
+        // maxHeight: '100%'
     },
     scrollOverflow: {
         overflow: 'scroll'

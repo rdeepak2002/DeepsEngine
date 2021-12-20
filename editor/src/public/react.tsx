@@ -163,7 +163,7 @@ const Index = () => {
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={6}  className={classes.scrollOverflow} ref={screenContainerRef}>
+                                <MUI.Grid item xs={6}  className={classes.screenViewContainer} ref={screenContainerRef}>
                                     <img src={frameData || 'loading'} className={classes.sceneViewScreen}/>
                                 </MUI.Grid>
 

@@ -86,13 +86,13 @@ void Renderer::saveImage() {
     glReadBuffer(GL_FRONT);
     glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
 
-    // convert the buffer to an opencv image and return the base64 encoded version of iit
+    // convert the buffer to an opencv image and return the base64 encoded version of it
     cv::Mat img(height, width, CV_8UC3, buffer.data());
-//    cv::Mat scaled_down_img;
-//    double scale = 0.5;
-//    int newWidth = int(width * scale);
-//    int newHeight= int(height * scale);
-//    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
+    cv::Mat scaled_down_img;
+    double scale = 0.5;
+    int newWidth = int(width * scale);
+    int newHeight= int(height * scale);
+    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
     cv::Mat flipped_img;
     flip(img,flipped_img,0);
     cv::Mat BGR_img;
@@ -117,12 +117,12 @@ int Renderer::init() {
 #endif
 
     // make window invisible
-//    if (!showWindow)
-//        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    if (!showWindow)
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
     // glfw window creation
     // --------------------
-    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    window = glfwCreateWindow(scrWidth, scrHeight, "LearnOpenGL", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -255,6 +255,9 @@ int Renderer::init() {
 }
 
 void Renderer::render() {
+//    scrWidth = glutGet(GLUT_WINDOW_WIDTH);
+//    scrHeight = glutGet(GLUT_WINDOW_HEIGHT);
+
     // input
     // -----
     processInput(window);
@@ -274,8 +277,8 @@ void Renderer::render() {
     glUseProgram(shaderProgramId);
 
     glm::mat4 trans = glm::mat4(1.0f);
-//    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-//    trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+    trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
     unsigned int transformLoc = glGetUniformLocation(shaderProgramId, "transform");
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
@@ -291,6 +294,17 @@ void Renderer::render() {
     // save frame to image file
     if (saveOutputRender)
         saveImage();
+
+    // resize if necessary
+//    if(newWidth || newHeight) {
+//        glfwSetWindowSize(window, newWidth, newHeight);
+////        glViewport(0, 0, newWidth, newHeight);
+//        std::cout << "resizing new " << newWidth << " " << newHeight << std::endl;
+//        scrWidth = newWidth;
+//        scrHeight = newHeight;
+//        newWidth = 0;
+//        newHeight = 0;
+//    }
 }
 
 bool Renderer::shuttingDown() {
@@ -319,6 +333,8 @@ void Renderer::processInput(GLFWwindow *window) {
 void Renderer::handleEditorResize(int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
-    std::cout << "resizing " << width << " " << height << std::endl;
-    glViewport(0, 0, width, height);
+    newWidth = width;
+    newHeight = height;
+    // TODO: fix this
+//    glfwSetWindowSize(window, newWidth, newHeight);
 }

@@ -16,8 +16,10 @@ private:
     std::string projectPath;
     bool showWindow;
     bool saveOutputRender;
-    const unsigned int SCR_WIDTH = 800;
-    const unsigned int SCR_HEIGHT = 600;
+    int scrWidth = 800;
+    int scrHeight = 600;
+    int newWidth = 0;
+    int newHeight = 0;
     unsigned int VBO, VAO, EBO;
     unsigned int shaderProgramId;
     unsigned int texture1, texture2;
