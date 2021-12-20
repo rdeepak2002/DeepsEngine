@@ -18,8 +18,6 @@ private:
     bool saveOutputRender;
     int scrWidth = 800;
     int scrHeight = 600;
-    int newWidth = 0;
-    int newHeight = 0;
     unsigned int VBO, VAO, EBO;
     unsigned int shaderProgramId;
     unsigned int texture1, texture2;

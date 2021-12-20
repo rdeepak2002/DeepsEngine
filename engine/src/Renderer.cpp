@@ -88,11 +88,12 @@ void Renderer::saveImage() {
 
     // convert the buffer to an opencv image and return the base64 encoded version of it
     cv::Mat img(height, width, CV_8UC3, buffer.data());
-    cv::Mat scaled_down_img;
-    double scale = 0.5;
-    int newWidth = int(width * scale);
-    int newHeight= int(height * scale);
-    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
+    // TODO: compress image to improve efficiency
+//    cv::Mat scaled_down_img;
+//    double scale = 0.5;
+//    int newWidth = int(width * scale);
+//    int newHeight= int(height * scale);
+//    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
     cv::Mat flipped_img;
     flip(img,flipped_img,0);
     cv::Mat BGR_img;
@@ -331,10 +332,6 @@ void Renderer::processInput(GLFWwindow *window) {
 }
 
 void Renderer::handleEditorResize(int width, int height) {
-    // make sure the viewport matches the new window dimensions; note that width and
-    // height will be significantly larger than specified on retina displays.
-    newWidth = width;
-    newHeight = height;
-    // TODO: fix this
-//    glfwSetWindowSize(window, newWidth, newHeight);
+    // TODO: fix this (right now screen turns grey and becomes distorted)
+//    glfwSetWindowSize(window, width, height);
 }
