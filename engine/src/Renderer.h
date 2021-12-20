@@ -10,6 +10,7 @@
 #include <iostream>
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include "Shader.h"
 
 class Renderer {
 private:
@@ -19,8 +20,8 @@ private:
     int scrWidth = 800;
     int scrHeight = 600;
     unsigned int VBO, VAO, EBO;
-    unsigned int shaderProgramId;
     unsigned int texture1, texture2;
+    Shader* ourShader;
 public:
     Renderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
         this->showWindow = showWindow;

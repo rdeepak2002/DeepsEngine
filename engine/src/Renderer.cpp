@@ -188,15 +188,15 @@ int Renderer::init() {
     // build and compile shaders
     std::string vertexShaderPath = projectPath + "/shaders/shader.vert";
     std::string fragmentShaderPath = projectPath + "/shaders/shader.frag";
-    Shader ourShader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
-    shaderProgramId = ourShader.ID;
+//    Shader ourShader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
+    ourShader = new Shader(vertexShaderPath.c_str(), fragmentShaderPath.c_str());
 
     // define texture uniform variables for textures
-    glUseProgram(shaderProgramId);
+    ourShader->use();
     // either set it manually like so:
-    glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
+    ourShader->setInt("texture1", 0);
     // or set it via the texture class
-    ourShader.setInt("texture2", 1);
+    ourShader->setInt("texture2", 1);
 
     // load and create a texture
     // -------------------------
@@ -274,13 +274,29 @@ void Renderer::render() {
     glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
     glBindTexture(GL_TEXTURE_2D, texture2);
 
-    // use our shader and transform
-    glUseProgram(shaderProgramId);
+    // active shader
+    ourShader->use();
+
+//    // create transformations
+//    glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+//    glm::mat4 view          = glm::mat4(1.0f);
+//    glm::mat4 projection    = glm::mat4(1.0f);
+//    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+//    view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+//    projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+//    // retrieve the matrix uniform locations
+//    unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
+//    unsigned int viewLoc  = glGetUniformLocation(ourShader.ID, "view");
+//    // pass them to the shaders (3 different ways)
+//    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+//    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
+//    // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+//    ourShader.setMat4("projection", projection);
 
     glm::mat4 trans = glm::mat4(1.0f);
     trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
     trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
-    unsigned int transformLoc = glGetUniformLocation(shaderProgramId, "transform");
+    unsigned int transformLoc = glGetUniformLocation(ourShader->ID, "transform");
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
     // render container
