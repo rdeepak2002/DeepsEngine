@@ -88,6 +88,11 @@ void Renderer::saveImage() {
 
     // convert the buffer to an opencv image and return the base64 encoded version of iit
     cv::Mat img(height, width, CV_8UC3, buffer.data());
+//    cv::Mat scaled_down_img;
+//    double scale = 0.5;
+//    int newWidth = int(width * scale);
+//    int newHeight= int(height * scale);
+//    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
     cv::Mat flipped_img;
     flip(img,flipped_img,0);
     cv::Mat BGR_img;
@@ -309,4 +314,11 @@ void Renderer::shutDown() {
 void Renderer::processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+}
+
+void Renderer::handleEditorResize(int width, int height) {
+    // make sure the viewport matches the new window dimensions; note that width and
+    // height will be significantly larger than specified on retina displays.
+    std::cout << "resizing " << width << " " << height << std::endl;
+    glViewport(0, 0, width, height);
 }

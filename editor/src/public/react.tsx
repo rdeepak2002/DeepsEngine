@@ -14,6 +14,19 @@ const Index = () => {
     // message hook
     const [, setMessage] = React.useState('no message');
     const [frameData, setFrameData] = React.useState<string>('');
+    const screenContainerRef = React.useRef<any>(null);
+
+    const handleEditorResize = (width: number, height: number) => {
+        const messageObj = {
+            name: 'handle-editor-resize',
+            data: {
+                "width": width,
+                "height": height
+            }
+        };
+
+        ipcRenderer.send('asynchronous-message', messageObj);
+    }
 
     const requestForNewFrame = () => {
         const messageObj = {
@@ -34,6 +47,50 @@ const Index = () => {
         setFrameData(encoded);
     }
 
+    // handle message or reply received from server
+    const messageHandler = (event: unknown, arg: messageData) => {
+        // console.log('got reply', arg);
+
+        // handle invalid reply
+        if (!arg || !arg.name || !arg.data || !arg.status) {
+            console.error('invalid reply format: ', arg);
+            return;
+        }
+
+        // get data and status retrieved
+        const status = arg.status;
+        const data = arg.data;
+
+        // failure status received
+        if (status === 'failure') {
+            return;
+        }
+
+        // handle valid reply
+        switch (arg.name) {
+            case 'pong':
+                setMessage(`gotPong: ${JSON.stringify(arg)}`);
+                break;
+            case 'new-frame-available':
+                requestForNewFrame();
+                break;
+            case 'image-data':
+                updateImageFrame(data as imageData);
+                break;
+            default:
+                console.warn('unknown message: ', arg);
+                break;
+        }
+    }
+
+    // React.useEffect(() => {
+    //     if(screenContainerRef && screenContainerRef.current && frameData !== '') {
+    //         const newContainerWidth = screenContainerRef.current.offsetWidth;
+    //         const newContainerHeight = screenContainerRef.current.offsetHeight;
+    //         handleEditorResize(newContainerWidth, newContainerHeight);
+    //     }
+    // }, [screenContainerRef]);
+
     React.useEffect(() => {
         // send ping message to server
         const messageObj = {
@@ -44,42 +101,6 @@ const Index = () => {
         };
 
         ipcRenderer.send('asynchronous-message', messageObj);
-
-        // handle message or reply received from server
-        const messageHandler = (event: unknown, arg: messageData) => {
-            // console.log('got reply', arg);
-
-            // handle invalid reply
-            if (!arg || !arg.name || !arg.data || !arg.status) {
-                console.error('invalid reply format: ', arg);
-                return;
-            }
-
-            // get data and status retrieved
-            const status = arg.status;
-            const data = arg.data;
-
-            // failure status received
-            if (status === 'failure') {
-                return;
-            }
-
-            // handle valid reply
-            switch (arg.name) {
-                case 'pong':
-                    setMessage(`gotPong: ${JSON.stringify(arg)}`);
-                    break;
-                case 'new-frame-available':
-                    requestForNewFrame();
-                    break;
-                case 'image-data':
-                    updateImageFrame(data as imageData);
-                    break;
-                default:
-                    console.warn('unknown message: ', arg);
-                    break;
-            }
-        }
 
         // get message or reply from server
         ipcRenderer.on('asynchronous-reply', messageHandler);
@@ -139,7 +160,7 @@ const Index = () => {
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={6}  className={classes.scrollOverflow}>
+                                <MUI.Grid item xs={6}  className={classes.scrollOverflow} ref={screenContainerRef}>
                                     <img src={frameData || 'loading'} className={classes.sceneViewScreen}/>
                                 </MUI.Grid>
 

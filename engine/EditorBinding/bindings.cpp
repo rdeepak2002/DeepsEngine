@@ -19,15 +19,19 @@ void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::strin
 }
 
 bool bindings::rendererShuttingDown() {
+    if(!renderer)
+        return true;
     return renderer->shuttingDown();
 }
 
 void bindings::updateRenderer() {
-    renderer->render();
+    if(renderer)
+        renderer->render();
 }
 
 void bindings::shutDownRenderer() {
-    renderer->shutDown();
+    if(renderer)
+        renderer->shutDown();
 }
 
 std::string bindings::getCachedFrame() {
@@ -38,6 +42,11 @@ std::string bindings::getCachedFrame() {
     }
 
     return res;
+}
+
+void bindings::handleEditorResize(int width, int height) {
+    if(renderer)
+        renderer->handleEditorResize(width, height);
 }
 
 Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
@@ -106,6 +115,26 @@ Napi::Boolean bindings::RendererShuttingDownWrapped(const Napi::CallbackInfo &in
     return returnValue;
 }
 
+void bindings::HandleEditorResizeWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    if (info.Length() != 2) {
+        if (!info[0].IsNumber()) {
+            Napi::TypeError::New(env, "Width expected for resizing editor window").ThrowAsJavaScriptException();
+        }
+
+        if (!info[1].IsNumber()) {
+            Napi::TypeError::New(env, "Height expected for resizing editor window").ThrowAsJavaScriptException();
+        }
+    }
+
+    Napi::Number width = info[0].As<Napi::Number>();
+    Napi::Number height = info[1].As<Napi::Number>();
+
+    bindings::handleEditorResize(width.Int64Value(), height.Int64Value());
+}
+
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
             "checkEngineStatus", Napi::Function::New(env, bindings::CheckEngineStatusWrapped)
@@ -127,6 +156,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "shutDownRenderer", Napi::Function::New(env, bindings::ShutDownRendererWrapped)
+    );
+
+    exports.Set(
+            "handleEditorResize", Napi::Function::New(env, bindings::HandleEditorResizeWrapped)
     );
 
     return exports;

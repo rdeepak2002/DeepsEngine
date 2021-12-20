@@ -13,6 +13,8 @@ namespace bindings {
 
     std::string getCachedFrame();
 
+    void handleEditorResize(int width, int height);
+
     Napi::String GetCachedFrameWrapped(const Napi::CallbackInfo &info);
 
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
@@ -22,6 +24,8 @@ namespace bindings {
     void UpdateRendererWrapped(const Napi::CallbackInfo &info);
 
     void ShutDownRendererWrapped(const Napi::CallbackInfo &info);
+
+    void HandleEditorResizeWrapped(const Napi::CallbackInfo &info);
 
     Napi::Boolean RendererShuttingDownWrapped(const Napi::CallbackInfo &info);
 

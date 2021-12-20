@@ -42,6 +42,8 @@ public:
 
     void processInput(GLFWwindow *window);
 
+    void handleEditorResize(int width, int height);
+
     ~Renderer() {}
 };
 
