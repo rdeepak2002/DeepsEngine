@@ -83,13 +83,16 @@ const Index = () => {
         }
     }
 
-    // React.useEffect(() => {
-    //     if(screenContainerRef && screenContainerRef.current && frameData !== '') {
-    //         const newContainerWidth = screenContainerRef.current.offsetWidth;
-    //         const newContainerHeight = screenContainerRef.current.offsetHeight;
-    //         handleEditorResize(newContainerWidth, newContainerHeight);
-    //     }
-    // }, [screenContainerRef]);
+    React.useEffect(() => {
+        window.addEventListener('resize', () => {
+            if(screenContainerRef && screenContainerRef.current) {
+                const newContainerWidth = screenContainerRef.current.offsetWidth;
+                const newContainerHeight = screenContainerRef.current.offsetHeight;
+                // console.log('ref change', newContainerWidth);
+                handleEditorResize(newContainerWidth, newContainerHeight);
+            }
+        });
+    }, [screenContainerRef]);
 
     React.useEffect(() => {
         // send ping message to server
@@ -145,7 +148,7 @@ const Index = () => {
         <ColorModeContext.Provider value={colorMode}>
             <MUI.ThemeProvider theme={theme}>
                 <MUI.CssBaseline>
-                    <MUI.Grid container direction="column" justifyContent="center" className={classes.maxHeight}>
+                    <MUI.Grid container direction="column" justifyContent="center">
                         <MUI.Grid item xs={2}>
                             <MUI.Typography color="primary" variant="body1" align="center">
                                 TODO: header with play button to run game
@@ -153,7 +156,7 @@ const Index = () => {
                         </MUI.Grid>
 
                         <MUI.Grid item xs={8} className={classes.hiddenOverflow}>
-                            <MUI.Grid container direction="row" justifyContent="center" className={classes.maxHeight}>
+                            <MUI.Grid container direction="row" justifyContent="center">
                                 <MUI.Grid item xs={3} className={classes.scrollOverflow}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: scene objects panel

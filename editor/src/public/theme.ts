@@ -42,10 +42,10 @@ export const useStyles = makeStyles(() => ({
     sceneViewScreen: {
         // maxWidth: '100%',
         // maxHeight: '80vh',
-        width: '100%',
-        height: 'auto'
         // width: '100%',
-        // height: '100%'
+        // height: 'auto'
+        width: '100%',
+        height: '100%'
     },
     scrollOverflow: {
         overflow: 'scroll'

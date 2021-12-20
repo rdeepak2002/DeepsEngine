@@ -117,8 +117,8 @@ int Renderer::init() {
 #endif
 
     // make window invisible
-    if (!showWindow)
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+//    if (!showWindow)
+//        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 
     // glfw window creation
     // --------------------
@@ -274,8 +274,8 @@ void Renderer::render() {
     glUseProgram(shaderProgramId);
 
     glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
-    trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+//    trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+//    trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
     unsigned int transformLoc = glGetUniformLocation(shaderProgramId, "transform");
     glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
