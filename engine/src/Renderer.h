@@ -45,7 +45,10 @@ public:
 
     void handleEditorResize(int width, int height);
 
-    ~Renderer() {}
+    ~Renderer() {
+        delete ourShader;
+        ourShader = nullptr;
+    }
 };
 
 
