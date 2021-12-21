@@ -12,13 +12,14 @@
 #include <opencv2/opencv.hpp>
 #include "Shader.h"
 
+static int scrWidth = 800;
+static int scrHeight = 600;
+
 class Renderer {
 private:
     std::string projectPath;
     bool showWindow;
     bool saveOutputRender;
-    int scrWidth = 800;
-    int scrHeight = 600;
     unsigned int VBO, VAO, EBO;
     unsigned int texture1, texture2;
     Shader* ourShader;
@@ -32,6 +33,8 @@ public:
     GLFWwindow *window;
 
     std::string cachedFrame;
+
+//    void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 
     void saveImage();
 

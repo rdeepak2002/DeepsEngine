@@ -68,12 +68,6 @@ std::string base64_encode(const unsigned char *src, size_t len)
     return outStr;
 }
 
-void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-    // make sure the viewport matches the new window dimensions; note that width and
-    // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
-}
-
 void Renderer::saveImage() {
     int width, height;
     glfwGetFramebufferSize(window, &width, &height);
@@ -105,6 +99,14 @@ void Renderer::saveImage() {
     cachedFrame = encoding;
 }
 
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+    // make sure the viewport matches the new window dimensions; note that width and
+    // height will be significantly larger than specified on retina displays.
+    scrWidth = width;
+    scrHeight = height;
+    glViewport(0, 0, width, height);
+}
+
 int Renderer::init() {
     // glfw: initialize and configure
     // ------------------------------
@@ -124,13 +126,14 @@ int Renderer::init() {
     // glfw window creation
     // --------------------
     window = glfwCreateWindow(scrWidth, scrHeight, "LearnOpenGL", NULL, NULL);
+
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
+
     glfwMakeContextCurrent(window);
-    // TODO: fix this
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // glad: load all OpenGL function pointers
@@ -312,17 +315,6 @@ void Renderer::render() {
     // save frame to image file
     if (saveOutputRender)
         saveImage();
-
-    // resize if necessary
-//    if(newWidth || newHeight) {
-//        glfwSetWindowSize(window, newWidth, newHeight);
-//        // glViewport(0, 0, newWidth, newHeight);
-//        std::cout << "resizing new " << newWidth << " " << newHeight << std::endl;
-//        scrWidth = newWidth;
-//        scrHeight = newHeight;
-//        newWidth = 0;
-//        newHeight = 0;
-//    }
 }
 
 bool Renderer::shuttingDown() {
@@ -349,8 +341,6 @@ void Renderer::processInput(GLFWwindow *window) {
 }
 
 void Renderer::handleEditorResize(int width, int height) {
-    // TODO: fix this (right now screen turns grey and becomes distorted)
     scrWidth = width;
     scrHeight = height;
-//    glfwSetWindowSize(window, width, height);
 }
