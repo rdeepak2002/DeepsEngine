@@ -1,9 +1,9 @@
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
+import {useEffect} from 'react';
 
 import * as MUI from "@mui/material";
 import {createTheme, PaletteMode} from "@mui/material";
-import {useEffect} from "react";
 import {getDesignTokens, useStyles} from "./theme";
 import {imageData, messageData} from "./interfaces";
 
@@ -85,7 +85,7 @@ const Index = () => {
 
     React.useEffect(() => {
         window.addEventListener('resize', () => {
-            if(screenContainerRef && screenContainerRef.current) {
+            if (screenContainerRef && screenContainerRef.current) {
                 const newContainerWidth = screenContainerRef.current.offsetWidth;
                 const newContainerHeight = screenContainerRef.current.offsetHeight;
                 // console.log('ref change', newContainerWidth);
@@ -136,9 +136,11 @@ const Index = () => {
         [],
     );
 
-    const ColorModeContext = React.createContext({toggleColorMode: () => {
-        console.log('unimplemented toggle color mode method')
-    }});
+    const ColorModeContext = React.createContext({
+        toggleColorMode: () => {
+            console.log('unimplemented toggle color mode method')
+        }
+    });
 
     const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
     const classes = useStyles();
@@ -163,11 +165,11 @@ const Index = () => {
                                     </MUI.Typography>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={6}  className={classes.screenViewContainer} ref={screenContainerRef}>
+                                <MUI.Grid item xs={6} className={classes.screenViewContainer} ref={screenContainerRef}>
                                     <img src={frameData || 'loading'} className={classes.sceneViewScreen}/>
                                 </MUI.Grid>
 
-                                <MUI.Grid item xs={3}  className={classes.scrollOverflow}>
+                                <MUI.Grid item xs={3} className={classes.scrollOverflow}>
                                     <MUI.Typography color="primary" variant="body1" align="center">
                                         TODO: inspector
                                     </MUI.Typography>

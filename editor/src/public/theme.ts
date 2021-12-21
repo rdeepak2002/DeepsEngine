@@ -36,7 +36,7 @@ export const useStyles = makeStyles(() => ({
         height: "100%",
         maxHeight: "100%"
     },
-    flexGrow:  {
+    flexGrow: {
         flexGrow: 1
     },
     screenViewContainer: {

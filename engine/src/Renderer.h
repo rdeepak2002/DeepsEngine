@@ -22,7 +22,7 @@ private:
     bool saveOutputRender;
     unsigned int VBO, VAO, EBO;
     unsigned int texture1, texture2;
-    Shader* ourShader;
+    Shader *ourShader;
 public:
     Renderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
         this->showWindow = showWindow;

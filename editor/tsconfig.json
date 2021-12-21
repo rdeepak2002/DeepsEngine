@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
@@ -13,5 +17,7 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src/public"]
+  "include": [
+    "src/public"
+  ]
 }

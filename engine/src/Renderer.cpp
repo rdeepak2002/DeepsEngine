@@ -10,6 +10,7 @@
 #include <gtc/type_ptr.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include "stb_image.h"
 
 // base 64 string table
@@ -24,21 +25,20 @@ static const unsigned char base64_table[65] =
 * Returns: Allocated buffer of out_len bytes of encoded data,
 * or empty string on failure
 */
-std::string base64_encode(const unsigned char *src, size_t len)
-{
+std::string base64_encode(const unsigned char *src, size_t len) {
     unsigned char *out, *pos;
     const unsigned char *end, *in;
 
     size_t olen;
 
-    olen = 4*((len + 2) / 3); /* 3-byte blocks to 4-byte */
+    olen = 4 * ((len + 2) / 3); /* 3-byte blocks to 4-byte */
 
     if (olen < len)
         return std::string(); /* integer overflow */
 
     std::string outStr;
     outStr.resize(olen);
-    out = (unsigned char*)&outStr[0];
+    out = (unsigned char *) &outStr[0];
 
     end = src + len;
     in = src;
@@ -56,8 +56,7 @@ std::string base64_encode(const unsigned char *src, size_t len)
         if (end - in == 1) {
             *pos++ = base64_table[(in[0] & 0x03) << 4];
             *pos++ = '=';
-        }
-        else {
+        } else {
             *pos++ = base64_table[((in[0] & 0x03) << 4) |
                                   (in[1] >> 4)];
             *pos++ = base64_table[(in[1] & 0x0f) << 2];
@@ -89,9 +88,9 @@ void Renderer::saveImage() {
 //    int newHeight= int(height * scale);
 //    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
     cv::Mat flipped_img;
-    flip(img,flipped_img,0);
+    flip(img, flipped_img, 0);
     cv::Mat BGR_img;
-    cvtColor(flipped_img,BGR_img, cv::COLOR_RGB2BGR);
+    cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
     std::vector<uchar> buffer1;
     buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
     cv::imencode(".png", BGR_img, buffer1);
@@ -147,10 +146,10 @@ int Renderer::init() {
     // ------------------------------------------------------------------
     float vertices[] = {
             // positions          // colors           // texture coords
-            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
     };
 
     unsigned int indices[] = {
@@ -171,13 +170,13 @@ int Renderer::init() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
     // color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
     glEnableVertexAttribArray(1);
     // texture coord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
 
@@ -209,7 +208,8 @@ int Renderer::init() {
     glGenTextures(1, &texture1);
     glBindTexture(GL_TEXTURE_2D, texture1);
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+                    GL_REPEAT);    // set texture wrapping to GL_REPEAT (default wrapping method)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -219,13 +219,10 @@ int Renderer::init() {
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     // The FileSystem::getPath(...) is part of the GitHub repository so we can find files on any IDE/platform; replace it with your own image path.
     unsigned char *data = stbi_load(texture1Path.c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
+    if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
+    } else {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
@@ -235,21 +232,19 @@ int Renderer::init() {
     glGenTextures(1, &texture2);
     glBindTexture(GL_TEXTURE_2D, texture2);
     // set the texture wrapping parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,
+                    GL_REPEAT);    // set texture wrapping to GL_REPEAT (default wrapping method)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     // set texture filtering parameters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
     data = stbi_load(texture2Path.c_str(), &width, &height, &nrChannels, 0);
-    if (data)
-    {
+    if (data) {
         // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
+    } else {
         std::cout << "Failed to load texture" << std::endl;
     }
     stbi_image_free(data);
@@ -288,15 +283,15 @@ void Renderer::render() {
 //    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
     // create transformations
-    glm::mat4 model         = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 view          = glm::mat4(1.0f);
-    glm::mat4 projection    = glm::mat4(1.0f);
+    glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    glm::mat4 view = glm::mat4(1.0f);
+    glm::mat4 projection = glm::mat4(1.0f);
     model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    view  = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    projection = glm::perspective(glm::radians(45.0f), (float)scrWidth / (float)scrHeight, 0.1f, 100.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    projection = glm::perspective(glm::radians(45.0f), (float) scrWidth / (float) scrHeight, 0.1f, 100.0f);
     // retrieve the matrix uniform locations
     unsigned int modelLoc = glGetUniformLocation(ourShader->ID, "model");
-    unsigned int viewLoc  = glGetUniformLocation(ourShader->ID, "view");
+    unsigned int viewLoc = glGetUniformLocation(ourShader->ID, "view");
     // pass them to the shaders (3 different ways)
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
@@ -304,7 +299,8 @@ void Renderer::render() {
     ourShader->setMat4("projection", projection);
 
     // render container
-    glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+    glBindVertexArray(
+            VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
