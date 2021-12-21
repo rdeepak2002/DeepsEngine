@@ -19,25 +19,25 @@ void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::strin
 }
 
 bool bindings::rendererShuttingDown() {
-    if(!renderer)
+    if (!renderer)
         return true;
     return renderer->shuttingDown();
 }
 
 void bindings::updateRenderer() {
-    if(renderer)
+    if (renderer)
         renderer->render();
 }
 
 void bindings::shutDownRenderer() {
-    if(renderer)
+    if (renderer)
         renderer->shutDown();
 }
 
 std::string bindings::getCachedFrame() {
     std::string res = "no frame";
 
-    if(renderer && !renderer->cachedFrame.empty()) {
+    if (renderer && !renderer->cachedFrame.empty()) {
         res = renderer->cachedFrame;
     }
 
@@ -45,7 +45,7 @@ std::string bindings::getCachedFrame() {
 }
 
 void bindings::handleEditorResize(int width, int height) {
-    if(renderer)
+    if (renderer)
         renderer->handleEditorResize(width, height);
 }
 
