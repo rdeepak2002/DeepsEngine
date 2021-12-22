@@ -1,5 +1,0 @@
-# editor
-
-## Author
-
-Deepak Ramalingam
