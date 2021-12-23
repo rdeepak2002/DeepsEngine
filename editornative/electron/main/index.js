@@ -54,9 +54,11 @@ function createMainWindow() {
 // quit application when all windows are closed
 app.on('window-all-closed', () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  // if (process.platform !== 'darwin') {
+  //   app.quit();
+  // }
+  app.quit();
+  process.exit(0);
 });
 
 app.on('activate', () => {
@@ -82,6 +84,8 @@ ipcMain.on('asynchronous-message', (event, arg) => {
     console.error('invalid message format: ', arg);
     return;
   }
+
+  // TODO: implement stopping of renderer (when application closes or other things)
 
   // respond to valid messages
   switch (arg.name) {

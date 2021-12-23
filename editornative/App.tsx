@@ -1,13 +1,27 @@
 import React from "react";
 import { StatusBar } from 'expo-status-bar';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  GestureResponderEvent,
+  Image,
+  PanResponder,
+  PanResponderGestureState,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import {imageData, messageData} from "./interfaces";
 import {ipcRenderer} from "electron";
+import DeepsViewTriplePane from "./deeps-engine-ui/DeepsViewTriplePane";
 
 export default function App() {
-  // frame data to display from engine
-  const [frameData, setFrameData] = React.useState<string>('');
-  const [imageDimensions, setImageDimensions] = React.useState<any>({width: 100, height: 100});
+    // frame data to display from engine
+    const [frameData, setFrameData] = React.useState<string>('');
+    const [imageDimensions, setImageDimensions] = React.useState<any>({width: 100, height: 100});
+
+    const [screenWidth, setScreenWidth] = React.useState<number>(Dimensions.get('window').width);
+    const [screenHeight, setScreenHeight] = React.useState<number>(Dimensions.get('window').height);
 
   // resize the editor
   const handleEditorResize = (width: number, height: number) => {
@@ -95,24 +109,46 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container} onLayout={(event) => {
-      const {x, y, width, height} = event.nativeEvent.layout;
-      setImageDimensions({
-        width: width,
-        height: height
-      });
-      handleEditorResize(width, height);
-    }} >
-      <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>
-    </View>
+      <View style={styles.content}>
+        <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth}>
+          <View>
+            <Text>hello world 1</Text>
+          </View>
+          <View>
+            <Text>hello world 2</Text>
+          </View>
+          <View>
+            <Text>hello world 3</Text>
+          </View>
+          {/*<View style={styles.container} onLayout={(event) => {*/}
+          {/*    const {x, y, width, height} = event.nativeEvent.layout;*/}
+          {/*    setImageDimensions({*/}
+          {/*        width: width,*/}
+          {/*        height: height*/}
+          {/*    });*/}
+          {/*    handleEditorResize(width, height);*/}
+          {/*}} >*/}
+          {/*    <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>*/}
+          {/*</View>*/}
+        </DeepsViewTriplePane>
+      </View>
   );
 }
 
 const styles = StyleSheet.create({
+  content: {
+    flex: 1
+  },
   container: {
+    width: '100%',
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
+  image: {
+    flex: 1,
+    height: undefined,
+    width: undefined
+  }
 });
