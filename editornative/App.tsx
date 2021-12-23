@@ -110,15 +110,15 @@ export default function App() {
 
   return (
       <View style={styles.content}>
-        <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth}>
+        <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal>
           <View>
-            <Text>hello world 1</Text>
+            {/*<Text>hello world 1</Text>*/}
           </View>
           <View>
-            <Text>hello world 2</Text>
+            {/*<Text>hello world 2</Text>*/}
           </View>
           <View>
-            <Text>hello world 3</Text>
+            {/*<Text>hello world 3</Text>*/}
           </View>
           {/*<View style={styles.container} onLayout={(event) => {*/}
           {/*    const {x, y, width, height} = event.nativeEvent.layout;*/}
