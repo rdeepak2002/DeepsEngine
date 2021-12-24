@@ -6,6 +6,7 @@ type Props = {
     initHeight: number;
     initWidth: number;
     horizontal?: boolean;
+    initRatio?: Array<number>;
 };
 
 // return content if use is logged in, otherwise navigate to landing page
@@ -14,7 +15,7 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
     const childrenObj: any = props.children as any;
     const numChildren: number = Object.keys(childrenObj).length;
 
-    const dividerSize = 10;
+    const dividerSize = 5;
     const numDividers = 2;
 
     const [parentSize, setParentSize] = React.useState<number>(props.horizontal ? props.initWidth : props.initHeight);
@@ -23,7 +24,7 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
     const equalSize = (parentSizeWithoutDividers) / numChildren;
     const minSize = 40;
 
-    const [containerSizes, setContainerSizes] = React.useState<Array<any>>([equalSize, equalSize, equalSize]);
+    const [containerSizes, setContainerSizes] = React.useState<Array<any>>([props.initRatio ? props.initRatio[0] * parentSizeWithoutDividers : equalSize, props.initRatio ? props.initRatio[1] * parentSizeWithoutDividers : equalSize, props.initRatio ? props.initRatio[2] * parentSizeWithoutDividers : equalSize]);
     const [minContainerSizes, setMinContainerSizes] = React.useState<Array<any>>([minSize, minSize, minSize]);
     const [isDividerClicked, setIsDividerClicked] = React.useState<Array<boolean>>([false, false]);
 

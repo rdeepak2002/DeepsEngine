@@ -111,8 +111,8 @@ export default function App() {
 
   return (
       <View style={{flex: 1}}>
-        <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth}>
-          <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal>
+        <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth} initRatio={[0.7, 0.3]}>
+          <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal initRatio={[0.2, 0.6, 0.2]}>
             <View>
               <Text>TODO: scene view</Text>
             </View>
