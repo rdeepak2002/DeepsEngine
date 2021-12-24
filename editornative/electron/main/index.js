@@ -18,10 +18,14 @@ function createMainWindow() {
     minHeight: 650,
     width: 1240,
     height: 800,
-    webPreferences: { nodeIntegration: true } }
+    webPreferences: { nodeIntegration: true } },
   );
 
   browserWindow.setTitle('Deeps Engine');
+
+  browserWindow.on('page-title-updated', (evt) => {
+    evt.preventDefault();
+  });
 
   if (isDevelopment) {
     browserWindow.webContents.openDevTools();

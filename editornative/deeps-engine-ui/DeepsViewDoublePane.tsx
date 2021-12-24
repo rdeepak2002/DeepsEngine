@@ -15,7 +15,7 @@ const DeepsViewDoublePane: FC<Props> = (props: Props) => {
     const childrenObj: any = props.children as any;
     const numChildren: number = Object.keys(childrenObj).length;
 
-    const dividerSize = 5;
+    const dividerSize = 7;
     const numDividers = 1;
 
     const [parentSize, setParentSize] = React.useState<number>(props.horizontal ? props.initWidth : props.initHeight);
