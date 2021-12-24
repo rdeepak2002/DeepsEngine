@@ -21,6 +21,8 @@ function createMainWindow() {
     webPreferences: { nodeIntegration: true } }
   );
 
+  browserWindow.setTitle('Deeps Engine');
+
   if (isDevelopment) {
     browserWindow.webContents.openDevTools();
   }
