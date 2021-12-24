@@ -14,6 +14,7 @@ import {
 import {imageData, messageData} from "./interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./deeps-engine-ui/DeepsViewTriplePane";
+import DeepsViewDoublePane from "./deeps-engine-ui/DeepsViewDoublePane";
 
 export default function App() {
     // frame data to display from engine
@@ -109,36 +110,35 @@ export default function App() {
   }, []);
 
   return (
-      <View style={styles.content}>
-        <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal>
+      <View style={{flex: 1}}>
+        <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth}>
+          <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal>
+            <View>
+              <Text>TODO: scene view</Text>
+            </View>
+            <View style={styles.container} onLayout={(event) => {
+              const {x, y, width, height} = event.nativeEvent.layout;
+              setImageDimensions({
+                width: width,
+                height: height
+              });
+              // handleEditorResize(width, height);
+            }} >
+              <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>
+            </View>
+            <View>
+              <Text>TODO: inspector</Text>
+            </View>
+          </DeepsViewTriplePane>
           <View>
-            {/*<Text>hello world 1</Text>*/}
+            <Text>TODO: console</Text>
           </View>
-          <View>
-            {/*<Text>hello world 2</Text>*/}
-          </View>
-          <View>
-            {/*<Text>hello world 3</Text>*/}
-          </View>
-          {/*<View style={styles.container} onLayout={(event) => {*/}
-          {/*    const {x, y, width, height} = event.nativeEvent.layout;*/}
-          {/*    setImageDimensions({*/}
-          {/*        width: width,*/}
-          {/*        height: height*/}
-          {/*    });*/}
-          {/*    handleEditorResize(width, height);*/}
-          {/*}} >*/}
-          {/*    <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>*/}
-          {/*</View>*/}
-        </DeepsViewTriplePane>
+        </DeepsViewDoublePane>
       </View>
   );
 }
 
 const styles = StyleSheet.create({
-  content: {
-    flex: 1
-  },
   container: {
     width: '100%',
     flex: 1,
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    height: undefined,
-    width: undefined
+    height: '100%',
+    width: '100%'
   }
 });

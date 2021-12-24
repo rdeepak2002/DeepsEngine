@@ -9,13 +9,13 @@ type Props = {
 };
 
 // return content if use is logged in, otherwise navigate to landing page
-const DeepsViewTriplePane: FC<Props> = (props: Props) => {
+const DeepsViewDoublePane: FC<Props> = (props: Props) => {
     // console.log(props.children);
     const childrenObj: any = props.children as any;
     const numChildren: number = Object.keys(childrenObj).length;
 
     const dividerSize = 10;
-    const numDividers = 2;
+    const numDividers = 1;
 
     const [parentSize, setParentSize] = React.useState<number>(props.horizontal ? props.initWidth : props.initHeight);
     const [parentSizeWithoutDividers, setParentSizeWithoutDividers] = React.useState<number>(((props.horizontal ? props.initWidth : props.initHeight) || 40) - dividerSize * numDividers);
@@ -23,30 +23,15 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
     const equalSize = (parentSizeWithoutDividers) / numChildren;
     const minSize = 40;
 
-    const [containerSizes, setContainerSizes] = React.useState<Array<any>>([equalSize, equalSize, equalSize]);
-    const [minContainerSizes, setMinContainerSizes] = React.useState<Array<any>>([minSize, minSize, minSize]);
-    const [isDividerClicked, setIsDividerClicked] = React.useState<Array<boolean>>([false, false]);
-
-    // const newContainerSizes = [];
-    // const newMinContainerSizes = [];
-    //
-    // for(let i = 0; i < numChildren; i++) {
-    //     setContainerSizes([]);
-    //     containerSizes.push(equalSize);
-    //
-    //     setMinContainerSizes([]);
-    //     minContainerSizes.push(minSize);
-    // }
+    const [containerSizes, setContainerSizes] = React.useState<Array<any>>([equalSize, equalSize]);
+    const [minContainerSizes, setMinContainerSizes] = React.useState<Array<any>>([minSize, minSize]);
+    const [isDividerClicked, setIsDividerClicked] = React.useState<Array<boolean>>([false]);
 
     const newIsDividerClicked = [];
 
     for(let i = 0; i < numChildren - 1; i++) {
         newIsDividerClicked.push(false);
     }
-
-    // useEffect(() => {
-    //     console.warn("TODO: handle parent resizing");
-    // }, [parentSize]);
 
     const createPanResponder = (index1: number, index2: number) => {
         const panResponder = React.useRef(
@@ -117,14 +102,8 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
             <Animated.View style={[{backgroundColor: 'white'},  props.horizontal ? {minWidth: minContainerSizes[1]} : {minHeight: minContainerSizes[1]}, props.horizontal ? {width: containerSizes[1]} : {height: containerSizes[1]}]}>
                 {childrenObj[1]}
             </Animated.View>
-
-            <View style = {[props.horizontal ? {width: dividerSize} : {height: dividerSize}, isDividerClicked[1] ? {backgroundColor: '#666'} : {backgroundColor: '#e2e2e2'}]} {...createPanResponder(1, 2).panHandlers} />
-
-            <Animated.View style={[{backgroundColor: 'white'},  props.horizontal ? {minWidth: minContainerSizes[2]} : {minHeight: minContainerSizes[2]}, props.horizontal ? {width: containerSizes[2]} : {height: containerSizes[2]}]}>
-                {childrenObj[2]}
-            </Animated.View>
-        </View>
-    );
+    </View>
+);
 }
 
-export default DeepsViewTriplePane;
+export default DeepsViewDoublePane;
