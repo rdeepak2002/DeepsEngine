@@ -14,15 +14,20 @@ let mainWindow;
 
 function createMainWindow() {
   const browserWindow = new BrowserWindow({
-    minWidth: 580,
-    minHeight: 650,
+    minWidth: 620,
+    minHeight: 400,
     width: 1240,
     height: 800,
     webPreferences: { nodeIntegration: true } },
   );
 
   // TODO: make panes responsive
+  // TODO: make panes responsive
+  // TODO: make panes responsive
+  // TODO: make panes responsive
   browserWindow.setResizable(false);
+
+  // set title of window
   browserWindow.setTitle('Deeps Engine');
 
   browserWindow.on('page-title-updated', (evt) => {
