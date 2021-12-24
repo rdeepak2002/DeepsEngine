@@ -21,6 +21,8 @@ function createMainWindow() {
     webPreferences: { nodeIntegration: true } },
   );
 
+  // TODO: make panes responsive
+  browserWindow.setResizable(false);
   browserWindow.setTitle('Deeps Engine');
 
   browserWindow.on('page-title-updated', (evt) => {
