@@ -170,7 +170,7 @@ export default function App() {
                       turnOnPlayMode();
                     }
                   }}>
-                    <Text style={{color: 'white'}}>Play</Text>
+                    <Text style={{color: 'white', fontSize: 20}}>Play</Text>
                   </TouchableOpacity>
               }
             </View>
@@ -200,12 +200,16 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   playBtn: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    width: '100%',
+    top: 0,
     borderRadius: 1,
     padding: 5,
-    fontSize: 20
+    display: 'flex',
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
