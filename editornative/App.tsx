@@ -167,14 +167,16 @@ export default function App() {
             }} >
               <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>
               {!playMode &&
-                  <TouchableOpacity style={styles.playBtn} onPress={() => {
-                    if(!playMode) {
-                      setPlayMode(true);
-                      turnOnPlayMode();
-                    }
-                  }}>
-                    <Image style={{ resizeMode: "cover", width: 20, height: 20 }} source={play_btn} width={20} height={20}/>
-                  </TouchableOpacity>
+                  <View style={styles.headerContainer}>
+                    <TouchableOpacity onPress={() => {
+                      if(!playMode) {
+                        setPlayMode(true);
+                        turnOnPlayMode();
+                      }
+                    }}>
+                      <Image style={{ resizeMode: "cover", width: 20, height: 20 }} source={play_btn} width={20} height={20}/>
+                    </TouchableOpacity>
+                  </View>
               }
             </View>
             <View>
@@ -185,6 +187,7 @@ export default function App() {
             <Text>TODO: console</Text>
           </View>
         </DeepsViewDoublePane>
+        { playMode && <View style={{position: 'absolute', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, 0.7)'}}/> }
       </View>
   );
 }
@@ -202,7 +205,7 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%'
   },
-  playBtn: {
+  headerContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     position: 'absolute',
     width: '100%',
