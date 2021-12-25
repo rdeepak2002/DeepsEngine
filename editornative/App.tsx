@@ -15,6 +15,8 @@ import {imageData, messageData, playModeData} from "./interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./deeps-engine-ui/DeepsViewTriplePane";
 import DeepsViewDoublePane from "./deeps-engine-ui/DeepsViewDoublePane";
+// @ts-ignore
+import play_btn from "./assets/icons/play_btn.png";
 
 export default function App() {
     // frame data to display from engine
@@ -147,6 +149,7 @@ export default function App() {
     startRenderer();
   }, []);
 
+  // @ts-ignore
   return (
       <View style={{flex: 1}}>
         <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth} initRatio={[0.7, 0.3]}>
@@ -170,7 +173,7 @@ export default function App() {
                       turnOnPlayMode();
                     }
                   }}>
-                    <Text style={{color: 'white', fontSize: 20}}>Play</Text>
+                    <Image style={{ resizeMode: "cover", width: 20, height: 20 }} source={play_btn} width={20} height={20}/>
                   </TouchableOpacity>
               }
             </View>
