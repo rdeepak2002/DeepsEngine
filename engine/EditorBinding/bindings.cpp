@@ -49,6 +49,14 @@ void bindings::handleEditorResize(int width, int height) {
         renderer->handleEditorResize(width, height);
 }
 
+void bindings::startPlayMode() {
+    if(renderer) {
+        while(!renderer->shuttingDown()) {
+            renderer->render();
+        }
+    }
+}
+
 Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -135,6 +143,13 @@ void bindings::HandleEditorResizeWrapped(const Napi::CallbackInfo &info) {
     bindings::handleEditorResize(width.Int64Value(), height.Int64Value());
 }
 
+void bindings::StartPlayModeWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    bindings::startPlayMode();
+}
+
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
             "checkEngineStatus", Napi::Function::New(env, bindings::CheckEngineStatusWrapped)
@@ -160,6 +175,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "handleEditorResize", Napi::Function::New(env, bindings::HandleEditorResizeWrapped)
+    );
+
+    exports.Set(
+            "startPlayMode", Napi::Function::New(env, bindings::StartPlayModeWrapped)
     );
 
     return exports;

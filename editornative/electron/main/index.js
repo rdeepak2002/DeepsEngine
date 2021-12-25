@@ -117,6 +117,32 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       event.reply('asynchronous-reply', reply);
 
       break;
+    case 'play-mode':
+      let showWindow = true;
+      let saveOutputRender = false;
+
+      core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
+      core.startPlayMode();
+
+      showWindow = false;
+      saveOutputRender = true;
+
+      core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
+
+      const playModeReply = {
+        name: 'update-play-state',
+        status: 'success',
+        data: {
+          playMode: false
+        }
+      };
+
+      event.reply('asynchronous-reply', playModeReply);
+
+      break;
+    case 'shutdown-renderer':
+      core.shutDownRenderer();
+      break;
     case 'get-frame':
       // get image frame
       const imageData = core.getCachedFrame();
@@ -165,63 +191,63 @@ try {
 }
 
 // update OpenGL Window
-const update = (delta) => {
-  if (!core.rendererShuttingDown()) {
-    core.updateRenderer();
-    if (mainWindow) {
-      try {
-        mainWindow.webContents.send('asynchronous-message', {
-          name: 'new-frame-available',
-          data: {},
-          status: 'success'
-        });
-      } catch (e) {
-        console.error('error sending async message to window', e);
-      }
-    }
-  } else {
-    core.shutDownRenderer();
-  }
-}
+// const update = (delta) => {
+//   if (!core.rendererShuttingDown()) {
+//     core.updateRenderer();
+//     if (mainWindow) {
+//       try {
+//         mainWindow.webContents.send('asynchronous-message', {
+//           name: 'new-frame-available',
+//           data: {},
+//           status: 'success'
+//         });
+//       } catch (e) {
+//         console.error('error sending async message to window', e);
+//       }
+//     }
+//   } else {
+//     core.shutDownRenderer();
+//   }
+// }
 
 // length of a tick in milliseconds
-const fps = 30;
-let tickLengthMs = 1000 / fps;
+// const fps = 30;
+// let tickLengthMs = 1000 / fps;
 
 /* renderLoop related variables */
 // timestamp of each loop
-let previousTick = Date.now();
+// let previousTick = Date.now();
 
 // number of times gameLoop gets called
-let actualTicks = 0
+// let actualTicks = 0
 
-const renderLoop = function () {
-  // get the time now and number of ticks
-  const now = Date.now();
-  actualTicks++;
-
-  // update when allowed to
-  if (previousTick + tickLengthMs <= now) {
-    const delta = (now - previousTick) / 1000;
-    previousTick = now;
-
-    update(delta);
-
-    if (core.rendererShuttingDown()) {
-      return;
-    }
-
-    // console.log('delta', delta, '(target: ' + tickLengthMs +' ms)', 'node ticks', actualTicks);
-    actualTicks = 0;
-  }
-
-  // blend setImmediate (which is accurate) and setTimeout (which uses less CPU) to have accurate update loop
-  if (Date.now() - previousTick < tickLengthMs - 16) {
-    setTimeout(renderLoop);
-  } else {
-    setImmediate(renderLoop);
-  }
-}
+// const renderLoop = function () {
+//   // get the time now and number of ticks
+//   const now = Date.now();
+//   actualTicks++;
+//
+//   // update when allowed to
+//   if (previousTick + tickLengthMs <= now) {
+//     const delta = (now - previousTick) / 1000;
+//     previousTick = now;
+//
+//     update(delta);
+//
+//     if (core.rendererShuttingDown()) {
+//       return;
+//     }
+//
+//     // console.log('delta', delta, '(target: ' + tickLengthMs +' ms)', 'node ticks', actualTicks);
+//     actualTicks = 0;
+//   }
+//
+//   // blend setImmediate (which is accurate) and setTimeout (which uses less CPU) to have accurate update loop
+//   if (Date.now() - previousTick < tickLengthMs - 16) {
+//     setTimeout(renderLoop);
+//   } else {
+//     setImmediate(renderLoop);
+//   }
+// }
 
 // method to create render loop
 // get the path of the engine
@@ -231,8 +257,22 @@ const startRenderLoop = () => {
   // init OpenGL
   const showWindow = false;
   const saveOutputRender = true;
+
   core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
+  core.updateRenderer();
+
+  if (mainWindow) {
+    try {
+      mainWindow.webContents.send('asynchronous-message', {
+        name: 'new-frame-available',
+        data: {},
+        status: 'success'
+      });
+    } catch (e) {
+      console.error('error sending async message to window', e);
+    }
+  }
 
   // begin the game loop!
-  renderLoop();
+  // renderLoop();
 }

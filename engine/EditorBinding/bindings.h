@@ -11,6 +11,8 @@ namespace bindings {
 
     void shutDownRenderer();
 
+    void startPlayMode();
+
     std::string getCachedFrame();
 
     void handleEditorResize(int width, int height);
@@ -26,6 +28,8 @@ namespace bindings {
     void ShutDownRendererWrapped(const Napi::CallbackInfo &info);
 
     void HandleEditorResizeWrapped(const Napi::CallbackInfo &info);
+
+    void StartPlayModeWrapped(const Napi::CallbackInfo &info);
 
     Napi::Boolean RendererShuttingDownWrapped(const Napi::CallbackInfo &info);
 

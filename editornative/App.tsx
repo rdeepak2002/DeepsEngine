@@ -1,17 +1,17 @@
 import React from "react";
 import { StatusBar } from 'expo-status-bar';
 import {
-  Animated,
+  Animated, Button,
   Dimensions,
   GestureResponderEvent,
   Image,
   PanResponder,
   PanResponderGestureState,
   StyleSheet,
-  Text,
+  Text, TouchableOpacity,
   View
 } from 'react-native';
-import {imageData, messageData} from "./interfaces";
+import {imageData, messageData, playModeData} from "./interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./deeps-engine-ui/DeepsViewTriplePane";
 import DeepsViewDoublePane from "./deeps-engine-ui/DeepsViewDoublePane";
@@ -23,6 +23,8 @@ export default function App() {
 
     const [screenWidth, setScreenWidth] = React.useState<number>(Dimensions.get('window').width);
     const [screenHeight, setScreenHeight] = React.useState<number>(Dimensions.get('window').height);
+
+    const [playMode, setPlayMode] = React.useState<boolean>(false);
 
   // resize the editor
   const handleEditorResize = (width: number, height: number) => {
@@ -37,6 +39,43 @@ export default function App() {
 
       ipcRenderer.send('asynchronous-message', messageObj);
     }
+  }
+
+  // shutdown
+  const shutDownRenderer = () => {
+    const messageObj = {
+      name: 'shutdown-renderer',
+      data: {
+        "createdAt": Date.now()
+      }
+    };
+
+    ipcRenderer.send('asynchronous-message', messageObj);
+  }
+
+  // start renderer
+  const startRenderer = () => {
+    // start renderer
+    const messageObj = {
+      name: 'start-renderer',
+      data: {
+        "createdAt": Date.now()
+      }
+    };
+
+    ipcRenderer.send('asynchronous-message', messageObj);
+  }
+
+  // play mode
+  const turnOnPlayMode = () => {
+    const messageObj = {
+      name: 'play-mode',
+      data: {
+        "createdAt": Date.now()
+      }
+    };
+
+    ipcRenderer.send('asynchronous-message', messageObj);
   }
 
   // request for a new frame
@@ -58,6 +97,10 @@ export default function App() {
     const imageData: string = data.imageData;
     const encoded = `data:image/${imageType};${imageEncoding},${imageData}`;
     setFrameData(encoded);
+  }
+
+  const updatePlayState = (data: playModeData) => {
+    setPlayMode(data.playMode);
   }
 
   // handle message or reply received from server
@@ -87,6 +130,9 @@ export default function App() {
       case 'image-data':
         updateImageFrame(data as imageData);
         break;
+      case 'update-play-state':
+        updatePlayState(data as playModeData);
+        break;
       default:
         console.warn('unknown message: ', arg);
         break;
@@ -98,15 +144,7 @@ export default function App() {
     ipcRenderer.on('asynchronous-reply', messageHandler);
     ipcRenderer.on('asynchronous-message', messageHandler);
 
-    // start renderer
-    const messageObj = {
-      name: 'start-renderer',
-      data: {
-        "createdAt": Date.now()
-      }
-    };
-
-    ipcRenderer.send('asynchronous-message', messageObj);
+    startRenderer();
   }, []);
 
   return (
@@ -125,6 +163,16 @@ export default function App() {
               // handleEditorResize(width, height);
             }} >
               <Image source={{uri: frameData}} style={{width: imageDimensions.width, height: imageDimensions.height}}/>
+              {!playMode &&
+                  <TouchableOpacity style={styles.playBtn} onPress={() => {
+                    if(!playMode) {
+                      setPlayMode(true);
+                      turnOnPlayMode();
+                    }
+                  }}>
+                    <Text style={{color: 'white'}}>Play</Text>
+                  </TouchableOpacity>
+              }
             </View>
             <View>
               <Text>TODO: inspector</Text>
@@ -150,5 +198,14 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     width: '100%'
+  },
+  playBtn: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    borderRadius: 1,
+    padding: 5,
+    fontSize: 20
   }
 });

@@ -4,6 +4,10 @@ export interface imageData {
     imageData: string;
 }
 
+export interface playModeData {
+    playMode: boolean;
+}
+
 export interface messageData {
     name: string;
     data: object;
