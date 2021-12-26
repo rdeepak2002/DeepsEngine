@@ -12,6 +12,10 @@ int main() {
 
     renderer->init();
 
+    std::string newEntityGuid = renderer->addEntity("cube");
+//    Component* cubeTransform = new Component(newEntityGuid, "transform", "vec3(0,0,0)");
+//    renderer->addComponent(cubeTransform);
+
     while (!renderer->shuttingDown()) {
         renderer->render();
     }

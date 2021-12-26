@@ -4,7 +4,6 @@
 
 #include "Renderer.h"
 #include <string>
-#include "Shader.h"
 #include <glm.hpp>
 #include <ext/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
@@ -349,17 +348,49 @@ void Renderer::render() {
     // render boxes
     glBindVertexArray(VAO);
 
-    for (unsigned int i = 0; i < 5; i++)
+    for (auto const& keyValueCS : componentSystems)
     {
-        // calculate the model matrix for each object and pass it to shader before drawing
-        glm::mat4 model = glm::mat4(1.0f);
-        glm::vec3 modelPos = glm::vec3(cubePositions[i][0], cubePositions[i][1], cubePositions[i][2]);
-        model = glm::translate(model, modelPos);
-        float angle = 20.0f * (i + 1);
-        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-        ourShader->setMat4("model", model);
+        ComponentSystem* cs = keyValueCS.second;
+        for(auto const& keyValueComponent : cs->components) {
+            Component* comp = keyValueComponent.second;
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+            std::string compName = comp->getName();
+            std::string compData = comp->getData();
+
+            if(compName == "transform") {
+                std::cout << "comp data: " << compData << std::endl;
+
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+                // TODO: parse json string from comp data
+
+                float x = 0.5;
+                float y = 0;
+                float z = 0;
+
+                int i = 0;
+
+                // calculate the model matrix for each object and pass it to shader before drawing
+                glm::mat4 model = glm::mat4(1.0f);
+                glm::vec3 modelPos = glm::vec3(x, y, z);
+                model = glm::translate(model, modelPos);
+                float angle = 20.0f * (i + 1);
+                model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+                ourShader->setMat4("model", model);
+
+                glDrawArrays(GL_TRIANGLES, 0, 36);
+            }
+            else {
+                printf("unknown component type\n");
+            }
+        }
     }
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -399,4 +430,59 @@ void Renderer::handleEditorResize(int width, int height) {
     scrWidth = width;
     scrHeight = height;
     updateScreenSize = true;
+}
+
+void Renderer::addComponentSystem(ComponentSystem *componentSystem) {
+    // ensure component is non-null
+    if(!componentSystem) {
+        printf("Error: component system is null\n");
+        return;
+    }
+
+    // insert the component system into the map
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>(componentSystem->getName(), componentSystem));
+}
+
+std::string Renderer::addEntity(std::string name) {
+    // create a new entity and insert it into the entites map
+//    std::string entityGuid = uuid::generate_uuid_v4();
+    // TODO: generate guid
+    std::string entityGuid = "some_unique_entity_id";
+    entities.insert(std::pair<std::string, std::string>(entityGuid, name));
+
+    // add a transform component to this new entity
+    Component* transformComponent = new Component(entityGuid, "transform", "{x: 0, y: 0, z: 0}");
+    addComponent(transformComponent);
+
+    // return the newly generated entity id
+    return entityGuid;
+}
+
+void Renderer::addComponent(Component* component) {
+    // ensure component is non-null
+    if(!component) {
+        printf("Error: component is null\n");
+        return;
+    }
+
+    // ensure entity id exists
+    if(entities.count(component->getEntityId()) == 0) {
+        printf("Error: entity with id %s does not exist\n", component->getEntityId().c_str());
+        return;
+    }
+
+    // add component to components map to link it to an entity
+    components.insert(std::pair<std::string, Component*>(component->getId(), component));
+
+    // add component to its array in component system map to link it to a component system
+    std::string componentName = component->getName();
+
+    if(componentSystems.count(componentName) == 0) {
+        // create entry in map if it does not exist
+        addComponentSystem(new ComponentSystem(componentName));
+    }
+
+    ComponentSystem* cs = componentSystems[componentName];
+    component->setComponentSystemId(cs->getId());
+    cs->addComponent(component);
 }
