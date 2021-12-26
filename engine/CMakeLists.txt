@@ -31,7 +31,7 @@ endif()
 
 # standalone engine
 if (RUN_STANDALONE)
-    file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/stb_image.h" "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "src/Shader.h" "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h")
+    file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/stb_image.h" "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "src/Shader.h" "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
     add_executable(engine_standalone ${SOURCE_FILES_EXEC})
 else ()
     # library
@@ -39,7 +39,7 @@ else ()
     # you should add this line in every CMake.js based project.
     include_directories(${CMAKE_JS_INC})
     # Declare the location of the source files
-    file(GLOB SOURCE_FILES "src/glad.c" "src/stb_image.h" "src/Renderer.h" "src/Renderer.cpp" "EditorBinding/exportbindings.cpp" "EditorBinding/bindings.cpp" "EditorBinding/bindings.h" "src/Shader.h"  "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h")
+    file(GLOB SOURCE_FILES "src/glad.c" "src/stb_image.h" "src/Renderer.h" "src/Renderer.cpp" "EditorBinding/exportbindings.cpp" "EditorBinding/bindings.cpp" "EditorBinding/bindings.h" "src/Shader.h"  "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
 
     # This line will tell CMake that we're building a shared library from the above source files
     # named after the project's name

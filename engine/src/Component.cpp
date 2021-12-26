@@ -3,6 +3,15 @@
 //
 
 #include "Component.h"
+#include "uuid.h"
+
+Component::Component(std::string entityId, std::string name, std::string data) {
+    this->entityId = entityId;
+    this->name = name;
+    this->data = data;
+    id = uuid::generate_uuid_v4();
+    componentSystemId = "unknown_component_system_id";
+}
 
 std::string Component::getId() {
     return this->id;

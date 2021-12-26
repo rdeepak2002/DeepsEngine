@@ -9,8 +9,9 @@
 #include <gtc/type_ptr.hpp>
 
 #define STB_IMAGE_IMPLEMENTATION
-
 #include "stb_image.h"
+
+#include "uuid.h"
 
 // base 64 string table
 static const unsigned char base64_table[65] =
@@ -445,9 +446,8 @@ void Renderer::addComponentSystem(ComponentSystem *componentSystem) {
 
 std::string Renderer::addEntity(std::string name) {
     // create a new entity and insert it into the entites map
-//    std::string entityGuid = uuid::generate_uuid_v4();
     // TODO: generate guid
-    std::string entityGuid = "some_unique_entity_id";
+    std::string entityGuid = uuid::generate_uuid_v4();
     entities.insert(std::pair<std::string, std::string>(entityGuid, name));
 
     // add a transform component to this new entity

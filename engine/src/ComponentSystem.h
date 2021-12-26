@@ -8,6 +8,7 @@
 
 #include <map>
 #include "Component.h"
+#include "uuid.h"
 
 class ComponentSystem {
 private:
@@ -18,8 +19,7 @@ public:
     std::string getName();
     std::map<std::string, Component*> components;        // map of {componentId: componentObj}
     ComponentSystem(std::string name) {
-        // TODO: generate guid
-        id = "some_unique_component_system_id";
+        id = uuid::generate_uuid_v4();
         this->name = name;
     }
     void addComponent(Component* component);

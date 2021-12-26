@@ -6,7 +6,6 @@
 #define CORE_COMPONENT_H
 
 #include <string>
-//#include "uuid.h"
 
 //template <typename T>
 
@@ -18,15 +17,7 @@ private:
     std::string name;
     std::string data;
 public:
-    Component(std::string entityId, std::string name, std::string data) {
-        this->entityId = entityId;
-        this->name = name;
-        this->data = data;
-//        id = uuid::generate_uuid_v4();
-        // TODO: generate uuid for component
-        id = "some_unique_component_id";
-        componentSystemId = "unknown_component_system_id";
-    }
+    Component(std::string entityId, std::string name, std::string data);
 
     std::string getId();
     void setEntityId(std::string id);
