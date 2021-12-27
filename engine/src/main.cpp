@@ -8,7 +8,7 @@ int main() {
     bool showWindow = true;
     bool saveOutputRender = false;
 
-    Renderer *renderer = new Renderer(showWindow, saveOutputRender, "../editor/example_projects/blank_project");
+    Renderer *renderer = new Renderer(showWindow, saveOutputRender, "../editornative/example_projects/blank_project");
 
     renderer->init();
 

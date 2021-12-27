@@ -51,6 +51,8 @@ void bindings::handleEditorResize(int width, int height) {
 
 void bindings::startPlayMode() {
     if(renderer) {
+        std::string newEntityGuid = renderer->addEntity("cube");
+
         while(!renderer->shuttingDown()) {
             renderer->render();
         }

@@ -27,6 +27,8 @@ Deepak Ramalingam
 - OpenCV (refer to below commands)
   - change line 8 (OpenCV path) of 'engine/CMakeLists.txt' if necessary
 
+Intel Mac:
+
 ```
 brew install cmake
 brew install glfw3
@@ -35,11 +37,38 @@ brew install glm
 brew install opencv
 ```
 
+Refer to instructions below for M1 Mac
+
+## Rosetta Support for M1 Mac
+
+Install brew
+
+```
+arch -x86_64 zsh  
+arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+```
+
+Install clang
+
+```
+arch -x86_64 /usr/local/bin/brew install llvm
+```
+
+Install other dependencies
+
+```
+arch -x86_64 /usr/local/bin/brew install cmake
+arch -x86_64 /usr/local/bin/brew install glfw3
+arch -x86_64 /usr/local/bin/brew install glew
+arch -x86_64 /usr/local/bin/brew install glm
+arch -x86_64 /usr/local/bin/brew install opencv
+```
+
 ## Get Started (macOS)
 
 ```
 git clone https://github.com/rdeepak2002/deeps-engine.git
-cd deeps-engine/editor
+cd deeps-engine/editornative
 
 yarn
 yarn start

@@ -68,41 +68,41 @@ std::string base64_encode(const unsigned char *src, size_t len) {
 }
 
 void Renderer::saveImage() {
-    if(updateScreenSize) {
-//        glfwSetWindowSize(window, scrWidth, scrHeight);
-        glViewport(0, 0, scrWidth, scrHeight);
-        updateScreenSize = false;
-    }
-    else {
-        int width, height;
-        glfwGetFramebufferSize(window, &width, &height);
-        GLsizei nrChannels = 3;
-        GLsizei stride = nrChannels * width;
-        stride += (stride % 4) ? (4 - stride % 4) : 0;
-        GLsizei bufferSize = stride * height;
-        std::vector<char> buffer(bufferSize);
-        glPixelStorei(GL_PACK_ALIGNMENT, 4);
-        glReadBuffer(GL_FRONT);
-        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
-
-        // convert the buffer to an opencv image and return the base64 encoded version of it
-        cv::Mat img(height, width, CV_8UC3, buffer.data());
-        // TODO: compress image to improve efficiency
-//    cv::Mat scaled_down_img;
-//    double scale = 0.5;
-//    int newWidth = int(width * scale);
-//    int newHeight= int(height * scale);
-//    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
-        cv::Mat flipped_img;
-        flip(img, flipped_img, 0);
-        cv::Mat BGR_img;
-        cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
-        std::vector<uchar> buffer1;
-        buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
-        cv::imencode(".png", BGR_img, buffer1);
-        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
-        cachedFrame = encoding;
-    }
+//    if(updateScreenSize) {
+////        glfwSetWindowSize(window, scrWidth, scrHeight);
+//        glViewport(0, 0, scrWidth, scrHeight);
+//        updateScreenSize = false;
+//    }
+//    else {
+//        int width, height;
+//        glfwGetFramebufferSize(window, &width, &height);
+//        GLsizei nrChannels = 3;
+//        GLsizei stride = nrChannels * width;
+//        stride += (stride % 4) ? (4 - stride % 4) : 0;
+//        GLsizei bufferSize = stride * height;
+//        std::vector<char> buffer(bufferSize);
+//        glPixelStorei(GL_PACK_ALIGNMENT, 4);
+//        glReadBuffer(GL_FRONT);
+//        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+//
+//        // convert the buffer to an opencv image and return the base64 encoded version of it
+//        cv::Mat img(height, width, CV_8UC3, buffer.data());
+//        // TODO: compress image to improve efficiency
+////    cv::Mat scaled_down_img;
+////    double scale = 0.5;
+////    int newWidth = int(width * scale);
+////    int newHeight= int(height * scale);
+////    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
+//        cv::Mat flipped_img;
+//        flip(img, flipped_img, 0);
+//        cv::Mat BGR_img;
+//        cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
+//        std::vector<uchar> buffer1;
+//        buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
+//        cv::imencode(".png", BGR_img, buffer1);
+//        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
+//        cachedFrame = encoding;
+//    }
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
@@ -372,7 +372,7 @@ void Renderer::render() {
                 // TODO: parse json string from comp data
                 // TODO: parse json string from comp data
 
-                float x = 0.5;
+                float x = 0;
                 float y = 0;
                 float z = 0;
 

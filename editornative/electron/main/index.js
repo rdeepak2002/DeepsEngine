@@ -121,8 +121,12 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       let showWindow = true;
       let saveOutputRender = false;
 
+      console.log('play mode on')
+
       core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
       core.startPlayMode();
+
+      console.log('play mode off')
 
       showWindow = false;
       saveOutputRender = true;
