@@ -105,20 +105,13 @@ void Renderer::saveImage() {
 //        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
 //        cachedFrame = encoding;
 
-    glViewport(0, 0, 800, 600);
-
     int width = 800;
     int height = 600;
-//    glfwGetFramebufferSize(window, &width, &height);
 
+    glViewport(0, 0, width, height);
     int* buffer = new int[width*height];
-//    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-//    fwrite(buffer, sizeof(int)*width*height, 1, ffmpeg);
-
-    glReadPixels(0, 0, 800, 600, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-
-    if (avconv)
-        fwrite(buffer ,800*600*3 , 1, avconv);
+    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+    fwrite(buffer, sizeof(int)*width*height, 1, ffmpeg);
 
 //    glViewport(0, 0, scrWidth * 2, scrHeight * 2);
 
@@ -151,7 +144,9 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 }
 
 int Renderer::init() {
-    avconv = popen("avconv -y -f rawvideo -s 800x600 -pix_fmt rgb24 -r 25 -i - -vf vflip -an -b:v 1000k test.mp4", "w");
+    if(saveOutputRender) {
+        ffmpeg = popen(cmd, "w");
+    }
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -357,6 +352,10 @@ void Renderer::render() {
 //    scrWidth = glutGet(GLUT_WINDOW_WIDTH);
 //    scrHeight = glutGet(GLUT_WINDOW_HEIGHT);
 
+    double now = glfwGetTime();
+    double elapsed_time = last_render_time - now - render_time;
+    double start_render = glfwGetTime();
+
     // input
     // -----
     processInput(window);
@@ -437,7 +436,19 @@ void Renderer::render() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 
+    double end_render = glfwGetTime();
+    render_time = end_render - start_render;
+
     // save frame to image file
+    double fps = 60;
+
+    std::cout << elapsed_time << std::endl;
+
+    if ( elapsed_time > 1/fps ){
+//        if (saveOutputRender)
+//            saveImage();
+    }
+
     if (saveOutputRender)
         saveImage();
 }
@@ -451,8 +462,8 @@ bool Renderer::shuttingDown() {
 void Renderer::shutDown() {
     printf("shutting down...\n");
 
-    if (avconv)
-        pclose(avconv);
+    if (ffmpeg)
+        pclose(ffmpeg);
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
