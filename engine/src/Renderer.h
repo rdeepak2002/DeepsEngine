@@ -23,8 +23,9 @@ static bool updateScreenSize = false;
 class Renderer {
 private:
     // TODO: pass in variables for dimensions (replace 800x600)
-    const char* cmd = "ffmpeg -f rawvideo -pixel_format rgba -video_size 800x600 -re -framerate 60  -i - -f mpegts -pix_fmt yuv420p -crf 21 -vf vflip -preset ultrafast udp://127.0.0.1:1234";
-//    const char* cmd = "ffmpeg -r 60 -f rawvideo -pix_fmt rgba -s 800x600 -i - -threads 0 -preset fast -y -pix_fmt yuv420p -crf 21 -vf vflip output.mp4";
+    const char* cmd = "ffmpeg -f rawvideo -pixel_format rgba -video_size 800x600 -re -framerate 60  -i - -f mpegts -pix_fmt yuv420p -crf 21 -vf vflip -preset fast udp://127.0.0.1:1234";
+//    const char* cmd = "ffmpeg -f rawvideo -pixel_format rgba -video_size 800x600 -re -framerate 60  -i - -f mpegts -pix_fmt yuv420p -crf 21 -vf vflip -preset ultrafast udp://127.0.0.1:1234";
+//    const char* cmd = "ffmpeg -r 60 -f rawvideo -pix_fmt rgba -s 1280x720 -i - -threads 0 -preset fast -y -pix_fmt yuv420p -crf 21 -vf vflip output.mp4";
     FILE* ffmpeg;
     std::string projectPath;
     bool showWindow;

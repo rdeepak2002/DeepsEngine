@@ -119,7 +119,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       break;
     case 'play-mode':
       let showWindow = true;
-      let saveOutputRender = false;
+      let saveOutputRender = true;
 
       console.log('play mode on')
 
@@ -132,6 +132,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       saveOutputRender = true;
 
       core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
+      core.updateRenderer();
 
       const playModeReply = {
         name: 'update-play-state',
