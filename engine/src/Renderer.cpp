@@ -10,6 +10,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "stb_image_write.h"
 
 #include "uuid.h"
 
@@ -102,18 +104,54 @@ void Renderer::saveImage() {
 //        cv::imencode(".png", BGR_img, buffer1);
 //        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
 //        cachedFrame = encoding;
-//    }
+
+    glViewport(0, 0, 800, 600);
+
+    int width = 800;
+    int height = 600;
+//    glfwGetFramebufferSize(window, &width, &height);
+
+    int* buffer = new int[width*height];
+//    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+//    fwrite(buffer, sizeof(int)*width*height, 1, ffmpeg);
+
+    glReadPixels(0, 0, 800, 600, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+
+    if (avconv)
+        fwrite(buffer ,800*600*3 , 1, avconv);
+
+//    glViewport(0, 0, scrWidth * 2, scrHeight * 2);
+
+//    std::cout << width << std::endl;
+//    std::cout << height << std::endl;
+
+//    int width, height;
+//    glfwGetFramebufferSize(this->window, &width, &height);
+//    GLsizei nrChannels = 3;
+//    GLsizei stride = nrChannels * width;
+//    stride += (stride % 4) ? (4 - stride % 4) : 0;
+//    GLsizei bufferSize = stride * height;
+//    std::vector<char> buffer(bufferSize);
+//    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+//    glReadBuffer(GL_FRONT);
+//    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+//    stbi_flip_vertically_on_write(true);
+//    std::string filepath = projectPath + "/preview.png";
+//    stbi_write_png(filepath.c_str(), width, height, nrChannels, buffer.data(), stride);
+//    std::string s(buffer.begin(), buffer.end());
+//    std::cout << s << std::endl;
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
-    scrWidth = width;
-    scrHeight = height;
-    glViewport(0, 0, width, height);
+//    scrWidth = width;
+//    scrHeight = height;
+//    glViewport(0, 0, width, height);
 }
 
 int Renderer::init() {
+    avconv = popen("avconv -y -f rawvideo -s 800x600 -pix_fmt rgb24 -r 25 -i - -vf vflip -an -b:v 1000k test.mp4", "w");
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -411,6 +449,11 @@ bool Renderer::shuttingDown() {
 }
 
 void Renderer::shutDown() {
+    printf("shutting down...\n");
+
+    if (avconv)
+        pclose(avconv);
+
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &VAO);

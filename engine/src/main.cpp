@@ -6,7 +6,8 @@
 
 int main() {
     bool showWindow = true;
-    bool saveOutputRender = false;
+    // TODO: set this to false for engine
+    bool saveOutputRender = true;
 
     Renderer *renderer = new Renderer(showWindow, saveOutputRender, "../editornative/example_projects/blank_project");
 

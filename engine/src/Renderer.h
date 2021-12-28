@@ -13,6 +13,7 @@
 #include "Shader.h"
 #include "Component.h"
 #include "ComponentSystem.h"
+#include <stdio.h>
 //#include "uuid.h"
 
 static int scrWidth = 800;
@@ -21,6 +22,7 @@ static bool updateScreenSize = false;
 
 class Renderer {
 private:
+    FILE *avconv = NULL;
     std::string projectPath;
     bool showWindow;
     bool saveOutputRender;
