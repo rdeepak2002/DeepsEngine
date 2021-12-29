@@ -119,7 +119,7 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       break;
     case 'play-mode':
       let showWindow = true;
-      let saveOutputRender = true;
+      let saveOutputRender = false;
 
       console.log('play mode on')
 
@@ -280,5 +280,5 @@ const startRenderLoop = () => {
   }
 
   // begin the game loop!
-  renderLoop();
+  // renderLoop();
 }

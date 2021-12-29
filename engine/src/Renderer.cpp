@@ -70,69 +70,38 @@ std::string base64_encode(const unsigned char *src, size_t len) {
 }
 
 void Renderer::saveImage() {
-//    if(updateScreenSize) {
-////        glfwSetWindowSize(window, scrWidth, scrHeight);
-//        glViewport(0, 0, scrWidth, scrHeight);
-//        updateScreenSize = false;
-//    }
-//    else {
-//        int width, height;
-//        glfwGetFramebufferSize(window, &width, &height);
-//        GLsizei nrChannels = 3;
-//        GLsizei stride = nrChannels * width;
-//        stride += (stride % 4) ? (4 - stride % 4) : 0;
-//        GLsizei bufferSize = stride * height;
-//        std::vector<char> buffer(bufferSize);
-//        glPixelStorei(GL_PACK_ALIGNMENT, 4);
-//        glReadBuffer(GL_FRONT);
-//        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
-//
+        int width = 800;
+        int height = 600;
+        glfwGetFramebufferSize(window, &width, &height);
+        GLsizei nrChannels = 3;
+        GLsizei stride = nrChannels * width;
+        stride += (stride % 4) ? (4 - stride % 4) : 0;
+        GLsizei bufferSize = stride * height;
+        std::vector<char> buffer(bufferSize);
+        glPixelStorei(GL_PACK_ALIGNMENT, 4);
+        glReadBuffer(GL_FRONT);
+        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+
 //        // convert the buffer to an opencv image and return the base64 encoded version of it
-//        cv::Mat img(height, width, CV_8UC3, buffer.data());
-//        // TODO: compress image to improve efficiency
-////    cv::Mat scaled_down_img;
-////    double scale = 0.5;
-////    int newWidth = int(width * scale);
-////    int newHeight= int(height * scale);
-////    resize(img, scaled_down_img, cv::Size(newHeight, newWidth), cv::INTER_LINEAR);
-//        cv::Mat flipped_img;
-//        flip(img, flipped_img, 0);
-//        cv::Mat BGR_img;
-//        cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
-//        std::vector<uchar> buffer1;
-//        buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
-//        cv::imencode(".png", BGR_img, buffer1);
-//        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
-//        cachedFrame = encoding;
+        cv::Mat img(height, width, CV_8UC3, buffer.data());
+        cv::Mat flipped_img;
+        flip(img, flipped_img, 0);
+        cv::Mat BGR_img;
+        cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
+        std::vector<uchar> buffer1;
+        buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
+        cv::imencode(".png", BGR_img, buffer1);
+        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
+//        std::cout << encoding << std::endl;
+        cachedFrame = encoding;
 
-    int width = 800;
-    int height = 600;
-
-    glViewport(0, 0, width, height);
-    int* buffer = new int[width*height];
-    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
-    fwrite(buffer, sizeof(int)*width*height, 1, ffmpeg);
-
-//    glViewport(0, 0, scrWidth * 2, scrHeight * 2);
-
-//    std::cout << width << std::endl;
-//    std::cout << height << std::endl;
-
-//    int width, height;
-//    glfwGetFramebufferSize(this->window, &width, &height);
-//    GLsizei nrChannels = 3;
-//    GLsizei stride = nrChannels * width;
-//    stride += (stride % 4) ? (4 - stride % 4) : 0;
-//    GLsizei bufferSize = stride * height;
-//    std::vector<char> buffer(bufferSize);
-//    glPixelStorei(GL_PACK_ALIGNMENT, 4);
-//    glReadBuffer(GL_FRONT);
-//    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
-//    stbi_flip_vertically_on_write(true);
-//    std::string filepath = projectPath + "/preview.png";
-//    stbi_write_png(filepath.c_str(), width, height, nrChannels, buffer.data(), stride);
-//    std::string s(buffer.begin(), buffer.end());
-//    std::cout << s << std::endl;
+//    int width = 800;
+//    int height = 600;
+//
+//    glViewport(0, 0, width, height);
+//    int* buffer = new int[width*height];
+//    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+//    fwrite(buffer, sizeof(int)*width*height, 1, ffmpeg);
 }
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
@@ -144,9 +113,9 @@ void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
 }
 
 int Renderer::init() {
-    if(saveOutputRender) {
-        ffmpeg = popen(cmd, "w");
-    }
+//    if(saveOutputRender) {
+//        ffmpeg = popen(cmd, "w");
+//    }
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -352,9 +321,9 @@ void Renderer::render() {
 //    scrWidth = glutGet(GLUT_WINDOW_WIDTH);
 //    scrHeight = glutGet(GLUT_WINDOW_HEIGHT);
 
-    double now = glfwGetTime();
-    double elapsed_time = last_render_time - now - render_time;
-    double start_render = glfwGetTime();
+//    double now = glfwGetTime();
+//    double elapsed_time = last_render_time - now - render_time;
+//    double start_render = glfwGetTime();
 
     // input
     // -----
@@ -436,18 +405,18 @@ void Renderer::render() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 
-    double end_render = glfwGetTime();
-    render_time = end_render - start_render;
+//    double end_render = glfwGetTime();
+//    render_time = end_render - start_render;
 
     // save frame to image file
-    double fps = 60;
+//    double fps = 60;
 
-    std::cout << elapsed_time << std::endl;
+//    std::cout << elapsed_time << std::endl;
 
-    if ( elapsed_time > 1/fps ){
-//        if (saveOutputRender)
-//            saveImage();
-    }
+//    if ( elapsed_time > 1/fps ){
+////        if (saveOutputRender)
+////            saveImage();
+//    }
 
     if (saveOutputRender)
         saveImage();
@@ -462,8 +431,8 @@ bool Renderer::shuttingDown() {
 void Renderer::shutDown() {
     printf("shutting down...\n");
 
-    if (ffmpeg)
-        pclose(ffmpeg);
+//    if (ffmpeg)
+//        pclose(ffmpeg);
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------

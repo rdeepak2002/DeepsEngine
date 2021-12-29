@@ -12,7 +12,7 @@ endif()
 # using M1 Chip to run engine (NAPI not supported): -DCMAKE_APPLE_SILICON_PROCESSOR=arm64
 # message(STATUS ${CMAKE_APPLE_SILICON_PROCESSOR})
 
-set(OpenCV_DIR /usr/local/Cellar/opencv/4.5.4_1/lib)
+set(OpenCV_DIR /usr/local/include/opencv4)
 find_package( OpenCV REQUIRED )
 
 set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
