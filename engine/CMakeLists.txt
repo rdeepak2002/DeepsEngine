@@ -15,16 +15,16 @@ endif()
 set(OpenCV_DIR /usr/local/include/opencv4)
 find_package( OpenCV REQUIRED )
 
-set(GLEW_H /usr/local/Cellar/glew/2.2.0_1/include/GL)
-set(GLFW_H /usr/local/Cellar/glfw/3.3.6/include/GLFW)
-set(GLM /usr/local/Cellar/glm/0.9.9.8/include/glm)
+set(GLEW_H /usr/local/include/gl)
+set(GLFW_H /usr/local/include/glfw)
+set(GLM /usr/local/include/glm)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
 include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS} ${GLM})
 
 # Add target link
-set(GLEW_LINK /usr/local/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)
-set(GLFW_LINK /usr/local/Cellar/glfw/3.3.6/lib/libglfw.3.dylib)
+set(GLEW_LINK /usr/local/lib/libGLEW.2.2.dylib)
+set(GLFW_LINK /usr/local/lib/libglfw.3.dylib)
 link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${OpenCV_LIBS})
 
 # specify whether this should run as a standalone or library

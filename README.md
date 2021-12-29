@@ -21,11 +21,8 @@ Deepak Ramalingam
   - change line 89 of 'glad.h' (located in /usr/local/include/glad) from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
-  - change lines 12 and 20 (GLFW paths) of 'engine/CMakeLists.txt' if necessary
 - GLEW (refer to below commands)
-  - change lines 11 and 19 (GLEW paths) of 'engine/CMakeLists.txt' if necessary
 - OpenCV (refer to below commands)
-  - change line 8 (OpenCV path) of 'engine/CMakeLists.txt' if necessary
 
 Intel Mac:
 
@@ -34,13 +31,15 @@ brew install cmake
 brew install glfw3
 brew install glew
 brew install glm
-brew install opencv
 brew install ffmpeg
+brew install opencv
 ```
 
 Refer to instructions below for M1 Mac
 
 ## Rosetta Support for M1 Mac
+
+Open terminal using Rosetta
 
 Install brew
 
@@ -62,8 +61,8 @@ arch -x86_64 /usr/local/bin/brew install cmake
 arch -x86_64 /usr/local/bin/brew install glfw3
 arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
-arch -x86_64 /usr/local/bin/brew install opencv
 arch -x86_64 /usr/local/bin/brew install ffmpeg
+arch -x86_64 /usr/local/bin/brew install opencv
 ```
 
 ## Get Started (macOS)

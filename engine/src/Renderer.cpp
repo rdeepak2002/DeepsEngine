@@ -107,12 +107,13 @@ void Renderer::saveImage() {
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
-//    scrWidth = width;
-//    scrHeight = height;
-//    glViewport(0, 0, width, height);
+    scrWidth = width;
+    scrHeight = height;
+    glViewport(0, 0, width, height);
 }
 
 int Renderer::init() {
+    printf("initializing...\n");
 //    if(saveOutputRender) {
 //        ffmpeg = popen(cmd, "w");
 //    }
