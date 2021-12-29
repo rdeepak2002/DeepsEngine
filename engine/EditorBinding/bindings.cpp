@@ -16,6 +16,9 @@ void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::strin
     renderer = new Renderer(showWindow, saveOutputRender, projectPath);
 
     renderer->init();
+
+    // TODO: remove this
+    std::string newEntityGuid = renderer->addEntity("cube");
 }
 
 bool bindings::rendererShuttingDown() {
@@ -51,6 +54,7 @@ void bindings::handleEditorResize(int width, int height) {
 
 void bindings::startPlayMode() {
     if(renderer) {
+        // TODO: remove this
         std::string newEntityGuid = renderer->addEntity("cube");
 
         while(!renderer->shuttingDown()) {
