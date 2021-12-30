@@ -7,6 +7,7 @@
 #include <glm.hpp>
 #include <ext/matrix_transform.hpp>
 #include <gtc/type_ptr.hpp>
+#include <document.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -366,23 +367,21 @@ void Renderer::render() {
             std::string compData = comp->getData();
 
             if(compName == "transform") {
-                std::cout << "comp data: " << compData << std::endl;
+                // transform component system
+                const char* json = compData.c_str();
+                rapidjson::Document d;
+                d.Parse(json);
 
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
-                // TODO: parse json string from comp data
+                // retrieve values from JSON object
+                rapidjson::Value& xVal = d["x"];
+                rapidjson::Value& yVal = d["y"];
+                rapidjson::Value& zVal = d["z"];
 
-                float x = 0;
-                float y = 0;
-                float z = 0;
+                double x = xVal.GetDouble();
+                double y = yVal.GetDouble();
+                double z = zVal.GetDouble();
 
+                // set i
                 int i = 0;
 
                 // calculate the model matrix for each object and pass it to shader before drawing
@@ -406,19 +405,7 @@ void Renderer::render() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 
-//    double end_render = glfwGetTime();
-//    render_time = end_render - start_render;
-
-    // save frame to image file
-//    double fps = 60;
-
-//    std::cout << elapsed_time << std::endl;
-
-//    if ( elapsed_time > 1/fps ){
-////        if (saveOutputRender)
-////            saveImage();
-//    }
-
+    // save output image
     if (saveOutputRender)
         saveImage();
 }
@@ -475,7 +462,7 @@ std::string Renderer::addEntity(std::string name) {
     entities.insert(std::pair<std::string, std::string>(entityGuid, name));
 
     // add a transform component to this new entity
-    Component* transformComponent = new Component(entityGuid, "transform", "{x: 0, y: 0, z: 0}");
+    Component* transformComponent = new Component(entityGuid, "transform", "{\"x\": 0.5, \"y\": 0.5, \"z\": 0.5}");
     addComponent(transformComponent);
 
     // return the newly generated entity id

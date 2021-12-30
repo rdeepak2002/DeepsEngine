@@ -20,7 +20,8 @@ set(GLFW_H /usr/local/include/glfw)
 set(GLM /usr/local/include/glm)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS} ${GLM})
+set(RAPID_JSON /usr/local/include/rapidjson)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS} ${GLM} ${RAPID_JSON})
 
 # Add target link
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
@@ -38,7 +39,7 @@ endif()
 
 # standalone engine
 if (RUN_STANDALONE)
-    file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/stb_image.h" "src/stb_image_write.h" "src/glad.c" "src/Renderer.h" "src/Renderer.cpp" "src/Shader.h" "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
+    file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/glad.c" "src/simdjson.h" "src/simdjson.cpp" "src/stb_image.h" "src/stb_image_write.h" "src/Renderer.h" "src/Renderer.cpp" "src/Shader.h" "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
     add_executable(engine_standalone ${SOURCE_FILES_EXEC})
 else ()
     # library
@@ -46,7 +47,7 @@ else ()
     # you should add this line in every CMake.js based project.
     include_directories(${CMAKE_JS_INC})
     # Declare the location of the source files
-    file(GLOB SOURCE_FILES "src/glad.c" "src/stb_image.h" "src/stb_image_write.h" "src/Renderer.h" "src/Renderer.cpp" "EditorBinding/exportbindings.cpp" "EditorBinding/bindings.cpp" "EditorBinding/bindings.h" "src/Shader.h"  "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
+    file(GLOB SOURCE_FILES "src/glad.c" "src/simdjson.h" "src/simdjson.cpp" "src/stb_image.h" "src/stb_image_write.h" "src/Renderer.h" "src/Renderer.cpp" "EditorBinding/exportbindings.cpp" "EditorBinding/bindings.cpp" "EditorBinding/bindings.h" "src/Shader.h"  "src/Component.h" "src/Component.cpp" "src/ComponentSystem.h" "src/ComponentSystem.cpp" "src/uuid.h" "src/uuid.cpp")
 
     # This line will tell CMake that we're building a shared library from the above source files
     # named after the project's name

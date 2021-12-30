@@ -10,11 +10,10 @@
 #include <iostream>
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include <stdio.h>
 #include "Shader.h"
 #include "Component.h"
 #include "ComponentSystem.h"
-#include <stdio.h>
-//#include "uuid.h"
 
 static int scrWidth = 800;
 static int scrHeight = 600;
@@ -36,19 +35,6 @@ private:
     std::map<std::string, std::string> entities;                 // map of <entityId, entityName>
     std::map<std::string, Component*> components;                // map of <entity (id), componentObj>
     std::map<std::string, ComponentSystem*> componentSystems;    // map of <componentName, componentSystem>
-//    std::vector<int[3]> cubePositions;
-//    float cubePositions[10][3] = {
-//            { 0.0f, 0.0f,  0.0f },
-//            { 2.0f, 5.0f, -15.0f },
-//            { -1.5f, -2.2f, -2.5f },
-//            { -3.8f, -2.0f, -12.3f },
-//            { 2.4f, -0.4f, -3.5f },
-//            { -1.7f, 3.0f, -7.5f },
-//            {  1.3f, -2.0f, -2.5f },
-//            { 1.5f, 2.0f, -2.5f },
-//            { 1.5f, 0.2f, -1.5f },
-//            { -1.3f, 1.0f, -1.5f }
-//    };
 public:
     GLFWwindow *window;
     std::string cachedFrame;
