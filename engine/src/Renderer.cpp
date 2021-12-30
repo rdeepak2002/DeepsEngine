@@ -404,10 +404,17 @@ void Renderer::render() {
         Transform transform = Renderer::gCoordinator.GetComponent<Transform>(entity);
 
         glm::mat4 model = glm::mat4(1.0f);
-        glm::vec3 modelPos = glm::vec3(transform.position.x, transform.position.y, transform.position.z);
-        model = glm::translate(model, modelPos);
-        float angle = 0;
+
+        // scale the model
+        model = glm::scale(model, glm::vec3(transform.scale.x, transform.scale.y, transform.scale.z));
+
+        // translate the model
+        model = glm::translate(model, glm::vec3(transform.position.x, transform.position.y, transform.position.z));
+
+        // TODO: rotate the model
+        float angle = 30;
         model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+
         ourShader->setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
@@ -465,7 +472,7 @@ std::string Renderer::addEntity(std::string name) {
             Transform{
                     .position = Vec3({0, 0.4, 0}),
                     .rotation = Vec3({0, 0, 0}),
-                    .scale = Vec3({1, 1, 1})
+                    .scale = Vec3({1, 0.5, 1})
             });
 
     return std::to_string(entity);
