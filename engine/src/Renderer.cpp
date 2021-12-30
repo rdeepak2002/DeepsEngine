@@ -357,47 +357,59 @@ void Renderer::render() {
     // render boxes
     glBindVertexArray(VAO);
 
-    for (auto const& keyValueCS : componentSystems)
-    {
-        ComponentSystem* cs = keyValueCS.second;
-        for(auto const& keyValueComponent : cs->components) {
-            Component* comp = keyValueComponent.second;
+//    for (auto const& keyValueCS : componentSystems)
+//    {
+//        ComponentSystem* cs = keyValueCS.second;
+//        for(auto const& keyValueComponent : cs->components) {
+//            Component* comp = keyValueComponent.second;
+//
+//            std::string compName = comp->getName();
+//            std::string compData = comp->getData();
+//
+//            if(compName == "transform") {
+//                // transform component system
+//                const char* json = compData.c_str();
+//                rapidjson::Document d;
+//                d.Parse(json);
+//
+//                // retrieve values from JSON object
+//                rapidjson::Value& xVal = d["x"];
+//                rapidjson::Value& yVal = d["y"];
+//                rapidjson::Value& zVal = d["z"];
+//
+//                double x = xVal.GetDouble();
+//                double y = yVal.GetDouble();
+//                double z = zVal.GetDouble();
+//
+//                // set i
+//                int i = 0;
+//
+//                // calculate the model matrix for each object and pass it to shader before drawing
+//                glm::mat4 model = glm::mat4(1.0f);
+//                glm::vec3 modelPos = glm::vec3(x, y, z);
+//                model = glm::translate(model, modelPos);
+//                float angle = 20.0f * (i + 1);
+//                model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+//                ourShader->setMat4("model", model);
+//
+//                glDrawArrays(GL_TRIANGLES, 0, 36);
+//            }
+//            else {
+//                printf("unknown component type\n");
+//            }
+//        }
+//    }
 
-            std::string compName = comp->getName();
-            std::string compData = comp->getData();
+    for(auto const& entity : entities) {
+        Transform transform = Renderer::gCoordinator.GetComponent<Transform>(entity);
 
-            if(compName == "transform") {
-                // transform component system
-                const char* json = compData.c_str();
-                rapidjson::Document d;
-                d.Parse(json);
-
-                // retrieve values from JSON object
-                rapidjson::Value& xVal = d["x"];
-                rapidjson::Value& yVal = d["y"];
-                rapidjson::Value& zVal = d["z"];
-
-                double x = xVal.GetDouble();
-                double y = yVal.GetDouble();
-                double z = zVal.GetDouble();
-
-                // set i
-                int i = 0;
-
-                // calculate the model matrix for each object and pass it to shader before drawing
-                glm::mat4 model = glm::mat4(1.0f);
-                glm::vec3 modelPos = glm::vec3(x, y, z);
-                model = glm::translate(model, modelPos);
-                float angle = 20.0f * (i + 1);
-                model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-                ourShader->setMat4("model", model);
-
-                glDrawArrays(GL_TRIANGLES, 0, 36);
-            }
-            else {
-                printf("unknown component type\n");
-            }
-        }
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::vec3 modelPos = glm::vec3(transform.position.x, transform.position.y, transform.position.z);
+        model = glm::translate(model, modelPos);
+        float angle = 0;
+        model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+        ourShader->setMat4("model", model);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -441,59 +453,24 @@ void Renderer::processInput(GLFWwindow *window) {
 void Renderer::handleEditorResize(int width, int height) {
     scrWidth = width;
     scrHeight = height;
-    updateScreenSize = true;
-}
-
-void Renderer::addComponentSystem(ComponentSystem *componentSystem) {
-    // ensure component is non-null
-    if(!componentSystem) {
-        printf("Error: component system is null\n");
-        return;
-    }
-
-    // insert the component system into the map
-    componentSystems.insert(std::pair<std::string, ComponentSystem*>(componentSystem->getName(), componentSystem));
 }
 
 std::string Renderer::addEntity(std::string name) {
-    // create a new entity and insert it into the entites map
-    // TODO: generate guid
-    std::string entityGuid = uuid::generate_uuid_v4();
-    entities.insert(std::pair<std::string, std::string>(entityGuid, name));
+    auto entity = gCoordinator.CreateEntity();
 
-    // add a transform component to this new entity
-    Component* transformComponent = new Component(entityGuid, "transform", "{\"x\": 0.5, \"y\": 0.5, \"z\": 0.5}");
-    addComponent(transformComponent);
+    entities.push_back(entity);
 
-    // return the newly generated entity id
-    return entityGuid;
+    gCoordinator.AddComponent(
+            entity,
+            Transform{
+                    .position = Vec3({0, 0.4, 0}),
+                    .rotation = Vec3({0, 0, 0}),
+                    .scale = Vec3({1, 1, 1})
+            });
+
+    return std::to_string(entity);
 }
 
 void Renderer::addComponent(Component* component) {
-    // ensure component is non-null
-    if(!component) {
-        printf("Error: component is null\n");
-        return;
-    }
 
-    // ensure entity id exists
-    if(entities.count(component->getEntityId()) == 0) {
-        printf("Error: entity with id %s does not exist\n", component->getEntityId().c_str());
-        return;
-    }
-
-    // add component to components map to link it to an entity
-    components.insert(std::pair<std::string, Component*>(component->getId(), component));
-
-    // add component to its array in component system map to link it to a component system
-    std::string componentName = component->getName();
-
-    if(componentSystems.count(componentName) == 0) {
-        // create entry in map if it does not exist
-        addComponentSystem(new ComponentSystem(componentName));
-    }
-
-    ComponentSystem* cs = componentSystems[componentName];
-    component->setComponentSystemId(cs->getId());
-    cs->addComponent(component);
 }
