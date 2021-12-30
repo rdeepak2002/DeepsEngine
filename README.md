@@ -33,6 +33,7 @@ brew install glew
 brew install glm
 brew install ffmpeg
 brew install opencv
+brew install rapidjson
 ```
 
 Refer to instructions below for M1 Mac
@@ -63,6 +64,7 @@ arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
 arch -x86_64 /usr/local/bin/brew install ffmpeg
 arch -x86_64 /usr/local/bin/brew install opencv
+arch -x86_64 /usr/local/bin/brew install rapidjson
 ```
 
 ## Get Started (macOS)
