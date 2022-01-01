@@ -17,6 +17,8 @@ namespace bindings {
 
     void handleEditorResize(int width, int height);
 
+    void addEntity(std::string name);
+
     Napi::String GetCachedFrameWrapped(const Napi::CallbackInfo &info);
 
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
@@ -34,4 +36,6 @@ namespace bindings {
     Napi::Boolean RendererShuttingDownWrapped(const Napi::CallbackInfo &info);
 
     Napi::Object Init(Napi::Env env, Napi::Object exports);
+
+    void AddEntityWrapped(const Napi::CallbackInfo &info);
 }

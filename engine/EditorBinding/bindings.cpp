@@ -18,7 +18,7 @@ void bindings::createRenderer(bool showWindow, bool saveOutputRender, std::strin
     renderer->init();
 
     // TODO: remove this
-    std::string newEntityGuid = renderer->addEntity("cube");
+//    std::string newEntityGuid = renderer->addEntity("cube");
 }
 
 bool bindings::rendererShuttingDown() {
@@ -55,11 +55,17 @@ void bindings::handleEditorResize(int width, int height) {
 void bindings::startPlayMode() {
     if(renderer) {
         // TODO: remove this
-        std::string newEntityGuid = renderer->addEntity("cube");
+//        std::string newEntityGuid = renderer->addEntity("cube");
 
         while(!renderer->shuttingDown()) {
             renderer->render();
         }
+    }
+}
+
+void bindings::addEntity(std::string name) {
+    if(renderer) {
+        std::string newEntityGuid = renderer->addEntity(name);
     }
 }
 
@@ -156,6 +162,20 @@ void bindings::StartPlayModeWrapped(const Napi::CallbackInfo &info) {
     bindings::startPlayMode();
 }
 
+void bindings::AddEntityWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    if (info.Length() != 1) {
+        if (!info[0].IsNumber()) {
+            Napi::TypeError::New(env, "Name expected for entity").ThrowAsJavaScriptException();
+        }
+    }
+
+    Napi::String name = info[0].As<Napi::String>();
+    bindings::addEntity(name);
+}
+
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
             "checkEngineStatus", Napi::Function::New(env, bindings::CheckEngineStatusWrapped)
@@ -185,6 +205,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "startPlayMode", Napi::Function::New(env, bindings::StartPlayModeWrapped)
+    );
+
+    exports.Set(
+            "addEntity", Napi::Function::New(env, bindings::AddEntityWrapped)
     );
 
     return exports;
