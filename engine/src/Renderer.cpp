@@ -357,49 +357,6 @@ void Renderer::render() {
     // render boxes
     glBindVertexArray(VAO);
 
-//    for (auto const& keyValueCS : componentSystems)
-//    {
-//        ComponentSystem* cs = keyValueCS.second;
-//        for(auto const& keyValueComponent : cs->components) {
-//            Component* comp = keyValueComponent.second;
-//
-//            std::string compName = comp->getName();
-//            std::string compData = comp->getData();
-//
-//            if(compName == "transform") {
-//                // transform component system
-//                const char* json = compData.c_str();
-//                rapidjson::Document d;
-//                d.Parse(json);
-//
-//                // retrieve values from JSON object
-//                rapidjson::Value& xVal = d["x"];
-//                rapidjson::Value& yVal = d["y"];
-//                rapidjson::Value& zVal = d["z"];
-//
-//                double x = xVal.GetDouble();
-//                double y = yVal.GetDouble();
-//                double z = zVal.GetDouble();
-//
-//                // set i
-//                int i = 0;
-//
-//                // calculate the model matrix for each object and pass it to shader before drawing
-//                glm::mat4 model = glm::mat4(1.0f);
-//                glm::vec3 modelPos = glm::vec3(x, y, z);
-//                model = glm::translate(model, modelPos);
-//                float angle = 20.0f * (i + 1);
-//                model = glm::rotate(model, (float)glfwGetTime() * glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-//                ourShader->setMat4("model", model);
-//
-//                glDrawArrays(GL_TRIANGLES, 0, 36);
-//            }
-//            else {
-//                printf("unknown component type\n");
-//            }
-//        }
-//    }
-
     for(auto const& entity : entities) {
         Transform transform = Renderer::gCoordinator.GetComponent<Transform>(entity);
 

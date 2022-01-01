@@ -72,7 +72,6 @@ public:
     void shutDown();
     void processInput(GLFWwindow *window);
     void handleEditorResize(int width, int height);
-    void addComponentSystem(ComponentSystem*);
     std::string addEntity(std::string name);
     void addComponent(Component*);
 };

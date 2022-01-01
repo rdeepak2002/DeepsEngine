@@ -13,10 +13,12 @@ import {
 } from 'react-native';
 import {imageData, messageData, playModeData} from "./interfaces";
 import {ipcRenderer} from "electron";
-import DeepsViewTriplePane from "./deeps-engine-ui/DeepsViewTriplePane";
-import DeepsViewDoublePane from "./deeps-engine-ui/DeepsViewDoublePane";
+import DeepsViewTriplePane from "./components/deeps-engine-ui/DeepsViewTriplePane";
+import DeepsViewDoublePane from "./components/deeps-engine-ui/DeepsViewDoublePane";
 // @ts-ignore
 import play_btn from "./assets/icons/play_btn.png";
+import SceneViewEntity from "./components/SceneViewEntity";
+import Inspector from "./components/Inspector";
 
 export default function App() {
     // frame data to display from engine
@@ -27,6 +29,7 @@ export default function App() {
     const [screenHeight, setScreenHeight] = React.useState<number>(Dimensions.get('window').height);
 
     const [playMode, setPlayMode] = React.useState<boolean>(false);
+  const [entitySelected, setEntitySelected] = React.useState<number>(-1);
 
   // resize the editor
   const handleEditorResize = (width: number, height: number) => {
@@ -41,6 +44,18 @@ export default function App() {
 
       ipcRenderer.send('asynchronous-message', messageObj);
     }
+  }
+
+  // add entity
+  const addEntity = (entityName: string) => {
+    const messageObj = {
+      name: 'add-entity',
+      data: {
+        "name": entityName
+      }
+    };
+
+    ipcRenderer.send('asynchronous-message', messageObj);
   }
 
   // shutdown
@@ -149,14 +164,21 @@ export default function App() {
     startRenderer();
   }, []);
 
-  // @ts-ignore
   return (
       <View style={{flex: 1}}>
         <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth} initRatio={[0.7, 0.3]}>
           <DeepsViewTriplePane initHeight={screenHeight} initWidth={screenWidth} horizontal initRatio={[0.2, 0.6, 0.2]}>
-            <View>
-              <Text>TODO: scene view</Text>
+            {/*scene view panel*/}
+            <View style={{display: 'flex', height: '100%'}}>
+              <View style={{flexGrow: 1}}>
+                <SceneViewEntity entityId={0} selected={entitySelected} setSelected={setEntitySelected} />
+                <SceneViewEntity entityId={1} selected={entitySelected} setSelected={setEntitySelected} />
+              </View>
+              <Button title='Add Entity' onPress={() => {
+                addEntity('cube');
+              }}/>
             </View>
+            {/*rendered scene*/}
             <View style={styles.container} onLayout={(event) => {
               const {x, y, width, height} = event.nativeEvent.layout;
               setImageDimensions({
@@ -179,10 +201,12 @@ export default function App() {
                   </View>
               }
             </View>
-            <View>
-              <Text>TODO: inspector</Text>
+            {/*inspector*/}
+            <View style={{display: 'flex', height: '100%'}}>
+              <Inspector selected={entitySelected}/>
             </View>
           </DeepsViewTriplePane>
+          {/*console*/}
           <View>
             <Text>TODO: console</Text>
           </View>

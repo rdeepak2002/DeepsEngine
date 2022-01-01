@@ -20,9 +20,8 @@ public:
             auto const& gravity = gCoordinator.GetComponent<Gravity>(entity);
 
             // TODO: fix operators
-//            transform.position += rigidBody.velocity * dt;
-//
 //            rigidBody.velocity += gravity.force * dt;
+//            transform.position += rigidBody.velocity * dt;
         }
     }
 };

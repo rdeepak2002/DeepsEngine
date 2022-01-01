@@ -117,6 +117,11 @@ ipcMain.on('asynchronous-message', (event, arg) => {
       event.reply('asynchronous-reply', reply);
 
       break;
+    case 'add-entity':
+      const entityName = arg.data.name;
+      core.addEntity(entityName);
+      update();
+      break;
     case 'play-mode':
       let showWindow = true;
       let saveOutputRender = false;
@@ -128,11 +133,6 @@ ipcMain.on('asynchronous-message', (event, arg) => {
 
       console.log('play mode off')
 
-      // showWindow = false;
-      // saveOutputRender = true;
-      //
-      // core.createRenderer(showWindow, saveOutputRender, blankProjectPath);
-      // core.updateRenderer();
       startRenderLoop();
 
       const playModeReply = {
