@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, View, Image} from "react-native";
+import {Image, Text, View} from "react-native";
 import TransformComponentInput from "./TransformComponentInput";
 import {Transform, TransformStr} from "../interfaces";
 import {capitalizeFirstLetter} from "../util/string-utils";
@@ -17,21 +17,34 @@ interface TransformInputProps {
 }
 
 const TransformInput = (props: TransformInputProps) => {
-    return(
-        <View style={[props.style || {}, {padding: 10, marginBottom: 10, display: 'flex', flexDirection: 'column', borderStyle: 'dotted', borderTopColor: 'black', borderBottomColor: 'black', borderTopWidth: 1, borderBottomWidth: 1}]}>
+    return (
+        <View style={[props.style || {}, {
+            padding: 10,
+            marginBottom: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            borderStyle: 'dotted',
+            borderTopColor: 'black',
+            borderBottomColor: 'black',
+            borderTopWidth: 1,
+            borderBottomWidth: 1
+        }]}>
             <View style={{marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
                 <Image style={{width: 25, height: 25}} source={transform_icon}/>
                 <Text style={{fontWeight: 'bold', marginLeft: 10, fontSize: 15}}>Transform</Text>
             </View>
             {['position', 'rotation', 'scale'].map((transformComponentName, key) => {
                 return (
-                    <View key={`${props.entitySelected}-${transformComponentName}-${key}`} style={{marginBottom: 5, display: 'flex', flexDirection: 'row'}}>
+                    <View key={`${props.entitySelected}-${transformComponentName}-${key}`}
+                          style={{marginBottom: 5, display: 'flex', flexDirection: 'row'}}>
                         <View style={{flexGrow: 1}}>
                             <Text>{capitalizeFirstLetter(transformComponentName)}</Text>
                         </View>
                         {['x', 'y', 'z'].map((vec3ComponentName, key) => {
                             return (
-                                <View key={`${props.entitySelected}-${transformComponentName}-${vec3ComponentName}-${key}`}  style={{display: 'flex', flexDirection: 'row'}}>
+                                <View
+                                    key={`${props.entitySelected}-${transformComponentName}-${vec3ComponentName}-${key}`}
+                                    style={{display: 'flex', flexDirection: 'row'}}>
                                     <View style={{width: 10, marginRight: 10}}>
                                         <Text>{(vec3ComponentName).toUpperCase()}</Text>
                                     </View>

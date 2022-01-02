@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, TextInput} from "react-native";
+import {TextInput} from "react-native";
 
 interface FloatInputProps {
     onChange: Function;
@@ -13,20 +13,20 @@ const FloatInput = (props: FloatInputProps) => {
         let res: string = "";
         let hasPeriod = false;
 
-        if(str.length <= 0) {
+        if (str.length <= 0) {
             return res;
         }
 
-        for(let i: number = 0; i < str.length; i++) {
-            let letter: string= str.charAt(i);
+        for (let i: number = 0; i < str.length; i++) {
+            let letter: string = str.charAt(i);
 
-            if(letter === '-' && i === 0) {
+            if (letter === '-' && i === 0) {
                 res += letter;
                 continue;
             }
 
-            if(letter === ".") {
-                if(!hasPeriod)
+            if (letter === ".") {
+                if (!hasPeriod)
                     res += ".";
                 hasPeriod = true;
                 continue;
@@ -34,36 +34,36 @@ const FloatInput = (props: FloatInputProps) => {
 
             const isNumber = !isNaN(Number(letter));
 
-            if(isNumber) {
+            if (isNumber) {
                 res += letter;
             }
         }
 
-        if(res === "-") {
+        if (res === "-") {
             res = "-0";
         }
 
-        if(res === "-.") {
+        if (res === "-.") {
             res = "-0.0";
         }
 
-        if(res === ".") {
+        if (res === ".") {
             res = "0.0"
         }
 
-        if(res.trim() === "" || isNaN(parseFloat(res))) {
+        if (res.trim() === "" || isNaN(parseFloat(res))) {
             res = "0"
         }
 
         return res;
     }
 
-    return(
+    return (
         <TextInput
             // style={styles.input}
             onChangeText={(value: string) => {
                 let valueStr = filterFloatString(value.trim());
-                if(valueStr.trim() === "") {
+                if (valueStr.trim() === "") {
                     valueStr = "0";
                 }
                 props.onChange(valueStr);

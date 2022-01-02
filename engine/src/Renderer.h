@@ -24,7 +24,7 @@ static int scrHeight = 600;
 class Renderer {
 private:
     // TODO: pass in variables for dimensions (replace 800x600)
-    const char* cmd = "ffmpeg -f rawvideo -pixel_format rgba -video_size 800x600 -re -framerate 60  -i - -f mpegts -pix_fmt yuv420p -crf 21 -vf vflip -preset fast udp://127.0.0.1:1234";
+    const char *cmd = "ffmpeg -f rawvideo -pixel_format rgba -video_size 800x600 -re -framerate 60  -i - -f mpegts -pix_fmt yuv420p -crf 21 -vf vflip -preset fast udp://127.0.0.1:1234";
 //    FILE* ffmpeg;
     std::string projectPath;
     bool showWindow;
@@ -66,14 +66,20 @@ public:
     }
 
     void saveImage();
+
     int init(); // creates window/context
     void render(); //performs actual drawing
     bool shuttingDown();
+
     void shutDown();
+
     void processInput(GLFWwindow *window);
+
     void handleEditorResize(int width, int height);
+
     std::string addEntity(std::string name);
-    void addComponent(Component*);
+
+    void addComponent(Component *);
 };
 
 

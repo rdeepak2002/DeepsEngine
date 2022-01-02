@@ -10,8 +10,11 @@
 #include <document.h>
 
 #define STB_IMAGE_IMPLEMENTATION
+
 #include "stb_image.h"
+
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+
 #include "stb_image_write.h"
 
 #include "uuid.h"
@@ -71,30 +74,30 @@ std::string base64_encode(const unsigned char *src, size_t len) {
 }
 
 void Renderer::saveImage() {
-        int width = 800;
-        int height = 600;
-        glfwGetFramebufferSize(window, &width, &height);
-        GLsizei nrChannels = 3;
-        GLsizei stride = nrChannels * width;
-        stride += (stride % 4) ? (4 - stride % 4) : 0;
-        GLsizei bufferSize = stride * height;
-        std::vector<char> buffer(bufferSize);
-        glPixelStorei(GL_PACK_ALIGNMENT, 4);
-        glReadBuffer(GL_FRONT);
-        glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+    int width = 800;
+    int height = 600;
+    glfwGetFramebufferSize(window, &width, &height);
+    GLsizei nrChannels = 3;
+    GLsizei stride = nrChannels * width;
+    stride += (stride % 4) ? (4 - stride % 4) : 0;
+    GLsizei bufferSize = stride * height;
+    std::vector<char> buffer(bufferSize);
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glReadBuffer(GL_FRONT);
+    glReadPixels(0, 0, width, height, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
 
 //        // convert the buffer to an opencv image and return the base64 encoded version of it
-        cv::Mat img(height, width, CV_8UC3, buffer.data());
-        cv::Mat flipped_img;
-        flip(img, flipped_img, 0);
-        cv::Mat BGR_img;
-        cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
-        std::vector<uchar> buffer1;
-        buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
-        cv::imencode(".png", BGR_img, buffer1);
-        std::string encoding = base64_encode(buffer1.data(), buffer1.size());
+    cv::Mat img(height, width, CV_8UC3, buffer.data());
+    cv::Mat flipped_img;
+    flip(img, flipped_img, 0);
+    cv::Mat BGR_img;
+    cvtColor(flipped_img, BGR_img, cv::COLOR_RGB2BGR);
+    std::vector<uchar> buffer1;
+    buffer1.resize(static_cast<size_t>(BGR_img.rows) * static_cast<size_t>(BGR_img.cols));
+    cv::imencode(".png", BGR_img, buffer1);
+    std::string encoding = base64_encode(buffer1.data(), buffer1.size());
 //        std::cout << encoding << std::endl;
-        cachedFrame = encoding;
+    cachedFrame = encoding;
 
 //    int width = 800;
 //    int height = 600;
@@ -163,47 +166,47 @@ int Renderer::init() {
 //            -0.5f, 0.5f, 0.0f,  0.0f, 1.0f  // top left
 //    };
     float vertices[] = {
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-            0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+            -0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
 
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 0.0f,
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f
     };
 
 //    unsigned int indices[] = {
@@ -235,10 +238,10 @@ int Renderer::init() {
 
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
     // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *) (3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
 
@@ -346,18 +349,19 @@ void Renderer::render() {
     ourShader->use();
 
     // create transformations
-    glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 projection    = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)scrWidth / (float)scrHeight, 0.1f, 100.0f);
-    view       = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+    glm::mat4 view = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    glm::mat4 projection = glm::mat4(1.0f);
+    projection = glm::perspective(glm::radians(45.0f), (float) scrWidth / (float) scrHeight, 0.1f, 100.0f);
+    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
     // pass transformation matrices to the shader
-    ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+    ourShader->setMat4("projection",
+                       projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
     ourShader->setMat4("view", view);
 
     // render boxes
     glBindVertexArray(VAO);
 
-    for(auto const& entity : entities) {
+    for (auto const &entity: entities) {
         Transform transform = Renderer::gCoordinator.GetComponent<Transform>(entity);
 
         glm::mat4 model = glm::mat4(1.0f);
@@ -370,13 +374,13 @@ void Renderer::render() {
 
         // rotate the model
         // rotate x
-        model = glm::rotate(model, (float)transform.rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, (float) transform.rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 
         // rotate y
-        model = glm::rotate(model, (float)transform.rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, (float) transform.rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 
         // rotate z
-        model = glm::rotate(model, (float)transform.rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::rotate(model, (float) transform.rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
         ourShader->setMat4("model", model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -441,6 +445,6 @@ std::string Renderer::addEntity(std::string name) {
     return std::to_string(entity);
 }
 
-void Renderer::addComponent(Component* component) {
+void Renderer::addComponent(Component *component) {
 
 }

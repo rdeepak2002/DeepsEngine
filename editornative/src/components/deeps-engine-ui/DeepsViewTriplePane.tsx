@@ -1,5 +1,5 @@
-import React, {FC, useEffect, useRef} from "react";
-import {Animated, Dimensions, PanResponder, StyleSheet, View} from "react-native";
+import React, {FC} from "react";
+import {Animated, PanResponder, View} from "react-native";
 
 type Props = {
     children: React.ReactNode;
@@ -41,7 +41,7 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
 
     const newIsDividerClicked = [];
 
-    for(let i = 0; i < numChildren - 1; i++) {
+    for (let i = 0; i < numChildren - 1; i++) {
         newIsDividerClicked.push(false);
     }
 
@@ -63,19 +63,18 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
                     setIsDividerClicked([...dividersCopy]);
                 },
                 onPanResponderMove: (evt, gestureState) => {
-                    const pageLoc =  props.horizontal ? evt.nativeEvent.pageX : evt.nativeEvent.pageY;
+                    const pageLoc = props.horizontal ? evt.nativeEvent.pageX : evt.nativeEvent.pageY;
                     let previousSizes = 0;
-                    for(let i = 0; i < index1; i++) {
+                    for (let i = 0; i < index1; i++) {
                         previousSizes += containerSizes[i] + dividerSize;
                     }
                     let newSize1 = pageLoc - previousSizes;
 
                     let maxContainerSize = (containerSizes[index1] + containerSizes[index2]) - minContainerSizes[index2]
 
-                    if(newSize1 < minContainerSizes[index1]) {
+                    if (newSize1 < minContainerSizes[index1]) {
                         newSize1 = minContainerSizes[index1];
-                    }
-                    else if(newSize1 > maxContainerSize) {
+                    } else if (newSize1 > maxContainerSize) {
                         newSize1 = maxContainerSize;
                     }
 
@@ -108,20 +107,28 @@ const DeepsViewTriplePane: FC<Props> = (props: Props) => {
     }
 
     return (
-        <View style={[{display: 'flex', flexDirection: props.horizontal ? 'row' : 'column'}, {width: '100%'}, {height: '100%'}]}>
-            <Animated.View style={[{backgroundColor: 'white'}, props.horizontal ? {minWidth: minContainerSizes[0]} : {minHeight: minContainerSizes[0]}, props.horizontal ? {width: containerSizes[0]} : {height: containerSizes[0]}]}>
+        <View style={[{
+            display: 'flex',
+            flexDirection: props.horizontal ? 'row' : 'column'
+        }, {width: '100%'}, {height: '100%'}]}>
+            <Animated.View
+                style={[{backgroundColor: 'white'}, props.horizontal ? {minWidth: minContainerSizes[0]} : {minHeight: minContainerSizes[0]}, props.horizontal ? {width: containerSizes[0]} : {height: containerSizes[0]}]}>
                 {childrenObj[0]}
             </Animated.View>
 
-            <View style = {[props.horizontal ? {width: dividerSize} : {height: dividerSize}, isDividerClicked[0] ? {backgroundColor: '#666'} : {backgroundColor: '#e2e2e2'}]} {...createPanResponder(0, 1).panHandlers} />
+            <View
+                style={[props.horizontal ? {width: dividerSize} : {height: dividerSize}, isDividerClicked[0] ? {backgroundColor: '#666'} : {backgroundColor: '#e2e2e2'}]} {...createPanResponder(0, 1).panHandlers} />
 
-            <Animated.View style={[{backgroundColor: 'white'},  props.horizontal ? {minWidth: minContainerSizes[1]} : {minHeight: minContainerSizes[1]}, props.horizontal ? {width: containerSizes[1]} : {height: containerSizes[1]}]}>
+            <Animated.View
+                style={[{backgroundColor: 'white'}, props.horizontal ? {minWidth: minContainerSizes[1]} : {minHeight: minContainerSizes[1]}, props.horizontal ? {width: containerSizes[1]} : {height: containerSizes[1]}]}>
                 {childrenObj[1]}
             </Animated.View>
 
-            <View style = {[props.horizontal ? {width: dividerSize} : {height: dividerSize}, isDividerClicked[1] ? {backgroundColor: '#666'} : {backgroundColor: '#e2e2e2'}]} {...createPanResponder(1, 2).panHandlers} />
+            <View
+                style={[props.horizontal ? {width: dividerSize} : {height: dividerSize}, isDividerClicked[1] ? {backgroundColor: '#666'} : {backgroundColor: '#e2e2e2'}]} {...createPanResponder(1, 2).panHandlers} />
 
-            <Animated.View style={[{backgroundColor: 'white'},  props.horizontal ? {minWidth: minContainerSizes[2]} : {minHeight: minContainerSizes[2]}, props.horizontal ? {width: containerSizes[2]} : {height: containerSizes[2]}]}>
+            <Animated.View
+                style={[{backgroundColor: 'white'}, props.horizontal ? {minWidth: minContainerSizes[2]} : {minHeight: minContainerSizes[2]}, props.horizontal ? {width: containerSizes[2]} : {height: containerSizes[2]}]}>
                 {childrenObj[2]}
             </Animated.View>
         </View>

@@ -1,6 +1,6 @@
 import React from "react";
 import FloatInput from "./FloatInput";
-import {Transform, TransformStr, Vec3, Vec3Str} from "../interfaces";
+import {Transform, TransformStr} from "../interfaces";
 
 interface Vec3ComponentInput {
     vec3Name: 'position' | 'rotation' | 'scale';
@@ -13,7 +13,7 @@ interface Vec3ComponentInput {
 }
 
 const TransformComponentInput = (props: Vec3ComponentInput) => {
-    return(
+    return (
         <FloatInput
             style={[props.style || {}]}
             onChange={(value: string) => {
