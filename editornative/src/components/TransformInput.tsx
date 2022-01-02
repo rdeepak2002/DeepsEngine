@@ -1,8 +1,11 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {Text, View, Image} from "react-native";
 import TransformComponentInput from "./TransformComponentInput";
 import {Transform, TransformStr} from "../interfaces";
 import {capitalizeFirstLetter} from "../util/string-utils";
+
+// @ts-ignore
+import transform_icon from "../../assets/icons/transform_icon.png";
 
 interface TransformInputProps {
     entitySelected: number;
@@ -15,13 +18,14 @@ interface TransformInputProps {
 
 const TransformInput = (props: TransformInputProps) => {
     return(
-        <View style={[props.style || {}, {display: 'flex', flexDirection: 'column'}]}>
-            <View>
-                <Text>Transform</Text>
+        <View style={[props.style || {}, {padding: 10, marginBottom: 10, display: 'flex', flexDirection: 'column', borderStyle: 'dotted', borderTopColor: 'black', borderBottomColor: 'black', borderTopWidth: 1, borderBottomWidth: 1}]}>
+            <View style={{marginBottom: 10, display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+                <Image style={{width: 25, height: 25}} source={transform_icon}/>
+                <Text style={{fontWeight: 'bold', marginLeft: 10, fontSize: 15}}>Transform</Text>
             </View>
             {['position', 'rotation', 'scale'].map((transformComponentName, key) => {
                 return (
-                    <View key={`${props.entitySelected}-${transformComponentName}-${key}`} style={{display: 'flex', flexDirection: 'row'}}>
+                    <View key={`${props.entitySelected}-${transformComponentName}-${key}`} style={{marginBottom: 5, display: 'flex', flexDirection: 'row'}}>
                         <View style={{flexGrow: 1}}>
                             <Text>{capitalizeFirstLetter(transformComponentName)}</Text>
                         </View>

@@ -15,10 +15,11 @@ import {imageData, messageData, playModeData} from "./src/interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./src/components/deeps-engine-ui/DeepsViewTriplePane";
 import DeepsViewDoublePane from "./src/components/deeps-engine-ui/DeepsViewDoublePane";
-// @ts-ignore
-import play_btn from "./assets/icons/play_btn.png";
 import SceneViewEntity from "./src/components/SceneViewEntity";
 import Inspector from "./src/components/Inspector";
+
+// @ts-ignore
+import play_btn from "./assets/icons/play_btn.png";
 
 export default function App() {
     // frame data to display from engine
