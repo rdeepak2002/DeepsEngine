@@ -10,20 +10,16 @@
 #include <array>
 #include "ECS.h"
 
-class EntityManager
-{
+class EntityManager {
 public:
-    EntityManager()
-    {
+    EntityManager() {
         // Initialize the queue with all possible entity IDs
-        for (Entity entity = 0; entity < MAX_ENTITIES; ++entity)
-        {
+        for (Entity entity = 0; entity < MAX_ENTITIES; ++entity) {
             mAvailableEntities.push(entity);
         }
     }
 
-    Entity CreateEntity()
-    {
+    Entity CreateEntity() {
         assert(mLivingEntityCount < MAX_ENTITIES && "Too many entities in existence.");
 
         // Take an ID from the front of the queue
@@ -34,8 +30,7 @@ public:
         return id;
     }
 
-    void DestroyEntity(Entity entity)
-    {
+    void DestroyEntity(Entity entity) {
         assert(entity < MAX_ENTITIES && "Entity out of range.");
 
         // Invalidate the destroyed entity's signature
@@ -46,16 +41,14 @@ public:
         --mLivingEntityCount;
     }
 
-    void SetSignature(Entity entity, Signature signature)
-    {
+    void SetSignature(Entity entity, Signature signature) {
         assert(entity < MAX_ENTITIES && "Entity out of range.");
 
         // Put this entity's signature into the array
         mSignatures[entity] = signature;
     }
 
-    Signature GetSignature(Entity entity)
-    {
+    Signature GetSignature(Entity entity) {
         assert(entity < MAX_ENTITIES && "Entity out of range.");
 
         // Get this entity's signature from the array

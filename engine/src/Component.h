@@ -20,12 +20,19 @@ public:
     Component(std::string entityId, std::string name, std::string data);
 
     std::string getId();
+
     void setEntityId(std::string id);
+
     std::string getEntityId();
+
     void setComponentSystemId(std::string id);
+
     std::string getComponentSystemId();
+
     std::string getName();
+
     void setData(std::string data);
+
     std::string getData();
 };
 

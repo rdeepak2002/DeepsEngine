@@ -15,21 +15,20 @@
 // An interface is needed so that the ComponentManager (seen later)
 // can tell a generic ComponentArray that an entity has been destroyed
 // and that it needs to update its array mappings.
-class IComponentArray
-{
+class IComponentArray {
 public:
     virtual ~IComponentArray() = default;
+
     virtual void EntityDestroyed(Entity entity) = 0;
 };
 
 
 template<typename T>
-class ComponentArray : public IComponentArray
-{
+class ComponentArray : public IComponentArray {
 public:
-    void InsertData(Entity entity, T component)
-    {
-        assert(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end() && "Component added to same entity more than once.");
+    void InsertData(Entity entity, T component) {
+        assert(mEntityToIndexMap.find(entity) == mEntityToIndexMap.end() &&
+               "Component added to same entity more than once.");
 
         // Put new entry at end and update the maps
         size_t newIndex = mSize;
@@ -39,8 +38,7 @@ public:
         ++mSize;
     }
 
-    void RemoveData(Entity entity)
-    {
+    void RemoveData(Entity entity) {
         assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Removing non-existent component.");
 
         // Copy element at end into deleted element's place to maintain density
@@ -59,18 +57,15 @@ public:
         --mSize;
     }
 
-    T& GetData(Entity entity)
-    {
+    T &GetData(Entity entity) {
         assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Retrieving non-existent component.");
 
         // Return a reference to the entity's component
         return mComponentArray[mEntityToIndexMap[entity]];
     }
 
-    void EntityDestroyed(Entity entity) override
-    {
-        if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end())
-        {
+    void EntityDestroyed(Entity entity) override {
+        if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
             // Remove the entity's component if it existed
             RemoveData(entity);
         }

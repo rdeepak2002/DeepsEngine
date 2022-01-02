@@ -12,12 +12,12 @@ std::string ComponentSystem::getName() {
     return this->name;
 }
 
-void ComponentSystem::addComponent(Component* component) {
-    if(component)
-        components.insert(std::pair<std::string, Component*>(component->getId(), component));
+void ComponentSystem::addComponent(Component *component) {
+    if (component)
+        components.insert(std::pair<std::string, Component *>(component->getId(), component));
 }
 
-void ComponentSystem::removeComponent(Component* component) {
-    if(component)
+void ComponentSystem::removeComponent(Component *component) {
+    if (component)
         components.erase(component->getId());
 }

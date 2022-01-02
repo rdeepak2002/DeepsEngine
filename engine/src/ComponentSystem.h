@@ -16,14 +16,18 @@ private:
     std::string name;
 public:
     std::string getId();
+
     std::string getName();
-    std::map<std::string, Component*> components;        // map of {componentId: componentObj}
+
+    std::map<std::string, Component *> components;        // map of {componentId: componentObj}
     ComponentSystem(std::string name) {
         id = uuid::generate_uuid_v4();
         this->name = name;
     }
-    void addComponent(Component* component);
-    void removeComponent(Component* component);
+
+    void addComponent(Component *component);
+
+    void removeComponent(Component *component);
 };
 
 

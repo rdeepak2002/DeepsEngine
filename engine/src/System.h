@@ -9,8 +9,7 @@
 #include <set>
 #include "ECS.h"
 
-class System
-{
+class System {
 public:
     std::set<Entity> mEntities;
 };
