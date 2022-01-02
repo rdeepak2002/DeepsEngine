@@ -18,7 +18,7 @@ const Inspector = (props: InspectorProps) => {
             {
                 (props.selected >= 0) ? (
                     <View  style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text>entity {props.selected}</Text>
+                        <Text>Entity {props.selected}</Text>
                         <TransformInput
                             entitySelected={props.selected}
                             transformStr={transformStr}

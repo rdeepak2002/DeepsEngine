@@ -15,7 +15,7 @@ const SceneViewEntity = (props: SceneViewEntityProps) => {
             props.setSelected(props.entityId);
         }}>
             <View style={[isSelected ? {backgroundColor: 'rgba(0, 0, 0, 0.3)'} : {}]}>
-                <Text>entity {props.entityId}</Text>
+                <Text>Entity {props.entityId}</Text>
             </View>
         </TouchableOpacity>
     );

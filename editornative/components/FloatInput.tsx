@@ -68,7 +68,6 @@ const FloatInput = (props: FloatInputProps) => {
                 }
                 props.onChange(valueStr);
             }}
-            defaultValue={"0.0"}
             value={props.value}
             placeholder={props.placeholder}
             keyboardType="default"

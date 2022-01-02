@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View} from "react-native";
 import TransformComponentInput from "./TransformComponentInput";
 import {Transform, TransformStr} from "../interfaces";
+import {capitalizeFirstLetter} from "../util/string-utils";
 
 interface TransformInputProps {
     entitySelected: number;
@@ -22,7 +23,7 @@ const TransformInput = (props: TransformInputProps) => {
                 return (
                     <View key={`${props.entitySelected}-${transformComponentName}-${key}`} style={{display: 'flex', flexDirection: 'row'}}>
                         <View style={{flexGrow: 1}}>
-                            <Text>{transformComponentName}</Text>
+                            <Text>{capitalizeFirstLetter(transformComponentName)}</Text>
                         </View>
                         {['x', 'y', 'z'].map((vec3ComponentName, key) => {
                             return (
