@@ -5,6 +5,7 @@ interface FloatInputProps {
     onChange: Function;
     value: string;
     placeholder: string;
+    style?: any;
 }
 
 const FloatInput = (props: FloatInputProps) => {
@@ -71,6 +72,7 @@ const FloatInput = (props: FloatInputProps) => {
             value={props.value}
             placeholder={props.placeholder}
             keyboardType="default"
+            style={[props.style || {}]}
         />
     );
 }

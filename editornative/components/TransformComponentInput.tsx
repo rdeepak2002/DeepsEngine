@@ -9,11 +9,13 @@ interface Vec3ComponentInput {
     setTransformStr: Function;
     transformVal: Transform;
     setTransformVal: Function;
+    style?: any;
 }
 
 const TransformComponentInput = (props: Vec3ComponentInput) => {
     return(
         <FloatInput
+            style={[props.style || {}]}
             onChange={(value: string) => {
                 const transformStrCopy = Object.assign({}, props.transformStr);
                 transformStrCopy[props.vec3Name][props.vec3Component] = value;
@@ -24,7 +26,7 @@ const TransformComponentInput = (props: Vec3ComponentInput) => {
                 props.setTransformVal(transformValCopy);
             }}
             value={props.transformStr[props.vec3Name][props.vec3Component].toString()}
-            placeholder={'x'}
+            placeholder={props.vec3Name}
         />
     );
 }

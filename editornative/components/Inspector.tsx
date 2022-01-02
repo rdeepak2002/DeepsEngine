@@ -13,14 +13,20 @@ const Inspector = (props: InspectorProps) => {
     const [transformVal, setTransformVal] = React.useState<Transform>(genTransform());
 
     return(
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, overflow: 'scroll'}}>
             {
                 (props.selected >= 0) ? (
-                    <Text>
-                        entity {props.selected}
-
+                    <View  style={{display: 'flex', flexDirection: 'column'}}>
+                        <Text>entity {props.selected}</Text>
                         <View style={{display: 'flex', flexDirection: 'row'}}>
+                            <View style={{flexGrow: 1}}>
+                                <Text>Position</Text>
+                            </View>
+                            <View style={{width: 10, marginRight: 10}}>
+                                <Text>X</Text>
+                            </View>
                             <TransformComponentInput
+                                style={{width: 50, marginRight: 10}}
                                 vec3Name={'position'}
                                 vec3Component={'x'}
                                 transformStr={transformStr}
@@ -28,21 +34,32 @@ const Inspector = (props: InspectorProps) => {
                                 transformVal={transformVal}
                                 setTransformVal={setTransformVal}
                             />
-                            {/*<FloatInput*/}
-                            {/*    onChange={(value: string) => {*/}
-                            {/*        const transformStrCopy = Object.assign({}, transformStr);*/}
-                            {/*        transformStrCopy.position['x'] = value;*/}
-                            {/*        setTransformStr(transformStr);*/}
-
-                            {/*        const transformValCopy = Object.assign({}, transformVal);*/}
-                            {/*        transformValCopy.position['x'] = parseFloat(value);*/}
-                            {/*        setTransformVal(transformValCopy);*/}
-                            {/*    }}*/}
-                            {/*    value={transformStr.position['x'].toString()}*/}
-                            {/*    placeholder={'x'}*/}
-                            {/*/>*/}
+                            <View style={{width: 10, marginRight: 10}}>
+                                <Text>Y</Text>
+                            </View>
+                            <TransformComponentInput
+                                style={{width: 50, marginRight: 10}}
+                                vec3Name={'position'}
+                                vec3Component={'y'}
+                                transformStr={transformStr}
+                                setTransformStr={setTransformStr}
+                                transformVal={transformVal}
+                                setTransformVal={setTransformVal}
+                            />
+                            <View style={{width: 10, marginRight: 10}}>
+                                <Text>Z</Text>
+                            </View>
+                            <TransformComponentInput
+                                style={{width: 50, marginRight: 10}}
+                                vec3Name={'position'}
+                                vec3Component={'z'}
+                                transformStr={transformStr}
+                                setTransformStr={setTransformStr}
+                                transformVal={transformVal}
+                                setTransformVal={setTransformVal}
+                            />
                         </View>
-                    </Text>
+                    </View>
                 ) : (
                     <Text>Nothing Selected</Text>
                 )
