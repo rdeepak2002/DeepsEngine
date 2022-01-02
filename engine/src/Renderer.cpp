@@ -445,6 +445,65 @@ std::string Renderer::addEntity(std::string name) {
     return std::to_string(entity);
 }
 
+void Renderer::updateComponent(Entity entity, std::string json) {
+    // parse json string
+    rapidjson::Document document;
+    document.Parse(json.c_str());
+
+    assert(document.IsObject());
+
+    // update transform component of entity
+    if(document.HasMember("transform")) {
+        // get the transform component from the entity
+        Transform newTransform = gCoordinator.GetComponent<Transform>(entity);
+
+        std::string transformComponents[] = {"position", "rotation", "scale"};
+        std::string vec3Components[] = {"x", "y", "z"};
+
+        for(const std::string transformComponent : transformComponents) {
+            for(const std::string& vec3Component : vec3Components) {
+                if(document["transform"].HasMember(transformComponent.c_str())) {
+                    if(document["transform"][transformComponent.c_str()].HasMember(vec3Component.c_str())) {
+                        assert(document["transform"][transformComponent.c_str()][vec3Component.c_str()].IsDouble());
+                        double newVal = document["transform"][transformComponent.c_str()][vec3Component.c_str()].GetDouble();
+
+                        if(transformComponent == "position") {
+                            if(vec3Component == "x")
+                                newTransform.position.x = newVal;
+                            if(vec3Component == "y")
+                                newTransform.position.y = newVal;
+                            if(vec3Component == "z")
+                                newTransform.position.z = newVal;
+                        }
+
+                        if(transformComponent == "rotation") {
+                            if(vec3Component == "x")
+                                newTransform.rotation.x = newVal;
+                            if(vec3Component == "y")
+                                newTransform.rotation.y = newVal;
+                            if(vec3Component == "z")
+                                newTransform.rotation.z = newVal;
+                        }
+
+                        if(transformComponent == "scale") {
+                            if(vec3Component == "x")
+                                newTransform.scale.x = newVal;
+                            if(vec3Component == "y")
+                                newTransform.scale.y = newVal;
+                            if(vec3Component == "z")
+                                newTransform.scale.z = newVal;
+                        }
+                    }
+                }
+            }
+        }
+
+        // remove old component then add new one
+        gCoordinator.RemoveComponent<Transform>(entity);
+        gCoordinator.AddComponent(entity,newTransform);
+    }
+}
+
 void Renderer::addComponent(Component *component) {
 
 }

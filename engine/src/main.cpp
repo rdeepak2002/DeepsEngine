@@ -2,6 +2,7 @@
 // Created by Deepak Ramalingam on 11/21/21.
 //
 
+#include <document.h>
 #include "Renderer.h"
 
 int main() {
@@ -14,8 +15,7 @@ int main() {
     renderer->init();
 
     std::string newEntityGuid = renderer->addEntity("cube");
-//    Component* cubeTransform = new Component(newEntityGuid, "transform", "vec3(0,0,0)");
-//    renderer->addComponent(cubeTransform);
+//    renderer->updateComponent(0, "{\"transform\": {\"position\": {\"x\": 0.5}, \"rotation\": {\"x\": 0.5}}}");
 
     while (!renderer->shuttingDown()) {
         renderer->render();

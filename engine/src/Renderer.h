@@ -79,6 +79,8 @@ public:
 
     std::string addEntity(std::string name);
 
+    void updateComponent(Entity entity, std::string json);
+
     void addComponent(Component *);
 };
 
