@@ -1,8 +1,6 @@
 import React from "react";
-import {View, Text} from "react-native";
-import FloatInput from "./FloatInput";
+import {Text, View} from "react-native";
 import {genTransform, Transform, TransformStr} from "../interfaces";
-import TransformComponentInput from "./TransformComponentInput";
 import TransformInput from "./TransformInput";
 
 interface InspectorProps {
