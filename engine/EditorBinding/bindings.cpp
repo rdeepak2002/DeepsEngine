@@ -69,6 +69,12 @@ void bindings::addEntity(std::string name) {
     }
 }
 
+void bindings::updateComponent(std::uint32_t entity, std::string json) {
+    if(renderer) {
+        renderer->updateComponent(entity, json);
+    }
+}
+
 Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -173,7 +179,26 @@ void bindings::AddEntityWrapped(const Napi::CallbackInfo &info) {
     }
 
     Napi::String name = info[0].As<Napi::String>();
-    bindings::addEntity(name);
+    bindings::addEntity(name.Utf8Value());
+}
+
+void bindings::UpdateComponentWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    if (info.Length() != 2) {
+        if (!info[0].IsNumber()) {
+            Napi::TypeError::New(env, "Entity id expected").ThrowAsJavaScriptException();
+        }
+        if (!info[1].IsString()) {
+            Napi::TypeError::New(env, "Component update JSON expected").ThrowAsJavaScriptException();
+        }
+    }
+
+    Napi::Number entityId = info[0].As<Napi::Number>();
+    Napi::String json = info[1].As<Napi::String>();
+
+    bindings::updateComponent(entityId.Int64Value(), json.Utf8Value());
 }
 
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
@@ -209,6 +234,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "addEntity", Napi::Function::New(env, bindings::AddEntityWrapped)
+    );
+
+    exports.Set(
+            "updateComponent", Napi::Function::New(env, bindings::UpdateComponentWrapped)
     );
 
     return exports;

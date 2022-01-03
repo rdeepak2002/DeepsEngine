@@ -26,7 +26,6 @@ function createMainWindow() {
     // TODO: make panes responsive
     // TODO: make panes responsive
     // TODO: make panes responsive
-    // TODO: make panes responsive
     browserWindow.setResizable(false);
 
     // set title of window
@@ -122,6 +121,14 @@ ipcMain.on('asynchronous-message', (event, arg) => {
         case 'add-entity':
             const entityName = arg.data.name;
             core.addEntity(entityName);
+            // update renderer
+            update();
+            break;
+        case 'update-component':
+            const entityId = arg.data.entityId;
+            const newData = arg.data.componentData;
+            core.updateComponent(entityId, newData);
+            // update renderer
             update();
             break;
         case 'play-mode':

@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View} from "react-native";
 import {genTransform, Transform, TransformStr} from "../interfaces";
 import TransformInput from "./TransformInput";
+import {ipcRenderer} from "electron";
 
 interface InspectorProps {
     selected: number;
@@ -10,6 +11,28 @@ interface InspectorProps {
 const Inspector = (props: InspectorProps) => {
     const [transformStr, setTransformStr] = React.useState<Transform | TransformStr>(genTransform());
     const [transformVal, setTransformVal] = React.useState<Transform>(genTransform());
+
+    // update component
+    const updateComponent = (entityId: number, componentData: string) => {
+        const messageObj = {
+            name: 'update-component',
+            data: {
+                "entityId": entityId,
+                "componentData": componentData,
+                "createdAt": Date.now()
+            }
+        };
+
+        ipcRenderer.send('asynchronous-message', messageObj);
+    }
+
+    React.useEffect(() => {
+        const componentUpdateData = {
+            transform: transformVal
+        };
+
+        updateComponent(0, JSON.stringify(componentUpdateData));
+    }, [transformVal]);
 
     return (
         <View style={{flex: 1, overflow: 'scroll'}}>
