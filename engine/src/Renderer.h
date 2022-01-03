@@ -33,11 +33,11 @@ private:
     unsigned int texture1, texture2;
     Shader *ourShader;
     Coordinator gCoordinator;
-    std::vector<Entity> entities;
 
 public:
     GLFWwindow *window;
     std::string cachedFrame;
+    std::vector<Entity> entities;
 
     Renderer(bool showWindow, bool saveOutputRender, std::string projectPath) {
         this->showWindow = showWindow;

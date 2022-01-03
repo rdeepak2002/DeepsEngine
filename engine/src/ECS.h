@@ -12,7 +12,7 @@
 using Entity = std::uint32_t;
 
 // Used to define the size of arrays later on
-const Entity MAX_ENTITIES = 5000;
+const Entity MAX_ENTITIES = 255;
 
 // A simple type alias
 using ComponentType = std::uint8_t;
