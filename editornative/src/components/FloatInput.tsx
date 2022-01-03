@@ -14,14 +14,15 @@ const FloatInput = (props: FloatInputProps) => {
         let hasPeriod = false;
 
         if (str.length <= 0) {
-            return res;
+            console.log('case 1');
+            res = "0.0";
         }
 
         for (let i: number = 0; i < str.length; i++) {
             let letter: string = str.charAt(i);
 
-            if (letter === '-' && i === 0) {
-                res += letter;
+            if (letter === "-" && i === 0) {
+                res += "-";
                 continue;
             }
 
@@ -40,19 +41,39 @@ const FloatInput = (props: FloatInputProps) => {
         }
 
         if (res === "-") {
+            console.log('case 2');
             res = "-0";
         }
 
         if (res === "-.") {
+            console.log('case 3');
             res = "-0.0";
         }
 
         if (res === ".") {
-            res = "0.0"
+            console.log('case 4');
+            res = "0.0";
         }
 
-        if (res.trim() === "" || isNaN(parseFloat(res))) {
-            res = "0"
+        if(res === "-0") {
+            console.log('case 5');
+            res = "-0.0";
+        }
+
+        if(res.length >= 1 && res.charAt(res.length - 1) === ".") {
+            console.log('case 6');
+            res += "0";
+            console.log('res', res);
+        }
+
+        if (res.trim() === "") {
+            console.log('case 7');
+            res = "0.0";
+        }
+
+        if(isNaN(parseFloat(res))) {
+            console.log('case 8');
+            res = "0.0";
         }
 
         return res;
@@ -62,10 +83,7 @@ const FloatInput = (props: FloatInputProps) => {
         <TextInput
             // style={styles.input}
             onChangeText={(value: string) => {
-                let valueStr = filterFloatString(value.trim());
-                if (valueStr.trim() === "") {
-                    valueStr = "0";
-                }
+                const valueStr = filterFloatString(value.trim());
                 props.onChange(valueStr);
             }}
             value={props.value}

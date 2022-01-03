@@ -9,6 +9,10 @@ interface InspectorProps {
 }
 
 const Inspector = (props: InspectorProps) => {
+    // data of components associated to each entity
+    const [entityComponentData, setEntityComponentData] = React.useState<any>({});
+
+    // transform of the currently selected entity
     const [transformStr, setTransformStr] = React.useState<Transform | TransformStr>(genTransform());
     const [transformVal, setTransformVal] = React.useState<Transform>(genTransform());
 
@@ -26,6 +30,32 @@ const Inspector = (props: InspectorProps) => {
         ipcRenderer.send('asynchronous-message', messageObj);
     }
 
+    // persist component changes per entity to render in inspector
+    React.useEffect(() => {
+        if(!entityComponentData[props.selected]) {
+            const entityComponentDataCopy = Object.assign({}, entityComponentData);
+
+            // TODO: get all components associated with entity from engine
+            entityComponentDataCopy[props.selected] = {
+                "transformStr": genTransform(),
+                "transform": genTransform()
+            };
+
+            setEntityComponentData(entityComponentDataCopy);
+
+            // TODO: generalize this
+            setTransformStr(entityComponentDataCopy[props.selected].transformStr);
+            setTransformVal(entityComponentDataCopy[props.selected].transform);
+
+            return;
+        }
+
+        // TODO: generalize this (also this is a clone of the above code)
+        setTransformStr(entityComponentData[props.selected].transformStr);
+        setTransformVal(entityComponentData[props.selected].transform);
+    }, [props.selected]);
+
+    // update component data whenever transform is updated
     React.useEffect(() => {
         const componentUpdateData = {
             transform: transformVal

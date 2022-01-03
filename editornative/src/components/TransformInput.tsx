@@ -35,7 +35,7 @@ const TransformInput = (props: TransformInputProps) => {
             </View>
             {['position', 'rotation', 'scale'].map((transformComponentName, key) => {
                 return (
-                    <View key={`${props.entitySelected}-${transformComponentName}-${key}`}
+                    <View key={`componentName-${props.entitySelected}-${transformComponentName}-${key}`}
                           style={{marginBottom: 5, display: 'flex', flexDirection: 'row'}}>
                         <View style={{flexGrow: 1}}>
                             <Text>{capitalizeFirstLetter(transformComponentName)}</Text>
@@ -43,7 +43,7 @@ const TransformInput = (props: TransformInputProps) => {
                         {['x', 'y', 'z'].map((vec3ComponentName, key) => {
                             return (
                                 <View
-                                    key={`${props.entitySelected}-${transformComponentName}-${vec3ComponentName}-${key}`}
+                                    key={`transformComponentName-${props.entitySelected}-${transformComponentName}-${vec3ComponentName}-${key}`}
                                     style={{display: 'flex', flexDirection: 'row'}}>
                                     <View style={{width: 10, marginRight: 10}}>
                                         <Text>{(vec3ComponentName).toUpperCase()}</Text>
