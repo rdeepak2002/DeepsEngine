@@ -31,7 +31,9 @@ const Inspector = (props: InspectorProps) => {
             transform: transformVal
         };
 
-        updateComponent(0, JSON.stringify(componentUpdateData));
+        if(props.selected >= 0) {
+            updateComponent(props.selected, JSON.stringify(componentUpdateData));
+        }
     }, [transformVal]);
 
     return (
