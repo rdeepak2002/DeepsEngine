@@ -75,6 +75,23 @@ void bindings::updateComponent(std::uint32_t entity, std::string json) {
     }
 }
 
+int bindings::getNumEntities() {
+    if(renderer) {
+        return renderer->entities.size();
+    }
+
+    return 0;
+}
+
+int* bindings::getEntities(int entitiesArr[]) {
+    if(renderer) {
+        std::copy(renderer->entities.begin(), renderer->entities.end(), entitiesArr);
+        return entitiesArr;
+    }
+
+    return nullptr;
+}
+
 Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -182,6 +199,28 @@ void bindings::AddEntityWrapped(const Napi::CallbackInfo &info) {
     bindings::addEntity(name.Utf8Value());
 }
 
+Napi::Uint8Array bindings::GetEntitiesWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    int numEntities = bindings::getNumEntities();
+    int entitiesArr[numEntities];
+
+    if(bindings::getEntities(entitiesArr)) {
+        Napi::Uint8Array arr = Napi::Uint8Array::New(info.Env(), numEntities);
+
+        for(int i = 0; i < numEntities; i++) {
+            arr[i] = (u_int8_t)entitiesArr[i];
+        }
+
+        return arr;
+    }
+
+    Napi::Uint8Array emptyArr = Napi::Uint8Array ::New(info.Env(), 0);
+
+    return emptyArr;
+}
+
 void bindings::UpdateComponentWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -238,6 +277,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "updateComponent", Napi::Function::New(env, bindings::UpdateComponentWrapped)
+    );
+
+    exports.Set(
+            "getEntities", Napi::Function::New(env, bindings::GetEntitiesWrapped)
     );
 
     return exports;

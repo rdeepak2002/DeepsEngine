@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {imageData, messageData, playModeData} from "./src/interfaces";
+import {getEntitiesData, imageData, messageData, playModeData} from "./src/interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./src/components/deeps-engine-ui/DeepsViewTriplePane";
 import DeepsViewDoublePane from "./src/components/deeps-engine-ui/DeepsViewDoublePane";
@@ -9,6 +9,8 @@ import Inspector from "./src/components/Inspector";
 
 // @ts-ignore
 import play_btn from "./assets/icons/play_btn.png";
+import {capitalizeFirstLetter} from "./src/util/string-utils";
+import TransformComponentInput from "./src/components/TransformComponentInput";
 
 export default function App() {
     // frame data to display from engine
@@ -20,6 +22,7 @@ export default function App() {
 
     const [playMode, setPlayMode] = React.useState<boolean>(false);
     const [entitySelected, setEntitySelected] = React.useState<number>(-1);
+    const [entities, setEntities] = React.useState<Array<number>>([]);
 
     // resize the editor
     const handleEditorResize = (width: number, height: number) => {
@@ -55,6 +58,16 @@ export default function App() {
             data: {
                 "createdAt": Date.now()
             }
+        };
+
+        ipcRenderer.send('asynchronous-message', messageObj);
+    }
+
+    // get entities
+    const getEntities = () => {
+        const messageObj = {
+            name: 'get-entities',
+            data: {}
         };
 
         ipcRenderer.send('asynchronous-message', messageObj);
@@ -110,6 +123,10 @@ export default function App() {
         setPlayMode(data.playMode);
     }
 
+    const updateEntitiesArr = (data: getEntitiesData) => {
+        setEntities(data.entities);
+    }
+
     // handle message or reply received from server
     const messageHandler = (event: unknown, arg: messageData) => {
         // console.log('got reply', arg);
@@ -131,6 +148,9 @@ export default function App() {
 
         // handle valid reply
         switch (arg.name) {
+            case 'get-entities':
+                updateEntitiesArr(data as getEntitiesData);
+                break;
             case 'new-frame-available':
                 requestForNewFrame();
                 break;
@@ -152,6 +172,7 @@ export default function App() {
         ipcRenderer.on('asynchronous-message', messageHandler);
 
         startRenderer();
+        getEntities();
     }, []);
 
     return (
@@ -161,12 +182,18 @@ export default function App() {
                                      initRatio={[0.2, 0.5, 0.3]}>
                     {/*scene view panel*/}
                     <View style={{display: 'flex', height: '100%'}}>
-                        <View style={{flexGrow: 1}}>
-                            <SceneViewEntity entityId={0} selected={entitySelected} setSelected={setEntitySelected}/>
-                            <SceneViewEntity entityId={1} selected={entitySelected} setSelected={setEntitySelected}/>
+                        <View style={{flexGrow: 1, flexDirection: 'column'}}>
+                            {entities.map((entityId, key) => {
+                                return (
+                                    <SceneViewEntity key={`entity-${entityId}-${key}`} entityId={entityId} selected={entitySelected} setSelected={setEntitySelected}/>
+                                );
+                            })}
+                            {/*<SceneViewEntity entityId={0} selected={entitySelected} setSelected={setEntitySelected}/>*/}
+                            {/*<SceneViewEntity entityId={1} selected={entitySelected} setSelected={setEntitySelected}/>*/}
                         </View>
                         <Button title='Add Entity' onPress={() => {
                             addEntity('cube');
+                            getEntities();
                         }}/>
                     </View>
                     {/*rendered scene*/}

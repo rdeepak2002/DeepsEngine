@@ -131,6 +131,21 @@ ipcMain.on('asynchronous-message', (event, arg) => {
             // update renderer
             update();
             break;
+        case 'get-entities':
+            // TODO: allow u_int_32 array (not u_int_8 only)
+            const entitiesArr = [].slice.call(core.getEntities());
+
+            const getEntitiesReply = {
+                name: 'get-entities',
+                data: {
+                    entities: entitiesArr
+                },
+                status: 'success'
+            };
+
+            event.reply('asynchronous-reply', getEntitiesReply);
+
+            break;
         case 'play-mode':
             let showWindow = true;
             let saveOutputRender = false;

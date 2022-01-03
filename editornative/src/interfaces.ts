@@ -8,6 +8,10 @@ export interface playModeData {
     playMode: boolean;
 }
 
+export interface getEntitiesData {
+    entities: Array<number>;
+}
+
 export interface messageData {
     name: string;
     data: object;

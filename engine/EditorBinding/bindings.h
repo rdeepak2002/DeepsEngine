@@ -21,6 +21,10 @@ namespace bindings {
 
     void updateComponent(std::uint32_t entity, std::string json);
 
+    int getNumEntities();
+
+    int* getEntities(int entitiesArr[]);
+
     Napi::String GetCachedFrameWrapped(const Napi::CallbackInfo &info);
 
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
@@ -40,6 +44,8 @@ namespace bindings {
     Napi::Object Init(Napi::Env env, Napi::Object exports);
 
     void AddEntityWrapped(const Napi::CallbackInfo &info);
+
+    Napi::Uint8Array GetEntitiesWrapped(const Napi::CallbackInfo &info);
 
     void UpdateComponentWrapped(const Napi::CallbackInfo &info);
 }
