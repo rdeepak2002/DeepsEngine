@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Animated, Button, Dimensions, Image, PanResponder, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {getEntitiesData, imageData, messageData, playModeData} from "./src/interfaces";
 import {ipcRenderer} from "electron";
 import DeepsViewTriplePane from "./src/components/deeps-engine-ui/DeepsViewTriplePane";
@@ -175,6 +175,49 @@ export default function App() {
         getEntities();
     }, []);
 
+    const panResponder = React.useRef(
+        PanResponder.create({
+            // Ask to be the responder:
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+                true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+                true,
+
+            onPanResponderGrant: (evt, gestureState) => {
+                // The gesture has started. Show visual feedback so the user knows
+                // what is happening!
+                // gestureState.d{x,y} will be set to zero now
+            },
+            onPanResponderMove: (evt, gestureState) => {
+                // The most recent move distance is gestureState.move{X,Y}
+                // The accumulated gesture distance since becoming responder is
+                // gestureState.d{x,y}
+                const scale = 0.01;
+                const dx = gestureState.dx * scale;
+                const dy = gestureState.dy * scale;
+
+                console.log(dx, dy);
+            },
+            onPanResponderTerminationRequest: (evt, gestureState) =>
+                true,
+            onPanResponderRelease: (evt, gestureState) => {
+                // The user has released all touches while this view is the
+                // responder. This typically means a gesture has succeeded
+            },
+            onPanResponderTerminate: (evt, gestureState) => {
+                // Another component has become the responder, so this gesture
+                // should be cancelled
+            },
+            onShouldBlockNativeResponder: (evt, gestureState) => {
+                // Returns whether this component should block native components from becoming the JS
+                // responder. Returns true by default. Is currently only supported on android.
+                return true;
+            }
+        })
+    ).current;
+
     return (
         <View style={{flex: 1}}>
             <DeepsViewDoublePane initHeight={screenHeight} initWidth={screenWidth} initRatio={[0.7, 0.3]}>
@@ -197,7 +240,7 @@ export default function App() {
                         }}/>
                     </View>
                     {/*rendered scene*/}
-                    <View style={styles.container} onLayout={(event) => {
+                    <View style={styles.container} {...panResponder.panHandlers} onLayout={(event) => {
                         const {x, y, width, height} = event.nativeEvent.layout;
                         setImageDimensions({
                             width: width,
@@ -214,10 +257,9 @@ export default function App() {
                                         setPlayMode(true);
                                         turnOnPlayMode();
                                     }
-                                }}>
-                                    <Image style={{resizeMode: "cover", width: 20, height: 20}} source={play_btn}
-                                           width={20} height={20}/>
-                                </TouchableOpacity>
+                                }}/>
+                                <Image style={{resizeMode: "cover", width: 20, height: 20}} source={play_btn}
+                                       width={20} height={20}/>
                             </View>
                         }
                     </View>
