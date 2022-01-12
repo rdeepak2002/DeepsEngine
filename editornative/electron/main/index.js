@@ -207,6 +207,13 @@ ipcMain.on('asynchronous-message', (event, arg) => {
             const height = arg.data.height;
             core.handleEditorResize(width, height);
             break;
+        case 'handle-editor-dragging':
+            const dx = arg.data.dx;
+            const dy = arg.data.dy;
+            core.handleEditorDragging(dx, dy);
+            // update renderer
+            update();
+            break;
         default:
             console.warn('unknown message: ', arg);
             break;
