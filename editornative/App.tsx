@@ -51,6 +51,19 @@ export default function App() {
         ipcRenderer.send('asynchronous-message', messageObj);
     }
 
+    // move camera
+    const handleEditorDragging = (dx: number, dy: number) => {
+        const messageObj = {
+            name: 'handle-editor-dragging',
+            data: {
+                "dx": dx,
+                "dy": dy
+            }
+        };
+
+        ipcRenderer.send('asynchronous-message', messageObj);
+    }
+
     // shutdown
     const shutDownRenderer = () => {
         const messageObj = {
@@ -199,6 +212,7 @@ export default function App() {
                 const dy = gestureState.dy * scale;
 
                 console.log(dx, dy);
+                handleEditorDragging(dx, dy);
             },
             onPanResponderTerminationRequest: (evt, gestureState) =>
                 true,

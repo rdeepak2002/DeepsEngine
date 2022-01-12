@@ -329,6 +329,9 @@ void Renderer::render() {
 //    double now = glfwGetTime();
 //    double elapsed_time = last_render_time - now - render_time;
 //    double start_render = glfwGetTime();
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 
     // input
     // -----
@@ -356,10 +359,13 @@ void Renderer::render() {
     // old:
 //    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
     // new:
-    const float radius = 10.0f;
-    float camX = sin(glfwGetTime()) * radius;
-    float camZ = cos(glfwGetTime()) * radius;
-    view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+//    const float radius = 10.0f;
+//    float camX = sin(glfwGetTime()) * radius;
+//    float camZ = cos(glfwGetTime()) * radius;
+//    view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+
+    // newer:
+    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
     // pass transformation matrices to the shader
     ourShader->setMat4("projection",
@@ -430,6 +436,20 @@ void Renderer::shutDown() {
 void Renderer::processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+
+    const float cameraSpeed = 0.05f * deltaTime; // adjust accordingly
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        cameraPos += cameraSpeed * cameraFront;
+    }
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        cameraPos -= cameraSpeed * cameraFront;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
 }
 
 void Renderer::handleEditorResize(int width, int height) {
@@ -513,5 +533,14 @@ void Renderer::updateComponent(Entity entity, std::string json) {
 }
 
 void Renderer::addComponent(Component *component) {
+
+}
+
+void Renderer::handleEditorDragging(float dx, float dy) {
+//    cameraPos += dy * cameraFront;
+    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * dx;
+}
+
+void Renderer::handleEditorDragRelease() {
 
 }

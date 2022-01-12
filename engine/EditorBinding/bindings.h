@@ -25,6 +25,8 @@ namespace bindings {
 
     int* getEntities(int entitiesArr[]);
 
+    void handleEditorDragging(float dx, float dy);
+
     Napi::String GetCachedFrameWrapped(const Napi::CallbackInfo &info);
 
     Napi::String CheckEngineStatusWrapped(const Napi::CallbackInfo &info);
@@ -48,4 +50,6 @@ namespace bindings {
     Napi::Uint8Array GetEntitiesWrapped(const Napi::CallbackInfo &info);
 
     void UpdateComponentWrapped(const Napi::CallbackInfo &info);
+
+    void HandleEditorDraggingWrapped(const Napi::CallbackInfo &info);
 }

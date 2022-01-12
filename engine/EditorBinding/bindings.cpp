@@ -92,6 +92,12 @@ int* bindings::getEntities(int entitiesArr[]) {
     return nullptr;
 }
 
+void bindings::handleEditorDragging(float dx, float dy) {
+    if(renderer) {
+        renderer->handleEditorDragging(dx, dy);
+    }
+}
+
 Napi::String bindings::GetCachedFrameWrapped(const Napi::CallbackInfo &info) {
     Napi::Env env = info.Env();
     Napi::HandleScope scope(env);
@@ -239,6 +245,25 @@ void bindings::UpdateComponentWrapped(const Napi::CallbackInfo &info) {
 
     bindings::updateComponent(entityId.Int64Value(), json.Utf8Value());
 }
+void bindings::HandleEditorDraggingWrapped(const Napi::CallbackInfo &info) {
+    Napi::Env env = info.Env();
+    Napi::HandleScope scope(env);
+
+    if (info.Length() != 2) {
+        if (!info[0].IsNumber()) {
+            Napi::TypeError::New(env, "dx expected").ThrowAsJavaScriptException();
+        }
+        if (!info[1].IsNumber()) {
+            Napi::TypeError::New(env, "dy expected").ThrowAsJavaScriptException();
+        }
+    }
+
+    Napi::Number dx = info[0].As<Napi::Number>();
+    Napi::Number dy = info[1].As<Napi::Number>();
+
+    bindings::handleEditorDragging(dx.FloatValue(), dy.FloatValue());
+}
+
 
 Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
     exports.Set(
@@ -281,6 +306,10 @@ Napi::Object bindings::Init(Napi::Env env, Napi::Object exports) {
 
     exports.Set(
             "getEntities", Napi::Function::New(env, bindings::GetEntitiesWrapped)
+    );
+
+    exports.Set(
+            "handleEditorDragging", Napi::Function::New(env, bindings::HandleEditorDraggingWrapped)
     );
 
     return exports;
