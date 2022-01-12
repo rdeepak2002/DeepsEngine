@@ -207,11 +207,11 @@ export default function App() {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
-                const scale = 0.01;
-                const dx = gestureState.dx * scale;
-                const dy = gestureState.dy * scale;
+                const speedScale = 1.0;
+                const dx = gestureState.vx * speedScale;
+                const dy = gestureState.vy * speedScale;
 
-                console.log(dx, dy);
+                // console.log(dx, dy);
                 handleEditorDragging(dx, dy);
             },
             onPanResponderTerminationRequest: (evt, gestureState) =>
@@ -254,7 +254,7 @@ export default function App() {
                         }}/>
                     </View>
                     {/*rendered scene*/}
-                    <View style={styles.container} {...panResponder.panHandlers} onLayout={(event) => {
+                    <View style={styles.container} onLayout={(event) => {
                         const {x, y, width, height} = event.nativeEvent.layout;
                         setImageDimensions({
                             width: width,
@@ -262,7 +262,7 @@ export default function App() {
                         });
                         // handleEditorResize(width, height);
                     }}>
-                        <Image source={{uri: frameData}}
+                        <Image source={{uri: frameData}} {...panResponder.panHandlers}
                                style={{width: imageDimensions.width, height: imageDimensions.height}}/>
                         {!playMode &&
                             <View style={styles.headerContainer}>
@@ -271,9 +271,10 @@ export default function App() {
                                         setPlayMode(true);
                                         turnOnPlayMode();
                                     }
-                                }}/>
-                                <Image style={{resizeMode: "cover", width: 20, height: 20}} source={play_btn}
-                                       width={20} height={20}/>
+                                }}>
+                                    <Image style={{resizeMode: "cover", width: 20, height: 20}} source={play_btn}
+                                           width={20} height={20}/>
+                                </TouchableOpacity>
                             </View>
                         }
                     </View>
