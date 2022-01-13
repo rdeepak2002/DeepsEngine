@@ -539,7 +539,7 @@ void Renderer::addComponent(Component *component) {
 }
 
 void Renderer::handleEditorDragging(float dx, float dy) {
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraRight)) * dy * deltaTime;
+    cameraPos += glm::normalize(glm::cross(cameraFront, cameraRight)) * dy * deltaTime;
     cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * dx * deltaTime;
 }
 
