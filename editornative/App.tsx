@@ -211,6 +211,8 @@ export default function App() {
                 const dx = gestureState.vx * speedScale;
                 const dy = gestureState.vy * speedScale;
 
+                console.log('touches', evt.nativeEvent.touches.length);
+
                 // console.log(dx, dy);
                 handleEditorDragging(dx, dy);
             },
