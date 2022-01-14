@@ -13,17 +13,28 @@ string(REPLACE "\n" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER
 string(REPLACE "\"" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER})
 include("${NODEGUI_PLUGIN_CMAKE_HELPER}")
 
+set(GLEW_H /usr/local/include/gl)
+set(GLFW_H /usr/local/include/glfw)
+set(GLM /usr/local/include/glm)
+set(GLAD_H /usr/local/include/glad)
+set(KH_H /usr/local/include/KHR)
+set(RAPID_JSON /usr/local/include/rapidjson)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${OpenCV_INCLUDE_DIRS} ${GLM} ${RAPID_JSON})
+
 # -------------- User Config ---------------
 set(PLUGIN_ADDON_NAME "OpenGLCube")
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+endif()
 
 project(${PLUGIN_ADDON_NAME})
 
 add_library(${PLUGIN_ADDON_NAME} SHARED
     "${CMAKE_JS_SRC}"
-    "${PROJECT_SOURCE_DIR}/src/Native/index.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLWidget.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLNapiWrapper.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLNodeGuiWidget.h"
+    "${PROJECT_SOURCE_DIR}/src/Engine/index.cpp"
+    "src/Engine/OpenGLWidget.cpp"
+    "src/Engine/OpenGLNapiWrapper.cpp"
+    "src/Engine/OpenGLNodeGuiWidget.h"
 )
 
 AddPluginConfig(${PLUGIN_ADDON_NAME})

@@ -32,8 +32,9 @@
   },
   "scripts": {
     "start": "qode --inspect ./dist/index.js",
+    "start-all": "((yarn dev) & (yarn start))",
     "build": "npm run build:addon && webpack -p",
-    "build:addon": "cross-env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake-js compile",
+    "build:addon": "cross-env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake-js --arch x86_64 compile",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "npm run build:addon && webpack --mode=development"

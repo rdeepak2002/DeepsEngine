@@ -1,10 +1,10 @@
 #ifndef OPEN_GL_CUBE_NAPI_WRAPPER_H
 #define OPEN_GL_CUBE_NAPI_WRAPPER_H
 
-#include <napi.h>
-#include <nodegui/QtWidgets/QWidget/qwidget_macro.h>
+#include "node_modules/node-addon-api/napi.h"
+#include "node_modules/@nodegui/nodegui/src/cpp/include/nodegui/QtWidgets/QWidget/qwidget_macro.h"
 
-#include <QPointer>
+#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QPointer"
 
 #include "OpenGLNodeGuiWidget.h"
 

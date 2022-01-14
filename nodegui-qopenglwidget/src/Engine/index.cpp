@@ -1,6 +1,6 @@
 #include <napi.h>
 
-#include "../OpenGLCube/Native/OpenGLNapiWrapper.h"
+#include "OpenGLNapiWrapper.h"
 
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   OpenGLNapiWrapper::init(env, exports);

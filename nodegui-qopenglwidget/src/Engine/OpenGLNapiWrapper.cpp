@@ -1,9 +1,9 @@
 #include "OpenGLNapiWrapper.h"
 
-#include <nodegui/Extras/Utils/nutils.h>
-#include <nodegui/QtWidgets/QWidget/qwidget_wrap.h>
+#include "node_modules/@nodegui/nodegui/src/cpp/include/nodegui/Extras/Utils/nutils.h"
+#include "node_modules/@nodegui/nodegui/src/cpp/include/nodegui/QtWidgets/QWidget/qwidget_wrap.h"
 
-#include <QWidget>
+#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtWidgets.framework/Versions/5/Headers/QWidget"
 
 Napi::FunctionReference OpenGLNapiWrapper::constructor;
 
@@ -27,6 +27,12 @@ OpenGLNapiWrapper::OpenGLNapiWrapper(const Napi::CallbackInfo &info)
     : Napi::ObjectWrap<OpenGLNapiWrapper>(info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
+
+  // set gl version
+  QSurfaceFormat glFormat;
+  glFormat.setVersion(3, 3);
+  glFormat.setProfile(QSurfaceFormat::CoreProfile);
+  QSurfaceFormat::setDefaultFormat(glFormat);
 
   if (info.Length() == 1) {
     Napi::Object parentObject = info[0].As<Napi::Object>();

@@ -14,26 +14,28 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="improved cmake file">
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="renamed files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Native/index.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Native/index.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNapiWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNapiWrapper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNodeGuiWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNodeGuiWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeComponent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLComponent.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeReactWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLReactWidget.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLWidget.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Native/index.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/index.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Native/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/index.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLNapiWrapper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLNapiWrapper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNodeGuiWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLNodeGuiWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLComponent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/OpenGLCube/OpenGLComponent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLReactWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/OpenGLCube/OpenGLReactWidget.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/OpenGLCube/OpenGLWidget.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/OpenGLCube/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -71,17 +73,45 @@
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Components" />
+      <recent name="$PROJECT_DIR$/src/Native" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.start">
     <configuration name="OpenGLCube" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OpenGLCube" TARGET_NAME="OpenGLCube" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="start-all" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start-all" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="start" />
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.OpenGLCube" />
+      <item itemvalue="npm.start-all" />
+      <item itemvalue="npm.start" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -91,7 +121,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642133320835</updated>
-      <workItem from="1642133323452" duration="1061000" />
+      <workItem from="1642133323452" duration="2065000" />
+      <workItem from="1642136898547" duration="3191000" />
     </task>
     <task id="LOCAL-00001" summary="improved cmake file">
       <created>1642133937300</created>
@@ -100,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642133937300</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="renamed files">
+      <created>1642134472121</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1642134472121</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +157,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="improved cmake file" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved cmake file" />
+    <MESSAGE value="renamed files" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed files" />
   </component>
 </project>

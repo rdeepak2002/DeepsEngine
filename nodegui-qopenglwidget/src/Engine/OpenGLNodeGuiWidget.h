@@ -1,7 +1,7 @@
 #ifndef OPEN_GL_CUBE_NODE_WIDGET_H
 #define OPEN_GL_CUBE_NODE_WIDGET_H
 
-#include <nodegui/core/NodeWidget/nodewidget.h>
+#include "node_modules/@nodegui/nodegui/src/cpp/include/nodegui/core/NodeWidget/nodewidget.h"
 
 #include "OpenGLWidget.h"
 
