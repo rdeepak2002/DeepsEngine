@@ -14,7 +14,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="fixed triangle color by swapping buffers">
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="added paintgl count">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" afterDir="false" />
@@ -110,7 +111,7 @@
       <option name="presentableId" value="Default" />
       <updated>1642133320835</updated>
       <workItem from="1642133323452" duration="2065000" />
-      <workItem from="1642136898547" duration="3530000" />
+      <workItem from="1642136898547" duration="3822000" />
     </task>
     <task id="LOCAL-00001" summary="improved cmake file">
       <created>1642133937300</created>
@@ -133,7 +134,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642140107657</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="added paintgl count">
+      <created>1642140442003</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1642140442003</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -154,6 +162,7 @@
     <MESSAGE value="improved cmake file" />
     <MESSAGE value="renamed files" />
     <MESSAGE value="fixed triangle color by swapping buffers" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed triangle color by swapping buffers" />
+    <MESSAGE value="added paintgl count" />
+    <option name="LAST_COMMIT_MESSAGE" value="added paintgl count" />
   </component>
 </project>
