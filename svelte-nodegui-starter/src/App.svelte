@@ -5,14 +5,19 @@
     import StepTwo from "./components/StepTwo.svelte";
     import nodeguiIcon from "../assets/nodegui.jpg";
     import type { NSVElement, RNWindow } from "@nodegui/svelte-nodegui";
+    import path from "path";
 
-    interface coreInterface {
-        checkEngineStatus: (status: number) => string
-    }
+    // interface coreInterface {
+    //     checkEngineStatus: (status: number) => string
+    // }
 
-    const core: coreInterface = require('../../engine/build/Release/core.node');
+    const core = require('../../engine/build/Release/core.node');
+    const blankProjectPath = path.resolve(path.join("example_projects", "blank_project"));
 
+    console.log('starting renderer...');
     console.log(core.checkEngineStatus(1));
+    core.createRenderer(true, true, blankProjectPath);
+    core.updateRenderer();
 
     const winIcon = new QIcon(nodeguiIcon);
 
@@ -41,29 +46,10 @@
 >
     <view style="flex: 1;">
         <text>Hello World1</text>
+<!--        <button on:click={startRenderer}>start renderer</button>-->
     </view>
 </window>
 
 <style>
-    /* 
-     * CSS has a few gotchas for now.
-     * 1) Some values need to be enclosed with quotes (e.g. `width: '100%';` rather than `width: 100%;`).
-     *    See: https://github.com/nodegui/svelte-nodegui/issues/4
-     * 2) Classes are not supported yet; they're a bit weird in Qt5.
-          See: https://github.com/nodegui/svelte-nodegui/issues/6
-     * 3) You can't write element-level rules like `text { color: 'red'; }`, unless they're global (not scoped).
-     *    For scoped rules, you have to refer to the underlying native element, e.g. `QLabel { color: 'red'; }`.
-     *    See: https://github.com/nodegui/svelte-nodegui/issues/7
-     */
-    #welcome-text {
-        font-size: 24px;
-        padding-top: 20px;
-        qproperty-alignment: 'AlignHCenter';
-        font-family: 'sans-serif';
-    }
-    #step-1, #step-2 {
-        font-size: 18px;
-        padding-top: 10px;
-        padding-horizontal: 20px;
-    }
+
 </style>

@@ -29,6 +29,9 @@ add_library(${PLUGIN_ADDON_NAME} SHARED
 AddPluginConfig(${PLUGIN_ADDON_NAME})
 
 target_include_directories(${PLUGIN_ADDON_NAME} PRIVATE
+    if (APPLE)
+        ${PROJECT_NAME} /usr/local/include/node
+    endif ()
     "${CMAKE_JS_INC}"
     "${PROJECT_SOURCE_DIR}"
 )
