@@ -1,4 +1,4 @@
-#include "OpenGLCubeWidget.h"
+#include "OpenGLWidget.h"
 
 #include <qmath.h>
 
@@ -12,7 +12,7 @@
 #include <QString>
 #include <QWidget>
 
-OpenGLCubeWidget::OpenGLCubeWidget(QWidget *parent) : QOpenGLWidget(parent) {
+OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
   setMinimumSize(320, 320);
   setAttribute(Qt::WA_AlwaysStackOnTop, true);
 
@@ -21,7 +21,7 @@ OpenGLCubeWidget::OpenGLCubeWidget(QWidget *parent) : QOpenGLWidget(parent) {
 #endif
 }
 
-OpenGLCubeWidget::~OpenGLCubeWidget() {
+OpenGLWidget::~OpenGLWidget() {
   makeCurrent();
   delete m_program;
   delete m_vertexShader;
@@ -31,7 +31,7 @@ OpenGLCubeWidget::~OpenGLCubeWidget() {
   doneCurrent();
 }
 
-void OpenGLCubeWidget::setScaling(int scale) {
+void OpenGLWidget::setScaling(int scale) {
   if (scale > 30)
     m_fScale = 1 + qreal(scale - 30) / 30 * 0.25;
   else if (scale < 30)
@@ -40,7 +40,7 @@ void OpenGLCubeWidget::setScaling(int scale) {
     m_fScale = 1;
 }
 
-void OpenGLCubeWidget::initializeGL() {
+void OpenGLWidget::initializeGL() {
   initializeOpenGLFunctions();
 
   m_fAngle = 0;
@@ -94,7 +94,7 @@ void OpenGLCubeWidget::initializeGL() {
   createGeometry();
 }
 
-void OpenGLCubeWidget::createGeometry() {
+void OpenGLWidget::createGeometry() {
   GLfloat afVertices[] = {
       -0.5f, +0.5f, +0.5f, +0.5f, -0.5f, +0.5f, -0.5f, -0.5f, +0.5f,
       +0.5f, -0.5f, +0.5f, -0.5f, +0.5f, +0.5f, +0.5f, +0.5f, +0.5f,
@@ -155,7 +155,7 @@ void OpenGLCubeWidget::createGeometry() {
   m_buffer.release();
 }
 
-void OpenGLCubeWidget::paintGL() {
+void OpenGLWidget::paintGL() {
   QPainter painter;
   painter.begin(this);
 
@@ -204,7 +204,7 @@ void OpenGLCubeWidget::paintGL() {
   update();
 }
 
-void OpenGLCubeWidget::paintTexturedCube() {
+void OpenGLWidget::paintTexturedCube() {
   m_texture->bind();
 
   m_program->setUniformValue(m_textureUniform, 0);  // use texture unit 0

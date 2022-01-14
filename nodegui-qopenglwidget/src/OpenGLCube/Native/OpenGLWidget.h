@@ -12,12 +12,12 @@ QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 QT_FORWARD_DECLARE_CLASS(QOpenGLTexture)
 QT_FORWARD_DECLARE_CLASS(QWidget)
 
-class OpenGLCubeWidget : public QOpenGLWidget, protected QOpenGLFunctions {
+class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   Q_OBJECT;
 
  public:
-  explicit OpenGLCubeWidget(QWidget *parent = nullptr);
-  ~OpenGLCubeWidget();
+  explicit OpenGLWidget(QWidget *parent = nullptr);
+  ~OpenGLWidget();
 
  public slots:
   void setScaling(int scale);

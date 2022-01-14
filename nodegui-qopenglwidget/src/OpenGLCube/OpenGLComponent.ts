@@ -5,12 +5,12 @@ import {
 import { AppContainer } from "@nodegui/react-nodegui/dist/reconciler";
 import { Fiber } from "react-reconciler";
 import {
-  OpenGLCubeReactWidget,
+  OpenGLReactWidget,
   OpenGLCubeReactWidgetProps,
-} from "./OpenGLCubeReactWidget";
+} from "./OpenGLReactWidget";
 
 class OpenGLCubeComponentConfig extends ComponentConfig {
-  tagName = OpenGLCubeReactWidget.tagName;
+  tagName = OpenGLReactWidget.tagName;
 
   shouldSetTextContent(nextProps: OpenGLCubeReactWidgetProps): boolean {
     return true;
@@ -21,14 +21,14 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
     rootInstance: AppContainer,
     context: any,
     workInProgress: Fiber
-  ): OpenGLCubeReactWidget {
-    const widget = new OpenGLCubeReactWidget();
+  ): OpenGLReactWidget {
+    const widget = new OpenGLReactWidget();
     widget.setProps(newProps, {});
     return widget;
   }
 
   commitMount(
-    instance: OpenGLCubeReactWidget,
+    instance: OpenGLReactWidget,
     newProps: OpenGLCubeReactWidgetProps,
     internalInstanceHandle: any
   ): void {
@@ -39,7 +39,7 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
   }
 
   finalizeInitialChildren(
-    instance: OpenGLCubeReactWidget,
+    instance: OpenGLReactWidget,
     newProps: OpenGLCubeReactWidgetProps,
     rootContainerInstance: AppContainer,
     context: any
@@ -48,7 +48,7 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
   }
 
   commitUpdate(
-    instance: OpenGLCubeReactWidget,
+    instance: OpenGLReactWidget,
     updatePayload: any,
     oldProps: OpenGLCubeReactWidgetProps,
     newProps: OpenGLCubeReactWidgetProps,
@@ -58,6 +58,6 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
   }
 }
 
-export const OpenGLCubeComponent = registerComponent<OpenGLCubeReactWidgetProps>(
+export const OpenGLComponent = registerComponent<OpenGLCubeReactWidgetProps>(
   new OpenGLCubeComponentConfig()
 );

@@ -5,7 +5,7 @@ import {
   ViewProps,
 } from "@nodegui/react-nodegui/dist/components/View/RNView";
 import { throwUnsupported } from "@nodegui/react-nodegui/dist/utils/helpers";
-import { OpenGLCubeWidget, OpenGLCubeWidgetSignals } from "./OpenGLCubeWidget";
+import { OpenGLWidget, OpenGLCubeWidgetSignals } from "./OpenGLWidget";
 
 type OpenGLCubeReactWidgetChildren = string | number | Array<string | number>;
 
@@ -15,7 +15,7 @@ export interface OpenGLCubeReactWidgetProps
 }
 
 export const setOpenGLCubeProps = (
-  widget: OpenGLCubeReactWidget,
+  widget: OpenGLReactWidget,
   newProps: OpenGLCubeReactWidgetProps,
   oldProps: OpenGLCubeReactWidgetProps
 ) => {
@@ -28,8 +28,8 @@ export const setOpenGLCubeProps = (
   setViewProps(widget, newProps, oldProps);
 };
 
-export class OpenGLCubeReactWidget
-  extends OpenGLCubeWidget
+export class OpenGLReactWidget
+  extends OpenGLWidget
   implements RNWidget {
   setProps(
     newProps: OpenGLCubeReactWidgetProps,

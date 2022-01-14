@@ -1,1 +1,1 @@
-export { OpenGLCubeComponent as OpenGLCube } from "./OpenGLCubeComponent";
+export { OpenGLComponent as OpenGLCube } from "./OpenGLComponent";

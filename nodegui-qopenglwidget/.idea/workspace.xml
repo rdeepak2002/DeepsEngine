@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="OpenGLCube" targetName="OpenGLCube" />
@@ -11,18 +14,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/nodegui-qopenglwidget.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="improved cmake file">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../svelte-nodegui-starter/src/App.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/../svelte-nodegui-starter/src/App.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Native/index.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Native/index.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNapiWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNapiWrapper.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNapiWrapper.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeNodeGuiWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLNodeGuiWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLCubeWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/Native/OpenGLWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeComponent.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLComponent.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeReactWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLReactWidget.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/OpenGLCubeWidget.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/OpenGLWidget.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OpenGLCube/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/OpenGLCube/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +46,9 @@
     <option name="minorVersion" value="3.2" />
   </component>
   <component name="ProjectId" id="23fm46409Q9jLxp7aGAwL5XcJ24" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -59,7 +65,9 @@
     <property name="cmake.loaded.for.project" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
@@ -83,8 +91,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1642133320835</updated>
-      <workItem from="1642133323452" duration="580000" />
+      <workItem from="1642133323452" duration="1061000" />
     </task>
+    <task id="LOCAL-00001" summary="improved cmake file">
+      <created>1642133937300</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1642133937300</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,5 +116,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="improved cmake file" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved cmake file" />
   </component>
 </project>

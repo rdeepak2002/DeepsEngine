@@ -6,19 +6,19 @@
 
 #include <QPointer>
 
-#include "OpenGLCubeNodeGuiWidget.h"
+#include "OpenGLNodeGuiWidget.h"
 
-class OpenGLCubeNapiWrapper : public Napi::ObjectWrap<OpenGLCubeNapiWrapper> {
-  QPointer<OpenGLCubeNodeGuiWidget> instance;
+class OpenGLNapiWrapper : public Napi::ObjectWrap<OpenGLNapiWrapper> {
+  QPointer<OpenGLNodeGuiWidget> instance;
 
  public:
   static Napi::FunctionReference constructor;
   static Napi::Object init(Napi::Env env, Napi::Object exports);
 
-  OpenGLCubeNapiWrapper(const Napi::CallbackInfo &info);
-  ~OpenGLCubeNapiWrapper();
+  OpenGLNapiWrapper(const Napi::CallbackInfo &info);
+  ~OpenGLNapiWrapper();
 
-  OpenGLCubeNodeGuiWidget *getInternalInstance();
+  OpenGLNodeGuiWidget *getInternalInstance();
 
   // wrapped methods
   Napi::Value testMessage(const Napi::CallbackInfo &info);

@@ -4,7 +4,7 @@ import { QOpenGLWidgetSignals } from "@nodegui/nodegui/dist/lib/QtWidgets/QOpenG
 
 export interface OpenGLCubeWidgetSignals extends QOpenGLWidgetSignals {}
 
-export class OpenGLCubeWidget extends NodeWidget<OpenGLCubeWidgetSignals> {
+export class OpenGLWidget extends NodeWidget<OpenGLCubeWidgetSignals> {
   native: NativeElement;
 
   constructor(parent?: NodeWidget<any>) {

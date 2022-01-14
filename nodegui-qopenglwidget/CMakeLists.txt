@@ -21,9 +21,9 @@ project(${PLUGIN_ADDON_NAME})
 add_library(${PLUGIN_ADDON_NAME} SHARED
     "${CMAKE_JS_SRC}"
     "${PROJECT_SOURCE_DIR}/src/Native/index.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLCubeWidget.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLCubeNapiWrapper.cpp"
-    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLCubeNodeGuiWidget.h"
+    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLWidget.cpp"
+    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLNapiWrapper.cpp"
+    "${PROJECT_SOURCE_DIR}/src/OpenGLCube/Native/OpenGLNodeGuiWidget.h"
 )
 
 AddPluginConfig(${PLUGIN_ADDON_NAME})
