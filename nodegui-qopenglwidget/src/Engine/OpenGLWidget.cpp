@@ -301,7 +301,22 @@ void OpenGLWidget::paintGL() {
   // TODO QT SPECIFIC:
   ///
   painter.endNativePainting();
+
+  if (const int elapsed = m_time.elapsed()) {
+    QString framesPerSecond;
+    framesPerSecond.setNum(m_frames / (elapsed / 1000.0), 'f', 2);
+    painter.setPen(Qt::black);
+    painter.drawText(20, 40, framesPerSecond + " paintGL calls / s");
+  }
+
   painter.end();
+
+  if (!(m_frames % 100)) {
+    m_time.start();
+    m_frames = 0;
+  }
+  ++m_frames;
+
   update();
   ///
 
@@ -352,36 +367,3 @@ void OpenGLWidget::paintGL() {
 //
 //  update();
 }
-
-//void OpenGLWidget::paintTexturedCube() {
-//  m_texture->bind();
-//
-//  m_program->setUniformValue(m_textureUniform, 0);  // use texture unit 0
-//
-//  m_program->enableAttributeArray(m_vertexAttr);
-//  m_program->enableAttributeArray(m_normalAttr);
-//  m_program->enableAttributeArray(m_texCoordAttr);
-//
-//  m_buffer.bind();
-//
-//  int floatsPerVertex = 3;
-//  int floatsPerTexCoord = 2;
-//  int floatsPerNormal = 3;
-//  int totalFloats = floatsPerVertex + floatsPerTexCoord + floatsPerNormal;
-//  int numTriangles = m_buffer.size() / (totalFloats * sizeof(GLfloat));
-//
-//  m_program->setAttributeBuffer(m_vertexAttr, GL_FLOAT, m_verticesOffset,
-//                                floatsPerVertex);
-//  m_program->setAttributeBuffer(m_texCoordAttr, GL_FLOAT, m_texCoordsOffset,
-//                                floatsPerTexCoord);
-//  m_program->setAttributeBuffer(m_normalAttr, GL_FLOAT, m_normalsOffset,
-//                                floatsPerNormal);
-//
-//  m_buffer.release();
-//
-//  glDrawArrays(GL_TRIANGLES, 0, numTriangles);
-//
-//  m_program->disableAttributeArray(m_vertexAttr);
-//  m_program->disableAttributeArray(m_texCoordAttr);
-//  m_program->disableAttributeArray(m_normalAttr);
-//}

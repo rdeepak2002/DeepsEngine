@@ -68,8 +68,8 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 //  int m_texCoordsOffset = 0;
 //  int m_normalsOffset = 0;
 //
-//  int m_frames = 0;
-//  QElapsedTimer m_time;
+  int m_frames = 0;
+  QElapsedTimer m_time;
 };
 
 #endif
