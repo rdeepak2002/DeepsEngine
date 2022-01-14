@@ -6,9 +6,13 @@
     import nodeguiIcon from "../assets/nodegui.jpg";
     import type { NSVElement, RNWindow } from "@nodegui/svelte-nodegui";
 
-    const core = require('../../engine/build/Release/core.node');
+    interface coreInterface {
+        checkEngineStatus: (status: number) => string
+    }
 
-    console.log(core.checkEngineStatus(3));
+    const core: coreInterface = require('../../engine/build/Release/core.node');
+
+    console.log(core.checkEngineStatus(1));
 
     const winIcon = new QIcon(nodeguiIcon);
 
