@@ -43,40 +43,6 @@ if (RUN_STANDALONE)
     file(GLOB SOURCE_FILES_EXEC "src/main.cpp" "src/glad.c" "src/OpenGLRenderer.h" "src/OpenGLRenderer.cpp")
     add_executable(engine_standalone ${SOURCE_FILES_EXEC})
 else ()
-    # library
-    # Essential include files to build a node addon,
-    # you should add this line in every CMake.js based project.
-    include_directories(${CMAKE_JS_INC})
-    # Declare the location of the source files
     file(GLOB SOURCE_FILES "src/glad.c" "src/OpenGLRenderer.h" "src/OpenGLRenderer.cpp")
-
-    # This line will tell CMake that we're building a shared library from the above source files
-    # named after the project's name
-    add_library(${PROJECT_NAME} SHARED ${SOURCE_FILES} ${CMAKE_JS_SRC})
-    # This line will give our library file a .node extension without any "lib" prefix
-#    set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "" SUFFIX ".node")
-    # Essential library files to link to a node addon,
-    # you should add this line in every CMake.js based project.
-    target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB})
-    target_include_directories(${PROJECT_NAME} PRIVATE
-            if (APPLE)
-            ${PROJECT_NAME} /usr/local/include/node
-            endif ()
-            ${CMAKE_SOURCE_DIR}/../editornative/node_modules/node-addon-api
-            ${CMAKE_SOURCE_DIR}/../editornative/node_modules/node-addon-api/src
-            ${CMAKE_JS_INC})
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_JS_LIB})
-
-    add_definitions(-DNAPI_VERSION=3)
-
-    # Execute compile command
-    # This glad.c said in step 2 that it should be pulled into the project. Pay attention to the path
-    # note: in order to make this work, do not make this executable run napi stuff
-    # add_executable(engine_standalone ${SOURCE_FILES})
-
-    # mac, it's important to take this step
-    if (APPLE)
-        target_link_libraries(${PROJECT_NAME} "-framework OpenGL")
-        target_link_libraries(${PROJECT_NAME} "-framework GLUT")
-    endif ()
+    add_library(${PROJECT_NAME} STATIC ${SOURCE_FILES})
 endif ()

@@ -31,11 +31,11 @@ add_library(${PLUGIN_ADDON_NAME} SHARED
     "src/Engine/glad.c"
     "${CMAKE_JS_SRC}"
     "${PROJECT_SOURCE_DIR}/src/Engine/index.cpp"
-    "src/Engine/OpenGLWidget.cpp"
-    "src/Engine/OpenGLNapiWrapper.cpp"
-    "src/Engine/OpenGLNodeGuiWidget.h"
-    "src/Engine/OpenGLRenderer.h"
-    "src/Engine/OpenGLRenderer.cpp"
+    "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLWidget.cpp"
+    "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLNapiWrapper.cpp"
+    "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLNodeGuiWidget.h"
+    "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
+    "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
 )
 
 AddPluginConfig(${PLUGIN_ADDON_NAME})
@@ -47,6 +47,11 @@ target_include_directories(${PLUGIN_ADDON_NAME} PRIVATE
     "${CMAKE_JS_INC}"
     "${PROJECT_SOURCE_DIR}"
 )
+
+file(GLOB LIBRARIES "${PROJECT_SOURCE_DIR}/src/Engine/*.dylib")
+message("LIBRARIES = ${LIBRARIES}")
+
 target_link_libraries(${PLUGIN_ADDON_NAME} PRIVATE
     "${CMAKE_JS_LIB}"
+    ${LIBRARIES}
 )
