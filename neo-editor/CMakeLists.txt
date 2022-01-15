@@ -28,6 +28,7 @@ project(${PLUGIN_ADDON_NAME})
 add_library(${PLUGIN_ADDON_NAME} SHARED
     "${CMAKE_JS_SRC}"
     "${PROJECT_SOURCE_DIR}/src/Engine/index.cpp"
+    "src/Engine/glad.c"
     "src/Engine/OpenGLWidget.cpp"
     "src/Engine/OpenGLNapiWrapper.cpp"
     "src/Engine/OpenGLNodeGuiWidget.h"

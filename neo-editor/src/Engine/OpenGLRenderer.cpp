@@ -21,6 +21,11 @@ unsigned int shaderProgram;
 unsigned int VBO, VAO;
 
 void OpenGLRenderer::initialize() {
+//  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+//  {
+//    std::cout << "Failed to initialize GLAD" << std::endl;
+//  }
+
   std::cout << "GLSL VERSION:" << (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
   // build and compile our shader program

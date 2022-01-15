@@ -14,13 +14,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="renamed folder">
-      <change afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" afterDir="false" />
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="separated general opengl rendering from qt opengl widget rendering">
+      <change afterPath="$PROJECT_DIR$/src/Engine/glad.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,6 +66,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Engine" />
       <recent name="$PROJECT_DIR$/src/Components" />
       <recent name="$PROJECT_DIR$/src/Native" />
     </key>
@@ -116,7 +116,7 @@
       <workItem from="1642133323452" duration="2065000" />
       <workItem from="1642136898547" duration="4016000" />
       <workItem from="1642141101517" duration="789000" />
-      <workItem from="1642266802417" duration="1533000" />
+      <workItem from="1642266802417" duration="2463000" />
     </task>
     <task id="LOCAL-00001" summary="improved cmake file">
       <created>1642133937300</created>
@@ -167,7 +167,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642141726993</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="separated general opengl rendering from qt opengl widget rendering">
+      <created>1642268356304</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1642268356304</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,6 +198,7 @@
     <MESSAGE value="added paintgl count" />
     <MESSAGE value="cleaned up code" />
     <MESSAGE value="renamed folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed folder" />
+    <MESSAGE value="separated general opengl rendering from qt opengl widget rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="separated general opengl rendering from qt opengl widget rendering" />
   </component>
 </project>

@@ -8,6 +8,7 @@
 ///
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLFunctions"
 ///
+//#include <glad.h>
 
 #include <glfw3.h>
 #include <iostream>
