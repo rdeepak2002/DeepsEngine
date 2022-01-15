@@ -21,10 +21,14 @@ unsigned int shaderProgram;
 unsigned int VBO, VAO;
 
 void OpenGLRenderer::initialize() {
-//  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-//  {
-//    std::cout << "Failed to initialize GLAD" << std::endl;
-//  }
+  #if defined(STANDALONE)
+  // glad: load all OpenGL function pointers
+  // ---------------------------------------
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+  {
+    std::cout << "Failed to initialize GLAD" << std::endl;
+  }
+  #endif
 
   std::cout << "GLSL VERSION:" << (const char*)glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
 
@@ -103,11 +107,79 @@ void OpenGLRenderer::clear() {
 }
 
 void OpenGLRenderer::update() {
-  // processInput(window);
+  #if defined(STANDALONE)
+    processInput(window);
+  #endif
 
   // draw our first triangle
   glUseProgram(shaderProgram);
   glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
   glDrawArrays(GL_TRIANGLES, 0, 3);
   // glBindVertexArray(0); // no need to unbind it every time
+}
+
+void OpenGLRenderer::createWindow() {
+  #if defined(STANDALONE)
+    // glfw: initialize and configure
+    // ------------------------------
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+  #ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  #endif
+
+    // glfw window creation
+    // --------------------
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    if (window == NULL)
+    {
+      std::cout << "Failed to create GLFW window" << std::endl;
+      glfwTerminate();
+    }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  #endif
+}
+
+// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
+// ---------------------------------------------------------------------------------------------------------
+void OpenGLRenderer::processInput(GLFWwindow *window)
+{
+  #if defined(STANDALONE)
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+      glfwSetWindowShouldClose(window, true);
+  #endif
+}
+
+// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+// ---------------------------------------------------------------------------------------------
+void OpenGLRenderer::framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+  #if defined(STANDALONE)
+    // make sure the viewport matches the new window dimensions; note that width and
+    // height will be significantly larger than specified on retina displays.
+    glViewport(0, 0, width, height);
+  #endif
+}
+
+bool OpenGLRenderer::shouldCloseWindow() {
+  #if defined(STANDALONE)
+    if(window) {
+      return glfwWindowShouldClose(window);
+    }
+    else {
+      return true;
+    }
+  #else
+    return false;
+  #endif
+}
+
+void OpenGLRenderer::closeWindow() {
+  #if defined(STANDALONE)
+    glfwTerminate();
+  #endif
 }

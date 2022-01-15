@@ -5,8 +5,6 @@
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QString"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtWidgets.framework/Versions/5/Headers/QWidget"
 
-#include "OpenGLRenderer.h"
-
 OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
   // qt define widget attributes
   setMinimumSize(320, 320);

@@ -7,6 +7,8 @@
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLFunctions"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtWidgets.framework/Versions/5/Headers/QOpenGLWidget"
 
+#include "OpenGLRenderer.h"
+
 QT_FORWARD_DECLARE_CLASS(QWidget)
 
 class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {

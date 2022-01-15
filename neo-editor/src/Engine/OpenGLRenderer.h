@@ -4,19 +4,33 @@
 
 #ifndef OPENGLCUBE_OPENGLRENDERER_H
 #define OPENGLCUBE_OPENGLRENDERER_H
-// TODO: QT SPECIFIC, replace w/ #include <glad.h> (and also initialize glad in initializeStandalone function)
-///
+
+#if defined(STANDALONE)
+#include <glad.h>
+#else
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLFunctions"
-///
-//#include <glad.h>
+#endif
 
 #include <glfw3.h>
 #include <iostream>
 
 namespace OpenGLRenderer {
+  #if defined(STANDALONE)
+    // settings
+    GLFWwindow* window;
+    const unsigned int SCR_WIDTH = 800;
+    const unsigned int SCR_HEIGHT = 600;
+  #endif
+
   void initialize();
   void clear();
   void update();
+
+  void createWindow();
+  void processInput(GLFWwindow *window);
+  void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+  bool shouldCloseWindow();
+  void closeWindow();
 }
 
 #endif  // OPENGLCUBE_OPENGLRENDERER_H
