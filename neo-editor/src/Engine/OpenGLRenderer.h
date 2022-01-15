@@ -7,8 +7,10 @@
 
 #if defined(STANDALONE)
 #include <glad.h>
-#else
+#elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLFunctions"
+#else
+#include <glad.h>
 #endif
 
 #include <glfw3.h>

@@ -9,7 +9,6 @@ int main() {
     OpenGLRenderer::initialize();
 
     while(!OpenGLRenderer::shouldCloseWindow()) {
-//        OpenGLRenderer::clear();
         OpenGLRenderer::update();
     }
 

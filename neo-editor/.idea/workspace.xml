@@ -14,11 +14,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="in process of adding support for standalone mode">
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="fixed standalone for engine. working on exporting library so editor can use it.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../neo-engine/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../neo-engine/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +203,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642280033711</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="fixed standalone for engine. working on exporting library so editor can use it.">
+      <created>1642281814756</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1642281814756</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +236,7 @@
     <MESSAGE value="renamed folder" />
     <MESSAGE value="separated general opengl rendering from qt opengl widget rendering" />
     <MESSAGE value="in process of adding support for standalone mode" />
-    <option name="LAST_COMMIT_MESSAGE" value="in process of adding support for standalone mode" />
+    <MESSAGE value="fixed standalone for engine. working on exporting library so editor can use it." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed standalone for engine. working on exporting library so editor can use it." />
   </component>
 </project>

@@ -25,6 +25,8 @@ set(CMAKE_OSX_ARCHITECTURES "x86_64")
 
 project(${PLUGIN_ADDON_NAME})
 
+add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
+
 add_library(${PLUGIN_ADDON_NAME} SHARED
     "src/Engine/glad.c"
     "${CMAKE_JS_SRC}"
