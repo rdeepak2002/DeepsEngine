@@ -3,3 +3,5 @@ dist/
 *.lognode_modules/
 coverage/
 build/
+neo-editor/.idea/workspace.xml
+.idea/workspace.xml

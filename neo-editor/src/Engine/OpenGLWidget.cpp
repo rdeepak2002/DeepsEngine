@@ -1,14 +1,6 @@
 //#include <glad.h>
 #include "OpenGLWidget.h"
 
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/qmath.h"
-
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QDebug"
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QDir"
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QImage"
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QMatrix4x4"
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLShader"
-#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLTexture"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QPainter"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QString"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtWidgets.framework/Versions/5/Headers/QWidget"
@@ -73,7 +65,7 @@ void OpenGLWidget::paintGL() {
     QString framesPerSecond;
     framesPerSecond.setNum(m_frames / (elapsed / 1000.0), 'f', 2);
     painter.setPen(Qt::black);
-    painter.drawText(20, 40, framesPerSecond + " fps");
+    painter.drawText(20, 40, framesPerSecond + " fps (v1)");
   }
 
   painter.end();
@@ -84,6 +76,6 @@ void OpenGLWidget::paintGL() {
   }
   ++m_frames;
 
-  // have qt update
+  // have this qt widget update
   update();
 }
