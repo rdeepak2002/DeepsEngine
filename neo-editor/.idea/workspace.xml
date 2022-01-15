@@ -14,42 +14,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="cleaned up code">
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.babelrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.clang-format" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/nodegui-qopenglwidget.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/assets.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/assets/demo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/assets/nodegui.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Components/OpenGLCube/OpenGLComponent.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Components/OpenGLCube/OpenGLReactWidget.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Components/OpenGLCube/OpenGLWidget.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Components/OpenGLCube/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/OpenGLNapiWrapper.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/OpenGLNapiWrapper.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/OpenGLNodeGuiWidget.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/OpenGLWidget.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/OpenGLWidget.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/index.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/Engine/index.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/src/react-app-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/webpack.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodegui-qopenglwidget/yarn.lock" beforeDir="false" />
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="renamed folder">
+      <change afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +41,7 @@
   <component name="ProjectId" id="23fm46409Q9jLxp7aGAwL5XcJ24" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -100,12 +72,12 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="OpenGLCube" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OpenGLCube" TARGET_NAME="OpenGLCube" CONFIG_NAME="Debug">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OpenGLCube" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OpenGLCube" TARGET_NAME="OpenGLCube" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -143,7 +115,8 @@
       <updated>1642133320835</updated>
       <workItem from="1642133323452" duration="2065000" />
       <workItem from="1642136898547" duration="4016000" />
-      <workItem from="1642141101517" duration="535000" />
+      <workItem from="1642141101517" duration="789000" />
+      <workItem from="1642266802417" duration="1533000" />
     </task>
     <task id="LOCAL-00001" summary="improved cmake file">
       <created>1642133937300</created>
@@ -180,7 +153,21 @@
       <option name="project" value="LOCAL" />
       <updated>1642140740967</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="renamed folder">
+      <created>1642141717747</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1642141717747</updated>
+    </task>
+    <task id="LOCAL-00007" summary="renamed folder">
+      <created>1642141726993</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1642141726993</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +190,7 @@
     <MESSAGE value="fixed triangle color by swapping buffers" />
     <MESSAGE value="added paintgl count" />
     <MESSAGE value="cleaned up code" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaned up code" />
+    <MESSAGE value="renamed folder" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed folder" />
   </component>
 </project>

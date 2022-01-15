@@ -31,6 +31,8 @@ add_library(${PLUGIN_ADDON_NAME} SHARED
     "src/Engine/OpenGLWidget.cpp"
     "src/Engine/OpenGLNapiWrapper.cpp"
     "src/Engine/OpenGLNodeGuiWidget.h"
+    "src/Engine/OpenGLRenderer.h"
+    "src/Engine/OpenGLRenderer.cpp"
 )
 
 AddPluginConfig(${PLUGIN_ADDON_NAME})
