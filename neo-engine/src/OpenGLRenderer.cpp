@@ -21,10 +21,10 @@ unsigned int shaderProgram;
 unsigned int VBO, VAO;
 
 #if defined(STANDALONE)
-  // settings
-  GLFWwindow* window;
-  const unsigned int SCR_WIDTH = 800;
-  const unsigned int SCR_HEIGHT = 600;
+    // settings
+    GLFWwindow* window;
+    const unsigned int SCR_WIDTH = 800;
+    const unsigned int SCR_HEIGHT = 600;
 #endif
 
 void OpenGLRenderer::initialize() {
