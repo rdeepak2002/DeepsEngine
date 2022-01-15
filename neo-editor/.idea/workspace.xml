@@ -15,20 +15,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="in process of adding support for standalone mode">
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.idea/neo-engine.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/src/glad.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../neo-engine/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLRenderer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../neo-engine/src/OpenGLRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo-engine/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../neo-engine/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

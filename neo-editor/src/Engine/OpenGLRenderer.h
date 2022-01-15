@@ -15,15 +15,15 @@
 #include <iostream>
 
 namespace OpenGLRenderer {
-  void initialize();
-  void clear();
-  void update();
+void initialize();
+void clear();
+void update();
 
-  void createWindow();
-  void processInput(GLFWwindow *window);
-  void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-  bool shouldCloseWindow();
-  void closeWindow();
+void createWindow();
+void processInput(GLFWwindow *window);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+bool shouldCloseWindow();
+void closeWindow();
 }
 
 #endif  // OPENGLCUBE_OPENGLRENDERER_H

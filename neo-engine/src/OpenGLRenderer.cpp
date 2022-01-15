@@ -107,15 +107,19 @@ void OpenGLRenderer::initialize() {
 }
 
 void OpenGLRenderer::clear() {
-  // render
-  // ------
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
+    #if !defined(STANDALONE)
+      // render
+      // ------
+      glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT);
+    #endif
 }
 
 void OpenGLRenderer::update() {
   #if defined(STANDALONE)
     processInput(window);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
   #endif
 
   // draw our first triangle
@@ -123,6 +127,11 @@ void OpenGLRenderer::update() {
   glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
   glDrawArrays(GL_TRIANGLES, 0, 3);
   // glBindVertexArray(0); // no need to unbind it every time
+
+    #if defined(STANDALONE)
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    #endif
 }
 
 void OpenGLRenderer::createWindow() {
@@ -134,9 +143,9 @@ void OpenGLRenderer::createWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-  #ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-  #endif
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
 
     // glfw window creation
     // --------------------
@@ -187,6 +196,11 @@ bool OpenGLRenderer::shouldCloseWindow() {
 
 void OpenGLRenderer::closeWindow() {
   #if defined(STANDALONE)
+    // optional: de-allocate all resources once they've outlived their purpose:
+    // ------------------------------------------------------------------------
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
     glfwTerminate();
   #endif
 }
