@@ -14,12 +14,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="separated general opengl rendering from qt opengl widget rendering">
-      <change afterPath="$PROJECT_DIR$/src/Engine/glad.c" afterDir="false" />
+    <list default="true" id="f73d0027-22a6-49ea-8ab6-d357a5373d2c" name="Changes" comment="removed some unnecessary code">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/OpenGLWidget.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
