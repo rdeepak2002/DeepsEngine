@@ -17,7 +17,7 @@ export class OpenGLWidget extends NodeWidget<OpenGLCubeWidgetSignals> {
     super(native);
     this.native = native;
     this.nodeParent = parent;
-    console.log(this.native.test());
+    // console.log(this.native.test());
   }
 
   test() {

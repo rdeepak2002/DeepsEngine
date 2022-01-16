@@ -1,14 +1,22 @@
 import React from "react";
-import {Text, View} from "@nodegui/react-nodegui";
+import {Text, View, Button} from "@nodegui/react-nodegui";
 import {OpenGLCube} from "../OpenGLCube";
+import {widget} from "../OpenGLCube/OpenGLComponent";
 
 const Editor = () => {
+    const createEntity = {
+        clicked: () => {
+            console.log('button clicked, data from widget (2): ', widget.test());
+        }
+    };
+
     return (
         <View style={twoRowContainerStyle}>
             <View style={topViewContainer}>
                 <View style={threeColumnContainerStyle}>
                     <View style={sceneItemsContainer}>
                         <Text id="text">Scene Items</Text>
+                        <Button text={"Create Entity"} on={createEntity}/>
                     </View>
                     <View style={rendererContainer}>
                         <OpenGLCube style={rendererScreen}/>

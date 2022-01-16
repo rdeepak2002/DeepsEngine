@@ -9,6 +9,8 @@ import {
   OpenGLCubeReactWidgetProps,
 } from "./OpenGLReactWidget";
 
+let widget: OpenGLReactWidget;
+
 class OpenGLCubeComponentConfig extends ComponentConfig {
   tagName = OpenGLReactWidget.tagName;
 
@@ -22,7 +24,7 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
     context: any,
     workInProgress: Fiber
   ): OpenGLReactWidget {
-    const widget = new OpenGLReactWidget();
+    widget = new OpenGLReactWidget();
     widget.setProps(newProps, {});
     return widget;
   }
@@ -61,3 +63,5 @@ class OpenGLCubeComponentConfig extends ComponentConfig {
 export const OpenGLComponent = registerComponent<OpenGLCubeReactWidgetProps>(
   new OpenGLCubeComponentConfig()
 );
+
+export { widget };
