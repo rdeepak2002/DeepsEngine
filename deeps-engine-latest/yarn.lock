@@ -1403,6 +1403,14 @@
     node-addon-api "^2.0.0"
     postcss-nodegui-autoprefixer "0.0.7"
 
+"@nodegui/packer@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@nodegui/packer/-/packer-1.0.0.tgz#bf878fde6c080386e400b6b04f5b277ab0de99c7"
+  integrity sha512-97LbUwm3dypkWp2RRcocnzM6TDKk7MahFEiGY/J7AdxGBw6Lo59hUhRlgGbmkIXVwVTAP1Xz0vS3OZ5h9okINg==
+  dependencies:
+    commander "^3.0.0"
+    fs-extra "^8.1.0"
+
 "@nodegui/qode@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@nodegui/qode/-/qode-1.0.6.tgz#dcc12214949e860140687babddec1e76785a212a"
@@ -3494,6 +3502,11 @@ commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
+commander@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-3.0.2.tgz#6837c3fb677ad9933d1cfba42dd14d5117d6b39e"
+  integrity sha512-Gar0ASD4BDyKC4hl4DwHqDrmvjoxWKZigVnAbn5H1owvm4CxCPdb0HQDehwNYMJpla5+M2tPmPARzhtYuwpHow==
 
 commander@^4.1.1:
   version "4.1.1"
