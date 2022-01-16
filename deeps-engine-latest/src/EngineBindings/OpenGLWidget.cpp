@@ -1,4 +1,3 @@
-//#include <glad.h>
 #include "OpenGLWidget.h"
 
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QPainter"
