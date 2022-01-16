@@ -205,6 +205,13 @@ void OpenGLRenderer::clear() {
 }
 
 void OpenGLRenderer::update() {
+  // TODO: fix issue where editor needs to enable depth test every loop
+#if !defined(STANDALONE)
+  // configure global opengl state
+  // -----------------------------
+  glEnable(GL_DEPTH_TEST);
+#endif
+
   // per-frame time logic
   // --------------------
   float currentFrame = static_cast<float>(glfwGetTime());
