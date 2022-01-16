@@ -31,7 +31,6 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-    "postinstall": "npm run build:addon",
     "clean": "rm -rf build && rm -rf dist",
     "start": "qode --inspect ./dist/index.js",
     "build": "npm run build:addon && webpack -p",
