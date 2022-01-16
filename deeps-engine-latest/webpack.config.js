@@ -24,7 +24,7 @@ module.exports = (env, argv) => {
 
   const config = {
     mode: "production",
-    entry: ["./src/index.tsx"],
+    entry: ["./src/Editor/index.tsx"],
     target: "node",
     output: {
       path: path.resolve(__dirname, "dist"),
