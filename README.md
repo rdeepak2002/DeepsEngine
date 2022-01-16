@@ -35,8 +35,6 @@ brew install rapidjson
 brew install qt@5
 ```
 
-export QT_INSTALL_DIR=/usr/local/Cellar/qt@5/x.x.x
-
 Refer to instructions below for M1 Mac
 
 ## Requirements M1 Mac (using Rosetta)
