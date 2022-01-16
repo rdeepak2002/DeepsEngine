@@ -59,10 +59,10 @@ else ()
 
     add_library(${PLUGIN_ADDON_NAME} SHARED
         "${CMAKE_JS_SRC}"
-        "${PROJECT_SOURCE_DIR}/src/EngineBindings/index.cpp"
-        "${PROJECT_SOURCE_DIR}/src/EngineBindings/OpenGLWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/EngineBindings/OpenGLNapiWrapper.cpp"
-        "${PROJECT_SOURCE_DIR}/src/EngineBindings/OpenGLNodeGuiWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/QTEngineRenderer/index.cpp"
+        "${PROJECT_SOURCE_DIR}/src/QTEngineRenderer/OpenGLWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/QTEngineRenderer/OpenGLNapiWrapper.cpp"
+        "${PROJECT_SOURCE_DIR}/src/QTEngineRenderer/OpenGLNodeGuiWidget.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
     )

@@ -31,12 +31,14 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
+    "postinstall": "npm run build:addon",
+    "clean": "rm -rf build && rm -rf dist",
     "start": "qode --inspect ./dist/index.js",
-    "start-all": "((yarn dev) & (yarn start))",
     "build": "npm run build:addon && webpack -p",
     "build:addon": "cross-env CMAKE_BUILD_PARALLEL_LEVEL=8 cmake-js --arch x86_64 compile",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "predev": "npm run clean",
     "dev": "npm run build:addon && webpack --mode=development"
   },
   "eslintConfig": {

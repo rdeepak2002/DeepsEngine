@@ -62,7 +62,7 @@ void OpenGLWidget::paintGL() {
     QString framesPerSecond;
     framesPerSecond.setNum(m_frames / (elapsed / 1000.0), 'f', 2);
     painter.setPen(Qt::black);
-    painter.drawText(20, 40, framesPerSecond + " fps (v1)");
+    painter.drawText(20, 40, framesPerSecond + " fps (v2)");
   }
 
   painter.end();
