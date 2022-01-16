@@ -88,3 +88,11 @@ fabric.properties
 ./idea/.name
 ./idea/codeStyleConfig.xml
 ./idea/deeps-engine-latest.iml
+/.idea/.name
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/deeps-engine-latest.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/codeStyles/Project.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
