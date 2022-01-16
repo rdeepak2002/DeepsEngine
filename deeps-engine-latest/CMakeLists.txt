@@ -37,7 +37,8 @@ if (RUN_STANDALONE)
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
-        "${PROJECT_SOURCE_DIR}/src/Engine/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
@@ -61,14 +62,15 @@ else ()
 
     add_library(${PLUGIN_ADDON_NAME} SHARED
         "${CMAKE_JS_SRC}"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/index.cpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNapiWrapper.cpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNodeGuiWidget.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-            "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-            "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
     )
 
     AddPluginConfig(${PLUGIN_ADDON_NAME})
