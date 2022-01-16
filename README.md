@@ -67,8 +67,6 @@ arch -x86_64 /usr/local/bin/brew install rapidjson
 arch -x86_64 /usr/local/bin/brew install qt@5
 ```
 
-export QT_INSTALL_DIR=/usr/local/Cellar/qt@5/x.x.x
-
 ## Get Started (macOS)
 
 Intel Mac:
