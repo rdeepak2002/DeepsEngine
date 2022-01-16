@@ -16,6 +16,8 @@
 #include <glfw3.h>
 #include <iostream>
 
+#include "Shader.h"
+
 namespace OpenGLRenderer {
   void initialize();
   void clear();

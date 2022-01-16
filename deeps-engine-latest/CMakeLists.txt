@@ -41,6 +41,8 @@ if (RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/Engine/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -65,6 +67,8 @@ else ()
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNodeGuiWidget.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
+            "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+            "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
     )
 
     AddPluginConfig(${PLUGIN_ADDON_NAME})
