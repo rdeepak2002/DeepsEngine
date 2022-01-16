@@ -3,33 +3,23 @@ import { hot, Text, View, Window } from "@nodegui/react-nodegui";
 import path from "path";
 import React from "react";
 import nodeguiIcon from "../../assets/nodegui.jpg";
-import { OpenGLCube } from "./Components/OpenGLCube";
+import Editor from "./Components/Editor";
 
-const minSize = { width: 500, height: 520 };
+const minSize = { width: 1024, height: 768 };
 const winIcon = new QIcon(path.resolve(__dirname, nodeguiIcon));
-class App extends React.Component {
-  render() {
-    return (
-      <Window
-        windowIcon={winIcon}
-        windowTitle="Hello 👋🏽"
-        minSize={minSize}
-        styleSheet={styleSheet}
-      >
-        <View style={containerStyle}>
-          <Text id="welcome-text">Welcome to NodeGui 🐕</Text>
-          <Text id="step-1">1. Play around</Text>
-          <Text id="step-2">2. Debug</Text>
-          <OpenGLCube />
-        </View>
-      </Window>
-    );
-  }
-}
 
-const containerStyle = `
-  flex: 1;
-`;
+const App = () => {
+  return (
+      <Window
+          windowIcon={winIcon}
+          windowTitle="Deeps Engine"
+          minSize={minSize}
+          styleSheet={styleSheet}
+      >
+        <Editor />
+      </Window>
+  );
+}
 
 const styleSheet = `
   #welcome-text {
