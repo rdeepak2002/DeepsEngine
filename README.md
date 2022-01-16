@@ -4,7 +4,7 @@
 Deepak Ramalingam
 
 ## About
-2D and 3D game engine using OpenGL, GLFW, GLEW, C++, Node, Node-API, React, Electron, and Typescript
+3D game engine using OpenGL, GLFW, GLEW, C++, Node-API, NodeGui, React, and Typescript
 
 ## Requirements (macOS)
 
@@ -31,14 +31,12 @@ brew install cmake
 brew install glfw3
 brew install glew
 brew install glm
-brew install ffmpeg
-brew install opencv
 brew install rapidjson
 ```
 
 Refer to instructions below for M1 Mac
 
-## Rosetta Support for M1 Mac
+## Requirements M1 Mac (using Rosetta)
 
 Open terminal using Rosetta
 
@@ -62,24 +60,42 @@ arch -x86_64 /usr/local/bin/brew install cmake
 arch -x86_64 /usr/local/bin/brew install glfw3
 arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
-arch -x86_64 /usr/local/bin/brew install ffmpeg
-arch -x86_64 /usr/local/bin/brew install opencv
 arch -x86_64 /usr/local/bin/brew install rapidjson
 ```
 
 ## Get Started (macOS)
 
+Intel Mac:
+
 ```
 git clone https://github.com/rdeepak2002/deeps-engine.git
-cd deeps-engine/editornative
+cd deeps-engine/deeps-engine-latest
 
+# install dependencies
 yarn
+# run the dev server
+yarn dev
+# open another terminal and run the app
 yarn start
+```
+
+M1 Mac (using Rosetta):
+
+```
+git clone https://github.com/rdeepak2002/deeps-engine.git
+cd deeps-engine/deeps-engine-latest
+
+# install dependencies
+arch -x86_64 yarn
+# run the dev server
+arch -x86_64 yarn dev
+# open another terminal and run the app
+arch -x86_64 yarn start
 ```
 
 ## Node / NPM Troubleshooting (macOS)
 
-Solution to 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
+Solution for 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
 
 ```
 sudo chown -R $USER /usr/local/lib/
@@ -90,13 +106,9 @@ sudo chown -R $USER /usr/local/share/
 
 ## Recommended Development Environment
 
-- open 'engine' folder in CLion
-  - enable autoreload for CMake changes
-  - recommended plugin for GLSL: https://plugins.jetbrains.com/plugin/6993-glsl-support
-  - In configurations, set the working directory to the engine folder's directory
-  - go to Preferences -> Build, Execution, Deployment -> CMake and add 2 profiles:
-    - Library (same as default)
-    - Standalone
+- Open 'deeps-engine-latest' folder in CLion
+  - Enable autoreload for CMake changes
+  - Recommended plugin for GLSL: https://plugins.jetbrains.com/plugin/6993-glsl-support
+  - Go to Preferences -> Build, Execution, Deployment -> CMake and add a profile:
+    - Release
       - In "Environment" add "STANDALONE="
-- open 'editor' folder in WebStorm
-  - add a configuration for 'npm start'
