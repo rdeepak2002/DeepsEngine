@@ -5,14 +5,14 @@
 #include "OpenGLRenderer.h"
 
 int main() {
-    OpenGLRenderer::createWindow();
-    OpenGLRenderer::initialize();
+  OpenGLRenderer::createWindow();
+  OpenGLRenderer::initialize();
 
-    while(!OpenGLRenderer::shouldCloseWindow()) {
-        OpenGLRenderer::update();
-    }
+  while (!OpenGLRenderer::shouldCloseWindow()) {
+    OpenGLRenderer::update();
+  }
 
-    OpenGLRenderer::closeWindow();
+  OpenGLRenderer::closeWindow();
 
-    return 0;
+  return 0;
 }
