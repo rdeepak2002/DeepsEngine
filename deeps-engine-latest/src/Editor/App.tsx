@@ -3,7 +3,7 @@ import { hot, Text, View, Window } from "@nodegui/react-nodegui";
 import path from "path";
 import React from "react";
 import nodeguiIcon from "../../assets/nodegui.jpg";
-import { OpenGLCube } from "../Components/OpenGLCube";
+import { OpenGLCube } from "./Components/OpenGLCube";
 
 const minSize = { width: 500, height: 520 };
 const winIcon = new QIcon(path.resolve(__dirname, nodeguiIcon));
