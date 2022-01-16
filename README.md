@@ -32,6 +32,7 @@ brew install glfw3
 brew install glew
 brew install glm
 brew install rapidjson
+brew install qt@5
 ```
 
 Refer to instructions below for M1 Mac
@@ -61,6 +62,7 @@ arch -x86_64 /usr/local/bin/brew install glfw3
 arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
 arch -x86_64 /usr/local/bin/brew install rapidjson
+arch -x86_64 /usr/local/bin/brew install qt@5
 ```
 
 ## Get Started (macOS)
