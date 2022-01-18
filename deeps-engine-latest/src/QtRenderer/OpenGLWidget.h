@@ -27,7 +27,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void initializeGL() override;
   // paint method called every update loop
   void paintGL() override;
-//  void mousePressEvent(QMouseEvent *e) override;
+  void mousePressEvent(QMouseEvent *e) override;
 //  void mouseMoveEvent(QMouseEvent *e) override;
 //  void wheelEvent(QWheelEvent *e) override;
   void keyPressEvent(QKeyEvent *e) override;

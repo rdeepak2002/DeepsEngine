@@ -42,7 +42,7 @@ void OpenGLWidget::initializeGL() {
 
 void OpenGLWidget::paintGL() {
   // TODO: only request focus when necessary
-  QWidget::setFocus();
+//  QWidget::setFocus();
 
   // have qt begin its painting
   QPainter painter;
@@ -84,12 +84,16 @@ void OpenGLWidget::paintGL() {
   update();
 }
 
+void OpenGLWidget::mousePressEvent(QMouseEvent *e) {
+  // focus on window on mouse click
+  QWidget::setFocus();
+}
+
+
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
   OpenGLRenderer::handleKeyPress(event->key());
-//  QWidget::keyPressEvent(event);
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
   OpenGLRenderer::handleKeyRelease(event->key());
-  //  QWidget::keyPressEvent(event);
 }

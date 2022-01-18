@@ -27,6 +27,8 @@ Shader* ourShader;
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+// TODO: update this every game loop
+glm::vec3 cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
 
 glm::vec3 cameraVelDirection = glm::vec3(0, 0, 0);
 
@@ -332,12 +334,12 @@ void OpenGLRenderer::handleKeyPress(int keyCode) {
   if (keyCode == GLFW_KEY_A) {
     std::cout << "pressed a" << std::endl;
     cameraVelDirection = glm::vec3(0, 0, 0);
-    cameraVelDirection -= glm::normalize(glm::cross(cameraFront, cameraUp));
+    cameraVelDirection -= cameraRight;
   }
   if (keyCode == GLFW_KEY_D) {
     std::cout << "pressed d" << std::endl;
     cameraVelDirection = glm::vec3(0, 0, 0);
-    cameraVelDirection += glm::normalize(glm::cross(cameraFront, cameraUp));
+    cameraVelDirection += cameraRight;
   }
 }
 
