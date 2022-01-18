@@ -321,9 +321,6 @@ void OpenGLRenderer::scrollCallback(GLFWwindow* window, double xoffset, double y
 }
 
 void OpenGLRenderer::handleScroll(double xoffset, double yoffset) {
-  std::cout << "xoffset" << xoffset << std::endl;
-  std::cout << "yoffset" << yoffset << std::endl;
-
   float damping = 50.0;
   cameraSpeed = sqrt(xoffset*xoffset + yoffset*yoffset) / damping;
 

@@ -120,8 +120,6 @@ void OpenGLWidget::wheelEvent(QWheelEvent *event) {
     dy = numSteps.y();
   }
 
-  std::cout << "mouse scrolled x: " << dx << std::endl;
-  std::cout << "mouse scrolled y: " << dy << std::endl;
   OpenGLRenderer::handleScroll(dx, dy);
 };
 
