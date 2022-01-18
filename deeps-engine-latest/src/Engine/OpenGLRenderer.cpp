@@ -328,6 +328,26 @@ void OpenGLRenderer::handleKeyPress(int keyCode) {
   if (keyCode == GLFW_KEY_D) {
     cameraVelDirection += cameraRight;
   }
+
+  if(cameraVelDirection.x > 1) {
+    cameraVelDirection.x = 1;
+  }
+  if(cameraVelDirection.y > 1) {
+    cameraVelDirection.y = 1;
+  }
+  if(cameraVelDirection.z > 1) {
+    cameraVelDirection.z = 1;
+  }
+
+  if(cameraVelDirection.x < -1) {
+    cameraVelDirection.x = -1;
+  }
+  if(cameraVelDirection.y < -1) {
+    cameraVelDirection.y = -1;
+  }
+  if(cameraVelDirection.z < -1) {
+    cameraVelDirection.z = -1;
+  }
 }
 
 void OpenGLRenderer::handleKeyRelease(int keyCode) {
