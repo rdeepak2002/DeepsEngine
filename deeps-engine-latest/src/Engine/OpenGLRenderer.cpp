@@ -289,19 +289,38 @@ void OpenGLRenderer::createWindow() {
 // ---------------------------------------------------------------------------------------------------------
 void OpenGLRenderer::processInput(GLFWwindow* window) {
 #if defined(STANDALONE)
+  // close window if escape is pressed
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 
-  float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    cameraPos += cameraSpeed * cameraFront;
-  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    cameraPos -= cameraSpeed * cameraFront;
-  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  // check which key is pressed and send it to be handled
+  for(int keyCode = GLFW_KEY_SPACE; keyCode < GLFW_KEY_LAST; keyCode++) {
+    if (glfwGetKey(window, keyCode) == GLFW_PRESS) {
+      OpenGLRenderer::handleInput(keyCode);
+    }
+  }
 #endif
+}
+
+void OpenGLRenderer::handleInput(int characterCode) {
+  float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+
+  std::cout << "character code: " << characterCode << std::endl;
+  std::cout << "camera speed: " << cameraSpeed << std::endl;
+  std::cout << "camera pos: " << "x: " << cameraPos.x << "y: " << cameraPos.y << "z: " << cameraPos.z << std::endl;
+
+  if (characterCode == GLFW_KEY_W) {
+    cameraPos += cameraSpeed * cameraFront;
+  }
+  if (characterCode == GLFW_KEY_S) {
+    cameraPos -= cameraSpeed * cameraFront;
+  }
+  if (characterCode == GLFW_KEY_A) {
+    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  }
+  if (characterCode == GLFW_KEY_D) {
+    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback

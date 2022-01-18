@@ -5,6 +5,7 @@
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtCore.framework/Versions/5/Headers/QObject"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLBuffer"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QOpenGLFunctions"
+#include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtGui.framework/Versions/5/Headers/QKeyEvent"
 #include "node_modules/@nodegui/qode/dist/1.0.6/lib/QtWidgets.framework/Versions/5/Headers/QOpenGLWidget"
 
 #include "../Engine/OpenGLRenderer.h"
@@ -26,6 +27,10 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   void initializeGL() override;
   // paint method called every update loop
   void paintGL() override;
+//  void mousePressEvent(QMouseEvent *e) override;
+//  void mouseMoveEvent(QMouseEvent *e) override;
+//  void wheelEvent(QWheelEvent *e) override;
+  void keyPressEvent(QKeyEvent *e) override;
 
  private:
   // keep track of scale

@@ -39,6 +39,9 @@ void OpenGLWidget::initializeGL() {
 }
 
 void OpenGLWidget::paintGL() {
+  // TODO: only request focus when necessary
+  QWidget::setFocus();
+
   // have qt begin its painting
   QPainter painter;
   painter.begin(this);
@@ -75,4 +78,9 @@ void OpenGLWidget::paintGL() {
 
   // have this qt widget update
   update();
+}
+
+void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
+  OpenGLRenderer::handleInput(event->key());
+//  QWidget::keyPressEvent(event);
 }

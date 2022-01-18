@@ -26,6 +26,7 @@ void update();
 
 void createWindow();
 void processInput(GLFWwindow* window);
+void handleInput(int characterCode);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 bool shouldCloseWindow();
 void closeWindow();
