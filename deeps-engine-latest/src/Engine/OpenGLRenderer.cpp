@@ -316,49 +316,32 @@ void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int 
 }
 
 void OpenGLRenderer::handleKeyPress(int keyCode) {
-//  std::cout << "character code: " << characterCode << std::endl;
-//  std::cout << "camera speed: " << cameraSpeed << std::endl;
-//  std::cout << "camera pos: " << "x: " << cameraPos.x << "y: " << cameraPos.y << "z: " << cameraPos.z << std::endl;
-  std::cout << "camera velocity direction: " << "x: " << cameraVelDirection.x << "y: " << cameraVelDirection.y << "z: " << cameraVelDirection.z << std::endl;
-
   if (keyCode == GLFW_KEY_W) {
-    std::cout << "pressed w" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection += cameraFront;
   }
   if (keyCode == GLFW_KEY_S) {
-    std::cout << "pressed s" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection -= cameraFront;
   }
   if (keyCode == GLFW_KEY_A) {
-    std::cout << "pressed a" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection -= cameraRight;
   }
   if (keyCode == GLFW_KEY_D) {
-    std::cout << "pressed d" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection += cameraRight;
   }
 }
 
 void OpenGLRenderer::handleKeyRelease(int keyCode) {
   if (keyCode == GLFW_KEY_W) {
-    std::cout << "released w" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection -= cameraFront;
   }
   if (keyCode == GLFW_KEY_S) {
-    std::cout << "released s" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection += cameraFront;
   }
   if (keyCode == GLFW_KEY_A) {
-    std::cout << "released a" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection += cameraRight;
   }
   if (keyCode == GLFW_KEY_D) {
-    std::cout << "released d" << std::endl;
-    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection -= cameraRight;
   }
 }
 
