@@ -31,6 +31,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
 //  void mouseMoveEvent(QMouseEvent *e) override;
 //  void wheelEvent(QWheelEvent *e) override;
   void keyPressEvent(QKeyEvent *e) override;
+  void keyReleaseEvent(QKeyEvent *e) override;
 
  private:
   // keep track of scale

@@ -55,7 +55,6 @@ void OpenGLWidget::paintGL() {
   m_buffer.bind();
 
   float elapsedTime = static_cast<float>(m_time_master.elapsed()/1000.0);
-  std::cout << "qt elapsed time: " << elapsedTime << std::endl;
 
   // have the opengl renderer update
   OpenGLRenderer::update(elapsedTime);
@@ -86,6 +85,11 @@ void OpenGLWidget::paintGL() {
 }
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
-  OpenGLRenderer::handleInput(event->key());
+  OpenGLRenderer::handleKeyPress(event->key());
 //  QWidget::keyPressEvent(event);
+}
+
+void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
+  OpenGLRenderer::handleKeyRelease(event->key());
+  //  QWidget::keyPressEvent(event);
 }

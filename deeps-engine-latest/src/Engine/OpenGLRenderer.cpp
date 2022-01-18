@@ -28,6 +28,8 @@ glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 
+glm::vec3 cameraVelDirection = glm::vec3(0, 0, 0);
+
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
@@ -214,13 +216,17 @@ void OpenGLRenderer::update(float elapsedTime) {
 
   // per-frame time logic
   // --------------------
-  float currentFrame = elapsedTime ? elapsedTime : static_cast<float>(glfwGetTime());
-  std::cout << "current time" << currentFrame << std::endl;
+  float currentFrame = (elapsedTime != 0) ? elapsedTime : static_cast<float>(glfwGetTime());
   deltaTime = currentFrame - lastFrame;
   lastFrame = currentFrame;
 
+  // move the camera
+  float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+  cameraPos += cameraSpeed * cameraVelDirection;
+
 #if defined(STANDALONE)
   processInput(window);
+  glfwSetKeyCallback(window, OpenGLRenderer::keyCallback);
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 #endif
@@ -290,38 +296,67 @@ void OpenGLRenderer::createWindow() {
 // ---------------------------------------------------------------------------------------------------------
 void OpenGLRenderer::processInput(GLFWwindow* window) {
 #if defined(STANDALONE)
-  // close window if escape is pressed
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, true);
 
+#endif
+}
+
+void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+#if defined(STANDALONE)
   // TODO: use a set data structure to keep track of which keys should be polled
   // check which key is pressed and send it to be handled
-  for(int keyCode = GLFW_KEY_SPACE; keyCode < GLFW_KEY_LAST; keyCode++) {
-    if (glfwGetKey(window, keyCode) == GLFW_PRESS) {
-      OpenGLRenderer::handleInput(keyCode);
-    }
+  if (action == GLFW_PRESS) {
+    OpenGLRenderer::handleKeyPress(key);
+  }
+  else if(action == GLFW_RELEASE) {
+    OpenGLRenderer::handleKeyRelease(key);
   }
 #endif
 }
 
-void OpenGLRenderer::handleInput(int characterCode) {
-  float cameraSpeed = static_cast<float>(2.5 * deltaTime);
+void OpenGLRenderer::handleKeyPress(int keyCode) {
+//  std::cout << "character code: " << characterCode << std::endl;
+//  std::cout << "camera speed: " << cameraSpeed << std::endl;
+//  std::cout << "camera pos: " << "x: " << cameraPos.x << "y: " << cameraPos.y << "z: " << cameraPos.z << std::endl;
+  std::cout << "camera velocity direction: " << "x: " << cameraVelDirection.x << "y: " << cameraVelDirection.y << "z: " << cameraVelDirection.z << std::endl;
 
-  std::cout << "character code: " << characterCode << std::endl;
-  std::cout << "camera speed: " << cameraSpeed << std::endl;
-  std::cout << "camera pos: " << "x: " << cameraPos.x << "y: " << cameraPos.y << "z: " << cameraPos.z << std::endl;
+  if (keyCode == GLFW_KEY_W) {
+    std::cout << "pressed w" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection += cameraFront;
+  }
+  if (keyCode == GLFW_KEY_S) {
+    std::cout << "pressed s" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection -= cameraFront;
+  }
+  if (keyCode == GLFW_KEY_A) {
+    std::cout << "pressed a" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection -= glm::normalize(glm::cross(cameraFront, cameraUp));
+  }
+  if (keyCode == GLFW_KEY_D) {
+    std::cout << "pressed d" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
+    cameraVelDirection += glm::normalize(glm::cross(cameraFront, cameraUp));
+  }
+}
 
-  if (characterCode == GLFW_KEY_W) {
-    cameraPos += cameraSpeed * cameraFront;
+void OpenGLRenderer::handleKeyRelease(int keyCode) {
+  if (keyCode == GLFW_KEY_W) {
+    std::cout << "released w" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
   }
-  if (characterCode == GLFW_KEY_S) {
-    cameraPos -= cameraSpeed * cameraFront;
+  if (keyCode == GLFW_KEY_S) {
+    std::cout << "released s" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
   }
-  if (characterCode == GLFW_KEY_A) {
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if (keyCode == GLFW_KEY_A) {
+    std::cout << "released a" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
   }
-  if (characterCode == GLFW_KEY_D) {
-    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+  if (keyCode == GLFW_KEY_D) {
+    std::cout << "released d" << std::endl;
+    cameraVelDirection = glm::vec3(0, 0, 0);
   }
 }
 

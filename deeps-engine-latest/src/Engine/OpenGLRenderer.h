@@ -26,7 +26,9 @@ void update(float elapsedTime = 0);
 
 void createWindow();
 void processInput(GLFWwindow* window);
-void handleInput(int characterCode);
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void handleKeyPress(int keyCode);
+void handleKeyRelease(int keyCode);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 bool shouldCloseWindow();
 void closeWindow();
