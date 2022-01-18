@@ -204,7 +204,7 @@ void OpenGLRenderer::clear() {
 #endif
 }
 
-void OpenGLRenderer::update() {
+void OpenGLRenderer::update(float elapsedTime) {
   // TODO: fix issue where editor needs to enable depth test every loop
 #if !defined(STANDALONE)
   // configure global opengl state
@@ -214,7 +214,8 @@ void OpenGLRenderer::update() {
 
   // per-frame time logic
   // --------------------
-  float currentFrame = static_cast<float>(glfwGetTime());
+  float currentFrame = elapsedTime ? elapsedTime : static_cast<float>(glfwGetTime());
+  std::cout << "current time" << currentFrame << std::endl;
   deltaTime = currentFrame - lastFrame;
   lastFrame = currentFrame;
 
@@ -293,6 +294,7 @@ void OpenGLRenderer::processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 
+  // TODO: use a set data structure to keep track of which keys should be polled
   // check which key is pressed and send it to be handled
   for(int keyCode = GLFW_KEY_SPACE; keyCode < GLFW_KEY_LAST; keyCode++) {
     if (glfwGetKey(window, keyCode) == GLFW_PRESS) {

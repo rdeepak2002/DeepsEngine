@@ -22,7 +22,7 @@
 namespace OpenGLRenderer {
 void initialize();
 void clear();
-void update();
+void update(float elapsedTime = 0);
 
 void createWindow();
 void processInput(GLFWwindow* window);

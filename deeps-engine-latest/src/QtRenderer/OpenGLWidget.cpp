@@ -36,6 +36,8 @@ void OpenGLWidget::initializeGL() {
   initializeOpenGLFunctions();
 
   OpenGLRenderer::initialize();
+
+  m_time_master.start();
 }
 
 void OpenGLWidget::paintGL() {
@@ -52,8 +54,11 @@ void OpenGLWidget::paintGL() {
   // have qt bind its buffer
   m_buffer.bind();
 
+  float elapsedTime = static_cast<float>(m_time_master.elapsed()/1000.0);
+  std::cout << "qt elapsed time: " << elapsedTime << std::endl;
+
   // have the opengl renderer update
-  OpenGLRenderer::update();
+  OpenGLRenderer::update(elapsedTime);
 
   // have qt release its buffer
   m_buffer.release();

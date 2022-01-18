@@ -39,6 +39,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   QOpenGLBuffer m_buffer;
   int m_frames = 0;
   QElapsedTimer m_time;
+  QElapsedTimer m_time_master;
 };
 
 #endif
