@@ -84,11 +84,46 @@ void OpenGLWidget::paintGL() {
   update();
 }
 
-void OpenGLWidget::mousePressEvent(QMouseEvent *e) {
+void OpenGLWidget::mousePressEvent(QMouseEvent *event) {
   // focus on window on mouse click
   QWidget::setFocus();
+  // TODO: send this to engine
+  std::cout << "mouse pressed x: " << event->x() << std::endl;
+  std::cout << "mouse pressed y: " << event->y() << std::endl;
 }
 
+void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event) {
+  // focus on window on mouse click
+  // TODO: send this to engine
+  std::cout << "mouse released x: " << event->x() << std::endl;
+  std::cout << "mouse released y: " << event->y() << std::endl;
+}
+
+void OpenGLWidget::mouseMoveEvent(QMouseEvent *event) {
+  // TODO: send this to engine
+  std::cout << "mouse moved x: " << event->x() << std::endl;
+  std::cout << "mouse moved y: " << event->y() << std::endl;
+};
+void OpenGLWidget::wheelEvent(QWheelEvent *event) {
+  // TODO: send this to engine
+  QPoint numPixels = event->pixelDelta();
+  QPoint numDegrees = event->angleDelta() / 8;
+
+  int dx, dy;
+
+  if (!numPixels.isNull()) {
+    dx = numPixels.x();
+    dy = numPixels.y();
+  } else if (!numDegrees.isNull()) {
+    QPoint numSteps = numDegrees / 15;
+    dx = numSteps.x();
+    dy = numSteps.y();
+  }
+
+  std::cout << "mouse scrolled x: " << dx << std::endl;
+  std::cout << "mouse scrolled y: " << dy << std::endl;
+  OpenGLRenderer::handleScroll(dx, dy);
+};
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
   OpenGLRenderer::handleKeyPress(event->key());

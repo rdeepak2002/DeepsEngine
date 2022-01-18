@@ -26,6 +26,8 @@ void update(float elapsedTime = 0);
 
 void createWindow();
 void processInput(GLFWwindow* window);
+void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+void handleScroll(double xoffset, double yoffset);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void handleKeyPress(int keyCode);
 void handleKeyRelease(int keyCode);

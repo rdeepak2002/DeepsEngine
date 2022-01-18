@@ -24,12 +24,12 @@ unsigned int texture1, texture2;
 Shader* ourShader;
 
 // camera
+float cameraSpeed = static_cast<float>(2.5);
 glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
 // TODO: update this every game loop
 glm::vec3 cameraRight = glm::normalize(glm::cross(cameraFront, cameraUp));
-
 glm::vec3 cameraVelDirection = glm::vec3(0, 0, 0);
 
 // timing
@@ -223,12 +223,12 @@ void OpenGLRenderer::update(float elapsedTime) {
   lastFrame = currentFrame;
 
   // move the camera
-  float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-  cameraPos += cameraSpeed * cameraVelDirection;
+  cameraPos += (cameraSpeed * cameraVelDirection) * deltaTime;
 
 #if defined(STANDALONE)
   processInput(window);
   glfwSetKeyCallback(window, OpenGLRenderer::keyCallback);
+  glfwSetScrollCallback(window, OpenGLRenderer::scrollCallback);
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 #endif
@@ -304,7 +304,6 @@ void OpenGLRenderer::processInput(GLFWwindow* window) {
 
 void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 #if defined(STANDALONE)
-  // TODO: use a set data structure to keep track of which keys should be polled
   // check which key is pressed and send it to be handled
   if (action == GLFW_PRESS) {
     OpenGLRenderer::handleKeyPress(key);
@@ -315,12 +314,39 @@ void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int 
 #endif
 }
 
-void OpenGLRenderer::handleKeyPress(int keyCode) {
-  if (keyCode == GLFW_KEY_W) {
+void OpenGLRenderer::scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+#if defined(STANDALONE)
+  OpenGLRenderer::handleScroll(xoffset * 10, yoffset * 10);
+#endif
+}
+
+void OpenGLRenderer::handleScroll(double xoffset, double yoffset) {
+  std::cout << "xoffset" << xoffset << std::endl;
+  std::cout << "yoffset" << yoffset << std::endl;
+
+  cameraSpeed = 1.0;
+
+  // move camera forward or backward depending on scroll
+  if(yoffset > 1) {
+    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection += cameraFront;
   }
-  if (keyCode == GLFW_KEY_S) {
+  else if(yoffset < -1){
+    cameraVelDirection = glm::vec3(0, 0, 0);
     cameraVelDirection -= cameraFront;
+  }
+  else {
+    cameraVelDirection = glm::vec3(0, 0, 0);
+  }
+}
+
+
+void OpenGLRenderer::handleKeyPress(int keyCode) {
+  if (keyCode == GLFW_KEY_W) {
+    cameraVelDirection += cameraUp;
+  }
+  if (keyCode == GLFW_KEY_S) {
+    cameraVelDirection -= cameraUp;
   }
   if (keyCode == GLFW_KEY_A) {
     cameraVelDirection -= cameraRight;
@@ -351,11 +377,13 @@ void OpenGLRenderer::handleKeyPress(int keyCode) {
 }
 
 void OpenGLRenderer::handleKeyRelease(int keyCode) {
+  cameraSpeed = 2.5;
+
   if (keyCode == GLFW_KEY_W) {
-    cameraVelDirection -= cameraFront;
+    cameraVelDirection -= cameraUp;
   }
   if (keyCode == GLFW_KEY_S) {
-    cameraVelDirection += cameraFront;
+    cameraVelDirection += cameraUp;
   }
   if (keyCode == GLFW_KEY_A) {
     cameraVelDirection += cameraRight;
