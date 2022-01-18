@@ -324,7 +324,8 @@ void OpenGLRenderer::handleScroll(double xoffset, double yoffset) {
   std::cout << "xoffset" << xoffset << std::endl;
   std::cout << "yoffset" << yoffset << std::endl;
 
-  cameraSpeed = 1.0;
+  float damping = 50.0;
+  cameraSpeed = sqrt(xoffset*xoffset + yoffset*yoffset) / damping;
 
   // move camera forward or backward depending on scroll
   if(yoffset > 1) {
