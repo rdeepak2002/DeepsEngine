@@ -9,6 +9,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "include/stb_image.h"
 
+#include "include/entt.hpp"
+
 #if defined(STANDALONE)
 // settings
 GLFWwindow* window;
@@ -16,6 +18,9 @@ GLFWwindow* window;
 
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+// ecs manager
+entt::registry registry;
 
 // unsigned int shaderProgram;
 unsigned int VBO, VAO;
