@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.7)
 
 # -------------- User Config ---------------
 set(PLUGIN_ADDON_NAME "OpenGLCube")
@@ -39,6 +39,7 @@ if (RUN_STANDALONE)
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
@@ -47,6 +48,9 @@ if (RUN_STANDALONE)
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
+
+    set_property(TARGET Release PROPERTY CXX_STANDARD 17)
+    set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
 else ()
     # build as a node gui plugin
     add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
@@ -63,6 +67,7 @@ else ()
     add_library(${PLUGIN_ADDON_NAME} SHARED
         "${CMAKE_JS_SRC}"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/index.cpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNapiWrapper.cpp"
@@ -86,4 +91,7 @@ else ()
     target_link_libraries(${PLUGIN_ADDON_NAME} PRIVATE
         "${CMAKE_JS_LIB}"
     )
+
+    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD 17)
+    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 endif ()
