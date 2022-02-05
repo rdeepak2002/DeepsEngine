@@ -43,20 +43,26 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
 int OpenGLRenderer::createEntity() {
+  // create entity
   auto entity = registry.create();
   Components::transform transform = {Components::position({0, 0, 0}), Components::rotation({0, 0, 0}), Components::scale({1, 1, 1})};
   registry.emplace_or_replace<Components::transform>(entity, transform);
 
-  // create 2 entities at different positions as a test
-//  auto entity1 = registry.create();
-//  Components::transform transform1 = {Components::position({0, 0, 0}), Components::rotation({0.2, 0.5, 0.9}), Components::scale({0.5, 0.5, 0.5})};
-//  registry.emplace_or_replace<Components::transform>(entity1, transform1);
-//
-//  auto entity2 = registry.create();
-//  Components::transform transform2 = {Components::position({0.5, 0, 0}), Components::rotation({-1, 0, 0}), Components::scale({1, 1, 1})};
-//  registry.emplace_or_replace<Components::transform>(entity2, transform2);
-
   return 0;
+}
+
+std::vector<u_int32_t> OpenGLRenderer::getEntities() {
+  std::vector<u_int32_t> result;
+
+  // get all entities in the ecs that have a transform component
+  auto ecs_view = registry.view<Components::transform>();
+
+  for(auto entity : ecs_view) {
+    u_int32_t entityId = (std::uint32_t)(entity);
+    result.push_back(entityId);
+  }
+
+  return result;
 }
 
 void OpenGLRenderer::initialize() {

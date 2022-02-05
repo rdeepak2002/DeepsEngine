@@ -21,6 +21,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
   explicit OpenGLWidget(QWidget *parent = nullptr);
   ~OpenGLWidget();
   int createEntity();
+  std::vector<u_int32_t> getEntities();
 
  public slots:
   void setScaling(int scale);

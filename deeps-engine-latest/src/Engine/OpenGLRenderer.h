@@ -21,6 +21,7 @@
 
 namespace OpenGLRenderer {
 int createEntity();
+std::vector<u_int32_t> getEntities();
 
 void initialize();
 void clear();

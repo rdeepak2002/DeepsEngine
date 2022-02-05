@@ -7,6 +7,9 @@ const Editor = () => {
     const createEntity = {
         clicked: () => {
             console.log('button clicked, data from widget (2): ', widget.createEntity());
+
+            const entities = new Uint32Array(widget.getEntities())
+            console.log('entities', entities);
         }
     };
 

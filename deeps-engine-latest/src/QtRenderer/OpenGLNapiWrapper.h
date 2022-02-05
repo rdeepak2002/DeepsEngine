@@ -23,6 +23,7 @@ class OpenGLNapiWrapper : public Napi::ObjectWrap<OpenGLNapiWrapper> {
   // wrapped methods
   Napi::Value testMessage(const Napi::CallbackInfo &info);
   Napi::Value createEntity(const Napi::CallbackInfo &info);
+  Napi::Value getEntities(const Napi::CallbackInfo &info);
 
   QWIDGET_WRAPPED_METHODS_DECLARATION
 };

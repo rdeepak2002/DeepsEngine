@@ -27,6 +27,12 @@ int OpenGLWidget::createEntity() {
   return result;
 }
 
+std::vector<u_int32_t> OpenGLWidget::getEntities() {
+  std::vector<u_int32_t> result = OpenGLRenderer::getEntities();
+
+  return result;
+}
+
 void OpenGLWidget::setScaling(int scale) {
   // scaling for qt widget
   if (scale > 30)
