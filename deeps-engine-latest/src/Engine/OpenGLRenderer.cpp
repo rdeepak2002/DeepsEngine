@@ -10,6 +10,7 @@
 #include "include/stb_image.h"
 
 #include "include/entt.hpp"
+#include "Components.h"
 
 #if defined(STANDALONE)
 // settings
@@ -41,21 +42,16 @@ glm::vec3 cameraVelDirection = glm::vec3(0, 0, 0);
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-// world space positions of our cubes
-glm::vec3 cubePositions[] = {
-    glm::vec3( 0.0f,  0.0f,  0.0f),
-    glm::vec3( 2.0f,  5.0f, -15.0f),
-    glm::vec3(-1.5f, -2.2f, -2.5f),
-    glm::vec3(-3.8f, -2.0f, -12.3f),
-    glm::vec3( 2.4f, -0.4f, -3.5f),
-    glm::vec3(-1.7f,  3.0f, -7.5f),
-    glm::vec3( 1.3f, -2.0f, -2.5f),
-    glm::vec3( 1.5f,  2.0f, -2.5f),
-    glm::vec3( 1.5f,  0.2f, -1.5f),
-    glm::vec3(-1.3f,  1.0f, -1.5f)
-};
-
 void OpenGLRenderer::initialize() {
+  // create 2 entities at different positions as a test
+  auto entity1 = registry.create();
+  Components::transform transform1 = {Components::position({0, 0, 0}), Components::rotation({0.2, 0.5, 0.9}), Components::scale({0.5, 0.5, 0.5})};
+  registry.emplace_or_replace<Components::transform>(entity1, transform1);
+
+  auto entity2 = registry.create();
+  Components::transform transform2 = {Components::position({0.5, 0, 0}), Components::rotation({-1, 0, 0}), Components::scale({1, 1, 1})};
+  registry.emplace_or_replace<Components::transform>(entity2, transform2);
+
 #if defined(STANDALONE)
   // glad: load all OpenGL function pointers
   // ---------------------------------------
@@ -255,13 +251,36 @@ void OpenGLRenderer::update(float elapsedTime) {
 
   // render boxes
   glBindVertexArray(VAO);
-  for (unsigned int i = 0; i < 10; i++)
-  {
+
+  // get all entities in the ecs that have a transform component
+  auto ecs_view = registry.view<Components::transform>();
+
+  for(auto entity : ecs_view) {
+    // get the entity transform
+    auto entityTransform = registry.get<Components::transform>(entity);
+    auto entityPosition = entityTransform.position;
+    auto entityRotation = entityTransform.rotation;
+    auto entityScale = entityTransform.scale;
+
     // calculate the model matrix for each object and pass it to shader before drawing
     glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    model = glm::translate(model, cubePositions[i]);
-    float angle = 20.0f * i;
-    model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+
+    // scale the model
+    model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+
+    // translate the model
+    model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
+
+    // rotate the model
+    // rotate x
+    model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+
+    // rotate y
+    model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+
+    // rotate z
+    model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
     ourShader->setMat4("model", model);
 
     glDrawArrays(GL_TRIANGLES, 0, 36);

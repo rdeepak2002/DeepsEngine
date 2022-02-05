@@ -45,6 +45,7 @@ if (RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -76,6 +77,7 @@ else ()
         "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
     )
 
     AddPluginConfig(${PLUGIN_ADDON_NAME})
