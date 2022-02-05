@@ -6,7 +6,8 @@
 #define EXAMPLE_RENDERER_H
 
 #if defined(STANDALONE)
-
+#include <glad.h>
+#include <glfw3.h>
 #else
 #include <QOpenGLExtraFunctions>
 #endif
@@ -17,9 +18,20 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
+    #if defined(STANDALONE)
+    void createWindow();
+    #endif
+
     void initialize();
     void clear();
     void update();
+
+    const unsigned int SCR_WIDTH = 800;
+    const unsigned int SCR_HEIGHT = 600;
+
+#if defined(STANDALONE)
+    GLFWwindow* window;
+#endif
 
     const char *vertexShaderSource = "#version 330 core\n"
                                      "layout (location = 0) in vec3 aPos;\n"

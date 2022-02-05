@@ -5,9 +5,42 @@
 #include "Renderer.h"
 #include <iostream>
 
+#if defined(STANDALONE)
+void Renderer::createWindow() {
+      // glfw: initialize and configure
+  // ------------------------------
+  glfwInit();
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+#ifdef __APPLE__
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
+
+  // glfw window creation
+  // --------------------
+  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+  if (window == NULL) {
+    std::cout << "Failed to create GLFW window" << std::endl;
+    glfwTerminate();
+  }
+  glfwMakeContextCurrent(window);
+//  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+}
+#endif
+
 void Renderer::initialize() {
+#if defined(STANDALONE)
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+    }
+#else
     // have qt initialize opengl functions
     initializeOpenGLFunctions();
+#endif
 
     // build and compile our shader program
     // ------------------------------------
@@ -86,4 +119,11 @@ void Renderer::update() {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
+#if defined(STANDALONE)
+    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+    // -------------------------------------------------------------------------------
+    glfwSwapBuffers(window);
+    glfwPollEvents();
+#endif
 }

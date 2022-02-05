@@ -61,11 +61,13 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})

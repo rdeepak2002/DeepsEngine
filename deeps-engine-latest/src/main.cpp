@@ -7,19 +7,34 @@
 //}
 
 #include "Engine/OpenGLRenderer.h"
+#include "src/Engine/Renderer.h"
+
+//int main() {
+//    OpenGLRenderer::createWindow();
+//    OpenGLRenderer::initialize();
+//
+//    // create a single entity for testing purposes
+//    OpenGLRenderer::createEntity();
+//
+//    while (!OpenGLRenderer::shouldCloseWindow()) {
+//        OpenGLRenderer::update();
+//    }
+//
+//    OpenGLRenderer::closeWindow();
+//
+//    return 0;
+//}
 
 int main() {
-    OpenGLRenderer::createWindow();
-    OpenGLRenderer::initialize();
+    Renderer renderer;
 
-    // create a single entity for testing purposes
-    OpenGLRenderer::createEntity();
+    renderer.createWindow();
+    renderer.initialize();
 
-    while (!OpenGLRenderer::shouldCloseWindow()) {
-        OpenGLRenderer::update();
+    while(true) {
+        renderer.clear();
+        renderer.update();
     }
-
-    OpenGLRenderer::closeWindow();
 
     return 0;
 }
