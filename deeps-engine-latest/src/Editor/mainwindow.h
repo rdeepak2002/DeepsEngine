@@ -1,6 +1,7 @@
 #ifndef mainwindow_h
 #define mainwindow_h
 
+#include <QtWidgets>
 #include <QMainWindow>
 #include <QScopedPointer>
 

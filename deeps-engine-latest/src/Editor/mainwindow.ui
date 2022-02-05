@@ -13,18 +13,7 @@
   <property name="windowTitle">
    <string>Main Window</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QOpenGLWidget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>30</y>
-      <width>300</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
  </widget>
  <resources>
   <include location="example.qrc"/>

@@ -46,7 +46,7 @@ void OpenGLCubeWidget::initializeGL() {
     m_fAngle = 0;
     m_fScale = 1;
 
-    m_texture = new QOpenGLTexture(QImage("assets/nodegui.jpg"));
+    m_texture = new QOpenGLTexture(QImage("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/nodegui.jpg"));
 
     m_vertexShader = new QOpenGLShader(QOpenGLShader::Vertex);
     m_vertexShader->compileSourceCode(
