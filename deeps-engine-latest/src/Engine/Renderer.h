@@ -12,6 +12,8 @@
 #include <QOpenGLExtraFunctions>
 #endif
 
+#include "Shader.h"
+
 #if defined(STANDALONE)
 class Renderer {
 #else
@@ -52,6 +54,8 @@ public:
 
     unsigned int shaderProgram;
     unsigned int VBO, VAO;
+
+    Shader* ourShader;
 };
 
 
