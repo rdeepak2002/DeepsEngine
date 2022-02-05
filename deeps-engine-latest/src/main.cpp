@@ -1,7 +1,7 @@
 #if !defined(STANDALONE)
 
 #include <QApplication>
-#include "mainwindow.h"
+#include "src/Editor/mainwindow.h"
 
 int main(int argc, char *argv[])
 {

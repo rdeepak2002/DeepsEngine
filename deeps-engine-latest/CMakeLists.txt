@@ -75,12 +75,12 @@ if(RUN_STANDALONE)
 else()
     set(SOURCE_FILES
             src/main.cpp
-            src/mainwindow.cpp
+            src/Editor/mainwindow.cpp
             )
 
     add_project_meta(META_FILES_TO_INCLUDE)
 
-    set(RESOURCE_FILES example.qrc)
+    set(RESOURCE_FILES src/Editor/example.qrc)
 
     find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
 

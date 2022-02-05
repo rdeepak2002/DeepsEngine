@@ -14,19 +14,6 @@
    <string>Main Window</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>270</y>
-      <width>80</width>
-      <height>24</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
    <widget class="QOpenGLWidget" name="openGLWidget">
     <property name="geometry">
      <rect>
@@ -40,7 +27,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../example.qrc"/>
+  <include location="example.qrc"/>
  </resources>
  <connections/>
 </ui>
