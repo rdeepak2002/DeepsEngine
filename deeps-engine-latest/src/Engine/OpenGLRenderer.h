@@ -8,7 +8,8 @@
 #if defined(STANDALONE)
 #include <glad.h>
 #elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
-#include <QOpenGLExtraFunctions>
+//#include <QOpenGLExtraFunctions>
+#include <glad.h>
 #else
 #include <glad.h>
 #endif

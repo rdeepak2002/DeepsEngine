@@ -8,24 +8,23 @@
 #if defined(STANDALONE)
 #include <glad.h>
 #elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
-#include <QOpenGLExtraFunctions>
-
-#include <QElapsedTimer>
-#include <QObject>
-#include <QOpenGLBuffer>
-#include <QOpenGLExtraFunctions>
-#include <QOpenGLWidget>
-#include <qmath.h>
-
-#include <QDebug>
-#include <QDir>
-#include <QImage>
-#include <QMatrix4x4>
-#include <QOpenGLShader>
-#include <QOpenGLTexture>
-#include <QPainter>
-#include <QString>
-#include <QWidget>
+//#include <QOpenGLExtraFunctions>
+#include <glad.h>
+//#include <QElapsedTimer>
+//#include <QObject>
+//#include <QOpenGLBuffer>
+//#include <QOpenGLWidget>
+//#include <qmath.h>
+//
+//#include <QDebug>
+//#include <QDir>
+//#include <QImage>
+//#include <QMatrix4x4>
+//#include <QOpenGLShader>
+//#include <QOpenGLTexture>
+//#include <QPainter>
+//#include <QString>
+//#include <QWidget>
 #else
 #include <glad.h>
 #endif
