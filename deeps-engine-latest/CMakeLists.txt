@@ -2,6 +2,10 @@
 
 cmake_minimum_required(VERSION 3.16)
 
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+endif()
+
 # Add folder where are supportive functions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -37,6 +41,9 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 add_executable(${PROJECT_NAME} ${OS_BUNDLE} # Expands to WIN32 or MACOS_BUNDLE depending on OS
     ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES}
 )
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 
 target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
