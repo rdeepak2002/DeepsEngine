@@ -14,7 +14,9 @@
 #include <glad.h>
 #endif
 
+#if defined(STANDALONE)
 #include <glfw3.h>
+#endif
 
 #include <iostream>
 
@@ -29,15 +31,18 @@ void clear();
 void update(float elapsedTime = 0);
 
 void createWindow();
-void processInput(GLFWwindow* window);
-void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 void handleScroll(double xoffset, double yoffset);
-void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 void handleKeyPress(int keyCode);
 void handleKeyRelease(int keyCode);
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 bool shouldCloseWindow();
 void closeWindow();
+
+#if defined(STANDALONE)
+void processInput(GLFWwindow* window);
+void scrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+#endif
 }  // namespace OpenGLRenderer
 
 #endif  // OPENGLCUBE_OPENGLRENDERER_H

@@ -236,7 +236,14 @@ void OpenGLRenderer::update(float elapsedTime) {
 
   // per-frame time logic
   // --------------------
-  float currentFrame = (elapsedTime != 0) ? elapsedTime : static_cast<float>(glfwGetTime());
+  // TODO: FIX CURRENT FRAME
+// TODO: FIX CURRENT FRAME
+// TODO: FIX CURRENT FRAME
+// TODO: FIX CURRENT FRAME
+// TODO: FIX CURRENT FRAME
+// TODO: FIX CURRENT FRAME
+    float currentFrame = 0.1f;
+//  float currentFrame = (elapsedTime != 0) ? elapsedTime : static_cast<float>(glfwGetTime());
   deltaTime = currentFrame - lastFrame;
   lastFrame = currentFrame;
 
@@ -334,33 +341,6 @@ void OpenGLRenderer::createWindow() {
 #endif
 }
 
-// process all input: query GLFW whether relevant keys are pressed/released this
-// frame and react accordingly
-// ---------------------------------------------------------------------------------------------------------
-void OpenGLRenderer::processInput(GLFWwindow* window) {
-#if defined(STANDALONE)
-
-#endif
-}
-
-void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-#if defined(STANDALONE)
-  // check which key is pressed and send it to be handled
-  if (action == GLFW_PRESS) {
-    OpenGLRenderer::handleKeyPress(key);
-  }
-  else if(action == GLFW_RELEASE) {
-    OpenGLRenderer::handleKeyRelease(key);
-  }
-#endif
-}
-
-void OpenGLRenderer::scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-#if defined(STANDALONE)
-  OpenGLRenderer::handleScroll(xoffset * 10, yoffset * 10);
-#endif
-}
-
 void OpenGLRenderer::handleScroll(double xoffset, double yoffset) {
   float damping = 50.0;
   cameraSpeed = sqrt(xoffset*xoffset + yoffset*yoffset) / damping;
@@ -381,6 +361,7 @@ void OpenGLRenderer::handleScroll(double xoffset, double yoffset) {
 
 
 void OpenGLRenderer::handleKeyPress(int keyCode) {
+#if defined(STANDALONE)
   if (keyCode == GLFW_KEY_W) {
     cameraVelDirection += cameraUp;
   }
@@ -393,6 +374,7 @@ void OpenGLRenderer::handleKeyPress(int keyCode) {
   if (keyCode == GLFW_KEY_D) {
     cameraVelDirection += cameraRight;
   }
+#endif
 
   if(cameraVelDirection.x > 1) {
     cameraVelDirection.x = 1;
@@ -418,6 +400,7 @@ void OpenGLRenderer::handleKeyPress(int keyCode) {
 void OpenGLRenderer::handleKeyRelease(int keyCode) {
   cameraSpeed = 2.5;
 
+#if defined(STANDALONE)
   if (keyCode == GLFW_KEY_W) {
     cameraVelDirection -= cameraUp;
   }
@@ -430,17 +413,6 @@ void OpenGLRenderer::handleKeyRelease(int keyCode) {
   if (keyCode == GLFW_KEY_D) {
     cameraVelDirection -= cameraRight;
   }
-}
-
-// glfw: whenever the window size changed (by OS or user resize) this callback
-// function executes
-// ---------------------------------------------------------------------------------------------
-void OpenGLRenderer::framebuffer_size_callback(GLFWwindow* window, int width,
-                                               int height) {
-#if defined(STANDALONE)
-  // make sure the viewport matches the new window dimensions; note that width
-  // and height will be significantly larger than specified on retina displays.
-  glViewport(0, 0, width, height);
 #endif
 }
 
@@ -456,6 +428,7 @@ bool OpenGLRenderer::shouldCloseWindow() {
 #endif
 }
 
+#if defined(STANDALONE)
 void OpenGLRenderer::closeWindow() {
 #if defined(STANDALONE)
   // optional: de-allocate all resources once they've outlived their purpose:
@@ -467,3 +440,43 @@ void OpenGLRenderer::closeWindow() {
   glfwTerminate();
 #endif
 }
+
+// process all input: query GLFW whether relevant keys are pressed/released this
+// frame and react accordingly
+// ---------------------------------------------------------------------------------------------------------
+void OpenGLRenderer::processInput(GLFWwindow* window) {
+#if defined(STANDALONE)
+
+#endif
+}
+
+void OpenGLRenderer::scrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
+#if defined(STANDALONE)
+    OpenGLRenderer::handleScroll(xoffset * 10, yoffset * 10);
+#endif
+}
+
+void OpenGLRenderer::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+#if defined(STANDALONE)
+    // check which key is pressed and send it to be handled
+  if (action == GLFW_PRESS) {
+    OpenGLRenderer::handleKeyPress(key);
+  }
+  else if(action == GLFW_RELEASE) {
+    OpenGLRenderer::handleKeyRelease(key);
+  }
+#endif
+}
+
+// glfw: whenever the window size changed (by OS or user resize) this callback
+// function executes
+// ---------------------------------------------------------------------------------------------
+void OpenGLRenderer::framebuffer_size_callback(GLFWwindow* window, int width,
+                                               int height) {
+#if defined(STANDALONE)
+    // make sure the viewport matches the new window dimensions; note that width
+  // and height will be significantly larger than specified on retina displays.
+  glViewport(0, 0, width, height);
+#endif
+}
+#endif
