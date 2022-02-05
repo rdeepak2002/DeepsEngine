@@ -27,8 +27,6 @@ OpenGLCubeWidget::~OpenGLCubeWidget() {
     makeCurrent();
     m_buffer.destroy();
     doneCurrent();
-//    delete renderer;
-//    renderer = nullptr;
 }
 
 void OpenGLCubeWidget::setScaling(int scale) {
@@ -41,13 +39,11 @@ void OpenGLCubeWidget::setScaling(int scale) {
 }
 
 void OpenGLCubeWidget::initializeGL() {
-    std::cout << "init" << std::endl;
-
+    // initialize renderer
     renderer.initialize();
 }
 
 void OpenGLCubeWidget::paintGL() {
-    std::cout << "painting" << std::endl;
     QPainter painter;
     painter.begin(this);
 
