@@ -38,13 +38,34 @@ set(COMPANY "Example")
 set(COPYRIGHT "Copyright (c) 2021 Deepak Ramalingam. All rights reserved.")
 set(IDENTIFIER "com.example.Example")
 
+# get include directories for libraries used
+set(GLEW_H /usr/local/include/gl)
+set(GLFW_H /usr/local/include/glfw)
+set(GLM /usr/local/include/glm)
+set(GLAD_H /usr/local/include/glad)
+set(KH_H /usr/local/include/KHR)
+set(RAPID_JSON /usr/local/include/rapidjson)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON})
+
+# link libraries used
+set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
+set(GLFW_LINK /usr/local/lib/libglfw.dylib)
+link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+
 if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
