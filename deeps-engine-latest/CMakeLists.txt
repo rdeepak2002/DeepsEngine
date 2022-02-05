@@ -1,99 +1,43 @@
-cmake_minimum_required(VERSION 3.7)
+# Reference: https://doc.qt.io/qt-6/cmake-manual.html
 
-# -------------- User Config ---------------
-set(PLUGIN_ADDON_NAME "OpenGLCube")
-project(${PLUGIN_ADDON_NAME})
+cmake_minimum_required(VERSION 3.16)
 
-# specify x86_64 to use Rosetta on M1 Mac
-if (APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64")
-endif()
+# Add folder where are supportive functions
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# get include directories for libraries used
-set(GLEW_H /usr/local/include/gl)
-set(GLFW_H /usr/local/include/glfw)
-set(GLM /usr/local/include/glm)
-set(GLAD_H /usr/local/include/glad)
-set(KH_H /usr/local/include/KHR)
-set(RAPID_JSON /usr/local/include/rapidjson)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON})
+# Include Qt basic functions
+include(QtCommon)
 
-# link libraries used
-set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
-set(GLFW_LINK /usr/local/lib/libglfw.dylib)
-link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+# Basic information about project
 
-# specify whether this should run as a standalone or build as a node gui plugin
-if(DEFINED ENV{STANDALONE})
-    message(STATUS "running engine in standalone mode")
-    set(RUN_STANDALONE TRUE)
-else()
-    message(STATUS "building engine as compiled library")
-    set(RUN_STANDALONE FALSE)
-endif()
+project(example VERSION 1.0)
 
-if (RUN_STANDALONE)
-    # standalone engine
-    add_compile_definitions(STANDALONE)
+# Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
+fix_project_version()
 
-    file(GLOB SOURCE_FILES_EXEC
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
-    )
+# Set additional project information
+set(COMPANY "Example")
+set(COPYRIGHT "Copyright (c) 2014 Vincent Lee. All rights reserved.")
+set(IDENTIFIER "com.example.Example")
 
-    add_executable(Release ${SOURCE_FILES_EXEC})
+set(SOURCE_FILES
+    src/main.cpp
+    src/mainwindow.cpp
+)
 
-    set_property(TARGET Release PROPERTY CXX_STANDARD 17)
-    set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
-else ()
-    # build as a node gui plugin
-    add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
+add_project_meta(META_FILES_TO_INCLUDE)
 
-    # get node gui plugin commands
-    execute_process(COMMAND node -p "require('@nodegui/nodegui/plugin').CMAKE_HELPER_FILE"
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE NODEGUI_PLUGIN_CMAKE_HELPER
-    )
-    string(REPLACE "\n" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER})
-    string(REPLACE "\"" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER})
-    include("${NODEGUI_PLUGIN_CMAKE_HELPER}")
+set(RESOURCE_FILES example.qrc)
 
-    add_library(${PLUGIN_ADDON_NAME} SHARED
-        "${CMAKE_JS_SRC}"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/index.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNapiWrapper.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNodeGuiWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
-    )
+find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
-    AddPluginConfig(${PLUGIN_ADDON_NAME})
+# source_group("UI Files" FILES ${UI_FILES})
 
-    target_include_directories(${PLUGIN_ADDON_NAME} PRIVATE
-        if (APPLE)
-            ${PROJECT_NAME} /usr/local/include/node
-        endif ()
-        "${CMAKE_JS_INC}"
-        "${PROJECT_SOURCE_DIR}"
-    )
+add_executable(${PROJECT_NAME} ${OS_BUNDLE} # Expands to WIN32 or MACOS_BUNDLE depending on OS
+    ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES}
+)
 
-    target_link_libraries(${PLUGIN_ADDON_NAME} PRIVATE
-        "${CMAKE_JS_LIB}"
-    )
+target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
-    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD 17)
-    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-endif ()
+target_link_libraries(${PROJECT_NAME} Qt6::Widgets)
