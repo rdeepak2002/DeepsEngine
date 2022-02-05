@@ -20,6 +20,7 @@ class OpenGLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
  public:
   explicit OpenGLWidget(QWidget *parent = nullptr);
   ~OpenGLWidget();
+  int createEntity();
 
  public slots:
   void setScaling(int scale);

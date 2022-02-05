@@ -6,7 +6,7 @@ import {widget} from "../OpenGLCube/OpenGLComponent";
 const Editor = () => {
     const createEntity = {
         clicked: () => {
-            console.log('button clicked, data from widget (2): ', widget.test());
+            console.log('button clicked, data from widget (2): ', widget.createEntity());
         }
     };
 

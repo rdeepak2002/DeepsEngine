@@ -42,16 +42,24 @@ glm::vec3 cameraVelDirection = glm::vec3(0, 0, 0);
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
-void OpenGLRenderer::initialize() {
+int OpenGLRenderer::createEntity() {
+  auto entity = registry.create();
+  Components::transform transform = {Components::position({0, 0, 0}), Components::rotation({0, 0, 0}), Components::scale({1, 1, 1})};
+  registry.emplace_or_replace<Components::transform>(entity, transform);
+
   // create 2 entities at different positions as a test
-  auto entity1 = registry.create();
-  Components::transform transform1 = {Components::position({0, 0, 0}), Components::rotation({0.2, 0.5, 0.9}), Components::scale({0.5, 0.5, 0.5})};
-  registry.emplace_or_replace<Components::transform>(entity1, transform1);
+//  auto entity1 = registry.create();
+//  Components::transform transform1 = {Components::position({0, 0, 0}), Components::rotation({0.2, 0.5, 0.9}), Components::scale({0.5, 0.5, 0.5})};
+//  registry.emplace_or_replace<Components::transform>(entity1, transform1);
+//
+//  auto entity2 = registry.create();
+//  Components::transform transform2 = {Components::position({0.5, 0, 0}), Components::rotation({-1, 0, 0}), Components::scale({1, 1, 1})};
+//  registry.emplace_or_replace<Components::transform>(entity2, transform2);
 
-  auto entity2 = registry.create();
-  Components::transform transform2 = {Components::position({0.5, 0, 0}), Components::rotation({-1, 0, 0}), Components::scale({1, 1, 1})};
-  registry.emplace_or_replace<Components::transform>(entity2, transform2);
+  return 0;
+}
 
+void OpenGLRenderer::initialize() {
 #if defined(STANDALONE)
   // glad: load all OpenGL function pointers
   // ---------------------------------------

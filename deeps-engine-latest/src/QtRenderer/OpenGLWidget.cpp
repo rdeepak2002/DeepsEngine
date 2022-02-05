@@ -21,6 +21,12 @@ OpenGLWidget::~OpenGLWidget() {
   doneCurrent();
 }
 
+int OpenGLWidget::createEntity() {
+  std::cout << "creating entity" << std::endl;
+  int result = OpenGLRenderer::createEntity();
+  return result;
+}
+
 void OpenGLWidget::setScaling(int scale) {
   // scaling for qt widget
   if (scale > 30)

@@ -13,6 +13,7 @@ Napi::Object OpenGLNapiWrapper::init(Napi::Env env, Napi::Object exports) {
   Napi::Function func = DefineClass(
       env, CLASSNAME,
       {InstanceMethod("test", &OpenGLNapiWrapper::testMessage),
+       InstanceMethod("createEntity", &OpenGLNapiWrapper::createEntity),
        QWIDGET_WRAPPED_METHODS_EXPORT_DEFINE(OpenGLNapiWrapper)});
   constructor = Napi::Persistent(func);
   exports.Set(CLASSNAME, func);
@@ -59,10 +60,14 @@ Napi::Value OpenGLNapiWrapper::testMessage(const Napi::CallbackInfo &info) {
   Napi::Env env = info.Env();
   Napi::HandleScope scope(env);
 
-  //  Napi::String message = info[0].As<Napi::String>();
-  //  Napi::Number timeout = info[1].As<Napi::Number>();
-  //  this->instance->testMessage(QString::fromStdString(message.Utf8Value()),
-  //                              timeout.Int32Value());
+  return Napi::String::New(env, "Engine test message. NAPI is working.");
+}
 
-  return Napi::String::New(env, "Hello, World!");
+Napi::Value OpenGLNapiWrapper::createEntity(const Napi::CallbackInfo &info) {
+  Napi::Env env = info.Env();
+  Napi::HandleScope scope(env);
+
+  int result = this->instance->createEntity();
+
+  return Napi::Number::New(env, result);
 }

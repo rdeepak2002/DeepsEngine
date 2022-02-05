@@ -20,6 +20,8 @@
 #include "Shader.h"
 
 namespace OpenGLRenderer {
+int createEntity();
+
 void initialize();
 void clear();
 void update(float elapsedTime = 0);
