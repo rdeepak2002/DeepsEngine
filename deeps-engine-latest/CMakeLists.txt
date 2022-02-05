@@ -78,17 +78,17 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
+#        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
         "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.cpp")
+        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.cpp" src/Engine/Renderer.cpp src/Engine/Renderer.h)
 
     add_project_meta(META_FILES_TO_INCLUDE)
 

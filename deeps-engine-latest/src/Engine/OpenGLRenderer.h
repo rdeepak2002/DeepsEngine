@@ -9,7 +9,7 @@
 #include <glad.h>
 #elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
 //#include <QOpenGLExtraFunctions>
-#include <glad.h>
+//#include <glad.h>
 #else
 #include <glad.h>
 #endif

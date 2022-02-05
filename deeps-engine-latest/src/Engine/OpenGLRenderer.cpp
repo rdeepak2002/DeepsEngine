@@ -73,11 +73,6 @@ void OpenGLRenderer::initialize() {
     std::cout << "Failed to initialize GLAD" << std::endl;
   }
 #endif
-    if (!gladLoadGL()) {
-        // you need an OpenGL context before loading glad
-        printf("GL loaded with no context!\n");
-        exit(1);
-    }
 
   // configure global opengl state
   // -----------------------------
