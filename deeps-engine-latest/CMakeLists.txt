@@ -84,7 +84,7 @@ else()
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
-    )
+            src/Editor/OpenGLCubeWidget.cpp src/Editor/OpenGLCubeWidget.h)
 
     add_project_meta(META_FILES_TO_INCLUDE)
 
