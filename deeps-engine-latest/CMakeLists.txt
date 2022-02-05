@@ -2,10 +2,6 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-#if (APPLE)
-#    set(CMAKE_OSX_ARCHITECTURES "x86_64")
-#endif()
-
 # Add folder where are supportive functions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -19,6 +15,10 @@ project(example VERSION 1.0)
 
 # Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
 fix_project_version()
+
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "x86_64")
+endif()
 
 # Set additional project information
 set(COMPANY "Example")
