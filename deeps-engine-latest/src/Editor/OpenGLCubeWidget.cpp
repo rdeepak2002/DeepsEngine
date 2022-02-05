@@ -43,7 +43,7 @@ void OpenGLCubeWidget::setScaling(int scale) {
 void OpenGLCubeWidget::initializeGL() {
     std::cout << "init" << std::endl;
 
-    renderer.initializeRenderer();
+    renderer.initialize();
 }
 
 void OpenGLCubeWidget::paintGL() {
@@ -52,13 +52,13 @@ void OpenGLCubeWidget::paintGL() {
     painter.begin(this);
 
     // clear screen
-    renderer.clearRenderer();
+    renderer.clear();
 
     // have qt bind its buffer
     m_buffer.bind();
 
     // draw screen contents
-    renderer.updateRenderer();
+    renderer.update();
 
     // have qt release its buffer
     m_buffer.release();
