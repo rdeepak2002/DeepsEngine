@@ -1,18 +1,3 @@
-#if !defined(STANDALONE)
-
-#include <QApplication>
-#include "src/Editor/mainwindow.h"
-
-int main(int argc, char *argv[])
-{
-    QApplication app(argc, argv);
-    MainWindow mainWindow;
-    mainWindow.show();
-    return app.exec();
-}
-
-#endif
-
 #if defined(STANDALONE)
 
 //#include <iostream>
@@ -37,6 +22,19 @@ int main() {
     OpenGLRenderer::closeWindow();
 
     return 0;
+}
+
+#else
+
+#include <QApplication>
+#include "src/Editor/mainwindow.h"
+
+int main(int argc, char *argv[])
+{
+    QApplication app(argc, argv);
+    MainWindow mainWindow;
+    mainWindow.show();
+    return app.exec();
 }
 
 #endif

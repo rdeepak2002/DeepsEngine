@@ -88,7 +88,10 @@ else()
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
         "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.cpp" src/Engine/Renderer.cpp src/Engine/Renderer.h)
+        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
+    )
 
     add_project_meta(META_FILES_TO_INCLUDE)
 

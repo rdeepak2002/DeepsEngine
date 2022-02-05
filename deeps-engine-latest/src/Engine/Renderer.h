@@ -5,9 +5,17 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
-#include <QOpenGLExtraFunctions>
+#if defined(STANDALONE)
 
+#else
+#include <QOpenGLExtraFunctions>
+#endif
+
+#if defined(STANDALONE)
+class Renderer {
+#else
 class Renderer: protected QOpenGLExtraFunctions {
+#endif
 public:
     void initialize();
     void clear();
