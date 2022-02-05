@@ -18,9 +18,9 @@ OpenGLCubeWidget::OpenGLCubeWidget(QWidget *parent) : QOpenGLWidget(parent) {
     setMinimumSize(320, 320);
     setAttribute(Qt::WA_AlwaysStackOnTop, true);
 
-#ifdef GL_SRGB8_ALPHA8
-    setTextureFormat(GL_SRGB8_ALPHA8);
-#endif
+//#ifdef GL_SRGB8_ALPHA8
+//    setTextureFormat(GL_SRGB8_ALPHA8);
+//#endif
 }
 
 OpenGLCubeWidget::~OpenGLCubeWidget() {
