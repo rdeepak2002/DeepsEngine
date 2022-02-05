@@ -15,6 +15,7 @@ Napi::Object OpenGLNapiWrapper::init(Napi::Env env, Napi::Object exports) {
       {InstanceMethod("test", &OpenGLNapiWrapper::testMessage),
        InstanceMethod("createEntity", &OpenGLNapiWrapper::createEntity),
        InstanceMethod("getEntities", &OpenGLNapiWrapper::getEntities),
+       InstanceMethod("setOnCreateEntityCb", &OpenGLNapiWrapper::setOnCreateEntityCb),
        QWIDGET_WRAPPED_METHODS_EXPORT_DEFINE(OpenGLNapiWrapper)});
   constructor = Napi::Persistent(func);
   exports.Set(CLASSNAME, func);
@@ -70,6 +71,9 @@ Napi::Value OpenGLNapiWrapper::createEntity(const Napi::CallbackInfo &info) {
 
   int result = this->instance->createEntity();
 
+  if(entityCreatedCb)
+    entityCreatedCb.Call({});
+
   return Napi::Number::New(env, result);
 }
 
@@ -79,12 +83,15 @@ Napi::Value OpenGLNapiWrapper::getEntities(const Napi::CallbackInfo &info) {
 
   std::vector<u_int32_t> result = this->instance->getEntities();
 
-  Napi::Uint32Array entityIdArray = Napi::Uint32Array::New(info.Env(), result.size());
+  Napi::Array array = Napi::Array::New(info.Env(), result.size());
 
   for(int i = 0; i < result.size(); i++) {
-    entityIdArray[i] = result.at(i);
+    array[i] = std::to_string(result.at(i));
   }
 
-//  return Napi::String::New(env, "Engine test message. NAPI is working.");
-  return entityIdArray;
+  return array;
+}
+
+void OpenGLNapiWrapper::setOnCreateEntityCb(const Napi::CallbackInfo &info) {
+  entityCreatedCb = Napi::Persistent(info[0].As<Napi::Function>());
 }

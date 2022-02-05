@@ -1,24 +1,56 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Text, View, Button} from "@nodegui/react-nodegui";
 import {OpenGLCube} from "../OpenGLCube";
 import {widget} from "../OpenGLCube/OpenGLComponent";
 
 const Editor = () => {
+    // keep track of entities in scene
+    const [entityIds, setEntityIds] = React.useState<string>("test1");
+
+    // TODO: create function reference for every time a new entity is created (call this from napi)
+    // TODO: then, call widget.getEntities() in there and set state
+
+    // TODO: maybe have to upgrade node-gui to newer version?
+
+    /**
+     * Handle 'create entity' button being clicked
+     */
     const createEntity = {
         clicked: () => {
-            console.log('button clicked, data from widget (2): ', widget.createEntity());
-
-            const entities = new Uint32Array(widget.getEntities())
-            console.log('entities', entities);
+            // create entity
+            widget.createEntity();
         }
     };
 
+    /**
+     * Callback for every time a new entity is created
+     */
+    const onEntityCreated = () => {
+        const entitiesJSON: string = JSON.stringify(widget.getEntities());
+        console.log('entities list', entitiesJSON);
+        // setEntityIds(entitiesJSON);
+        // setEntityIds("test")
+    }
+
+    /**
+     * Register callbacks
+     */
+    useEffect(() => {
+        widget.setOnCreateEntityCb(onEntityCreated);
+    });
+
+    // render screen content
     return (
         <View style={twoRowContainerStyle}>
             <View style={topViewContainer}>
                 <View style={threeColumnContainerStyle}>
                     <View style={sceneItemsContainer}>
-                        <Text id="text">Scene Items</Text>
+                        <View>
+                            <Text>test 1</Text>
+                        </View>
+                        <View>
+                            <Text>test 2</Text>
+                        </View>
                         <Button text={"Create Entity"} on={createEntity}/>
                     </View>
                     <View style={rendererContainer}>
@@ -55,6 +87,7 @@ const bottomViewContainer = `
 `;
 
 const sceneItemsContainer = `
+    background-color: blue;
     flex: 0.15;
 `;
 

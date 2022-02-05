@@ -22,7 +22,6 @@ OpenGLWidget::~OpenGLWidget() {
 }
 
 int OpenGLWidget::createEntity() {
-  std::cout << "creating entity" << std::endl;
   int result = OpenGLRenderer::createEntity();
   return result;
 }

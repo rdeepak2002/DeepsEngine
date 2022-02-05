@@ -12,6 +12,7 @@ class OpenGLNapiWrapper : public Napi::ObjectWrap<OpenGLNapiWrapper> {
   QPointer<OpenGLNodeGuiWidget> instance;
 
  public:
+  Napi::FunctionReference entityCreatedCb;
   static Napi::FunctionReference constructor;
   static Napi::Object init(Napi::Env env, Napi::Object exports);
 
@@ -24,6 +25,7 @@ class OpenGLNapiWrapper : public Napi::ObjectWrap<OpenGLNapiWrapper> {
   Napi::Value testMessage(const Napi::CallbackInfo &info);
   Napi::Value createEntity(const Napi::CallbackInfo &info);
   Napi::Value getEntities(const Napi::CallbackInfo &info);
+  void setOnCreateEntityCb(const Napi::CallbackInfo &info);
 
   QWIDGET_WRAPPED_METHODS_DECLARATION
 };

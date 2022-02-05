@@ -31,4 +31,8 @@ export class OpenGLWidget extends NodeWidget<OpenGLCubeWidgetSignals> {
   getEntities() {
     return this.native.getEntities();
   }
+
+  setOnCreateEntityCb(func: Function) {
+    this.native.setOnCreateEntityCb(func);
+  }
 }
