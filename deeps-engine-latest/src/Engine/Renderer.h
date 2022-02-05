@@ -26,10 +26,14 @@ public:
     void clear();
     void update();
 
-    const unsigned int SCR_WIDTH = 800;
-    const unsigned int SCR_HEIGHT = 600;
+#if defined(STANDALONE)
+    bool shouldCloseWindow();
+    void closeWindow();
+#endif
 
 #if defined(STANDALONE)
+    const unsigned int SCR_WIDTH = 800;
+    const unsigned int SCR_HEIGHT = 600;
     GLFWwindow* window;
 #endif
 

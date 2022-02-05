@@ -28,6 +28,22 @@ void Renderer::createWindow() {
   glfwMakeContextCurrent(window);
 //  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
+
+bool Renderer::shouldCloseWindow() {
+    if (window) {
+        return glfwWindowShouldClose(window);
+    } else {
+        return true;
+    }
+}
+
+void Renderer::closeWindow() {
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+//    delete ourShader;
+//    ourShader = nullptr;
+    glfwTerminate();
+}
 #endif
 
 void Renderer::initialize() {

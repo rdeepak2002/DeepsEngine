@@ -31,10 +31,12 @@ int main() {
     renderer.createWindow();
     renderer.initialize();
 
-    while(true) {
+    while(!renderer.shouldCloseWindow()) {
         renderer.clear();
         renderer.update();
     }
+
+    renderer.closeWindow();
 
     return 0;
 }
