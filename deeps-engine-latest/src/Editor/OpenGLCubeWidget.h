@@ -32,30 +32,9 @@ protected:
     void paintGL() override;
 
 private:
-    void createGeometry();
-    void paintTexturedCube();
-
     qreal m_fAngle = 0;
     qreal m_fScale = 1;
-
-    QOpenGLTexture *m_texture = nullptr;
-    QOpenGLShader *m_vertexShader = nullptr;
-    QOpenGLShader *m_fragmentShader = nullptr;
-    QOpenGLShaderProgram *m_program = nullptr;
-
-    int m_vertexAttr = 0;
-    int m_normalAttr = 0;
-    int m_texCoordAttr = 0;
-    int m_matrixUniform = 0;
-    int m_textureUniform = 0;
-
     QOpenGLBuffer m_buffer;
-    int m_verticesOffset = 0;
-    int m_texCoordsOffset = 0;
-    int m_normalsOffset = 0;
-
-    int m_frames = 0;
-    QElapsedTimer m_time;
 
     const char *vertexShaderSource = "#version 330 core\n"
                                      "layout (location = 0) in vec3 aPos;\n"

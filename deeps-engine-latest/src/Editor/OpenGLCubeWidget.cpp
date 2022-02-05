@@ -25,10 +25,6 @@ OpenGLCubeWidget::OpenGLCubeWidget(QWidget *parent) : QOpenGLWidget(parent) {
 
 OpenGLCubeWidget::~OpenGLCubeWidget() {
     makeCurrent();
-    delete m_program;
-    delete m_vertexShader;
-    delete m_fragmentShader;
-    delete m_texture;
     m_buffer.destroy();
     doneCurrent();
 }
@@ -113,67 +109,6 @@ void OpenGLCubeWidget::initializeGL() {
     glBindVertexArray(0);
 }
 
-void OpenGLCubeWidget::createGeometry() {
-    GLfloat afVertices[] = {
-            -0.5f, +0.5f, +0.5f, +0.5f, -0.5f, +0.5f, -0.5f, -0.5f, +0.5f,
-            +0.5f, -0.5f, +0.5f, -0.5f, +0.5f, +0.5f, +0.5f, +0.5f, +0.5f,
-            -0.5f, -0.5f, -0.5f, +0.5f, -0.5f, -0.5f, -0.5f, +0.5f, -0.5f,
-            +0.5f, +0.5f, -0.5f, -0.5f, +0.5f, -0.5f, +0.5f, -0.5f, -0.5f,
-
-            +0.5f, -0.5f, -0.5f, +0.5f, -0.5f, +0.5f, +0.5f, +0.5f, -0.5f,
-            +0.5f, +0.5f, +0.5f, +0.5f, +0.5f, -0.5f, +0.5f, -0.5f, +0.5f,
-            -0.5f, +0.5f, -0.5f, -0.5f, -0.5f, +0.5f, -0.5f, -0.5f, -0.5f,
-            -0.5f, -0.5f, +0.5f, -0.5f, +0.5f, -0.5f, -0.5f, +0.5f, +0.5f,
-
-            +0.5f, +0.5f, -0.5f, -0.5f, +0.5f, +0.5f, -0.5f, +0.5f, -0.5f,
-            -0.5f, +0.5f, +0.5f, +0.5f, +0.5f, -0.5f, +0.5f, +0.5f, +0.5f,
-            -0.5f, -0.5f, -0.5f, -0.5f, -0.5f, +0.5f, +0.5f, -0.5f, -0.5f,
-            +0.5f, -0.5f, +0.5f, +0.5f, -0.5f, -0.5f, -0.5f, -0.5f, +0.5f,
-    };
-    int numVertices = sizeof(afVertices) / sizeof(GLfloat);
-
-    GLfloat afTexCoords[] = {
-            0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-            1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-
-            1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-            0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-            0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-            1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f};
-    int numTexCoords = sizeof(afTexCoords) / sizeof(GLfloat);
-
-    GLfloat afNormals[] = {
-            +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f,
-            +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f,
-            +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f,
-            +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f,
-
-            -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f,
-            -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f,
-            +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f,
-            +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f,
-
-            +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f,
-            +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f, +0.0f, -1.0f, +0.0f,
-            +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f,
-            +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f, +0.0f, +1.0f, +0.0f};
-    int numNormals = sizeof(afNormals) / sizeof(GLfloat);
-
-    int numFloats = numVertices + numTexCoords + numNormals;
-    m_verticesOffset = 0;
-    m_texCoordsOffset = m_verticesOffset + sizeof(afVertices);
-    m_normalsOffset = m_texCoordsOffset + sizeof(afTexCoords);
-
-    m_buffer.create();
-    m_buffer.bind();
-    m_buffer.allocate(numFloats * sizeof(GLfloat));
-    m_buffer.write(m_verticesOffset, afVertices, sizeof(afVertices));
-    m_buffer.write(m_texCoordsOffset, afTexCoords, sizeof(afTexCoords));
-    m_buffer.write(m_normalsOffset, afNormals, sizeof(afNormals));
-    m_buffer.release();
-}
-
 void OpenGLCubeWidget::paintGL() {
 
     QPainter painter;
@@ -200,37 +135,4 @@ void OpenGLCubeWidget::paintGL() {
 
 
     update();
-}
-
-void OpenGLCubeWidget::paintTexturedCube() {
-    m_texture->bind();
-
-    m_program->setUniformValue(m_textureUniform, 0);  // use texture unit 0
-
-    m_program->enableAttributeArray(m_vertexAttr);
-    m_program->enableAttributeArray(m_normalAttr);
-    m_program->enableAttributeArray(m_texCoordAttr);
-
-    m_buffer.bind();
-
-    int floatsPerVertex = 3;
-    int floatsPerTexCoord = 2;
-    int floatsPerNormal = 3;
-    int totalFloats = floatsPerVertex + floatsPerTexCoord + floatsPerNormal;
-    int numTriangles = m_buffer.size() / (totalFloats * sizeof(GLfloat));
-
-    m_program->setAttributeBuffer(m_vertexAttr, GL_FLOAT, m_verticesOffset,
-                                  floatsPerVertex);
-    m_program->setAttributeBuffer(m_texCoordAttr, GL_FLOAT, m_texCoordsOffset,
-                                  floatsPerTexCoord);
-    m_program->setAttributeBuffer(m_normalAttr, GL_FLOAT, m_normalsOffset,
-                                  floatsPerNormal);
-
-    m_buffer.release();
-
-    glDrawArrays(GL_TRIANGLES, 0, numTriangles);
-
-    m_program->disableAttributeArray(m_vertexAttr);
-    m_program->disableAttributeArray(m_texCoordAttr);
-    m_program->disableAttributeArray(m_normalAttr);
 }
