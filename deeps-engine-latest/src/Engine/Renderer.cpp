@@ -259,3 +259,10 @@ void Renderer::update() {
     glfwPollEvents();
 #endif
 }
+
+#if defined(STANDALONE)
+void Renderer::processInput() {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+}
+#endif

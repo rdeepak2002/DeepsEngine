@@ -32,6 +32,7 @@ int main() {
     renderer.initialize();
 
     while(!renderer.shouldCloseWindow()) {
+        renderer.processInput();
         renderer.clear();
         renderer.update();
     }

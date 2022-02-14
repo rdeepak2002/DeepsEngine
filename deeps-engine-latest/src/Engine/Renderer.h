@@ -31,6 +31,7 @@ public:
 #if defined(STANDALONE)
     bool shouldCloseWindow();
     void closeWindow();
+    void processInput();
 #endif
 
     const unsigned int SCR_WIDTH = 800;
