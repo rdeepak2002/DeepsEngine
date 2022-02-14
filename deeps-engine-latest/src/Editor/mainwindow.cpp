@@ -16,22 +16,43 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // button
     QPushButton* button = new QPushButton;
-    button->setText("asdf");
+    button->setText("test button");
+
+    // outer Layer
+    auto *mainLayout = new QVBoxLayout;
+
+    // horizontal layout
+    QHBoxLayout *hLayout = new QHBoxLayout;
+
+    // vertical layout
+    QVBoxLayout *vLayout = new QVBoxLayout;
+
+    // scene view
+    QListView *sceneViewScrollArea = new QListView;
+//    sceneViewScrollArea->addScrollBarWidget(button, Qt::AlignTop);
+
+    // console view
+    QWidget *consoleViewArea = new QWidget;
 
     // opengl widget
     OpenGLCubeWidget* openGlCubeWidget = new OpenGLCubeWidget(this);
 
-    // Horizontal layout with 3 buttons
-    QHBoxLayout *hLayout = new QHBoxLayout;
+    // inspector
+    QScrollArea *inspectorScrollArea = new QScrollArea;
 
-    hLayout->addWidget(openGlCubeWidget);
+    // center vertical layout
+    vLayout->addWidget(openGlCubeWidget);
+    vLayout->addWidget(consoleViewArea);
 
-    // Outer Layer
-    QVBoxLayout *mainLayout = new QVBoxLayout;
+    // outer horizontal layout
+    hLayout->addWidget(sceneViewScrollArea);
+    hLayout->addLayout(vLayout);
+    hLayout->addWidget(inspectorScrollArea);
 
-    // Add the previous two inner layouts
+    // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
 
+    // display the main layout
     ui->centralwidget->setLayout(mainLayout);
 }
 
