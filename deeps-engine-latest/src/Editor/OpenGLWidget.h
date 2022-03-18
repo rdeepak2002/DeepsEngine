@@ -20,12 +20,12 @@ QT_FORWARD_DECLARE_CLASS(QWidget)
 //#include "../Engine/OpenGLRenderer.h"
 #include "../Engine/Renderer.h"
 
-class OpenGLCubeWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions {
+class OpenGLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions {
 Q_OBJECT;
 
 public:
-    explicit OpenGLCubeWidget(QWidget *parent = nullptr);
-    ~OpenGLCubeWidget();
+    explicit OpenGLWidget(QWidget *parent = nullptr);
+    ~OpenGLWidget();
 
 public slots:
     void setScaling(int scale);

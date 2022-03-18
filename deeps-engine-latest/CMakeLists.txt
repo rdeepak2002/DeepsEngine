@@ -22,7 +22,7 @@ endif()
 
 # Basic information about project
 
-project(example VERSION 1.0)
+project(Editor VERSION 1.0)
 
 if (NOT RUN_STANDALONE)
     # Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
@@ -34,9 +34,9 @@ if (APPLE)
 endif()
 
 # Set additional project information
-set(COMPANY "Example")
-set(COPYRIGHT "Copyright (c) 2021 Deepak Ramalingam. All rights reserved.")
-set(IDENTIFIER "com.example.Example")
+set(COMPANY "DeepDev")
+set(COPYRIGHT "Copyright (c) 2022 Deepak Ramalingam. All rights reserved.")
+set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 
 # get include directories for libraries used
 set(GLEW_H /usr/local/include/gl)
@@ -61,13 +61,13 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -80,19 +80,18 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-#        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-#        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLCubeWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

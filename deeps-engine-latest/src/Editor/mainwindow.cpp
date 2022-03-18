@@ -1,7 +1,7 @@
 #include <QLabel>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "OpenGLCubeWidget.h"
+#include "OpenGLWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QWidget *consoleViewArea = new QWidget;
 
     // opengl widget
-    OpenGLCubeWidget* openGlCubeWidget = new OpenGLCubeWidget(this);
+    OpenGLWidget* openGlCubeWidget = new OpenGLWidget(this);
 
     // inspector
     QScrollArea *inspectorScrollArea = new QScrollArea;

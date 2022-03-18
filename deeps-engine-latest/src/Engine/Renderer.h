@@ -1,6 +1,7 @@
 //
 // Created by Deepak Ramalingam on 2/5/22.
 //
+#include "include/entt.hpp"
 
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
@@ -24,6 +25,7 @@ public:
     void createWindow();
     #endif
 
+    void createEntity();
     void initialize();
     void clear();
     void update();
@@ -44,6 +46,8 @@ public:
     unsigned int texture1, texture2;
 
     Shader* ourShader;
+
+    entt::registry registry;
 };
 
 

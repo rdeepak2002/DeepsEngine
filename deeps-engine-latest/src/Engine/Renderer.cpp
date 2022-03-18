@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
+#include "Components.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
@@ -65,19 +66,20 @@ float vertices[] = {
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
+
 // world space positions of our cubes
-glm::vec3 cubePositions[] = {
-        glm::vec3( 0.0f,  0.0f,  0.0f),
-        glm::vec3( 2.0f,  5.0f, -15.0f),
-        glm::vec3(-1.5f, -2.2f, -2.5f),
-        glm::vec3(-3.8f, -2.0f, -12.3f),
-        glm::vec3( 2.4f, -0.4f, -3.5f),
-        glm::vec3(-1.7f,  3.0f, -7.5f),
-        glm::vec3( 1.3f, -2.0f, -2.5f),
-        glm::vec3( 1.5f,  2.0f, -2.5f),
-        glm::vec3( 1.5f,  0.2f, -1.5f),
-        glm::vec3(-1.3f,  1.0f, -1.5f)
-};
+//glm::vec3 cubePositions[] = {
+//        glm::vec3( 0.0f,  0.0f,  0.0f),
+//        glm::vec3( 2.0f,  5.0f, -15.0f),
+//        glm::vec3(-1.5f, -2.2f, -2.5f),
+//        glm::vec3(-3.8f, -2.0f, -12.3f),
+//        glm::vec3( 2.4f, -0.4f, -3.5f),
+//        glm::vec3(-1.7f,  3.0f, -7.5f),
+//        glm::vec3( 1.3f, -2.0f, -2.5f),
+//        glm::vec3( 1.5f,  2.0f, -2.5f),
+//        glm::vec3( 1.5f,  0.2f, -1.5f),
+//        glm::vec3(-1.3f,  1.0f, -1.5f)
+//};
 
 #if defined(STANDALONE)
 void Renderer::createWindow() {
@@ -120,7 +122,19 @@ void Renderer::closeWindow() {
 }
 #endif
 
+void Renderer::createEntity() {
+    // create entity
+    auto entity = registry.create();
+    Components::transform transform = {Components::position({0, 0, 0}),
+                                       Components::rotation({0, 0, 0}),
+                                       Components::scale({1, 1, 1})};
+    registry.emplace_or_replace<Components::transform>(entity, transform);
+}
+
 void Renderer::initialize() {
+    // create example cube entity
+    createEntity();
+
 #if defined(STANDALONE)
     // glad: load all OpenGL function pointers
     // ---------------------------------------
@@ -131,7 +145,6 @@ void Renderer::initialize() {
     // have qt initialize opengl functions
     initializeOpenGLFunctions();
 #endif
-
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
@@ -240,13 +253,37 @@ void Renderer::update() {
 
     // render boxes
     glBindVertexArray(VAO);
-    for (unsigned int i = 0; i < 10; i++)
-    {
+
+    // get all entities in the ecs that have a transform component
+//    entt::registry registry;
+    auto ecs_view = registry.view<Components::transform>();
+
+    for(auto entity : ecs_view) {
+        // get the entity transform
+        auto entityTransform = registry.get<Components::transform>(entity);
+        auto entityPosition = entityTransform.position;
+        auto entityRotation = entityTransform.rotation;
+        auto entityScale = entityTransform.scale;
+
         // calculate the model matrix for each object and pass it to shader before drawing
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, cubePositions[i]);
-        float angle = 20.0f * i;
-        model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+
+        // scale the model
+        model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+
+        // translate the model
+        model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
+
+        // rotate the model
+        // rotate x
+        model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+
+        // rotate y
+        model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+
+        // rotate z
+        model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
         ourShader->setMat4("model", model);
 
         glDrawArrays(GL_TRIANGLES, 0, 36);
