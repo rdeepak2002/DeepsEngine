@@ -1,11 +1,11 @@
 //
 // Created by Deepak Ramalingam on 2/5/22.
 //
-#include "include/entt.hpp"
 
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
+#include "include/entt.hpp"
 #if defined(STANDALONE)
 #include <glad.h>
 #include <glfw3.h>
@@ -14,6 +14,7 @@
 #endif
 
 #include "Shader.h"
+#include "Scene.h"
 
 #if defined(STANDALONE)
 class Renderer {
@@ -54,7 +55,19 @@ public:
 
     Shader* ourShader;
 
-    entt::registry registry;
+    Scene* scene;
+//    entt::registry registry;
+
+    void setScene(Scene* newScene) {
+        if (this->scene) {
+            delete this->scene;
+            this->scene = nullptr;
+        }
+
+        this->scene = newScene;
+    }
+private:
+    Renderer() {}
 };
 
 

@@ -30,6 +30,11 @@ void OpenGLWidget::setScaling(int scale) {
 void OpenGLWidget::initializeGL() {
     // initialize renderer
     Renderer::getInstance().initialize();
+
+    // create a scene with one entity
+    Scene* scene = new Scene();
+    scene->createEntity();
+    Renderer::getInstance().setScene(scene);
 }
 
 void OpenGLWidget::paintGL() {

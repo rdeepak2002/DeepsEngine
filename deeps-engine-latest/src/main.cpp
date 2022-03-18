@@ -6,6 +6,11 @@ int main() {
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
 
+    // create a scene with one entity
+    Scene* scene = new Scene();
+    scene->createEntity();
+    Renderer::getInstance().setScene(scene);
+
     while(!Renderer::getInstance().shouldCloseWindow()) {
         Renderer::getInstance().processInput();
         Renderer::getInstance().clear();

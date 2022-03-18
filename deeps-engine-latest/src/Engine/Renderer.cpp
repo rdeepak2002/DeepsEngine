@@ -23,7 +23,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
-float vertices[] = {
+float cubeVertices[] = {
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -67,20 +67,6 @@ float vertices[] = {
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-// world space positions of our cubes
-//glm::vec3 cubePositions[] = {
-//        glm::vec3( 0.0f,  0.0f,  0.0f),
-//        glm::vec3( 2.0f,  5.0f, -15.0f),
-//        glm::vec3(-1.5f, -2.2f, -2.5f),
-//        glm::vec3(-3.8f, -2.0f, -12.3f),
-//        glm::vec3( 2.4f, -0.4f, -3.5f),
-//        glm::vec3(-1.7f,  3.0f, -7.5f),
-//        glm::vec3( 1.3f, -2.0f, -2.5f),
-//        glm::vec3( 1.5f,  2.0f, -2.5f),
-//        glm::vec3( 1.5f,  0.2f, -1.5f),
-//        glm::vec3(-1.3f,  1.0f, -1.5f)
-//};
-
 #if defined(STANDALONE)
 void Renderer::createWindow() {
       // glfw: initialize and configure
@@ -122,18 +108,18 @@ void Renderer::closeWindow() {
 }
 #endif
 
-void Renderer::createEntity() {
-    // create entity
-    auto entity = registry.create();
-    Components::transform transform = {Components::position({0, 0, 0}),
-                                       Components::rotation({0, 0, 0}),
-                                       Components::scale({1, 1, 1})};
-    registry.emplace_or_replace<Components::transform>(entity, transform);
-}
+//void Renderer::createEntity() {
+//    // create entity
+//    auto entity = registry.create();
+//    Components::transform transform = {Components::position({0, 0, 0}),
+//                                       Components::rotation({0, 0, 0}),
+//                                       Components::scale({1, 1, 1})};
+//    registry.emplace_or_replace<Components::transform>(entity, transform);
+//}
 
 void Renderer::initialize() {
     // create example cube entity
-    createEntity();
+//    createEntity();
 
 #if defined(STANDALONE)
     // glad: load all OpenGL function pointers
@@ -159,7 +145,7 @@ void Renderer::initialize() {
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -254,39 +240,41 @@ void Renderer::update() {
     // render boxes
     glBindVertexArray(VAO);
 
-    // get all entities in the ecs that have a transform component
-//    entt::registry registry;
-    auto ecs_view = registry.view<Components::transform>();
+    // get current scene
+    if (scene) {
+        // get all entities in the ecs that have a transform component
+        auto ecs_view = scene->registry.view<Components::transform>();
 
-    for(auto entity : ecs_view) {
-        // get the entity transform
-        auto entityTransform = registry.get<Components::transform>(entity);
-        auto entityPosition = entityTransform.position;
-        auto entityRotation = entityTransform.rotation;
-        auto entityScale = entityTransform.scale;
+        for(auto entity : ecs_view) {
+            // get the entity transform
+            auto entityTransform = scene->registry.get<Components::transform>(entity);
+            auto entityPosition = entityTransform.position;
+            auto entityRotation = entityTransform.rotation;
+            auto entityScale = entityTransform.scale;
 
-        // calculate the model matrix for each object and pass it to shader before drawing
-        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+            // calculate the model matrix for each object and pass it to shader before drawing
+            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 
-        // scale the model
-        model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+            // scale the model
+            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
-        // translate the model
-        model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
+            // translate the model
+            model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
 
-        // rotate the model
-        // rotate x
-        model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+            // rotate the model
+            // rotate x
+            model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 
-        // rotate y
-        model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            // rotate y
+            model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 
-        // rotate z
-        model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+            // rotate z
+            model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
-        ourShader->setMat4("model", model);
+            ourShader->setMat4("model", model);
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
     }
 
 #if defined(STANDALONE)
