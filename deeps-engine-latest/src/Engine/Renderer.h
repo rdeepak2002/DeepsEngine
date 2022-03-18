@@ -21,6 +21,13 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
+    static Renderer& getInstance()
+    {
+        static Renderer instance; // Guaranteed to be destroyed.
+        // Instantiated on first use.
+        return instance;
+    }
+
     #if defined(STANDALONE)
     void createWindow();
     #endif

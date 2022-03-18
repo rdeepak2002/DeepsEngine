@@ -3,18 +3,16 @@
 #include "src/Engine/Renderer.h"
 
 int main() {
-    Renderer renderer;
+    Renderer::getInstance().createWindow();
+    Renderer::getInstance().initialize();
 
-    renderer.createWindow();
-    renderer.initialize();
-
-    while(!renderer.shouldCloseWindow()) {
-        renderer.processInput();
-        renderer.clear();
-        renderer.update();
+    while(!Renderer::getInstance().shouldCloseWindow()) {
+        Renderer::getInstance().processInput();
+        Renderer::getInstance().clear();
+        Renderer::getInstance().update();
     }
 
-    renderer.closeWindow();
+    Renderer::getInstance().closeWindow();
 
     return 0;
 }

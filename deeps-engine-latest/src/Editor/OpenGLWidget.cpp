@@ -29,7 +29,7 @@ void OpenGLWidget::setScaling(int scale) {
 
 void OpenGLWidget::initializeGL() {
     // initialize renderer
-    renderer.initialize();
+    Renderer::getInstance().initialize();
 }
 
 void OpenGLWidget::paintGL() {
@@ -37,13 +37,13 @@ void OpenGLWidget::paintGL() {
     painter.begin(this);
 
     // clear screen
-    renderer.clear();
+    Renderer::getInstance().clear();
 
     // have qt bind its buffer
     m_buffer.bind();
 
     // draw screen contents
-    renderer.update();
+    Renderer::getInstance().update();
 
     // have qt release its buffer
     m_buffer.release();

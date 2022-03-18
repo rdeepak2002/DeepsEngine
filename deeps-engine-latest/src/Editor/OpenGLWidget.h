@@ -38,7 +38,6 @@ private:
     qreal m_fAngle = 0;
     qreal m_fScale = 1;
     QOpenGLBuffer m_buffer;
-    Renderer renderer;
 };
 
 
