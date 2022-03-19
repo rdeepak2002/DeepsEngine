@@ -5,7 +5,7 @@
 #ifndef EDITOR_ENTITY_H
 #define EDITOR_ENTITY_H
 
-#include "src/Engine/include/entt.hpp"
+#include "src/engine/include/entt.hpp"
 #include "Scene.h"
 
 namespace DeepsEngine {
