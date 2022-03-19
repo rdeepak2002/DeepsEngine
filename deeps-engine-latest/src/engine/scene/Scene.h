@@ -5,6 +5,7 @@
 #define EDITOR_SCENE_H
 
 #include "src/engine/include/entt.hpp"
+#include <iostream>
 
 namespace DeepsEngine {
     class Entity;
@@ -12,8 +13,9 @@ namespace DeepsEngine {
     class Scene {
     public:
         entt::registry registry;
-        DeepsEngine::Entity* CreateEntity(const std::string& name);
-        DeepsEngine::Entity* CreateEntity();
+        std::shared_ptr<DeepsEngine::Entity> CreateEntity(const std::string& name);
+        std::shared_ptr<DeepsEngine::Entity> CreateEntity();
+        std::vector<std::shared_ptr<DeepsEngine::Entity>> GetEntities();
         void DestroyEntity(Entity* entity);
     };
 }

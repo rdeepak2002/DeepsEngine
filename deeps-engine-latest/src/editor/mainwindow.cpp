@@ -14,6 +14,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // ui file
     ui->setupUi(this);
 
+    // opengl widget
+    OpenGLWidget* openGLWidget = new OpenGLWidget(this);
+
     // button
     QPushButton* button = new QPushButton;
     button->setText("test button");
@@ -28,20 +31,20 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     QVBoxLayout *vLayout = new QVBoxLayout;
 
     // scene view
-    QListView *sceneViewScrollArea = new QListView;
+    QListWidget *sceneViewScrollArea = new QListWidget;
+    sceneViewScrollArea->addItem("test 1");
+    sceneViewScrollArea->addItem("test 2");
+//    Renderer::getInstance().scene->Ge
 //    sceneViewScrollArea->addScrollBarWidget(button, Qt::AlignTop);
 
     // console view
     QWidget *consoleViewArea = new QWidget;
 
-    // opengl widget
-    OpenGLWidget* openGlCubeWidget = new OpenGLWidget(this);
-
     // inspector
     QScrollArea *inspectorScrollArea = new QScrollArea;
 
     // center vertical layout
-    vLayout->addWidget(openGlCubeWidget);
+    vLayout->addWidget(openGLWidget);
     vLayout->addWidget(consoleViewArea);
 
     // outer horizontal layout
