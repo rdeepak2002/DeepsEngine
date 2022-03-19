@@ -17,8 +17,7 @@ namespace DeepsEngine {
         Entity(const Entity& other) = default;
 
         template<typename T, typename... Args>
-        T& AddComponent(Args&&... args)
-        {
+        T& AddComponent(Args&&... args) {
             // TODO: assert entity does not already have a component
             T& component = scene->registry.emplace<T>(entity, std::forward<Args>(args)...);
             // TODO: callback for when component added
@@ -26,8 +25,7 @@ namespace DeepsEngine {
         }
 
         template<typename T>
-        T& GetComponent()
-        {
+        T& GetComponent() {
             // TODO: assert component exists
             return scene->registry.get<T>(entity);
         }
@@ -37,8 +35,7 @@ namespace DeepsEngine {
         }
 
         template<typename T>
-        bool HasComponent()
-        {
+        bool HasComponent() {
             // TODO: test this
             if (auto *comp = scene->registry.try_get<T>(entity)) {
                 return true;
@@ -48,10 +45,35 @@ namespace DeepsEngine {
         }
 
         template<typename T>
-        void RemoveComponent()
-        {
+        void RemoveComponent() {
             // TODO: assert entity has component
             scene->registry.remove<T>(entity);
+        }
+
+        u_int32_t GetId() {
+            return static_cast<u_int32_t>(entity);
+        }
+
+        Scene* GetScene() {
+            return scene;
+        }
+
+        operator entt::entity() const {
+            return entity;
+        }
+
+        operator bool() const {
+            return entity != entt::null;
+        }
+
+        bool operator==(Entity& other)
+        {
+            return GetId() == other.GetId();
+        }
+
+        bool operator!=(Entity& other)
+        {
+            return GetId() != other.GetId();
         }
     private:
         entt::entity entity{entt::null};

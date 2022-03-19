@@ -5,7 +5,17 @@
 #ifndef OPENGLCUBE_COMPONENTS_H
 #define OPENGLCUBE_COMPONENTS_H
 
+#include <iostream>
+
 namespace DeepsEngine::Component {
+        struct Id {
+            u_int32_t id;
+        };
+
+        struct Tag {
+            std::string name;
+        };
+
         struct Position {
             float x;
             float y;
