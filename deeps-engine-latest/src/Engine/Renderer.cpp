@@ -111,10 +111,10 @@ void Renderer::closeWindow() {
 //void Renderer::createEntity() {
 //    // create entity
 //    auto entity = registry.create();
-//    Components::transform transform = {Components::position({0, 0, 0}),
-//                                       Components::rotation({0, 0, 0}),
-//                                       Components::scale({1, 1, 1})};
-//    registry.emplace_or_replace<Components::transform>(entity, transform);
+//    Components::Transform Transform = {Components::Position({0, 0, 0}),
+//                                       Components::Rotation({0, 0, 0}),
+//                                       Components::Scale({1, 1, 1})};
+//    registry.emplace_or_replace<Components::Transform>(entity, Transform);
 //}
 
 void Renderer::initialize() {
@@ -147,7 +147,7 @@ void Renderer::initialize() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
-    // position attribute
+    // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // texture coord attribute
@@ -242,12 +242,12 @@ void Renderer::update() {
 
     // get current scene
     if (scene) {
-        // get all entities in the ecs that have a transform component
-        auto ecs_view = scene->registry.view<Components::transform>();
+        // get all entities in the ecs that have a Transform component
+        auto ecs_view = scene->registry.view<Components::Transform>();
 
         for(auto entity : ecs_view) {
-            // get the entity transform
-            auto entityTransform = scene->registry.get<Components::transform>(entity);
+            // get the entity Transform
+            auto entityTransform = scene->registry.get<Components::Transform>(entity);
             auto entityPosition = entityTransform.position;
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;
@@ -255,7 +255,7 @@ void Renderer::update() {
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 
-            // scale the model
+            // Scale the model
             model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
             // translate the model

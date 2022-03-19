@@ -32,7 +32,7 @@ void OpenGLWidget::initializeGL() {
     Renderer::getInstance().initialize();
 
     // create a scene with one entity
-    Scene* scene = new Scene();
+    DeepsEngine::Scene* scene = new DeepsEngine::Scene();
     scene->createEntity();
     Renderer::getInstance().setScene(scene);
 }

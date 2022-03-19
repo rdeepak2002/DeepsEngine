@@ -4,8 +4,10 @@
 
 #include "Entity.h"
 
-Entity::Entity(Scene* sceneHandle)
-        : scene(sceneHandle)
-{
-    entity = scene->registry.create();
+namespace DeepsEngine {
+    Entity::Entity(Scene* sceneHandle)
+            : scene(sceneHandle)
+    {
+        entity = scene->registry.create();
+    }
 }

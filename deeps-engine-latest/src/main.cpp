@@ -2,6 +2,8 @@
 
 #include "src/Engine/Renderer.h"
 
+using namespace DeepsEngine;
+
 int main() {
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();

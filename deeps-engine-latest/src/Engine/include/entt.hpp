@@ -2579,7 +2579,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -3481,7 +3481,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -13400,14 +13400,14 @@ public:
     }
 
     /**
-     * @brief Returns the position of an entity in a sparse set.
+     * @brief Returns the Position of an entity in a sparse set.
      *
      * @warning
-     * Attempting to get the position of an entity that doesn't belong to the
+     * Attempting to get the Position of an entity that doesn't belong to the
      * sparse set results in undefined behavior.
      *
      * @param entt A valid identifier.
-     * @return The position of the entity in the sparse set.
+     * @return The Position of the entity in the sparse set.
      */
     [[nodiscard]] size_type index(const entity_type entt) const ENTT_NOEXCEPT {
         ENTT_ASSERT(contains(entt), "Set does not contain entity");
@@ -13416,7 +13416,7 @@ public:
 
     /**
      * @brief Returns the entity at specified location, with bounds checking.
-     * @param pos The position for which to return the entity.
+     * @param pos The Position for which to return the entity.
      * @return The entity at specified location if any, a null entity otherwise.
      */
     [[nodiscard]] entity_type at(const size_type pos) const ENTT_NOEXCEPT {
@@ -13425,7 +13425,7 @@ public:
 
     /**
      * @brief Returns the entity at specified location, without bounds checking.
-     * @param pos The position for which to return the entity.
+     * @param pos The Position for which to return the entity.
      * @return The entity at specified location.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const ENTT_NOEXCEPT {
@@ -16171,7 +16171,7 @@ class basic_storage: public basic_sparse_set<Entity, typename std::allocator_tra
 protected:
     /**
      * @brief Returns the element assigned to an entity.
-     * @param pos A valid position of an element within a storage.
+     * @param pos A valid Position of an element within a storage.
      * @return An opaque pointer to the element assigned to the entity.
      */
     const void *get_at(const std::size_t pos) const ENTT_NOEXCEPT override {
@@ -16180,8 +16180,8 @@ protected:
 
     /**
      * @brief Swaps two elements in a storage.
-     * @param lhs A valid position of an element within a storage.
-     * @param rhs A valid position of an element within a storage.
+     * @param lhs A valid Position of an element within a storage.
+     * @param rhs A valid Position of an element within a storage.
      */
     void swap_at(const std::size_t lhs, const std::size_t rhs) final {
         std::swap(element_at(lhs), element_at(rhs));
@@ -16189,8 +16189,8 @@ protected:
 
     /**
      * @brief Moves an element within a storage.
-     * @param from A valid position of an element within a storage.
-     * @param to A valid position of an element within a storage.
+     * @param from A valid Position of an element within a storage.
+     * @param to A valid Position of an element within a storage.
      */
     void move_and_pop(const std::size_t from, const std::size_t to) final {
         auto &elem = element_at(from);
@@ -17218,9 +17218,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -17658,9 +17658,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -20437,7 +20437,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -21172,9 +21172,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -21612,9 +21612,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -22759,9 +22759,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -29375,14 +29375,14 @@ public:
     }
 
     /**
-     * @brief Returns the position of an entity in a sparse set.
+     * @brief Returns the Position of an entity in a sparse set.
      *
      * @warning
-     * Attempting to get the position of an entity that doesn't belong to the
+     * Attempting to get the Position of an entity that doesn't belong to the
      * sparse set results in undefined behavior.
      *
      * @param entt A valid identifier.
-     * @return The position of the entity in the sparse set.
+     * @return The Position of the entity in the sparse set.
      */
     [[nodiscard]] size_type index(const entity_type entt) const ENTT_NOEXCEPT {
         ENTT_ASSERT(contains(entt), "Set does not contain entity");
@@ -29391,7 +29391,7 @@ public:
 
     /**
      * @brief Returns the entity at specified location, with bounds checking.
-     * @param pos The position for which to return the entity.
+     * @param pos The Position for which to return the entity.
      * @return The entity at specified location if any, a null entity otherwise.
      */
     [[nodiscard]] entity_type at(const size_type pos) const ENTT_NOEXCEPT {
@@ -29400,7 +29400,7 @@ public:
 
     /**
      * @brief Returns the entity at specified location, without bounds checking.
-     * @param pos The position for which to return the entity.
+     * @param pos The Position for which to return the entity.
      * @return The entity at specified location.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const ENTT_NOEXCEPT {
@@ -30053,7 +30053,7 @@ class basic_storage: public basic_sparse_set<Entity, typename std::allocator_tra
 protected:
     /**
      * @brief Returns the element assigned to an entity.
-     * @param pos A valid position of an element within a storage.
+     * @param pos A valid Position of an element within a storage.
      * @return An opaque pointer to the element assigned to the entity.
      */
     const void *get_at(const std::size_t pos) const ENTT_NOEXCEPT override {
@@ -30062,8 +30062,8 @@ protected:
 
     /**
      * @brief Swaps two elements in a storage.
-     * @param lhs A valid position of an element within a storage.
-     * @param rhs A valid position of an element within a storage.
+     * @param lhs A valid Position of an element within a storage.
+     * @param rhs A valid Position of an element within a storage.
      */
     void swap_at(const std::size_t lhs, const std::size_t rhs) final {
         std::swap(element_at(lhs), element_at(rhs));
@@ -30071,8 +30071,8 @@ protected:
 
     /**
      * @brief Moves an element within a storage.
-     * @param from A valid position of an element within a storage.
-     * @param to A valid position of an element within a storage.
+     * @param from A valid Position of an element within a storage.
+     * @param to A valid Position of an element within a storage.
      */
     void move_and_pop(const std::size_t from, const std::size_t to) final {
         auto &elem = element_at(from);
@@ -31589,9 +31589,9 @@ public:
     }
 
     /**
-     * @brief Returns the identifier that occupies the given position.
+     * @brief Returns the identifier that occupies the given Position.
      * @param pos Position of the element to return.
-     * @return The identifier that occupies the given position.
+     * @return The identifier that occupies the given Position.
      */
     [[nodiscard]] entity_type operator[](const size_type pos) const {
         return begin()[pos];
@@ -34540,7 +34540,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -35442,7 +35442,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -41356,7 +41356,7 @@ inline meta_sequence_container::iterator meta_sequence_container::erase(iterator
 /**
  * @brief Returns a reference to the element at a given location of a container
  * (no bounds checking is performed).
- * @param pos The position of the element to return.
+ * @param pos The Position of the element to return.
  * @return A reference to the requested element properly wrapped.
  */
 [[nodiscard]] inline meta_any meta_sequence_container::operator[](const size_type pos) {
@@ -44692,7 +44692,7 @@ inline meta_sequence_container::iterator meta_sequence_container::erase(iterator
 /**
  * @brief Returns a reference to the element at a given location of a container
  * (no bounds checking is performed).
- * @param pos The position of the element to return.
+ * @param pos The Position of the element to return.
  * @return A reference to the requested element properly wrapped.
  */
 [[nodiscard]] inline meta_any meta_sequence_container::operator[](const size_type pos) {
@@ -53124,7 +53124,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */
@@ -58195,7 +58195,7 @@ public:
     }
 
     /**
-     * @brief Removes an element from a given position.
+     * @brief Removes an element from a given Position.
      * @param pos An iterator to the element to remove.
      * @return An iterator following the removed element.
      */

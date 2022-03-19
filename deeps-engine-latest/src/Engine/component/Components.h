@@ -6,28 +6,28 @@
 #define OPENGLCUBE_COMPONENTS_H
 
 namespace Components {
-  struct position {
+  struct Position {
     float x;
     float y;
     float z;
   };
 
-  struct rotation {
+  struct Rotation {
     float x;
     float y;
     float z;
   };
 
-  struct scale {
+  struct Scale {
     float x;
     float y;
     float z;
   };
 
-  struct transform {
-    position position;
-    rotation rotation;
-    scale scale;
+  struct Transform {
+    Position position;
+    Rotation rotation;
+    Scale scale;
   };
 }
 

@@ -278,7 +278,7 @@ RECENT REVISION HISTORY:
 // stb_image supports loading HDR images in general, and currently the Radiance
 // .HDR file format specifically. You can still load any file through the existing
 // interface; if you attempt to load an HDR file, it will be automatically remapped
-// to LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;
+// to LDR, assuming gamma 2.2 and an arbitrary Scale factor defaulting to 1;
 // both of these constants can be reconfigured through this interface:
 //
 //     stbi_hdr_to_ldr_gamma(2.2f);
@@ -2305,7 +2305,7 @@ stbi_inline static int stbi__jpeg_get_bit(stbi__jpeg *j) {
     return k & 0x80000000;
 }
 
-// given a value that's at position X in the zigzag stream,
+// given a value that's at Position X in the zigzag stream,
 // where does it appear in the 8x8 matrix coded as row-major?
 static const stbi_uc stbi__jpeg_dezigzag[64 + 15] =
         {
@@ -2612,7 +2612,7 @@ static void stbi__idct_block(stbi_uc *out, int out_stride, short data[64]) {
         // no fast case since the first 1D IDCT spread components out
         STBI__IDCT_1D(v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7])
         // constants scaled things up by 1<<12, plus we had 1<<2 from first
-        // loop, plus horizontal and vertical each scale by sqrt(8) so together
+        // loop, plus horizontal and vertical each Scale by sqrt(8) so together
         // we've got an extra 1<<3, so 1<<17 total we need to remove.
         // so we want to round that, which means adding 0.5 * 1<<17,
         // aka 65536. Also, we'll end up with -128 to 127 that we want
@@ -3311,7 +3311,7 @@ static int stbi__process_marker(stbi__jpeg *z, int m) {
                 stbi__get8(z->s); // version
                 stbi__get16be(z->s); // flags0
                 stbi__get16be(z->s); // flags1
-                z->app14_color_transform = stbi__get8(z->s); // color transform
+                z->app14_color_transform = stbi__get8(z->s); // color Transform
                 L -= 6;
             }
         }
@@ -3826,7 +3826,7 @@ stbi__YCbCr_to_RGB_simd(stbi_uc *out, stbi_uc const *y, stbi_uc const *pcb, stbi
             __m128i crw = _mm_unpacklo_epi8(_mm_setzero_si128(), cr_biased);
             __m128i cbw = _mm_unpacklo_epi8(_mm_setzero_si128(), cb_biased);
 
-            // color transform
+            // color Transform
             __m128i yws = _mm_srli_epi16(yw, 4);
             __m128i cr0 = _mm_mulhi_epi16(cr_const0, crw);
             __m128i cb0 = _mm_mulhi_epi16(cb_const0, cbw);
@@ -3883,7 +3883,7 @@ stbi__YCbCr_to_RGB_simd(stbi_uc *out, stbi_uc const *y, stbi_uc const *pcb, stbi
          int16x8_t crw = vshll_n_s8(cr_biased, 7);
          int16x8_t cbw = vshll_n_s8(cb_biased, 7);
 
-         // color transform
+         // color Transform
          int16x8_t cr0 = vqdmulhq_s16(crw, cr_const0);
          int16x8_t cb0 = vqdmulhq_s16(cbw, cb_const0);
          int16x8_t cr1 = vqdmulhq_s16(crw, cr_const1);
@@ -4915,7 +4915,7 @@ stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 raw_len, int
             stbi_uc *in = a->out + stride * j + x * out_n - img_width_bytes;
             // unpack 1/2/4-bit into a 8-bit buffer. allows us to keep the common 8-bit path optimal at minimal cost for 1/2/4-bit
             // png guarante byte alignment, if width is not multiple of 8/4/2 we'll decode dummy trailing data that will be skipped in the later loop
-            stbi_uc scale = (color == 0) ? stbi__depth_scale_table[depth] : 1; // scale grayscale values to 0..255 range
+            stbi_uc scale = (color == 0) ? stbi__depth_scale_table[depth] : 1; // Scale grayscale values to 0..255 range
 
             // note that the final byte might overshoot and write more data than desired.
             // we can allocate enough data that this never writes out of memory, but it
@@ -5811,7 +5811,7 @@ static void *stbi__bmp_load(stbi__context *s, int *x, int *y, int *comp, int req
                 STBI_FREE(out);
                 return stbi__errpuc("bad masks", "Corrupt BMP");
             }
-            // right shift amt to put high bit in position #7
+            // right shift amt to put high bit in Position #7
             rshift = stbi__high_bit(mr) - 7;
             rcount = stbi__bitcount(mr);
             gshift = stbi__high_bit(mg) - 7;
@@ -6081,7 +6081,7 @@ static void *stbi__tga_load(stbi__context *s, int *x, int *y, int *comp, int req
     tga_data = (unsigned char *) stbi__malloc_mad3(tga_width, tga_height, tga_comp, 0);
     if (!tga_data) return stbi__errpuc("outofmem", "Out of memory");
 
-    // skip to the data's starting position (offset usually = 0)
+    // skip to the data's starting Position (offset usually = 0)
     stbi__skip(s, tga_offset);
 
     if (!tga_indexed && !tga_is_RLE && !tga_rgb16) {

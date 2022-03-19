@@ -55,10 +55,10 @@ public:
 
     Shader* ourShader;
 
-    Scene* scene;
+    DeepsEngine::Scene* scene;
 //    entt::registry registry;
 
-    void setScene(Scene* newScene) {
+    void setScene(DeepsEngine::Scene* newScene) {
         if (this->scene) {
             delete this->scene;
             this->scene = nullptr;

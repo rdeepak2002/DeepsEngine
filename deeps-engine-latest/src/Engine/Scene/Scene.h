@@ -6,11 +6,12 @@
 
 #include "src/Engine/include/entt.hpp"
 
-class Scene {
-public:
-    entt::registry registry;
-    void createEntity();
-};
-
+namespace DeepsEngine {
+    class Scene {
+    public:
+        entt::registry registry;
+        void createEntity();
+    };
+}
 
 #endif //EDITOR_SCENE_H

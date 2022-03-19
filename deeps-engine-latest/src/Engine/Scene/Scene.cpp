@@ -6,13 +6,15 @@
 #include "Entity.h"
 #include "src/Engine/component/Components.h"
 
-void Scene::createEntity() {
-    // create entity
-    auto* entity = new Entity(this);
+namespace DeepsEngine {
+    void Scene::createEntity() {
+        // create entity
+        auto* entity = new Entity(this);
 
-    Components::transform transform = {Components::position({0, 0, 0}),
-                                       Components::rotation({0, 0, 0}),
-                                       Components::scale({1, 1, 1})};
+        Components::Transform transform = {Components::Position({0, 0, 0}),
+                                           Components::Rotation({0, 0, 0}),
+                                           Components::Scale({1, 1, 1})};
 
-    entity->AddComponent<Components::transform>(transform);
+        entity->AddComponent<Components::Transform>(transform);
+    }
 }
