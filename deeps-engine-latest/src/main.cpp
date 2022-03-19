@@ -1,6 +1,8 @@
 #if defined(STANDALONE)
 
 #include "src/engine/renderer/Renderer.h"
+#include "src/engine/scene/Entity.h"
+#include "src/engine/component/Component.h"
 
 using namespace DeepsEngine;
 

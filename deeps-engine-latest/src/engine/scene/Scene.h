@@ -12,6 +12,7 @@ namespace DeepsEngine {
     class Scene {
     public:
         entt::registry registry;
+        DeepsEngine::Entity* CreateEntity(const std::string& name);
         DeepsEngine::Entity* CreateEntity();
         void DestroyEntity(Entity* entity);
     };

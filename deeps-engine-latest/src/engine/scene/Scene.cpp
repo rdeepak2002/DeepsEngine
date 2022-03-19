@@ -7,7 +7,7 @@
 #include "src/engine/component/Component.h"
 
 namespace DeepsEngine {
-    DeepsEngine::Entity* Scene::CreateEntity() {
+    DeepsEngine::Entity* Scene::CreateEntity(const std::string& name) {
         // create entity
         auto* entity = new DeepsEngine::Entity(this);
 
@@ -18,7 +18,7 @@ namespace DeepsEngine {
         entity->AddComponent<Component::Transform>(transform);
 
         // add tag component
-        Component::Tag tag = {"entity"};
+        Component::Tag tag = {name.empty() ? "Entity" : name};
         entity->AddComponent<DeepsEngine::Component::Tag>(tag);
 
         // add id component
@@ -26,6 +26,10 @@ namespace DeepsEngine {
         entity->AddComponent<DeepsEngine::Component::Id>(id);
 
         return entity;
+    }
+
+    DeepsEngine::Entity* Scene::CreateEntity() {
+        return CreateEntity("");
     }
 
     void Scene::DestroyEntity(Entity* entity) {
