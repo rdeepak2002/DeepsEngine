@@ -58,18 +58,18 @@ if(RUN_STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/component/Component.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
+        "src/engine/renderer/Shader.h"
+        "src/engine/renderer/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
+        "src/engine/renderer/Renderer.cpp"
+        "src/engine/renderer/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -82,25 +82,25 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/component/Component.h"
-        "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
+        "src/engine/renderer/Shader.h"
+        "src/engine/renderer/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
+        "src/editor/widget/OpenGLWidget.h"
+        "src/editor/widget/OpenGLWidget.cpp"
+        "src/engine/renderer/Renderer.cpp"
+        "src/engine/renderer/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)
 
-    set(RESOURCE_FILES src/Editor/example.qrc)
+    set(RESOURCE_FILES src/editor/example.qrc)
 
     find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
 

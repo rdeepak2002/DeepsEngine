@@ -5,7 +5,7 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
-#include "include/entt.hpp"
+#include "src/engine/include/entt.hpp"
 #if defined(STANDALONE)
 #include <glad.h>
 #include <glfw3.h>
@@ -14,7 +14,7 @@
 #endif
 
 #include "Shader.h"
-#include "src/Engine/Scene/Scene.h"
+#include "src/engine/scene/Scene.h"
 
 #if defined(STANDALONE)
 class Renderer {

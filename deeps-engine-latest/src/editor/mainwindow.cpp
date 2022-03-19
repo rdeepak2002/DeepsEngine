@@ -1,7 +1,7 @@
 #include <QLabel>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "OpenGLWidget.h"
+#include "src/editor/widget/OpenGLWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {

@@ -7,12 +7,12 @@
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
 #include <memory>
-#include "src/Engine/component/Component.h"
+#include "src/engine/component/Component.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "include/stb_image.h"
-#include "src/Engine/Scene/Entity.h"
+#include "src/engine/include/stb_image.h"
+#include "src/engine/scene/Entity.h"
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)

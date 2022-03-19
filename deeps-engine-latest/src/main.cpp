@@ -1,6 +1,6 @@
 #if defined(STANDALONE)
 
-#include "src/Engine/Renderer.h"
+#include "src/engine/renderer/Renderer.h"
 
 using namespace DeepsEngine;
 
