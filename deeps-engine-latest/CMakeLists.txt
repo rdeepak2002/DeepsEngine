@@ -63,11 +63,13 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/component/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -84,14 +86,16 @@ else()
         "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/component/Components.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/mainwindow.cpp"
         "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.h"
         "${PROJECT_SOURCE_DIR}/src/Editor/OpenGLWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/Engine/Renderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/Engine/Scene/Entity.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

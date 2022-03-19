@@ -4,7 +4,7 @@
 #ifndef EDITOR_SCENE_H
 #define EDITOR_SCENE_H
 
-#include "include/entt.hpp"
+#include "src/Engine/include/entt.hpp"
 
 class Scene {
 public:

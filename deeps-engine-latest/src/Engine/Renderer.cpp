@@ -6,7 +6,7 @@
 #include <iostream>
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
-#include "Components.h"
+#include "src/Engine/component/Components.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
