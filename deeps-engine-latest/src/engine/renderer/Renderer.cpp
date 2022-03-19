@@ -111,6 +111,7 @@ void Renderer::closeWindow() {
 #endif
 
 void Renderer::initialize() {
+    std::cout << "initializing renderer" << std::endl;
     // create example cube entity
 //    CreateEntity();
 
@@ -233,16 +234,11 @@ void Renderer::update() {
     // render boxes
     glBindVertexArray(VAO);
 
-    // get current scene
-    if (scene) {
-        // get all entities in the ecs that have a Transform component
-        auto entityHandles = scene->registry.view<DeepsEngine::Component::Transform>();
-
-        for(auto entityHandle : entityHandles) {
+    // get current scene and all the entities
+//    if (scene) {
+        for(auto entity : scene.GetEntities()) {
             // get the entity's transform
-            auto entity = std::make_unique<DeepsEngine::Entity>(scene.get(), entityHandle);
-
-            auto entityTransform = entity->GetComponent<DeepsEngine::Component::Transform>();
+            auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
             auto entityPosition = entityTransform.position;
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;
@@ -270,7 +266,7 @@ void Renderer::update() {
 
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-    }
+//    }
 
 #if defined(STANDALONE)
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

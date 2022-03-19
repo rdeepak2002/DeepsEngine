@@ -11,9 +11,9 @@ int main() {
     Renderer::getInstance().initialize();
 
     // create a scene with one entity
-    auto* scene = new Scene();
-    scene->CreateEntity();
-    Renderer::getInstance().setScene(scene);
+//    auto* scene = new Scene();
+    Renderer::getInstance().scene.CreateEntity();
+//    Renderer::getInstance().setScene(scene);
 
     while(!Renderer::getInstance().shouldCloseWindow()) {
         Renderer::getInstance().processInput();

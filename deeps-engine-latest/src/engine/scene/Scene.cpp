@@ -7,44 +7,44 @@
 #include "src/engine/component/Component.h"
 
 namespace DeepsEngine {
-    std::shared_ptr<DeepsEngine::Entity> Scene::CreateEntity(const std::string& name) {
+    DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {
         // create entity
-        std::shared_ptr<DeepsEngine::Entity> entityPtr(new DeepsEngine::Entity(this));
-
+//        std::shared_ptr<DeepsEngine::Entity> entityPtr(new DeepsEngine::Entity(this));
+        DeepsEngine::Entity entity = {this};
 
         // add transform component
         Component::Transform transform = {Component::Position({0, 0, 0}),
                                           Component::Rotation({0, 0, 0}),
                                           Component::Scale({1, 1, 1})};
-        entityPtr->AddComponent<Component::Transform>(transform);
+        entity.AddComponent<Component::Transform>(transform);
 
         // add tag component
         Component::Tag tag = {name.empty() ? "Entity" : name};
-        entityPtr->AddComponent<DeepsEngine::Component::Tag>(tag);
+        entity.AddComponent<DeepsEngine::Component::Tag>(tag);
 
         // add id component
-        Component::Id id = {entityPtr->GetId()};
-        entityPtr->AddComponent<DeepsEngine::Component::Id>(id);
+        Component::Id id = {entity.GetId()};
+        entity.AddComponent<DeepsEngine::Component::Id>(id);
 
-        return entityPtr;
+        return entity;
     }
 
-    std::shared_ptr<DeepsEngine::Entity> Scene::CreateEntity() {
+    DeepsEngine::Entity Scene::CreateEntity() {
         return CreateEntity("");
     }
 
-    void Scene::DestroyEntity(Entity* entity) {
-        entity->Destroy();
+    void Scene::DestroyEntity(Entity entity) {
+        entity.Destroy();
     }
 
-    std::vector<std::shared_ptr<DeepsEngine::Entity>> Scene::GetEntities() {
+    std::vector<DeepsEngine::Entity> Scene::GetEntities() {
         // get all entities in the ecs that have a Transform component
         auto entityHandles = registry.view<DeepsEngine::Component::Transform>();
-        std::vector<std::shared_ptr<DeepsEngine::Entity>> arr;
+        std::vector<DeepsEngine::Entity> arr;
 
         for(auto entityHandle : entityHandles) {
-            std::shared_ptr<DeepsEngine::Entity> entityPtr(new DeepsEngine::Entity(this, entityHandle));
-            arr.push_back(entityPtr);
+            DeepsEngine::Entity entity = {this, entityHandle};
+            arr.push_back(entity);
         }
 
         return arr;

@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QString>
 #include <QWidget>
+#include "src/engine/scene/Entity.h"
 
 OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
     setMinimumSize(320, 320);
@@ -32,9 +33,10 @@ void OpenGLWidget::initializeGL() {
     Renderer::getInstance().initialize();
 
     // create a scene with one entity
-    auto* scene = new DeepsEngine::Scene();
-    scene->CreateEntity("");
-    Renderer::getInstance().setScene(scene);
+    Renderer::getInstance().scene.CreateEntity();
+//    auto* scene = new DeepsEngine::Scene();
+//    scene->CreateEntity("");
+//    Renderer::getInstance().setScene(scene);
 }
 
 void OpenGLWidget::paintGL() {

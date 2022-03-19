@@ -13,10 +13,10 @@ namespace DeepsEngine {
     class Scene {
     public:
         entt::registry registry;
-        std::shared_ptr<DeepsEngine::Entity> CreateEntity(const std::string& name);
-        std::shared_ptr<DeepsEngine::Entity> CreateEntity();
-        std::vector<std::shared_ptr<DeepsEngine::Entity>> GetEntities();
-        void DestroyEntity(Entity* entity);
+        DeepsEngine::Entity CreateEntity(const std::string& name);
+        DeepsEngine::Entity CreateEntity();
+        std::vector<DeepsEngine::Entity> GetEntities();
+        void DestroyEntity(DeepsEngine::Entity entity);
     };
 }
 

@@ -24,8 +24,7 @@ class Renderer: protected QOpenGLExtraFunctions {
 public:
     static Renderer& getInstance()
     {
-        static Renderer instance; // Guaranteed to be destroyed.
-        // Instantiated on first use.
+        static Renderer instance;
         return instance;
     }
 
@@ -55,11 +54,7 @@ public:
 
     Shader* ourShader;
 
-    std::unique_ptr<DeepsEngine::Scene> scene;
-
-    void setScene(DeepsEngine::Scene* newScene) {
-        this->scene.reset(newScene);
-    }
+    DeepsEngine::Scene scene = {};
 private:
     Renderer() {}
 };
