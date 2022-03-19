@@ -7,10 +7,13 @@
 #include "src/engine/include/entt.hpp"
 
 namespace DeepsEngine {
+    class Entity;
+
     class Scene {
     public:
         entt::registry registry;
-        void createEntity();
+        DeepsEngine::Entity* CreateEntity();
+        void DestroyEntity(Entity* entity);
     };
 }
 

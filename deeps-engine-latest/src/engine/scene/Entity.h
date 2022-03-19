@@ -32,6 +32,10 @@ namespace DeepsEngine {
             return scene->registry.get<T>(entity);
         }
 
+        void Destroy() {
+            scene->registry.destroy(entity);
+        }
+
         template<typename T>
         bool HasComponent()
         {

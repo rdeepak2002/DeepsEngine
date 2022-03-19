@@ -112,7 +112,7 @@ void Renderer::closeWindow() {
 
 void Renderer::initialize() {
     // create example cube entity
-//    createEntity();
+//    CreateEntity();
 
 #if defined(STANDALONE)
     // glad: load all OpenGL function pointers
