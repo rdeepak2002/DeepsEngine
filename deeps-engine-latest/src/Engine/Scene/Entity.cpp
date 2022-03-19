@@ -10,4 +10,10 @@ namespace DeepsEngine {
     {
         entity = scene->registry.create();
     }
+
+    Entity::Entity(Scene* sceneHandle, entt::entity entityHandle)
+            : scene(sceneHandle), entity(entityHandle)
+    {
+
+    }
 }

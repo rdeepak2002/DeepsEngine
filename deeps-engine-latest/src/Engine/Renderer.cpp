@@ -6,11 +6,13 @@
 #include <iostream>
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
+#include <memory>
 #include "src/Engine/component/Component.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "include/stb_image.h"
+#include "src/Engine/Scene/Entity.h"
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -234,11 +236,13 @@ void Renderer::update() {
     // get current scene
     if (scene) {
         // get all entities in the ecs that have a Transform component
-        auto ecs_view = scene->registry.view<DeepsEngine::Transform>();
+        auto entityHandles = scene->registry.view<DeepsEngine::Component::Transform>();
 
-        for(auto entity : ecs_view) {
-            // get the entity Transform
-            auto entityTransform = scene->registry.get<DeepsEngine::Transform>(entity);
+        for(auto entityHandle : entityHandles) {
+            // get the entity's transform
+            auto entity = std::make_unique<DeepsEngine::Entity>(scene.get(), entityHandle);
+
+            auto entityTransform = entity->GetComponent<DeepsEngine::Component::Transform>();
             auto entityPosition = entityTransform.position;
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;

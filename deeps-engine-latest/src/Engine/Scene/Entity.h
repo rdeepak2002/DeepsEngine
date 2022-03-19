@@ -13,6 +13,7 @@ namespace DeepsEngine {
     public:
         Entity() = default;
         Entity(Scene* scene);
+        Entity(Scene* sceneHandle, entt::entity entityHandle);
         Entity(const Entity& other) = default;
 
         template<typename T, typename... Args>
@@ -49,7 +50,7 @@ namespace DeepsEngine {
             scene->registry.remove<T>(entity);
         }
     private:
-        entt::entity entity{entt::null };
+        entt::entity entity{entt::null};
         Scene* scene = nullptr;
     };
 
