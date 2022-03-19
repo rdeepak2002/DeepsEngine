@@ -11,10 +11,10 @@ namespace DeepsEngine {
         // create entity
         auto* entity = new Entity(this);
 
-        Components::Transform transform = {Components::Position({0, 0, 0}),
-                                           Components::Rotation({0, 0, 0}),
-                                           Components::Scale({1, 1, 1})};
+        DeepsEngine::Transform transform = {DeepsEngine::Position({0, 0, 0}),
+                                            DeepsEngine::Rotation({0, 0, 0}),
+                                            DeepsEngine::Scale({1, 1, 1})};
 
-        entity->AddComponent<Components::Transform>(transform);
+        entity->AddComponent<DeepsEngine::Transform>(transform);
     }
 }

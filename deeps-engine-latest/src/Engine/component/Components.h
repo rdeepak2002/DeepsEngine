@@ -5,7 +5,7 @@
 #ifndef OPENGLCUBE_COMPONENTS_H
 #define OPENGLCUBE_COMPONENTS_H
 
-namespace Components {
+namespace DeepsEngine {
   struct Position {
     float x;
     float y;

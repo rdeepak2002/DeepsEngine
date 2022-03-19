@@ -9,7 +9,7 @@ int main() {
     Renderer::getInstance().initialize();
 
     // create a scene with one entity
-    Scene* scene = new Scene();
+    auto* scene = new Scene();
     scene->createEntity();
     Renderer::getInstance().setScene(scene);
 

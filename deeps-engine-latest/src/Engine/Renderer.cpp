@@ -108,15 +108,6 @@ void Renderer::closeWindow() {
 }
 #endif
 
-//void Renderer::createEntity() {
-//    // create entity
-//    auto entity = registry.create();
-//    Components::Transform Transform = {Components::Position({0, 0, 0}),
-//                                       Components::Rotation({0, 0, 0}),
-//                                       Components::Scale({1, 1, 1})};
-//    registry.emplace_or_replace<Components::Transform>(entity, Transform);
-//}
-
 void Renderer::initialize() {
     // create example cube entity
 //    createEntity();
@@ -243,11 +234,11 @@ void Renderer::update() {
     // get current scene
     if (scene) {
         // get all entities in the ecs that have a Transform component
-        auto ecs_view = scene->registry.view<Components::Transform>();
+        auto ecs_view = scene->registry.view<DeepsEngine::Transform>();
 
         for(auto entity : ecs_view) {
             // get the entity Transform
-            auto entityTransform = scene->registry.get<Components::Transform>(entity);
+            auto entityTransform = scene->registry.get<DeepsEngine::Transform>(entity);
             auto entityPosition = entityTransform.position;
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;
