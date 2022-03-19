@@ -30,6 +30,7 @@ namespace DeepsEngine {
     }
 
     DeepsEngine::Entity Scene::CreateEntity() {
+        // TODO: call function callback
         return CreateEntity("");
     }
 

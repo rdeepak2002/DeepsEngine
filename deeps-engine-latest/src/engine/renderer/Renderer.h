@@ -32,7 +32,6 @@ public:
     void createWindow();
     #endif
 
-    void createEntity();
     void initialize();
     void clear();
     void update();
@@ -55,6 +54,8 @@ public:
     Shader* ourShader;
 
     DeepsEngine::Scene scene = {};
+
+    void (*cb)();
 private:
     Renderer() {}
 };

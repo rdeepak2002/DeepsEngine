@@ -4,6 +4,7 @@
 #include "src/editor/widget/OpenGLWidget.h"
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
+#include "src/editor/widget/SceneViewWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -32,17 +33,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // vertical layout
     QVBoxLayout *vLayout = new QVBoxLayout;
 
-    // scene view
-    QListWidget *sceneViewScrollArea = new QListWidget;
-    sceneViewScrollArea->addItem("test 1");
-
-    // TODO: the crashing is due to the ".scene" call
-    // TODO: maybe dont make scene variable a pointer?
-    std::cout << "number of entities for scene view: " << Renderer::getInstance().scene.GetEntities().size() << std::endl;
-    for(auto entity : Renderer::getInstance().scene.GetEntities()) {
-        sceneViewScrollArea->addItem("test 1");
-    }
-
     // console view
     QWidget *consoleViewArea = new QWidget;
 
@@ -54,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     vLayout->addWidget(consoleViewArea);
 
     // outer horizontal layout
-    hLayout->addWidget(sceneViewScrollArea);
+    hLayout->addWidget(new SceneViewWidget);
     hLayout->addLayout(vLayout);
     hLayout->addWidget(inspectorScrollArea);
 
