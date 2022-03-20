@@ -20,9 +20,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // opengl widget
     OpenGLWidget* openGLWidget = new OpenGLWidget(this);
 
-    // button
+    // addButton
     QPushButton* button = new QPushButton;
-    button->setText("test button");
+    button->setText("test addButton");
 
     // outer Layer
     auto *mainLayout = new QVBoxLayout;
