@@ -9,9 +9,6 @@
 #include <QLineEdit>
 
 TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
-    // create sample label
-    QLabel* componentTitle = new QLabel("Transform");
-
     // position x input
     positionXInput = new QLineEdit;
     positionXInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
@@ -48,6 +45,24 @@ TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
     rotationZInput->setPlaceholderText("z");
     connect(rotationZInput, SIGNAL(textChanged(const QString &)), this, SLOT(onRotationZInputChange()));
 
+    // scale x input
+    scaleXInput = new QLineEdit;
+    scaleXInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    scaleXInput->setPlaceholderText("x");
+    connect(scaleXInput, SIGNAL(textChanged(const QString &)), this, SLOT(onScaleXInputChange()));
+
+    // scale y input
+    scaleYInput = new QLineEdit;
+    scaleYInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    scaleYInput->setPlaceholderText("y");
+    connect(scaleYInput, SIGNAL(textChanged(const QString &)), this, SLOT(onScaleYInputChange()));
+
+    // scale z input
+    scaleZInput = new QLineEdit;
+    scaleZInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    scaleZInput->setPlaceholderText("z");
+    connect(scaleZInput, SIGNAL(textChanged(const QString &)), this, SLOT(onScaleZInputChange()));
+
     // input fields for position
     QHBoxLayout* positionInputFieldsGroup = new QHBoxLayout;
     positionInputFieldsGroup->addWidget(new QLabel("x"));
@@ -66,14 +81,25 @@ TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
     rotationInputFieldsGroup->addWidget(new QLabel("z"));
     rotationInputFieldsGroup->addWidget(rotationZInput);
 
+    // input fields for scale
+    QHBoxLayout* scaleInputFieldsGroup = new QHBoxLayout;
+    scaleInputFieldsGroup->addWidget(new QLabel("x"));
+    scaleInputFieldsGroup->addWidget(scaleXInput);
+    scaleInputFieldsGroup->addWidget(new QLabel("y"));
+    scaleInputFieldsGroup->addWidget(scaleYInput);
+    scaleInputFieldsGroup->addWidget(new QLabel("z"));
+    scaleInputFieldsGroup->addWidget(scaleZInput);
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(componentTitle);
+    mainLayout->addWidget(new QLabel("Transform"));
     mainLayout->addWidget(new QLabel("Position"));
     mainLayout->addLayout(positionInputFieldsGroup);
     mainLayout->addWidget(new QLabel("Rotation"));
     mainLayout->addLayout(rotationInputFieldsGroup);
+    mainLayout->addWidget(new QLabel("Scale"));
+    mainLayout->addLayout(scaleInputFieldsGroup);
     setLayout(mainLayout);
 }
 
@@ -85,6 +111,10 @@ TransformComponentWidget::~TransformComponentWidget() {
     delete rotationXInput;
     delete rotationYInput;
     delete rotationZInput;
+
+    delete scaleXInput;
+    delete scaleYInput;
+    delete scaleZInput;
 }
 
 void TransformComponentWidget::setTransform(DeepsEngine::Component::Transform* transform) {
@@ -98,6 +128,10 @@ void TransformComponentWidget::setTransform(DeepsEngine::Component::Transform* t
         rotationXInput->setText(QString::fromStdString(std::to_string(transformComponent->rotation.x)));
         rotationYInput->setText(QString::fromStdString(std::to_string(transformComponent->rotation.y)));
         rotationZInput->setText(QString::fromStdString(std::to_string(transformComponent->rotation.z)));
+
+        scaleXInput->setText(QString::fromStdString(std::to_string(transformComponent->scale.x)));
+        scaleYInput->setText(QString::fromStdString(std::to_string(transformComponent->scale.y)));
+        scaleZInput->setText(QString::fromStdString(std::to_string(transformComponent->scale.z)));
     }
 }
 
@@ -123,4 +157,16 @@ void TransformComponentWidget::onRotationYInputChange() {
 
 void TransformComponentWidget::onRotationZInputChange() {
     transformComponent->rotation.z = rotationZInput->text().toFloat();
+}
+
+void TransformComponentWidget::onScaleXInputChange() {
+    transformComponent->scale.x = scaleXInput->text().toFloat();
+}
+
+void TransformComponentWidget::onScaleYInputChange() {
+    transformComponent->scale.y = scaleYInput->text().toFloat();
+}
+
+void TransformComponentWidget::onScaleZInputChange() {
+    transformComponent->scale.z = scaleZInput->text().toFloat();
 }

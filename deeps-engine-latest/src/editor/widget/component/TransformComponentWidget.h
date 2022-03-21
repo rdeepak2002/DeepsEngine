@@ -46,6 +46,10 @@ public slots:
     void onRotationXInputChange();
     void onRotationYInputChange();
     void onRotationZInputChange();
+
+    void onScaleXInputChange();
+    void onScaleYInputChange();
+    void onScaleZInputChange();
 };
 
 
