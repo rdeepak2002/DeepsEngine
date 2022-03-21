@@ -3,7 +3,6 @@
 //
 
 #include "TransformComponentWidget.h"
-#include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
 #include <iostream>
 #include <QLabel>

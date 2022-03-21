@@ -14,7 +14,11 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     setMaximumWidth(300);
 
     // create sample label
-    entityTagComponentLabel = new QLabel("No entity selected");
+    inspectorTitle = new QLabel("Inspector");
+
+    // tag widget
+    tagComponentWidget = new TagComponentWidget;
+    tagComponentWidget->setVisible(false);
 
     // transform widget
     transformComponentWidget = new TransformComponentWidget;
@@ -23,32 +27,47 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(entityTagComponentLabel);
+    mainLayout->addWidget(inspectorTitle);
+    mainLayout->addWidget(tagComponentWidget);
     mainLayout->addWidget(transformComponentWidget);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
-    delete entityTagComponentLabel;
+    delete inspectorTitle;
     delete transformComponentWidget;
 }
 
 void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
+    // define the entity selected pointer
     entitySelected.reset();
     entitySelected = std::make_shared<DeepsEngine::Entity>(entity);
 
+    // make all widgets invisible again
+    hideAllComponentWidgets();
+
+    // show the necessary widgets
     if (entitySelected) {
-        // TODO: check hasComponent() for each possible component, then set the respective qt widget to *visible* for that
-        // TODO: create widget class for each component type for special inputs for each (ex: transform component will store pointer to DeepsEngine::Component::Transform)
-        // get name of entity
-        DeepsEngine::Component::Tag entityTagComponent = entitySelected->GetComponent<DeepsEngine::Component::Tag>();
-        entityTagComponentLabel->setText(QString::fromStdString(entityTagComponent.name));
+        // show tag of entity
+        if (entity.HasComponent<DeepsEngine::Component::Tag>()) {
+            tagComponentWidget->setVisible(true);
+            DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
+            tagComponentWidget->setTag(tagComponent);
+        }
 
         // show transform of entity
         if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
             transformComponentWidget->setVisible(true);
-            DeepsEngine::Component::Transform* entityTransformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
-            transformComponentWidget->setTransform(entityTransformComponent);
+            DeepsEngine::Component::Transform* transformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
+            transformComponentWidget->setTransform(transformComponent);
         }
     }
+}
+
+void InspectorWidget::hideAllComponentWidgets() {
+    // tag widget
+    tagComponentWidget->setVisible(false);
+
+    // transform widget
+    transformComponentWidget->setVisible(false);
 }

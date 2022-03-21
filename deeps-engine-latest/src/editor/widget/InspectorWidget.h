@@ -11,6 +11,7 @@
 #include <QLabel>
 #include "src/engine/scene/Entity.h"
 #include "src/editor/widget/component/TransformComponentWidget.h"
+#include "src/editor/widget/component/TagComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -20,8 +21,10 @@ public:
     ~InspectorWidget();
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
-    QLabel* entityTagComponentLabel;
+    QLabel* inspectorTitle;
+    TagComponentWidget* tagComponentWidget;
     TransformComponentWidget* transformComponentWidget;
+    void hideAllComponentWidgets();
 
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
