@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // vertical layout
     QVBoxLayout *vLayout = new QVBoxLayout;
+//    vLayout->setSpacing(0);
 
     // console view
     QWidget *consoleViewArea = new QWidget;

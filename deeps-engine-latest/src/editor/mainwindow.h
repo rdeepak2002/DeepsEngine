@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
+    int testVar = 2;
 
 private:
     QScopedPointer<Ui::MainWindow> ui;

@@ -10,6 +10,7 @@
 #include "src/engine/component/Component.h"
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
+#include "src/editor/mainwindow.h";
 
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // start timer
@@ -25,9 +26,9 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     connect(addButton, SIGNAL(clicked()), this, SLOT(onAddButtonPressed()));
 
     // add widgets to main layout
-    QGridLayout *mainLayout = new QGridLayout;
-    mainLayout->addWidget(sceneViewList, 0, 0);
-    mainLayout->addWidget(addButton, 1, 0);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(sceneViewList);
+    mainLayout->addWidget(addButton);
     setLayout(mainLayout);
 }
 
@@ -60,6 +61,9 @@ void SceneViewWidget::refreshSceneViewItems() {
 
 void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
     std::cout << "clicked on item in row: " << sceneViewList->row(item) << std::endl;
+
+    // TODO: change inspector panel
+
 }
 
 void SceneViewWidget::onAddButtonPressed() {

@@ -11,7 +11,7 @@
 #include <QTextEdit>
 #include "src/engine/scene/Entity.h"
 
-class SceneViewWidget : public QOpenGLWidget {
+class SceneViewWidget : public QWidget {
 Q_OBJECT;
 
 public:
