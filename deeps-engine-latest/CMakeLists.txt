@@ -1,13 +1,42 @@
-cmake_minimum_required(VERSION 3.7)
+# Reference: https://doc.qt.io/qt-6/cmake-manual.html
 
-# -------------- User Config ---------------
-set(PLUGIN_ADDON_NAME "OpenGLCube")
-project(${PLUGIN_ADDON_NAME})
+cmake_minimum_required(VERSION 3.16)
 
-# specify x86_64 to use Rosetta on M1 Mac
+# specify whether this should run as a standalone or build as a node gui plugin
+if(DEFINED ENV{STANDALONE})
+    message(STATUS "running engine in standalone mode")
+    set(RUN_STANDALONE TRUE)
+else()
+    message(STATUS "building engine as compiled library")
+    set(RUN_STANDALONE FALSE)
+endif()
+
+# Add folder where are supportive functions
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+if (NOT RUN_STANDALONE)
+    # Include Qt basic functions
+    include(QtCommon)
+endif()
+
+# Basic information about project
+
+project(Editor VERSION 1.0)
+
+if (NOT RUN_STANDALONE)
+    # Set PROJECT_VERSION_PATCH and PROJECT_VERSION_TWEAK to 0 if not present, needed by add_project_meta
+    fix_project_version()
+endif()
+
 if (APPLE)
     set(CMAKE_OSX_ARCHITECTURES "x86_64")
 endif()
+
+# Set additional project information
+set(COMPANY "DeepDev")
+set(COPYRIGHT "Copyright (c) 2022 Deepak Ramalingam. All rights reserved.")
+set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 
 # get include directories for libraries used
 set(GLEW_H /usr/local/include/gl)
@@ -23,77 +52,76 @@ set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
 set(GLFW_LINK /usr/local/lib/libglfw.dylib)
 link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
 
-# specify whether this should run as a standalone or build as a node gui plugin
-if(DEFINED ENV{STANDALONE})
-    message(STATUS "running engine in standalone mode")
-    set(RUN_STANDALONE TRUE)
-else()
-    message(STATUS "building engine as compiled library")
-    set(RUN_STANDALONE FALSE)
-endif()
-
-if (RUN_STANDALONE)
+if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
+        "${PROJECT_SOURCE_DIR}/src/main.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
 
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
     set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
-else ()
+else()
     # build as a node gui plugin
     add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
 
-    # get node gui plugin commands
-    execute_process(COMMAND node -p "require('@nodegui/nodegui/plugin').CMAKE_HELPER_FILE"
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE NODEGUI_PLUGIN_CMAKE_HELPER
-    )
-    string(REPLACE "\n" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER})
-    string(REPLACE "\"" "" NODEGUI_PLUGIN_CMAKE_HELPER ${NODEGUI_PLUGIN_CMAKE_HELPER})
-    include("${NODEGUI_PLUGIN_CMAKE_HELPER}")
-
-    add_library(${PLUGIN_ADDON_NAME} SHARED
-        "${CMAKE_JS_SRC}"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/stb_image.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/include/entt.hpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/index.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNapiWrapper.cpp"
-        "${PROJECT_SOURCE_DIR}/src/QtRenderer/OpenGLNodeGuiWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/OpenGLRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/Engine/Components.h"
-    )
-
-    AddPluginConfig(${PLUGIN_ADDON_NAME})
-
-    target_include_directories(${PLUGIN_ADDON_NAME} PRIVATE
-        if (APPLE)
-            ${PROJECT_NAME} /usr/local/include/node
-        endif ()
-        "${CMAKE_JS_INC}"
-        "${PROJECT_SOURCE_DIR}"
+    set(SOURCE_FILES
+        "${PROJECT_SOURCE_DIR}/src/main.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
     )
 
-    target_link_libraries(${PLUGIN_ADDON_NAME} PRIVATE
-        "${CMAKE_JS_LIB}"
-    )
+    add_project_meta(META_FILES_TO_INCLUDE)
 
-    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD 17)
-    set_property(TARGET ${PLUGIN_ADDON_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-endif ()
+    set(RESOURCE_FILES src/editor/example.qrc)
+
+    find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
+
+    # source_group("UI Files" FILES ${UI_FILES})
+
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} # Expands to WIN32 or MACOS_BUNDLE depending on OS
+            ${SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES}
+            )
+
+    set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+    set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
+
+    target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
+
+    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
+endif()
