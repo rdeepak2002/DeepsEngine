@@ -4,7 +4,7 @@
 Deepak Ramalingam
 
 ## About
-3D game engine using OpenGL, GLFW, GLEW, C++, Node-API, NodeGui, React, and Typescript
+Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 
 ## Requirements (macOS)
 
@@ -67,48 +67,13 @@ arch -x86_64 /usr/local/bin/brew install qt@5
 arch -x86_64 /usr/local/bin/brew install skypjack/entt/entt
 ```
 
-## Get Started (macOS)
+## Get Started
 
-Intel Mac:
+- Add the following compile options for CLion
 
+```shell
+-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.2_1
 ```
-git clone https://github.com/rdeepak2002/deeps-engine.git
-cd deeps-engine/deeps-engine-latest
-
-# install dependencies
-yarn
-# run the dev server
-yarn dev
-# open another terminal and run the app
-yarn start
-```
-
-M1 Mac (using Rosetta):
-
-```
-git clone https://github.com/rdeepak2002/deeps-engine.git
-cd deeps-engine/deeps-engine-latest
-
-# install dependencies
-arch -x86_64 yarn
-# run the dev server
-arch -x86_64 yarn dev
-# open another terminal and run the app
-arch -x86_64 yarn start
-```
-
-## Node / NPM Troubleshooting (macOS)
-
-Solution for 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
-
-```
-sudo chown -R $USER /usr/local/lib/
-sudo chown -R $USER /usr/local/lib/node_modules/
-sudo chown -R $USER /usr/local/bin/
-sudo chown -R $USER /usr/local/share/
-```
-
-## Recommended Development Environment
 
 - Open 'deeps-engine-latest' folder in CLion
   - Enable autoreload for CMake changes
@@ -116,3 +81,5 @@ sudo chown -R $USER /usr/local/share/
   - Go to Preferences -> Build, Execution, Deployment -> CMake and add a profile:
     - Release
       - In "Environment" add "STANDALONE="
+
+- Run the CMake application
