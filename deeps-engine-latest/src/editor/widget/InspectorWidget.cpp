@@ -17,6 +17,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(entityTagComponentLabel);
     setLayout(mainLayout);
 }
@@ -26,10 +27,14 @@ InspectorWidget::~InspectorWidget() {
 }
 
 void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
-    entitySelected = &entity;
+    entitySelected.reset();
+    entitySelected = std::make_shared<DeepsEngine::Entity>(entity);
 
     if (entitySelected) {
-        DeepsEngine::Component::Tag entityTag = entitySelected->GetComponent<DeepsEngine::Component::Tag>();
-        entityTagComponentLabel->setText(QString::fromStdString(entityTag.name));
+        DeepsEngine::Component::Tag entityTagComponent = entitySelected->GetComponent<DeepsEngine::Component::Tag>();
+        // TODO: use unique smart pointer for updating components
+        DeepsEngine::Component::Transform* entityTransformComponent = &entitySelected->GetComponent<DeepsEngine::Component::Transform>();
+        entityTransformComponent->position.x = 2.0;
+        entityTagComponentLabel->setText(QString::fromStdString(entityTagComponent.name));
     }
 }

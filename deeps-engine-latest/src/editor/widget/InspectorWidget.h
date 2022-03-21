@@ -19,7 +19,7 @@ public:
     explicit InspectorWidget(QWidget *parent = nullptr);
     ~InspectorWidget();
 private:
-    DeepsEngine::Entity* entitySelected;
+    std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QLabel* entityTagComponentLabel;
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
