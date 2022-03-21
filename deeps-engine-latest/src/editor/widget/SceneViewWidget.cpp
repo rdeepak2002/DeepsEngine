@@ -57,7 +57,7 @@ void SceneViewWidget::refreshSceneViewItems() {
 
     for(auto entity : entities) {
         DeepsEngine::Component::Tag entityTag = entity.GetComponent<DeepsEngine::Component::Tag>();
-        sceneViewList->addItem(QString::fromStdString(entityTag.name));
+        sceneViewList->addItem(QString::fromStdString(entityTag.tag));
     }
 }
 

@@ -74,10 +74,27 @@ void InspectorWidget::hideAllComponentWidgets() {
 }
 
 void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
-    std::cout << "test" << std::endl;
-    // TODO: check what exactly was selected
-    DeepsEngine::Component::MeshFilter cubeMeshFilter = {mesh: "cube"};
-    entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
+    // get name of selected action from drop down menu
+    std::string componentToAddName = action->text().toStdString();
+
+    if (componentToAddName == "Tag") {
+        // add tag component
+        DeepsEngine::Component::Tag tag = {"entity"};
+        entitySelected->AddComponent<DeepsEngine::Component::Tag>(tag);
+    }
+    else if(componentToAddName == "Transform") {
+        // add transform component
+        DeepsEngine::Component::Transform transform = {DeepsEngine::Component::Position({0, 0, 0}),
+                                          DeepsEngine::Component::Rotation({0, 0, 0}),
+                                          DeepsEngine::Component::Scale({1, 1, 1})};
+        entitySelected->AddComponent<DeepsEngine::Component::Transform>(transform);
+    }
+    else if(componentToAddName == "Mesh Filter") {
+        // add mesh filter component
+        DeepsEngine::Component::MeshFilter cubeMeshFilter = {mesh: "cube"};
+        entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
+    }
+
     refresh();
 }
 

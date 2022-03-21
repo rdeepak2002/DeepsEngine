@@ -13,7 +13,7 @@ namespace DeepsEngine::Component {
         };
 
         struct Tag {
-            std::string name;
+            std::string tag;
         };
 
         struct Position {

@@ -14,6 +14,7 @@ TagComponentWidget::TagComponentWidget(QWidget *parent) {
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
+    mainLayout->addWidget(new QLabel("Tag"));
     mainLayout->addWidget(tagLabel);
     setLayout(mainLayout);
 }
@@ -26,6 +27,6 @@ void TagComponentWidget::setTag(DeepsEngine::Component::Tag* tag) {
     tagComponent = tag;
 
     if (tagComponent) {
-        tagLabel->setText(QString::fromStdString("Tag: " + tagComponent->name));
+        tagLabel->setText(QString::fromStdString(tagComponent->tag));
     }
 }
