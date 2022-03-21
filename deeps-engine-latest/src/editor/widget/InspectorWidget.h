@@ -21,8 +21,12 @@ public:
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QLabel* entityTagComponentLabel;
+    // TODO: encapsulate this into general transform qt widget
+    QLineEdit* transformPositionXInput;
+
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
+    void onTransformPositionXInputChange();
 };
 
 
