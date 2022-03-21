@@ -9,9 +9,11 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
+#include <QPushButton>
 #include "src/engine/scene/Entity.h"
 #include "src/editor/widget/component/TransformComponentWidget.h"
 #include "src/editor/widget/component/TagComponentWidget.h"
+#include "src/editor/widget/component/MeshFilterComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -21,12 +23,16 @@ public:
     ~InspectorWidget();
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
+    QPushButton* addComponentButton;
     TagComponentWidget* tagComponentWidget;
     TransformComponentWidget* transformComponentWidget;
+    MeshFilterComponentWidget* meshFilterComponentWidget;
     void hideAllComponentWidgets();
+    void refresh();
 
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
+    void onAddComponentMenuClicked(QAction* action);
 };
 
 

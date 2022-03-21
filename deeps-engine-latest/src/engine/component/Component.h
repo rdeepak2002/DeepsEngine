@@ -39,6 +39,10 @@ namespace DeepsEngine::Component {
             Rotation rotation;
             Scale scale;
         };
+
+        struct MeshFilter {
+            std::string mesh;
+        };
     }
 
 #endif  // OPENGLCUBE_COMPONENTS_H

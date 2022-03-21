@@ -16,6 +16,7 @@ namespace DeepsEngine {
         DeepsEngine::Entity CreateEntity(const std::string& name);
         DeepsEngine::Entity CreateEntity();
         std::vector<DeepsEngine::Entity> GetEntities();
+        std::vector<DeepsEngine::Entity> GetDrawableEntities();
         void DestroyEntity(DeepsEngine::Entity entity);
     };
 }
