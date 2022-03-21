@@ -13,7 +13,7 @@ namespace DeepsEngine::Component {
         };
 
         struct Tag {
-            std::string name;
+            std::string tag;
         };
 
         struct Position {
@@ -38,6 +38,10 @@ namespace DeepsEngine::Component {
             Position position;
             Rotation rotation;
             Scale scale;
+        };
+
+        struct MeshFilter {
+            std::string mesh;
         };
     }
 

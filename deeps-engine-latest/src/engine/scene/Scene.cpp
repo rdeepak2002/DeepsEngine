@@ -50,4 +50,20 @@ namespace DeepsEngine {
 
         return arr;
     }
+
+    std::vector<DeepsEngine::Entity> Scene::GetDrawableEntities() {
+        // get all entities in the ecs that have a Transform component
+        auto entityHandles = registry.view<DeepsEngine::Component::MeshFilter>();
+        std::vector<DeepsEngine::Entity> arr;
+
+        for(auto entityHandle : entityHandles) {
+            DeepsEngine::Entity entity = {this, entityHandle};
+
+            if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
+                arr.push_back(entity);
+            }
+        }
+
+        return arr;
+    }
 }

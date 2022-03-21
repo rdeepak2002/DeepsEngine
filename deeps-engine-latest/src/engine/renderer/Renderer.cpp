@@ -236,7 +236,7 @@ void Renderer::update() {
 
     // get current scene and all the entities
 //    if (scene) {
-        for(auto entity : scene.GetEntities()) {
+        for(auto entity : scene.GetDrawableEntities()) {
             // get the entity's transform
             auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
             auto entityPosition = entityTransform.position;
