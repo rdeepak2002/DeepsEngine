@@ -5,12 +5,12 @@
 #ifndef EDITOR_INSPECTORWIDGET_H
 #define EDITOR_INSPECTORWIDGET_H
 
-
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
 #include "src/engine/scene/Entity.h"
+#include "src/editor/widget/component/TransformComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -21,12 +21,10 @@ public:
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QLabel* entityTagComponentLabel;
-    // TODO: encapsulate this into general transform qt widget
-    QLineEdit* transformPositionXInput;
+    TransformComponentWidget* transformComponentWidget;
 
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
-    void onTransformPositionXInputChange();
 };
 
 

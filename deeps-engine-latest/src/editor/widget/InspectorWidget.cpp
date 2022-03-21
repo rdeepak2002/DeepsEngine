@@ -16,23 +16,21 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // create sample label
     entityTagComponentLabel = new QLabel("No entity selected");
 
-    transformPositionXInput = new QLineEdit;
-    transformPositionXInput->setValidator(new QDoubleValidator(-999999, 999999, 5, this));
-    transformPositionXInput->setPlaceholderText("x");
-    transformPositionXInput->setVisible(false);
-    connect(transformPositionXInput, SIGNAL(textChanged(const QString &)), this, SLOT(onTransformPositionXInputChange()));
-    // transformPositionXInput->setText(QString::fromStdString(std::to_string(entityTransformComponent->position.x)));
+    // transform widget
+    transformComponentWidget = new TransformComponentWidget;
+    transformComponentWidget->setVisible(false);
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(entityTagComponentLabel);
-    mainLayout->addWidget(transformPositionXInput);
+    mainLayout->addWidget(transformComponentWidget);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
     delete entityTagComponentLabel;
+    delete transformComponentWidget;
 }
 
 void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
@@ -46,16 +44,11 @@ void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
         DeepsEngine::Component::Tag entityTagComponent = entitySelected->GetComponent<DeepsEngine::Component::Tag>();
         entityTagComponentLabel->setText(QString::fromStdString(entityTagComponent.name));
 
-        // get transform of entity
-        transformPositionXInput->setVisible(true);
-        DeepsEngine::Component::Transform* entityTransformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
-        transformPositionXInput->setText(QString::fromStdString(std::to_string(entityTransformComponent->position.x)));
+        // show transform of entity
+        if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
+            transformComponentWidget->setVisible(true);
+            DeepsEngine::Component::Transform* entityTransformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
+            transformComponentWidget->setTransform(entityTransformComponent);
+        }
     }
-}
-
-void InspectorWidget::onTransformPositionXInputChange() {
-    double newPositionX = transformPositionXInput->text().toDouble();
-
-    DeepsEngine::Component::Transform* entityTransformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
-    entityTransformComponent->position.x = newPositionX;
 }
