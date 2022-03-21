@@ -21,7 +21,6 @@ public:
     ~InspectorWidget();
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
-    QLabel* inspectorTitle;
     TagComponentWidget* tagComponentWidget;
     TransformComponentWidget* transformComponentWidget;
     void hideAllComponentWidgets();

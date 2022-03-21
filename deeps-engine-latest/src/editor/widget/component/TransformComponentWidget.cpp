@@ -10,35 +10,71 @@
 
 TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
     // create sample label
-    componentTitle = new QLabel("Transform");
+    QLabel* componentTitle = new QLabel("Transform");
 
     // position x input
-    transformPositionXInput = new QLineEdit;
-    transformPositionXInput->setValidator(new QDoubleValidator(-999999, 999999, 5, this));
-    transformPositionXInput->setPlaceholderText("x");
-    connect(transformPositionXInput, SIGNAL(textChanged(const QString &)), this, SLOT(onPositionXInputChange()));
+    QLabel* positionXLabel = new QLabel("x: ");
+    positionXInput = new QLineEdit;
+    positionXInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    positionXInput->setPlaceholderText("x");
+    connect(positionXInput, SIGNAL(textChanged(const QString &)), this, SLOT(onPositionXInputChange()));
+
+    // position y input
+    QLabel* positionYLabel = new QLabel("y: ");
+    positionYInput = new QLineEdit;
+    positionYInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    positionYInput->setPlaceholderText("y");
+    connect(positionYInput, SIGNAL(textChanged(const QString &)), this, SLOT(onPositionYInputChange()));
+
+    // position z input
+    QLabel* positionZLabel = new QLabel("z: ");
+    positionZInput = new QLineEdit;
+    positionZInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    positionZInput->setPlaceholderText("z");
+    connect(positionZInput, SIGNAL(textChanged(const QString &)), this, SLOT(onPositionZInputChange()));
+
+    // input fields for position
+    QHBoxLayout* positionInputFieldsGroup = new QHBoxLayout;
+    positionInputFieldsGroup->addWidget(positionXLabel);
+    positionInputFieldsGroup->addWidget(positionXInput);
+    positionInputFieldsGroup->addWidget(positionYLabel);
+    positionInputFieldsGroup->addWidget(positionYInput);
+    positionInputFieldsGroup->addWidget(positionZLabel);
+    positionInputFieldsGroup->addWidget(positionZInput);
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(componentTitle);
-    mainLayout->addWidget(transformPositionXInput);
+    mainLayout->addWidget(new QLabel("Position"));
+    mainLayout->addLayout(positionInputFieldsGroup);
     setLayout(mainLayout);
 }
 
 TransformComponentWidget::~TransformComponentWidget() {
-    delete componentTitle;
+    delete positionXInput;
+    delete positionYInput;
+    delete positionZInput;
 }
 
 void TransformComponentWidget::setTransform(DeepsEngine::Component::Transform* transform) {
     transformComponent = transform;
 
     if (transformComponent) {
-        transformPositionXInput->setText(QString::fromStdString(std::to_string(transformComponent->position.x)));
+        positionXInput->setText(QString::fromStdString(std::to_string(transformComponent->position.x)));
+        positionYInput->setText(QString::fromStdString(std::to_string(transformComponent->position.y)));
+        positionZInput->setText(QString::fromStdString(std::to_string(transformComponent->position.z)));
     }
 }
 
 void TransformComponentWidget::onPositionXInputChange() {
-    double newPositionX = transformPositionXInput->text().toDouble();
-    transformComponent->position.x = newPositionX;
+    transformComponent->position.x = positionXInput->text().toFloat();
+}
+
+void TransformComponentWidget::onPositionYInputChange() {
+    transformComponent->position.y = positionYInput->text().toFloat();
+}
+
+void TransformComponentWidget::onPositionZInputChange() {
+    transformComponent->position.z = positionZInput->text().toFloat();
 }

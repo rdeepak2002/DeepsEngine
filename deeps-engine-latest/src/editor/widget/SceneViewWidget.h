@@ -23,14 +23,14 @@ public slots:
     void onAddButtonPressed();
 
 private:
-    int timerId;
+//    int timerId;
     QListWidget *sceneViewList;
     QPushButton *addButton;
     std::vector<DeepsEngine::Entity> entities;
     void refreshSceneViewItems();
 
 protected:
-    void timerEvent(QTimerEvent *event) override;
+//    void timerEvent(QTimerEvent *event) override;
 };
 
 

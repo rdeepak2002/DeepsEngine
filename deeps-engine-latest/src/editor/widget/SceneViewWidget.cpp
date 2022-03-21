@@ -17,7 +17,10 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     setMaximumWidth(300);
 
     // start timer
-    timerId = startTimer(500);
+//    timerId = startTimer(500);
+
+    // title for this panel
+    QLabel* panelTitle = new QLabel("Scene");
 
     // scene view list
     sceneViewList = new QListWidget;
@@ -30,22 +33,23 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(panelTitle);
     mainLayout->addWidget(sceneViewList);
     mainLayout->addWidget(addButton);
     setLayout(mainLayout);
 }
 
 SceneViewWidget::~SceneViewWidget() {
-    killTimer(timerId);
+//    killTimer(timerId);
 }
 
-void SceneViewWidget::timerEvent(QTimerEvent *event) {
-    std::vector<DeepsEngine::Entity> newEntities = Renderer::getInstance().scene.GetEntities();
-
-    if (newEntities.size() != entities.size()) {
-        refreshSceneViewItems();
-    }
-}
+//void SceneViewWidget::timerEvent(QTimerEvent *event) {
+//    std::vector<DeepsEngine::Entity> newEntities = Renderer::getInstance().scene.GetEntities();
+//
+//    if (newEntities.size() != entities.size()) {
+//        refreshSceneViewItems();
+//    }
+//}
 
 void SceneViewWidget::refreshSceneViewItems() {
     sceneViewList->clear();

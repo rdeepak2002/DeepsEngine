@@ -18,13 +18,18 @@ public:
     explicit TransformComponentWidget(QWidget *parent = nullptr);
     ~TransformComponentWidget();
 private:
-    QLabel* componentTitle;
-    QLineEdit* transformPositionXInput;
+    // reference to the transform being displayed
     DeepsEngine::Component::Transform* transformComponent;
+    // position inputs
+    QLineEdit* positionXInput;
+    QLineEdit* positionYInput;
+    QLineEdit* positionZInput;
 
 public slots:
     void setTransform(DeepsEngine::Component::Transform* transform);
     void onPositionXInputChange();
+    void onPositionYInputChange();
+    void onPositionZInputChange();
 };
 
 

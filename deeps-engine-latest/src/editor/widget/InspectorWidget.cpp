@@ -13,8 +13,8 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // set max dimensions
     setMaximumWidth(300);
 
-    // create sample label
-    inspectorTitle = new QLabel("Inspector");
+    // title for this panel
+    QLabel* panelTitle = new QLabel("Inspector");
 
     // tag widget
     tagComponentWidget = new TagComponentWidget;
@@ -27,14 +27,14 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(inspectorTitle);
+    mainLayout->addWidget(panelTitle);
     mainLayout->addWidget(tagComponentWidget);
     mainLayout->addWidget(transformComponentWidget);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
-    delete inspectorTitle;
+    delete tagComponentWidget;
     delete transformComponentWidget;
 }
 
