@@ -48,13 +48,8 @@ void SceneViewWidget::timerEvent(QTimerEvent *event) {
 }
 
 void SceneViewWidget::refreshSceneViewItems() {
-    std::vector<DeepsEngine::Entity> newEntities = Renderer::getInstance().scene.GetEntities();
-
-    std::cout << "updating scene view list" << std::endl;
-
     sceneViewList->clear();
-
-    entities = newEntities;
+    entities = Renderer::getInstance().scene.GetEntities();
 
     for(auto entity : entities) {
         DeepsEngine::Component::Tag entityTag = entity.GetComponent<DeepsEngine::Component::Tag>();
@@ -63,9 +58,16 @@ void SceneViewWidget::refreshSceneViewItems() {
 }
 
 void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
-    std::cout << "clicked on item in row: " << sceneViewList->row(item) << std::endl;
+    // reference to main window
+    auto *mainWindow = dynamic_cast<MainWindow *> (this->parentWidget()->parentWidget());
 
-    // TODO: change inspector panel
+    if (mainWindow) {
+        int rowIndex = sceneViewList->row(item);
+        mainWindow->onEntitySelected(entities.at(rowIndex));
+    }
+    else {
+        std::cout << "Error sending message from scene view to main window" << std::endl;
+    }
 }
 
 void SceneViewWidget::onAddButtonPressed() {

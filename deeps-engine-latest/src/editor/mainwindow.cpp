@@ -56,3 +56,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 MainWindow::~MainWindow()
 {
 }
+
+void MainWindow::onEntitySelected(DeepsEngine::Entity entity) {
+    std::cout << "entity selected: " << entity.GetId() << std::endl;
+}

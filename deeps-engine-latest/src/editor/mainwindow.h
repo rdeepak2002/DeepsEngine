@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QMainWindow>
 #include <QScopedPointer>
+#include "src/engine/scene/Entity.h"
 
 namespace Ui
 {
@@ -20,6 +21,9 @@ public:
 
 private:
     QScopedPointer<Ui::MainWindow> ui;
+
+public slots:
+    void onEntitySelected(DeepsEngine::Entity entity);
 };
 
 #endif
