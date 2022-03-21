@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // ui file
     ui->setupUi(this);
 
+    // set window title
+    this->setWindowTitle("Deeps Engine");
+
     // opengl widget
     OpenGLWidget* openGLWidget = new OpenGLWidget(this);
 

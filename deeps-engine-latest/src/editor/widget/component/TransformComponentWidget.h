@@ -20,16 +20,36 @@ public:
 private:
     // reference to the transform being displayed
     DeepsEngine::Component::Transform* transformComponent;
+
     // position inputs
     QLineEdit* positionXInput;
     QLineEdit* positionYInput;
     QLineEdit* positionZInput;
 
+    // rotation inputs
+    QLineEdit* rotationXInput;
+    QLineEdit* rotationYInput;
+    QLineEdit* rotationZInput;
+
+    // scale inputs
+    QLineEdit* scaleXInput;
+    QLineEdit* scaleYInput;
+    QLineEdit* scaleZInput;
+
 public slots:
     void setTransform(DeepsEngine::Component::Transform* transform);
+
     void onPositionXInputChange();
     void onPositionYInputChange();
     void onPositionZInputChange();
+
+    void onRotationXInputChange();
+    void onRotationYInputChange();
+    void onRotationZInputChange();
+
+    void onScaleXInputChange();
+    void onScaleYInputChange();
+    void onScaleZInputChange();
 };
 
 
