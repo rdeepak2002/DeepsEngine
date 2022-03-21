@@ -7,9 +7,17 @@
 
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QListWidgetItem>
 
 class InspectorWidget: public QWidget {
+Q_OBJECT;
 
+public:
+    explicit InspectorWidget(QWidget *parent = nullptr);
+    ~InspectorWidget();
+public slots:
+    void onSceneViewItemSelected(QListWidgetItem* item);
 };
 
 

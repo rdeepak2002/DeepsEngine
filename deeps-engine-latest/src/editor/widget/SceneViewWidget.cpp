@@ -10,9 +10,12 @@
 #include "src/engine/component/Component.h"
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
-#include "src/editor/mainwindow.h";
+#include "src/editor/mainwindow.h"
 
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
+    // set max dimensions
+    setMaximumWidth(300);
+
     // start timer
     timerId = startTimer(500);
 
@@ -63,7 +66,6 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
     std::cout << "clicked on item in row: " << sceneViewList->row(item) << std::endl;
 
     // TODO: change inspector panel
-
 }
 
 void SceneViewWidget::onAddButtonPressed() {

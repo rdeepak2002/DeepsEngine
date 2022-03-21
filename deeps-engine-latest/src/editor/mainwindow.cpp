@@ -5,6 +5,7 @@
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
 #include "src/editor/widget/SceneViewWidget.h"
+#include "src/editor/widget/InspectorWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -32,13 +33,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // vertical layout
     QVBoxLayout *vLayout = new QVBoxLayout;
-//    vLayout->setSpacing(0);
 
     // console view
     QWidget *consoleViewArea = new QWidget;
-
-    // inspector
-    QScrollArea *inspectorScrollArea = new QScrollArea;
 
     // center vertical layout
     vLayout->addWidget(openGLWidget);
@@ -47,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // outer horizontal layout
     hLayout->addWidget(new SceneViewWidget);
     hLayout->addLayout(vLayout);
-    hLayout->addWidget(inspectorScrollArea);
+    hLayout->addWidget(new InspectorWidget);
 
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
