@@ -71,6 +71,6 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
 }
 
 void SceneViewWidget::onAddButtonPressed() {
-    Renderer::getInstance().scene.CreateEntity();
+    Renderer::getInstance().scene.CreateEntity("entity_" + std::to_string(entities.size()));
     refreshSceneViewItems();
 }

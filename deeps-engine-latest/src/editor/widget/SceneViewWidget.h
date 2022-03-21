@@ -10,7 +10,6 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include "src/engine/scene/Entity.h"
-#include "src/editor/mainwindow.h"
 
 class SceneViewWidget : public QWidget {
 Q_OBJECT;

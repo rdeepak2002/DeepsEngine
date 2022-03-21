@@ -33,7 +33,7 @@ void OpenGLWidget::initializeGL() {
     Renderer::getInstance().initialize();
 
     // create a scene with one entity
-    Renderer::getInstance().scene.CreateEntity();
+    // Renderer::getInstance().scene.CreateEntity();
 }
 
 void OpenGLWidget::paintGL() {

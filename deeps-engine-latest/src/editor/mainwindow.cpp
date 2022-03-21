@@ -21,10 +21,6 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // opengl widget
     OpenGLWidget* openGLWidget = new OpenGLWidget(this);
 
-    // addButton
-    QPushButton* button = new QPushButton;
-    button->setText("test addButton");
-
     // outer Layer
     auto *mainLayout = new QVBoxLayout;
 
@@ -41,10 +37,16 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     vLayout->addWidget(openGLWidget);
     vLayout->addWidget(consoleViewArea);
 
+    // scene view widget
+    sceneViewWidget = new SceneViewWidget;
+
+    // inspector widget
+    inspectorWidget = new InspectorWidget;
+
     // outer horizontal layout
-    hLayout->addWidget(new SceneViewWidget);
+    hLayout->addWidget(sceneViewWidget);
     hLayout->addLayout(vLayout);
-    hLayout->addWidget(new InspectorWidget);
+    hLayout->addWidget(inspectorWidget);
 
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
@@ -58,5 +60,5 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onEntitySelected(DeepsEngine::Entity entity) {
-    std::cout << "entity selected: " << entity.GetId() << std::endl;
+    inspectorWidget->onEntitySelected(entity);
 }

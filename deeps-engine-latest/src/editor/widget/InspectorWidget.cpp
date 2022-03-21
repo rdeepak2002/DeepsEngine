@@ -3,6 +3,8 @@
 //
 
 #include "InspectorWidget.h"
+#include "src/engine/scene/Entity.h"
+#include "src/engine/component/Component.h"
 #include <iostream>
 #include <QLabel>
 
@@ -11,19 +13,23 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     setMaximumWidth(300);
 
     // create sample label
-    QLabel* testLabel = new QLabel("test label");
+    entityTagComponentLabel = new QLabel("");
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    mainLayout->addWidget(testLabel);
+    mainLayout->addWidget(entityTagComponentLabel);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
-
+    delete entityTagComponentLabel;
 }
 
-void InspectorWidget::onSceneViewItemSelected(QListWidgetItem* item) {
-    std::cout << "item got" << std::endl;
-//    std::cout << "clicked on item in row: " << sceneViewList->row(item) << std::endl;
+void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
+    entitySelected = &entity;
+
+    if (entitySelected) {
+        DeepsEngine::Component::Tag entityTag = entitySelected->GetComponent<DeepsEngine::Component::Tag>();
+        entityTagComponentLabel->setText(QString::fromStdString(entityTag.name));
+    }
 }

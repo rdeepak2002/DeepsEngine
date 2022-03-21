@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include <QScopedPointer>
 #include "src/engine/scene/Entity.h"
+#include "src/editor/widget/InspectorWidget.h"
+#include "src/editor/widget/SceneViewWidget.h"
 
 namespace Ui
 {
@@ -17,7 +19,8 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
-    int testVar = 2;
+    SceneViewWidget* sceneViewWidget;
+    InspectorWidget* inspectorWidget;
 
 private:
     QScopedPointer<Ui::MainWindow> ui;

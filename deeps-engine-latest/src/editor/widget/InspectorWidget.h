@@ -9,6 +9,8 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
+#include <QLabel>
+#include "src/engine/scene/Entity.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -16,8 +18,11 @@ Q_OBJECT;
 public:
     explicit InspectorWidget(QWidget *parent = nullptr);
     ~InspectorWidget();
+private:
+    DeepsEngine::Entity* entitySelected;
+    QLabel* entityTagComponentLabel;
 public slots:
-    void onSceneViewItemSelected(QListWidgetItem* item);
+    void onEntitySelected(DeepsEngine::Entity entity);
 };
 
 
