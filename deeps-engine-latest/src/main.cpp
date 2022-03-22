@@ -10,10 +10,9 @@ int main() {
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
 
-    // create a scene with one entity
-//    auto* scene = new Scene();
-    Renderer::getInstance().scene.CreateEntity();
-//    Renderer::getInstance().setScene(scene);
+    // add a single cube entity
+    Entity entity = Renderer::getInstance().scene.CreateEntity();
+    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 
     while(!Renderer::getInstance().shouldCloseWindow()) {
         Renderer::getInstance().processInput();

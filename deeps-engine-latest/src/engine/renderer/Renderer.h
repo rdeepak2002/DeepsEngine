@@ -11,6 +11,7 @@
 #include <glfw3.h>
 #else
 #include <QOpenGLExtraFunctions>
+#include <QElapsedTimer>
 #endif
 
 #include "Shader.h"
@@ -58,6 +59,18 @@ public:
     void (*cb)();
 private:
     Renderer() {}
+
+    glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
+    glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+    glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
+
+    // timing
+    float deltaTime = 0.0f;	// time between current frame and last frame
+    float lastFrame = 0.0f;
+
+#if !defined(STANDALONE)
+    QElapsedTimer timer;
+#endif
 };
 
 
