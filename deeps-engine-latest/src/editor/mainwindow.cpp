@@ -6,6 +6,7 @@
 #include "src/engine/component/Component.h"
 #include "src/editor/widget/SceneViewWidget.h"
 #include "src/editor/widget/InspectorWidget.h"
+#include "src/editor/widget/ConsoleWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -38,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // center vertical layout
     vLayout->addWidget(openGLWidget);
-    vLayout->addWidget(consoleViewArea);
+    vLayout->addWidget(new ConsoleWidget);
 
     // scene view widget
     sceneViewWidget = new SceneViewWidget;

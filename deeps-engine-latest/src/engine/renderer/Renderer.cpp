@@ -13,6 +13,7 @@
 
 #include "src/engine/include/stb_image.h"
 #include "src/engine/scene/Entity.h"
+#include "src/engine/Logger.h"
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -89,7 +90,7 @@ void Renderer::createWindow() {
 
   // glfw window creation
   // --------------------
-  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
   if (window == nullptr) {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -116,7 +117,7 @@ void Renderer::closeWindow() {
 #endif
 
 void Renderer::initialize() {
-    std::cout << "initializing renderer" << std::endl;
+    Logger::Debug("initializing renderer");
 
 #if !defined(STANDALONE)
     // start timer for qt to keep track of delta time

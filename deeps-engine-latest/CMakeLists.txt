@@ -70,6 +70,8 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -94,6 +96,8 @@ else()
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.h"
@@ -106,6 +110,8 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

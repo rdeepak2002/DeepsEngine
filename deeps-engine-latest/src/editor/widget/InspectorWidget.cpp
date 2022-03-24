@@ -13,6 +13,7 @@
 InspectorWidget::InspectorWidget(QWidget *parent) {
     // set max dimensions
     setMaximumWidth(300);
+    setMinimumWidth(300.0);
 
     // title for this panel
     QLabel* panelTitle = new QLabel("Inspector");

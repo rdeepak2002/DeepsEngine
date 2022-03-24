@@ -15,6 +15,7 @@
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // set max dimensions
     setMaximumWidth(300);
+    setMinimumWidth(300.0);
 
     // start timer
 //    timerId = startTimer(500);
