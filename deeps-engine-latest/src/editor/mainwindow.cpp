@@ -19,6 +19,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // ui file
     ui->setupUi(this);
 
+    // set initial window size
+    resize(QDesktopWidget().availableGeometry(this).size().width() * 0.95, QDesktopWidget().availableGeometry(this).size().height() * 0.8);
+
     // set window title
     this->setWindowTitle("Deeps Engine");
 
