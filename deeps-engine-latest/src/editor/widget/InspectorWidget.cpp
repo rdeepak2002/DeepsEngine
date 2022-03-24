@@ -40,6 +40,11 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     addComponentButton = new QPushButton("Add Component");
     addComponentButton->setVisible(false);
 
+    // remove entity button
+    removeEntityButton = new QPushButton("Remove Entity", this);
+    removeEntityButton->setVisible(false);
+    connect(removeEntityButton, SIGNAL(clicked()), this, SLOT(onRemoveEntityButtonClicked()));
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
@@ -49,10 +54,13 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     mainLayout->addWidget(cameraComponentWidget);
     mainLayout->addWidget(meshFilterComponentWidget);
     mainLayout->addWidget(addComponentButton);
+    mainLayout->addWidget(removeEntityButton);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
+    delete addComponentButton;
+    delete removeEntityButton;
     delete tagComponentWidget;
     delete transformComponentWidget;
     delete cameraComponentWidget;
@@ -72,6 +80,12 @@ void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
 }
 
 void InspectorWidget::hideAllComponentWidgets() {
+    // add component button
+    addComponentButton->setVisible(false);
+
+    // remove entity button
+    removeEntityButton->setVisible(false);
+
     // tag widget
     tagComponentWidget->setVisible(false);
 
@@ -120,6 +134,10 @@ void InspectorWidget::refresh() {
     if (entitySelected) {
         // menu for possible components to add
         addComponentButton->setVisible(true);
+
+        // button to remove entity
+        removeEntityButton->setVisible(true);
+
         // TODO: free memory of previous qmenu?
         QMenu* addComponentMenu = new QMenu;
         connect(addComponentMenu, SIGNAL(triggered(QAction*)), this, SLOT(onAddComponentMenuClicked(QAction*)));
@@ -172,5 +190,16 @@ void InspectorWidget::refresh() {
         if (addComponentMenu->isEmpty()) {
             addComponentButton->setVisible(false);
         }
+    }
+    else {
+        hideAllComponentWidgets();
+    }
+}
+
+void InspectorWidget::onRemoveEntityButtonClicked() {
+    if (this->entitySelected) {
+        this->entitySelected->Destroy();
+        this->entitySelected.reset();
+        this->refresh();
     }
 }

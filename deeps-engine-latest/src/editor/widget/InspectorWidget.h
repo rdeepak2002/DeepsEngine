@@ -25,6 +25,7 @@ public:
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QPushButton* addComponentButton;
+    QPushButton* removeEntityButton;
     TagComponentWidget* tagComponentWidget;
     TransformComponentWidget* transformComponentWidget;
     CameraComponentWidget* cameraComponentWidget;
@@ -35,6 +36,7 @@ private:
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity);
     void onAddComponentMenuClicked(QAction* action);
+    void onRemoveEntityButtonClicked();
 };
 
 
