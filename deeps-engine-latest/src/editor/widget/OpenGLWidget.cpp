@@ -7,6 +7,8 @@
 #include <QString>
 #include <QWidget>
 #include "src/engine/scene/Entity.h"
+#include "src/engine/renderer/Renderer.h"
+#include "src/engine/component/Component.h"
 
 OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
     setMinimumSize(320, 320);
@@ -19,21 +21,24 @@ OpenGLWidget::~OpenGLWidget() {
     doneCurrent();
 }
 
-void OpenGLWidget::setScaling(int scale) {
-    if (scale > 30)
-        m_fScale = 1 + qreal(scale - 30) / 30 * 0.25;
-    else if (scale < 30)
-        m_fScale = 1 - (qreal(30 - scale) / 30 * 0.25);
-    else
-        m_fScale = 1;
+void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
+    QOpenGLWidget::resizeEvent(ev);
+    Renderer::getInstance().SCR_WIDTH = width();
+    Renderer::getInstance().SCR_HEIGHT = height();
 }
 
 void OpenGLWidget::initializeGL() {
     // initialize renderer
     Renderer::getInstance().initialize();
+    // create basic scene
+    // add camera entity
+    DeepsEngine::Entity camera = Renderer::getInstance().scene.CreateEntity("Main Camera");
+    (&camera.GetComponent<DeepsEngine::Component::Transform>())->position.z = 5.0;
+    camera.AddComponent<DeepsEngine::Component::Camera>(DeepsEngine::Component::Camera({45.0f, 0.1f, 100.0f}));
 
-    // create a scene with one entity
-    // Renderer::getInstance().scene.CreateEntity();
+    // add a single cube entity
+    DeepsEngine::Entity entity = Renderer::getInstance().scene.CreateEntity("Cube");
+    entity.AddComponent<DeepsEngine::Component::MeshFilter>(DeepsEngine::Component::MeshFilter{"cube"});
 }
 
 void OpenGLWidget::paintGL() {

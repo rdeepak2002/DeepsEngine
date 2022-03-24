@@ -13,6 +13,7 @@
 
 #include "src/engine/include/stb_image.h"
 #include "src/engine/scene/Entity.h"
+#include "src/engine/Logger.h"
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -20,6 +21,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
+    Renderer::getInstance().SCR_WIDTH = width;
+    Renderer::getInstance().SCR_HEIGHT = height;
+    // keep updating while resizing
+    Renderer::getInstance().clear();
+    Renderer::getInstance().update();
 }
 #endif
 
@@ -84,7 +90,7 @@ void Renderer::createWindow() {
 
   // glfw window creation
   // --------------------
-  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
   if (window == nullptr) {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -111,9 +117,12 @@ void Renderer::closeWindow() {
 #endif
 
 void Renderer::initialize() {
-    std::cout << "initializing renderer" << std::endl;
-    // create example cube entity
-//    CreateEntity();
+    Logger::Debug("initializing renderer");
+
+#if !defined(STANDALONE)
+    // start timer for qt to keep track of delta time
+    timer.start();
+#endif
 
 #if defined(STANDALONE)
     // glad: load all OpenGL function pointers
@@ -204,7 +213,6 @@ void Renderer::initialize() {
 }
 
 void Renderer::clear() {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -212,6 +220,20 @@ void Renderer::update() {
 #if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
     glEnable(GL_DEPTH_TEST);
 #endif
+
+    // per-frame time logic
+    // --------------------
+    float currentFrame;
+
+#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+    currentFrame = static_cast<float>(timer.elapsed()) / 1000.0f;
+#else
+    currentFrame = static_cast<float>(glfwGetTime());
+#endif
+
+    // calculate delta time
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
 
     // bind textures on corresponding texture units
     glActiveTexture(GL_TEXTURE0);
@@ -222,20 +244,34 @@ void Renderer::update() {
     // activate shader
     ourShader->use();
 
-    // create transformations
-    glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 projection    = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-    view       = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-    // pass transformation matrices to the shader
-    ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-    ourShader->setMat4("view", view);
+    std::vector<DeepsEngine::Entity> cameraEntities = scene.GetCameraEntities();
 
-    // render boxes
-    glBindVertexArray(VAO);
+    if (cameraEntities.size() > 0) {
+        // get main camera
+        std::unique_ptr<DeepsEngine::Entity> mainCameraEntity = std::make_unique<DeepsEngine::Entity>(cameraEntities.front());
+        DeepsEngine::Component::Camera mainCameraComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Camera>();
+        DeepsEngine::Component::Transform mainCameraTransformComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Transform>();
 
-    // get current scene and all the entities
-//    if (scene) {
+        // set the clear color to light blue ish
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+
+        // create transformations
+        glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        glm::mat4 projection    = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
+        cameraPos.x = mainCameraTransformComponent.position.x;
+        cameraPos.y = mainCameraTransformComponent.position.y;
+        cameraPos.z = mainCameraTransformComponent.position.z;
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+        // pass transformation matrices to the shader
+        ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+        ourShader->setMat4("view", view);
+
+        // render boxes
+        glBindVertexArray(VAO);
+
+        // get current scene and all the entities
         for(auto entity : scene.GetDrawableEntities()) {
             // get the entity's transform
             auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
@@ -245,9 +281,6 @@ void Renderer::update() {
 
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-
-            // Scale the model
-            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
             // translate the model
             model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
@@ -262,11 +295,18 @@ void Renderer::update() {
             // rotate z
             model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
+            // Scale the model
+            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+
             ourShader->setMat4("model", model);
 
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-//    }
+    }
+    else {
+        // set clear color to black to indicate no camera active
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    }
 
 #if defined(STANDALONE)
     // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

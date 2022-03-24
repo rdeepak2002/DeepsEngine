@@ -6,6 +6,7 @@
 #include "src/engine/component/Component.h"
 #include "src/editor/widget/SceneViewWidget.h"
 #include "src/editor/widget/InspectorWidget.h"
+#include "src/editor/widget/ConsoleWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -17,6 +18,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // ui file
     ui->setupUi(this);
+
+    // set initial window size
+    resize(QDesktopWidget().availableGeometry(this).size().width() * 0.95, QDesktopWidget().availableGeometry(this).size().height() * 0.8);
+
+    // move window to center of screen
+    QSize screenGeometry = QDesktopWidget().availableGeometry(this).size();
+    int x = (screenGeometry.width()-this->width()) / 2;
+    int y = (screenGeometry.height()-this->height()) / 2;
+    move(x, y);
 
     // set window title
     this->setWindowTitle("Deeps Engine");
@@ -38,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     // center vertical layout
     vLayout->addWidget(openGLWidget);
-    vLayout->addWidget(consoleViewArea);
+    vLayout->addWidget(new ConsoleWidget);
 
     // scene view widget
     sceneViewWidget = new SceneViewWidget;

@@ -10,10 +10,14 @@ int main() {
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
 
-    // create a scene with one entity
-//    auto* scene = new Scene();
-    Renderer::getInstance().scene.CreateEntity();
-//    Renderer::getInstance().setScene(scene);
+    // add camera entity
+    Entity camera = Renderer::getInstance().scene.CreateEntity();
+    (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
+    camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
+
+    // add a single cube entity
+    Entity entity = Renderer::getInstance().scene.CreateEntity();
+    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 
     while(!Renderer::getInstance().shouldCloseWindow()) {
         Renderer::getInstance().processInput();

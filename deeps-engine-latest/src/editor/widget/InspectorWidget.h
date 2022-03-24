@@ -14,6 +14,7 @@
 #include "src/editor/widget/component/TransformComponentWidget.h"
 #include "src/editor/widget/component/TagComponentWidget.h"
 #include "src/editor/widget/component/MeshFilterComponentWidget.h"
+#include "src/editor/widget/component/CameraComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -26,6 +27,7 @@ private:
     QPushButton* addComponentButton;
     TagComponentWidget* tagComponentWidget;
     TransformComponentWidget* transformComponentWidget;
+    CameraComponentWidget* cameraComponentWidget;
     MeshFilterComponentWidget* meshFilterComponentWidget;
     void hideAllComponentWidgets();
     void refresh();

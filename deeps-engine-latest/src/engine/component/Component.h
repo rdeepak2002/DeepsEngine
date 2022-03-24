@@ -43,6 +43,12 @@ namespace DeepsEngine::Component {
         struct MeshFilter {
             std::string mesh;
         };
+
+        struct Camera {
+            float fov;
+            float zNear;
+            float zFar;
+        };
     }
 
 #endif  // OPENGLCUBE_COMPONENTS_H

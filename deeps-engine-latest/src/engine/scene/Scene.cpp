@@ -56,12 +56,25 @@ namespace DeepsEngine {
         auto entityHandles = registry.view<DeepsEngine::Component::MeshFilter>();
         std::vector<DeepsEngine::Entity> arr;
 
-        for(auto entityHandle : entityHandles) {
+        for (auto entityHandle : entityHandles) {
             DeepsEngine::Entity entity = {this, entityHandle};
 
             if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
                 arr.push_back(entity);
             }
+        }
+
+        return arr;
+    }
+
+    std::vector<DeepsEngine::Entity> Scene::GetCameraEntities() {
+        // get all entities in the ecs that have a Transform component
+        auto entityHandles = registry.view<DeepsEngine::Component::Camera>();
+        std::vector<DeepsEngine::Entity> arr;
+
+        for (auto entityHandle : entityHandles) {
+            DeepsEngine::Entity entity = {this, entityHandle};
+            arr.push_back(entity);
         }
 
         return arr;

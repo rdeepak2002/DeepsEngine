@@ -19,6 +19,7 @@
 #include <vec2.hpp>
 #include <vec3.hpp>
 #include <vec4.hpp>
+#include "src/engine/Logger.h"
 
 //class Shader {
 #if defined(STANDALONE)
@@ -38,8 +39,9 @@ class Shader {
 
     // TODO: return the shader ID and once that is retrieved in renderer, do not
     // create more shaders
-    printf("vertex shader path %s\n", vertexPath);
-    printf("fragment shader path %s\n", fragmentPath);
+    Logger::Debug("vertex shader path " + std::string(vertexPath));
+    Logger::Debug("fragment shader path " + std::string(fragmentPath));
+
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
