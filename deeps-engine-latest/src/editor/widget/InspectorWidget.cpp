@@ -18,6 +18,8 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // title for this panel
     QLabel* panelTitle = new QLabel("Inspector");
 
+    // TODO: make all these component widgets extend a common class so you can just iterate through vector for this
+
     // tag widget
     tagComponentWidget = new TagComponentWidget;
     tagComponentWidget->setVisible(false);
@@ -25,6 +27,10 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // transform widget
     transformComponentWidget = new TransformComponentWidget;
     transformComponentWidget->setVisible(false);
+
+    // camera widget
+    cameraComponentWidget = new CameraComponentWidget;
+    cameraComponentWidget->setVisible(false);
 
     // mesh filter widget
     meshFilterComponentWidget = new MeshFilterComponentWidget;
@@ -40,6 +46,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     mainLayout->addWidget(panelTitle);
     mainLayout->addWidget(tagComponentWidget);
     mainLayout->addWidget(transformComponentWidget);
+    mainLayout->addWidget(cameraComponentWidget);
     mainLayout->addWidget(meshFilterComponentWidget);
     mainLayout->addWidget(addComponentButton);
     setLayout(mainLayout);
@@ -48,6 +55,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
 InspectorWidget::~InspectorWidget() {
     delete tagComponentWidget;
     delete transformComponentWidget;
+    delete cameraComponentWidget;
     delete meshFilterComponentWidget;
 }
 
@@ -70,6 +78,9 @@ void InspectorWidget::hideAllComponentWidgets() {
     // transform widget
     transformComponentWidget->setVisible(false);
 
+    // camera widget
+    cameraComponentWidget->setVisible(false);
+
     // mesh filter widget
     meshFilterComponentWidget->setVisible(false);
 }
@@ -89,6 +100,11 @@ void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
                                           DeepsEngine::Component::Rotation({0, 0, 0}),
                                           DeepsEngine::Component::Scale({1, 1, 1})};
         entitySelected->AddComponent<DeepsEngine::Component::Transform>(transform);
+    }
+    else if(componentToAddName == "Camera") {
+        // add camera component
+        DeepsEngine::Component::Camera camera = {DeepsEngine::Component::Camera({45.0f, 0.1f, 100.0f})};
+        entitySelected->AddComponent<DeepsEngine::Component::Camera>(camera);
     }
     else if(componentToAddName == "Mesh Filter") {
         // add mesh filter component
@@ -127,6 +143,17 @@ void InspectorWidget::refresh() {
         else {
             addComponentMenu->addAction(tr("Transform"));
         }
+
+        // show camera of entity
+        if (entitySelected->HasComponent<DeepsEngine::Component::Camera>()) {
+            cameraComponentWidget->setVisible(true);
+            DeepsEngine::Component::Camera* cameraComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Camera>());
+            cameraComponentWidget->setCamera(cameraComponent);
+        }
+        else {
+            addComponentMenu->addAction(tr("Camera"));
+        }
+
 
         // show mesh filter of entity
         if (entitySelected->HasComponent<DeepsEngine::Component::MeshFilter>()) {

@@ -213,7 +213,6 @@ void Renderer::initialize() {
 }
 
 void Renderer::clear() {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -245,56 +244,68 @@ void Renderer::update() {
     // activate shader
     ourShader->use();
 
-    // create transformations
-    glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-    glm::mat4 projection    = glm::mat4(1.0f);
-    projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component
-    // TODO: get cameraPos from transform of entity which has camera component (modify code below)
-    view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    std::vector<DeepsEngine::Entity> cameraEntities = scene.GetCameraEntities();
 
-    // pass transformation matrices to the shader
-    ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-    ourShader->setMat4("view", view);
+    if (cameraEntities.size() > 0) {
+        // get main camera
+        std::unique_ptr<DeepsEngine::Entity> mainCameraEntity = std::make_unique<DeepsEngine::Entity>(cameraEntities.front());
+        DeepsEngine::Component::Camera mainCameraComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Camera>();
+        DeepsEngine::Component::Transform mainCameraTransformComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Transform>();
 
-    // render boxes
-    glBindVertexArray(VAO);
+        // set the clear color to light blue ish
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-    // get current scene and all the entities
-    for(auto entity : scene.GetDrawableEntities()) {
-        // get the entity's transform
-        auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
-        auto entityPosition = entityTransform.position;
-        auto entityRotation = entityTransform.rotation;
-        auto entityScale = entityTransform.scale;
+        // create transformations
+        glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        glm::mat4 projection    = glm::mat4(1.0f);
+        projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
+        cameraPos.x = mainCameraTransformComponent.position.x;
+        cameraPos.y = mainCameraTransformComponent.position.y;
+        cameraPos.z = mainCameraTransformComponent.position.z;
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-        // calculate the model matrix for each object and pass it to shader before drawing
-        glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        // pass transformation matrices to the shader
+        ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+        ourShader->setMat4("view", view);
 
-        // translate the model
-        model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
+        // render boxes
+        glBindVertexArray(VAO);
 
-        // rotate the model
-        // rotate x
-        model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        // get current scene and all the entities
+        for(auto entity : scene.GetDrawableEntities()) {
+            // get the entity's transform
+            auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
+            auto entityPosition = entityTransform.position;
+            auto entityRotation = entityTransform.rotation;
+            auto entityScale = entityTransform.scale;
 
-        // rotate y
-        model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            // calculate the model matrix for each object and pass it to shader before drawing
+            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 
-        // rotate z
-        model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+            // translate the model
+            model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
 
-        // Scale the model
-        model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+            // rotate the model
+            // rotate x
+            model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
 
-        ourShader->setMat4("model", model);
+            // rotate y
+            model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+            // rotate z
+            model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+
+            // Scale the model
+            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
+
+            ourShader->setMat4("model", model);
+
+            glDrawArrays(GL_TRIANGLES, 0, 36);
+        }
+    }
+    else {
+        // set clear color to black to indicate no camera active
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
 #if defined(STANDALONE)

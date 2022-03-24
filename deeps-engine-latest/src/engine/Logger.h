@@ -21,9 +21,8 @@ public:
 
     static void Debug(std::string text) {
         std::string formattedText = "DEBUG: " + text;
-        if (!SendLogToEditor(formattedText)) {
-            printf("%s\n", formattedText.c_str());
-        }
+        SendLogToEditor(formattedText);
+        printf("%s\n", formattedText.c_str());
     }
 
     static int SendLogToEditor(std::string text) {
@@ -38,6 +37,7 @@ public:
 
 #if !defined(STANDALONE)
     static void setConsoleWidget(ConsoleWidget* consoleWidget) {
+        Logger::getInstance().consoleWidget = nullptr;
         Logger::getInstance().consoleWidget = consoleWidget;
     }
 #endif

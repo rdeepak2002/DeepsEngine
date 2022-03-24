@@ -104,6 +104,8 @@ else()
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.h"
+        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"

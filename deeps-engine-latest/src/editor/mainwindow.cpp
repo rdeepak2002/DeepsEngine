@@ -22,6 +22,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // set initial window size
     resize(QDesktopWidget().availableGeometry(this).size().width() * 0.95, QDesktopWidget().availableGeometry(this).size().height() * 0.8);
 
+    // move window to center of screen
+    QSize screenGeometry = QDesktopWidget().availableGeometry(this).size();
+    int x = (screenGeometry.width()-this->width()) / 2;
+    int y = (screenGeometry.height()-this->height()) / 2;
+    move(x, y);
+
     // set window title
     this->setWindowTitle("Deeps Engine");
 
