@@ -26,19 +26,13 @@ public:
     explicit OpenGLWidget(QWidget *parent = nullptr);
     ~OpenGLWidget();
 
-public slots:
-    void setScaling(int scale);
-
 protected:
     void initializeGL() override;
     void paintGL() override;
     void resizeEvent(QResizeEvent* ev) override;
 
 private:
-    qreal m_fAngle = 0;
-    qreal m_fScale = 1;
     QOpenGLBuffer m_buffer;
-    bool glInitialized;
 };
 
 

@@ -20,15 +20,6 @@ OpenGLWidget::~OpenGLWidget() {
     doneCurrent();
 }
 
-void OpenGLWidget::setScaling(int scale) {
-    if (scale > 30)
-        m_fScale = 1 + qreal(scale - 30) / 30 * 0.25;
-    else if (scale < 30)
-        m_fScale = 1 - (qreal(30 - scale) / 30 * 0.25);
-    else
-        m_fScale = 1;
-}
-
 void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
     QOpenGLWidget::resizeEvent(ev);
     Renderer::getInstance().SCR_WIDTH = width();
@@ -38,7 +29,6 @@ void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
 void OpenGLWidget::initializeGL() {
     // initialize renderer
     Renderer::getInstance().initialize();
-    glInitialized = true;
     // create a scene with one entity
     // Renderer::getInstance().scene.CreateEntity();
 }
