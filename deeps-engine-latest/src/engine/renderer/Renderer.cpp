@@ -22,6 +22,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     glViewport(0, 0, width, height);
     Renderer::getInstance().SCR_WIDTH = width;
     Renderer::getInstance().SCR_HEIGHT = height;
+    // keep updating while resizing
+    Renderer::getInstance().clear();
+    Renderer::getInstance().update();
 }
 #endif
 
