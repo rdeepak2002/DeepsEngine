@@ -6,27 +6,38 @@
 #include "src/engine/component/Component.h"
 #include <iostream>
 #include <QLabel>
+#include <QLineEdit>
 
 TagComponentWidget::TagComponentWidget(QWidget *parent) {
     // create sample label
-    tagLabel = new QLabel("None");
+    tagInput = new QLineEdit;
+    // TODO: add non-empty qvalidator
+    tagInput->setPlaceholderText("tag");
+    tagInput->setDisabled(true);
+    connect(tagInput, SIGNAL(textChanged(const QString &)), this, SLOT(onTagInputChange()));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(new QLabel("Tag"));
-    mainLayout->addWidget(tagLabel);
+    mainLayout->addWidget(tagInput);
     setLayout(mainLayout);
 }
 
 TagComponentWidget::~TagComponentWidget() {
-    delete tagLabel;
+    delete tagInput;
 }
 
 void TagComponentWidget::setTag(DeepsEngine::Component::Tag* tag) {
     tagComponent = tag;
 
     if (tagComponent) {
-        tagLabel->setText(QString::fromStdString(tagComponent->tag));
+        tagInput->setText(QString::fromStdString(tagComponent->tag));
+    }
+}
+
+void TagComponentWidget::onTagInputChange() {
+    if (tagComponent) {
+        tagComponent->tag = tagInput->text().toStdString();
     }
 }
