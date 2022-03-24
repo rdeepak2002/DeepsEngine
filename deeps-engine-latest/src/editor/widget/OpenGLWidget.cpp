@@ -7,6 +7,7 @@
 #include <QString>
 #include <QWidget>
 #include "src/engine/scene/Entity.h"
+#include "src/engine/renderer/Renderer.h"
 
 OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
     setMinimumSize(320, 320);
@@ -28,10 +29,16 @@ void OpenGLWidget::setScaling(int scale) {
         m_fScale = 1;
 }
 
+void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
+    QOpenGLWidget::resizeEvent(ev);
+    Renderer::getInstance().SCR_WIDTH = width();
+    Renderer::getInstance().SCR_HEIGHT = height();
+}
+
 void OpenGLWidget::initializeGL() {
     // initialize renderer
     Renderer::getInstance().initialize();
-
+    glInitialized = true;
     // create a scene with one entity
     // Renderer::getInstance().scene.CreateEntity();
 }

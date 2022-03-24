@@ -43,12 +43,11 @@ public:
     void processInput();
 #endif
 
-    const unsigned int SCR_WIDTH = 800;
-    const unsigned int SCR_HEIGHT = 600;
-
 #if defined(STANDALONE)
     GLFWwindow* window;
 #endif
+    unsigned int SCR_WIDTH = 800;
+    unsigned int SCR_HEIGHT = 600;
     unsigned int VBO, VAO;
     unsigned int texture1, texture2;
 
