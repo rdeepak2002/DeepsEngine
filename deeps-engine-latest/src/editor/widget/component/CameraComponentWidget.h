@@ -19,9 +19,16 @@ public:
     ~CameraComponentWidget();
 private:
     DeepsEngine::Component::Camera* cameraComponent;
+    // inputs
+    QLineEdit* fovInput;
+    QLineEdit* zNearInput;
+    QLineEdit* zFarInput;
 
 public slots:
     void setCamera(DeepsEngine::Component::Camera* camera);
+    void onFovInputChange();
+    void onZNearInputChange();
+    void onZFarInputChange();
 };
 
 
