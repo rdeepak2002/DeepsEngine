@@ -38,6 +38,18 @@ set(COMPANY "DeepDev")
 set(COPYRIGHT "Copyright (c) 2022 Deepak Ramalingam. All rights reserved.")
 set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 
+#FIND_PACKAGE(SDL2 REQUIRED)
+#Message("")
+#Message( STATUS "FINDING SDL2" )
+#IF (${SDL2_FOUND})
+#    Message( STATUS "SDL2_FOUND: " ${SDL2_FOUND})
+#    Message( STATUS "SDL2_INCLUDE_DIR:" ${SDL2_INCLUDE_DIR})
+#    Message( STATUS "SDL2_LIBRARY: " ${SDL2_LIBRARY})
+#ELSE()
+#    Message( STATUS "SDL2_FOUND: " ${SDL2_FOUND})
+#    Message( FATAL_ERROR "SDL2 NOT FOUND" )
+#ENDIF()
+
 # get include directories for libraries used
 set(GLEW_H /usr/local/include/gl)
 set(GLFW_H /usr/local/include/glfw)
@@ -45,12 +57,24 @@ set(GLM /usr/local/include/glm)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
 set(RAPID_JSON /usr/local/include/rapidjson)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON})
+set(SDL2_INCLUDE_DIR /usr/local/Cellar/sdl2/2.0.20/include/SDL2)
+set(SDL2_IMAGE_INCLUDE_DIR /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2)
+include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
 set(GLFW_LINK /usr/local/lib/libglfw.dylib)
-link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+set(SDL2_LIBRARY /usr/local/Cellar/sdl2/2.0.20/lib/libSDL2.dylib)
+set(SDL2_IMAGE_LIBRARY /usr/local/Cellar/sdl2_image/2.0.5/lib/libSDL2_image.dylib)
+link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY})
+
+if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set(USE_FLAGS "-s USE_SDL=2 -s USE_FREETYPE=1")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
+#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
+#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")
+#    set(CMAKE_EXECUTABLE_SUFFIX .html)
+endif()
 
 if(RUN_STANDALONE)
     # standalone engine
@@ -58,6 +82,8 @@ if(RUN_STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
+        "${PROJECT_SOURCE_DIR}/src/game.hpp"
+        "${PROJECT_SOURCE_DIR}/src/game.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"

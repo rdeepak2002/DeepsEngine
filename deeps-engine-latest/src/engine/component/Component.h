@@ -9,7 +9,7 @@
 
 namespace DeepsEngine::Component {
         struct Id {
-            u_int32_t id;
+            uint32_t id;
         };
 
         struct Tag {
