@@ -13,7 +13,6 @@ TagComponentWidget::TagComponentWidget(QWidget *parent) {
     tagInput = new QLineEdit;
     // TODO: add non-empty qvalidator
     tagInput->setPlaceholderText("tag");
-    tagInput->setDisabled(true);
     connect(tagInput, SIGNAL(textChanged(const QString &)), this, SLOT(onTagInputChange()));
 
     // add widgets to main layout
