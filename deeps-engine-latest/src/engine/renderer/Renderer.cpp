@@ -92,7 +92,7 @@ void Renderer::createWindow() {
   // --------------------
   window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
   if (window == nullptr) {
-    std::cout << "Failed to create GLFW window" << std::endl;
+    Logger::Debug("Failed to create GLFW window");
     glfwTerminate();
   }
   glfwMakeContextCurrent(window);
@@ -128,7 +128,7 @@ void Renderer::initialize() {
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        Logger::Debug("Failed to initialize GLAD");
     }
 #else
     // have qt initialize opengl functions
@@ -178,7 +178,7 @@ void Renderer::initialize() {
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        Logger::Debug("Failed to load texture");
     }
     stbi_image_free(data);
     // texture 2
@@ -201,7 +201,7 @@ void Renderer::initialize() {
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        Logger::Debug("Failed to load texture");
     }
     stbi_image_free(data);
 

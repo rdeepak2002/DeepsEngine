@@ -79,7 +79,7 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
         mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
     }
     else {
-        std::cout << "Error sending message from scene view to main window" << std::endl;
+        Logger::Debug("Error sending message from scene view to main window");
     }
 }
 
