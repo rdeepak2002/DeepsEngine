@@ -72,6 +72,6 @@ MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::onEntitySelected(DeepsEngine::Entity entity) {
-    inspectorWidget->onEntitySelected(entity);
+void MainWindow::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
+    inspectorWidget->onEntitySelected(entity, listItem);
 }

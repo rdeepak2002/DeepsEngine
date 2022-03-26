@@ -58,7 +58,15 @@ void SceneViewWidget::refreshSceneViewItems() {
 
     for(auto entity : entities) {
         DeepsEngine::Component::Tag entityTag = entity.GetComponent<DeepsEngine::Component::Tag>();
-        sceneViewList->addItem(QString::fromStdString(entityTag.tag));
+        QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(entityTag.tag));
+        sceneViewList->addItem(item);
+        // TODO: how to deal with subchildren:
+//        item->setSizeHint(QSize(0,65));
+//        QListWidget *childrenList = new QListWidget;
+//        childrenList->addItem("child 1");
+//        childrenList->addItem("child 2");
+//        childrenList->addItem("child 3");
+//        sceneViewList->setItemWidget(item, childrenList);
     }
 }
 
@@ -68,14 +76,13 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
 
     if (mainWindow) {
         int rowIndex = sceneViewList->row(item);
-        mainWindow->onEntitySelected(entities.at(rowIndex));
+        mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
     }
     else {
-        std::cout << "Error sending message from scene view to main window" << std::endl;
+        Logger::Debug("Error sending message from scene view to main window");
     }
 }
 
 void SceneViewWidget::onAddButtonPressed() {
     Renderer::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
-    refreshSceneViewItems();
 }

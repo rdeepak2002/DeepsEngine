@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
+#include <QLineEdit>
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
 
@@ -18,11 +19,15 @@ public:
     explicit TagComponentWidget(QWidget *parent = nullptr);
     ~TagComponentWidget();
 private:
-    QLabel* tagLabel;
     DeepsEngine::Component::Tag* tagComponent;
+    // inputs
+    QLineEdit* tagInput;
+    QListWidgetItem* listWidgetItem;
 
 public slots:
     void setTag(DeepsEngine::Component::Tag* tag);
+    void onTagInputChange();
+    void setListWidgetItem(QListWidgetItem* listWidgetItem);
 };
 
 #endif //EDITOR_TAGCOMPONENTWIDGET_H
