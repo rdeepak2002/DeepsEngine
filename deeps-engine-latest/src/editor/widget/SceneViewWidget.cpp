@@ -68,7 +68,7 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
 
     if (mainWindow) {
         int rowIndex = sceneViewList->row(item);
-        mainWindow->onEntitySelected(entities.at(rowIndex));
+        mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
     }
     else {
         std::cout << "Error sending message from scene view to main window" << std::endl;
@@ -76,6 +76,8 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
 }
 
 void SceneViewWidget::onAddButtonPressed() {
-    Renderer::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
-    refreshSceneViewItems();
+    DeepsEngine::Entity newEntity = Renderer::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
+//    entities.push_back(newEntity);
+//    DeepsEngine::Component::Tag entityTag = newEntity.GetComponent<DeepsEngine::Component::Tag>();
+//    sceneViewList->addItem(QString::fromStdString(entityTag.tag));
 }

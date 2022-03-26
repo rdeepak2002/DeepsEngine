@@ -30,11 +30,12 @@ private:
     TransformComponentWidget* transformComponentWidget;
     CameraComponentWidget* cameraComponentWidget;
     MeshFilterComponentWidget* meshFilterComponentWidget;
+    QListWidgetItem* listItem;
     void hideAllComponentWidgets();
     void refresh();
 
 public slots:
-    void onEntitySelected(DeepsEngine::Entity entity);
+    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem);
     void onAddComponentMenuClicked(QAction* action);
     void onRemoveEntityButtonClicked();
 };

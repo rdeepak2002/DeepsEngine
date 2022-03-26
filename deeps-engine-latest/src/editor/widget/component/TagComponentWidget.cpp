@@ -38,5 +38,13 @@ void TagComponentWidget::setTag(DeepsEngine::Component::Tag* tag) {
 void TagComponentWidget::onTagInputChange() {
     if (tagComponent) {
         tagComponent->tag = tagInput->text().toStdString();
+
+        if (listWidgetItem) {
+            this->listWidgetItem->setText(QString::fromStdString(tagComponent->tag));
+        }
     }
+}
+
+void TagComponentWidget::setListWidgetItem(QListWidgetItem* listWidgetItem) {
+    this->listWidgetItem = listWidgetItem;
 }

@@ -67,7 +67,10 @@ InspectorWidget::~InspectorWidget() {
     delete meshFilterComponentWidget;
 }
 
-void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity) {
+void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
+    // reference to list view object
+    this->listItem = listItem;
+
     // define the entity selected pointer
     entitySelected.reset();
     entitySelected = std::make_shared<DeepsEngine::Entity>(entity);
@@ -144,6 +147,7 @@ void InspectorWidget::refresh() {
 
         // show tag of entity
         if (entitySelected->HasComponent<DeepsEngine::Component::Tag>()) {
+            tagComponentWidget->setListWidgetItem(listItem);
             tagComponentWidget->setVisible(true);
             DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
             tagComponentWidget->setTag(tagComponent);
@@ -171,7 +175,6 @@ void InspectorWidget::refresh() {
         else {
             addComponentMenu->addAction(tr("Camera"));
         }
-
 
         // show mesh filter of entity
         if (entitySelected->HasComponent<DeepsEngine::Component::MeshFilter>()) {

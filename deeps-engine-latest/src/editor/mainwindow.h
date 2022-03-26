@@ -26,7 +26,7 @@ private:
     QScopedPointer<Ui::MainWindow> ui;
 
 public slots:
-    void onEntitySelected(DeepsEngine::Entity entity);
+    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem);
 };
 
 #endif
