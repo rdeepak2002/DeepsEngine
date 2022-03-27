@@ -112,7 +112,7 @@ if(RUN_STANDALONE)
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
         set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
-
+        #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
         #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
     endif ()
 

@@ -8,6 +8,9 @@ rm -rf src
 
 # create new folder for source code
 mkdir -p src
+
+cp -R assets src/assets
+
 cd src
 
 # build source code
