@@ -4,8 +4,6 @@
 
 #include "Renderer.h"
 
-#if !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
-
 #include <iostream>
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
@@ -102,6 +100,9 @@ void Renderer::createWindow() {
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
+#endif
+
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 bool Renderer::shouldCloseWindow() {
     if (window) {
         return glfwWindowShouldClose(window);
@@ -127,13 +128,13 @@ void Renderer::initialize() {
     timer.start();
 #endif
 
-#if defined(STANDALONE)
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         Logger::Debug("Failed to initialize GLAD");
     }
-#else
+#elif !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
     // have qt initialize opengl functions
     initializeOpenGLFunctions();
 #endif
@@ -141,9 +142,13 @@ void Renderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+    ourShader = new Shader("assets/example-project/shaders/shader.vert", "assets/example-project/shaders/shader.frag");
+#else
     ourShader = new Shader(
             "/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/shaders/shader.vert",
             "/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/shaders/shader.frag");
+#endif
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -173,7 +178,13 @@ void Renderer::initialize() {
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+    unsigned char *data = stbi_load("assets/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
+#else
     unsigned char *data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
+#endif
+
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -195,7 +206,12 @@ void Renderer::initialize() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+    data = stbi_load("assets/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
+#else
     data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
+#endif
+
     if (data)
     {
         // note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
@@ -319,11 +335,9 @@ void Renderer::update() {
 #endif
 }
 
-#if defined(STANDALONE)
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 void Renderer::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
-#endif
-
 #endif

@@ -5,12 +5,17 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
-#if !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
-
 #include "src/engine/include/entt.hpp"
 #if defined(STANDALONE)
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
+#include <GLFW/glfw3.h>
+#else
 #include <glad.h>
 #include <glfw3.h>
+#endif
 #else
 #include <QOpenGLExtraFunctions>
 #include <QElapsedTimer>
@@ -39,7 +44,7 @@ public:
     void clear();
     void update();
 
-#if defined(STANDALONE)
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     bool shouldCloseWindow();
     void closeWindow();
     void processInput();
@@ -73,7 +78,5 @@ private:
     QElapsedTimer timer;
 #endif
 };
-
-#endif
 
 #endif //EXAMPLE_RENDERER_H
