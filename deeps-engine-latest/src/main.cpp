@@ -16,11 +16,7 @@
 #endif
 
 // For example purpose we use global variables
-#define SPEED 0.005f
 GLFWwindow* window = nullptr;
-//float red = 0.0f;
-//bool increase = true;
-
 unsigned int VBO, VAO;
 unsigned int shaderProgram;
 
@@ -38,47 +34,10 @@ const char *fragmentShaderSource = "#version 300 es\n"
                                    "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
                                    "}\n\0";
 
-///**
-// * @brief This function just increases and decreases the red value.
-// *
-// * @return The red value.
-// */
-//float getRed() {
-//    if (increase) {
-//        red += SPEED;
-//        if (red > 1.0f) {
-//            red = 1.0f;
-//            increase = false;
-//        }
-//    } else {
-//        red -= SPEED;
-//        if (red < 0.0f) {
-//            red = 0.0f;
-//            increase = true;
-//        }
-//    }
-//
-//    return red;
-//}
-
 /**
  * @brief This function is called every frame.
  */
 void mainLoop() {
-//    // Clear the screen with a color
-//    glClearColor(getRed(), 0.0f, 0.0f, 1.0f);
-//    glClear(GL_COLOR_BUFFER_BIT);
-//
-//    // Swap the buffers of the window
-//    glfwSwapBuffers(window);
-//
-//    // Poll for the events
-//    glfwPollEvents();
-///
-//    // input
-//    // -----
-//    processInput(window);
-
     // render
     // ------
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -94,7 +53,6 @@ void mainLoop() {
     // -------------------------------------------------------------------------------
     glfwSwapBuffers(window);
     glfwPollEvents();
-///
 }
 
 /**
@@ -121,8 +79,6 @@ int main() {
 
     // Make this window the current context
     glfwMakeContextCurrent(window);
-
-    ///
 
     // build and compile our shader program
     // ------------------------------------
