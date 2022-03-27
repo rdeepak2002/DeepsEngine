@@ -95,8 +95,8 @@ if(RUN_STANDALONE)
 #        "${PROJECT_SOURCE_DIR}/src/engine/renderer/WebRenderer.cpp"
 #        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
 #        "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
-#        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
-#        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
 #        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
 #        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
 #        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.h"
@@ -104,15 +104,16 @@ if(RUN_STANDALONE)
 #        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
 #        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
 #        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
-#        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
-#        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
-        #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+#        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
+        # note if this doesnt work try: /tmp/my@ before the path
+    set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
         #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
     endif ()
 

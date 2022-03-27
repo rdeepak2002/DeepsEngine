@@ -10,6 +10,7 @@ rm -rf src
 mkdir -p src
 
 cp -R assets src/assets
+cp app.html src/app.html
 
 cd src
 
@@ -23,7 +24,7 @@ emcc -s USE_ZLIB=1 $(mktemp)
 make
 
 # go back to root
-cd ..
+#cd ..
 
 # serve content
 http-server -o "/app"

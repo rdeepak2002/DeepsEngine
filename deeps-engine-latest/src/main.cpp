@@ -15,6 +15,8 @@
 #include <glfw3.h>
 #endif
 
+#include "src/engine/renderer/Shader.h"
+
 // For example purpose we use global variables
 GLFWwindow* window = nullptr;
 unsigned int VBO, VAO;
@@ -120,7 +122,7 @@ int main() {
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-//    Shader shader = Shader();
+    Shader ourShader("assets/example-project/shaders/shader.vert", "assets/example-project/shaders/shader.frag");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------

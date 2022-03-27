@@ -6,7 +6,14 @@
 #define OPENGLCUBE_SHADER_H
 
 #if defined(STANDALONE)
+#if defined(EMSCRIPTEN)
+#include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
+#include <GLFW/glfw3.h>
+#else
 #include <glad.h>
+#endif
 #elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
 #include <QOpenGLExtraFunctions>
 #endif
@@ -51,9 +58,11 @@ class Shader {
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {
-      // open files
+        Logger::Debug("shader debug point 1");
+        // open files
       vShaderFile.open(vertexPath);
-      fShaderFile.open(fragmentPath);
+        Logger::Debug("shader debug point 2");
+        fShaderFile.open(fragmentPath);
       std::stringstream vShaderStream, fShaderStream;
       // read file's buffer contents into streams
       vShaderStream << vShaderFile.rdbuf();
@@ -91,6 +100,7 @@ class Shader {
     // necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
+    Logger::Debug("Loaded shaders");
   }
 
   // activate the shader
