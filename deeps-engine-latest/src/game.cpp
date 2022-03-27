@@ -1,7 +1,9 @@
-#include <SDL2/SDL.h>
-//#include <GLES2/gl2.h>
-#include <SDL2/SDL_opengles2.h>
-#include <string>
+#include <SDL.h>
+#if !defined(EMSCRIPTEN)
+#include <glew.h>
+#else
+#include <SDL_opengles2.h>
+#endif
 #include <iostream>
 #include <cassert>
 
@@ -91,7 +93,7 @@ class game_impl3 : public game_impl {
 #endif
                 "void main()                                \n"
                 "{                                          \n"
-                "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); \n"
+                "  gl_FragColor = vec4(1.0, 1.0, 0.0, 1.0); \n"
                 "}                                          \n";
         GLuint vertexShader;
         GLuint fragmentShader;

@@ -245,9 +245,6 @@ Editor_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 Editor_SOURCE_DIR:STATIC=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest
 
-//The directory containing a CMake configuration file for Qt5.
-Qt5_DIR:PATH=Qt5_DIR-NOTFOUND
-
 
 ########################
 # INTERNAL cache entries

@@ -1,13 +1,12 @@
 CMakeFiles/Release.dir/src/game.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/game.cpp \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_main.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_stdinc.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_config.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_platform.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/begin_code.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/close_code.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_config_emscripten.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_main.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_stdinc.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_config.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_platform.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/begin_code.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/close_code.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/sys/types.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/features.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
@@ -54,55 +53,63 @@ CMakeFiles/Release.dir/src/game.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/version \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__undef_macros \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_assert.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/float.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/lib/clang/15.0.0/include/float.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/float.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_assert.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/signal.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/bits/signal.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_atomic.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_audio.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_error.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_endian.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_mutex.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_thread.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_rwops.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_clipboard.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_cpuinfo.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_events.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_video.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_pixels.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_rect.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_surface.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_blendmode.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_keyboard.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_keycode.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_scancode.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_mouse.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_joystick.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_gamecontroller.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_sensor.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_quit.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_gesture.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_touch.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_filesystem.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_haptic.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_hidapi.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_hints.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_loadso.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_log.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_messagebox.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_metal.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_power.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_render.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_shape.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_system.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_timer.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_version.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_locale.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_misc.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/SDL2/SDL_opengles2.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_atomic.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_audio.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_error.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_endian.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_mutex.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_thread.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_rwops.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_clipboard.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_cpuinfo.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/compat/immintrin.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_events.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_video.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_pixels.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_rect.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_surface.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_blendmode.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_keyboard.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_keycode.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_scancode.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_mouse.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_joystick.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_gamecontroller.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_sensor.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_quit.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_gesture.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_touch.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_filesystem.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_haptic.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_hidapi.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_hints.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_loadso.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_log.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_messagebox.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_metal.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_power.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_render.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_shape.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_system.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_timer.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_version.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_locale.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_misc.h \
+  /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_opengles2.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/GLES2/gl2platform.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/KHR/khrplatform.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/GLES2/gl2.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/GLES2/gl2ext.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__locale \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__availability \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__debug \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iosfwd \
@@ -118,7 +125,6 @@ CMakeFiles/Release.dir/src/game.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/allocator_arg_t.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/uses_allocator.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/exception \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__availability \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdlib \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/new \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/typeinfo \
@@ -338,9 +344,6 @@ CMakeFiles/Release.dir/src/game.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string_view \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__ranges/enable_view.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__string \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__locale \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/mutex \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__mutex_base \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/system_error \

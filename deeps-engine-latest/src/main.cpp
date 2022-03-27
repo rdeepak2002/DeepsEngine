@@ -5,8 +5,13 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 //#include <GLES2/gl2.h>
+#if !defined(EMSCRIPTEN)
+//#include <SDL_opengles2.h>
+//#include <OpenGL/gl3.h>
+#include <glew.h>
+#else
 #include <SDL_opengles2.h>
-
+#endif
 
 #ifdef EMSCRIPTEN
 #include <emscripten/emscripten.h>
@@ -15,7 +20,6 @@
 #include "game.hpp"
 
 #include <iostream>
-#include <string>
 
 // Whether we should quit. It is most convenient for this to be filescope right now.
 static bool done = false;
@@ -76,6 +80,9 @@ struct SDL_graphics {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
         // Probably not necessary but can't hurt
 
+//        glewExperimental = GL_TRUE;
+//        glewInit();
+
 //		SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_OPENGL, &window_, &renderer_);
         window_ = SDL_CreateWindow("DEMO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
                                    SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE /*| SDL_WINDOW_ALLOW_HIGHDPI*/);
@@ -125,6 +132,11 @@ void loop_iteration(program* prog)
 
 int main(int argc, char* argv[])
 {
+#if !defined(EMSCRIPTEN)
+    glewExperimental = GL_TRUE;
+    glewInit();
+#endif
+
 //	SDL_Init(SDL_INIT_VIDEO);
     SDL_SetMainReady(); // Note: Emscripten crashes if SDL_INIT_TIMER is passed here
     if (SDL_Init(/*SDL_INIT_TIMER |*/ SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
