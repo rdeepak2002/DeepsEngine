@@ -5,6 +5,8 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
+#if !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
+
 #include "src/engine/include/entt.hpp"
 #if defined(STANDALONE)
 #include <glad.h>
@@ -72,5 +74,6 @@ private:
 #endif
 };
 
+#endif
 
 #endif //EXAMPLE_RENDERER_H

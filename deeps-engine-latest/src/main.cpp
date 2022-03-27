@@ -18,7 +18,6 @@
 #include "src/engine/renderer/Shader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-
 #include "src/engine/include/stb_image.h"
 
 // For example purpose we use global variables

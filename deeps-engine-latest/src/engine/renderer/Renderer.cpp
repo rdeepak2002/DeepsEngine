@@ -3,6 +3,9 @@
 //
 
 #include "Renderer.h"
+
+#if !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
+
 #include <iostream>
 #include <ext/matrix_transform.hpp>
 #include <ext/matrix_clip_space.hpp>
@@ -321,4 +324,6 @@ void Renderer::processInput() {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
+#endif
+
 #endif
