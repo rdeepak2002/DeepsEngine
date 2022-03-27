@@ -6,7 +6,16 @@
 
 using namespace DeepsEngine;
 
+void mainLoop() {
+#if (!defined(EMSCRIPTEN) and !defined (DEVELOP_WEB))
+    Renderer::getInstance().processInput();
+#endif
+    Renderer::getInstance().clear();
+    Renderer::getInstance().update();
+}
+
 int main() {
+    // create window and initialize opengl functions
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
 
@@ -19,13 +28,19 @@ int main() {
     Entity entity = Renderer::getInstance().scene.CreateEntity();
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 
-    while(!Renderer::getInstance().shouldCloseWindow()) {
-        Renderer::getInstance().processInput();
-        Renderer::getInstance().clear();
-        Renderer::getInstance().update();
+#ifdef EMSCRIPTEN
+    // Define a mail loop function, that will be called as fast as possible
+    emscripten_set_main_loop(&mainLoop, 0, 1);
+#else
+    // This is the normal C/C++ main loop
+    while (!Renderer::getInstance().shouldCloseWindow()) {
+        mainLoop();
     }
+#endif
 
+#if (!defined(EMSCRIPTEN) and !defined (DEVELOP_WEB))
     Renderer::getInstance().closeWindow();
+#endif
 
     return 0;
 }

@@ -7,8 +7,15 @@
 
 #include "src/engine/include/entt.hpp"
 #if defined(STANDALONE)
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
+#include <GLFW/glfw3.h>
+#else
 #include <glad.h>
 #include <glfw3.h>
+#endif
 #else
 #include <QOpenGLExtraFunctions>
 #include <QElapsedTimer>
@@ -29,16 +36,16 @@ public:
         return instance;
     }
 
-    #if defined(STANDALONE)
+#if defined(STANDALONE)
     void createWindow();
-    #endif
+    bool shouldCloseWindow();
+#endif
 
     void initialize();
     void clear();
     void update();
 
-#if defined(STANDALONE)
-    bool shouldCloseWindow();
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     void closeWindow();
     void processInput();
 #endif
@@ -71,6 +78,5 @@ private:
     QElapsedTimer timer;
 #endif
 };
-
 
 #endif //EXAMPLE_RENDERER_H

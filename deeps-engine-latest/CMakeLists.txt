@@ -2,10 +2,20 @@
 
 cmake_minimum_required(VERSION 3.16)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set(CMAKE_C_COMPILER "emcc")
+endif ()
+
 # specify whether this should run as a standalone or build as a node gui plugin
 if(DEFINED ENV{STANDALONE})
     message(STATUS "running engine in standalone mode")
     set(RUN_STANDALONE TRUE)
+
+    if(DEFINED ENV{DEVELOP_WEB})
+        message(STATUS "developing in web mode")
+        set(DEVELOP_WEB TRUE)
+        add_compile_definitions(DEVELOP_WEB)
+    endif()
 else()
     message(STATUS "building engine as compiled library")
     set(RUN_STANDALONE FALSE)
@@ -38,6 +48,24 @@ set(COMPANY "DeepDev")
 set(COPYRIGHT "Copyright (c) 2022 Deepak Ramalingam. All rights reserved.")
 set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 
+#FIND_PACKAGE(SDL2 REQUIRED)
+#Message("")
+#Message( STATUS "FINDING SDL2" )
+#IF (${SDL2_FOUND})
+#    Message( STATUS "SDL2_FOUND: " ${SDL2_FOUND})
+#    Message( STATUS "SDL2_INCLUDE_DIR:" ${SDL2_INCLUDE_DIR})
+#    Message( STATUS "SDL2_LIBRARY: " ${SDL2_LIBRARY})
+#ELSE()
+#    Message( STATUS "SDL2_FOUND: " ${SDL2_FOUND})
+#    Message( FATAL_ERROR "SDL2 NOT FOUND" )
+#ENDIF()
+
+# find opengl package
+if (EMSCRIPTEN)
+else()
+    find_package(OpenGL REQUIRED)
+endif()
+
 # get include directories for libraries used
 set(GLEW_H /usr/local/include/gl)
 set(GLFW_H /usr/local/include/glfw)
@@ -45,20 +73,24 @@ set(GLM /usr/local/include/glm)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
 set(RAPID_JSON /usr/local/include/rapidjson)
-include_directories(${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON})
+set(SDL2_INCLUDE_DIR /usr/local/Cellar/sdl2/2.0.20/include/SDL2)
+set(SDL2_IMAGE_INCLUDE_DIR /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2)
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
 set(GLFW_LINK /usr/local/lib/libglfw.dylib)
-link_libraries(${OPENGL} ${GLEW_LINK} ${GLFW_LINK})
+set(SDL2_LIBRARY /usr/local/Cellar/sdl2/2.0.20/lib/libSDL2.dylib)
+set(SDL2_IMAGE_LIBRARY /usr/local/Cellar/sdl2_image/2.0.5/lib/libSDL2_image.dylib)
+link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY})
 
 if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
-        "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
@@ -76,6 +108,10 @@ if(RUN_STANDALONE)
 
     add_executable(Release ${SOURCE_FILES_EXEC})
 
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+        set_target_properties(Release PROPERTIES LINK_FLAGS "--use-preload-plugins -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"bmp\",\"png\", \"jpg\"]' -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+    endif ()
+
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
     set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
 else()
@@ -84,6 +120,7 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
+        "${PROJECT_SOURCE_DIR}/src/linmath.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"

@@ -50,8 +50,8 @@ namespace DeepsEngine {
             scene->registry.remove<T>(entity);
         }
 
-        u_int32_t GetId() {
-            return static_cast<u_int32_t>(entity);
+        uint32_t GetId() {
+            return static_cast<uint32_t>(entity);
         }
 
         Scene* GetScene() {
