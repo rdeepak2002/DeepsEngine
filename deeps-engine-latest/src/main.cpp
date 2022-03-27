@@ -24,13 +24,14 @@ GLFWwindow* window = nullptr;
 unsigned int VBO, VAO;
 unsigned int shaderProgram;
 
-const char *vertexShaderSource = "#version 330 core\n"
+const char *vertexShaderSource = "#version 300 es\n"
                                  "layout (location = 0) in vec3 aPos;\n"
                                  "void main()\n"
                                  "{\n"
                                  "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
                                  "}\0";
-const char *fragmentShaderSource = "#version 330 core\n"
+const char *fragmentShaderSource = "#version 300 es\n"
+                                   "precision highp float;\n"
                                    "out vec4 FragColor;\n"
                                    "void main()\n"
                                    "{\n"
@@ -107,6 +108,9 @@ int main() {
     // Initialize glfw
     if (!glfwInit())
         exit(EXIT_FAILURE);
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
     // Create the window
     window = glfwCreateWindow(640, 480, "Emscripten webgl example", nullptr, nullptr);
