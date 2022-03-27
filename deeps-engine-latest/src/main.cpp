@@ -7,8 +7,11 @@
 // Include the EMSCRIPTEN specific headers
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
 #include <GLFW/glfw3.h>
 #else
+//#include <glad.h>
 #include <glfw3.h>
 #endif
 
@@ -77,6 +80,31 @@ int main() {
 
     // Make this window the current context
     glfwMakeContextCurrent(window);
+
+#ifdef EMSCRIPTEN
+//gladLoadGLLoader((GLADloadproc) emscripten_GetProcAddress);
+#else
+// glad: load all OpenGL function pointers
+// ---------------------------------------
+//if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+//{
+//    std::cout << "Failed to initialize GLAD" << std::endl;
+//    return -1;
+//}
+//gladLoadGL();
+#endif
+
+//    unsigned int VBO, VAO;
+//    glGenVertexArrays(1, &VAO);
+//    glGenBuffers(1, &VBO);
+//    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+//    glBindVertexArray(VAO);
+
+    unsigned int VBO, VAO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
+    glBindVertexArray(VAO);
 
     std::cout << "Going into loop" << std::endl;
 #ifdef EMSCRIPTEN
