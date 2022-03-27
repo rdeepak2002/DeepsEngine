@@ -1,5 +1,5 @@
-CMakeFiles/Release.dir/src/main.cpp.o: \
-  /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/main.cpp \
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o: \
+  /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/WebRenderer.cpp \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL.h \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_main.h \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_stdinc.h \
@@ -101,13 +101,6 @@ CMakeFiles/Release.dir/src/main.cpp.o: \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_version.h \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_locale.h \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_misc.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/emscripten.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_asm.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_macros.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_types.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_js.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/wget.h \
-  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/version.h \
   /usr/local/Cellar/sdl2/2.0.20/include/SDL2/SDL_opengles2.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/GLES2/gl2platform.h \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/KHR/khrplatform.h \
@@ -367,4 +360,6 @@ CMakeFiles/Release.dir/src/main.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdarg \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/streambuf \
   /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
+  /Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
   /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/WebRenderer.hpp

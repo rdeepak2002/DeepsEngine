@@ -94,8 +94,8 @@ if(RUN_STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/game.hpp"
-        "${PROJECT_SOURCE_DIR}/src/game.cpp"
+        "src/engine/renderer/WebRenderer.hpp"
+        "src/engine/renderer/WebRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"

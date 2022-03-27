@@ -225,6 +225,30 @@ src/engine/renderer/Shader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.s
 .PHONY : src/engine/renderer/Shader.cpp.s
 
+src/engine/renderer/WebRenderer.o: src/engine/renderer/WebRenderer.cpp.o
+.PHONY : src/engine/renderer/WebRenderer.o
+
+# target to build an object file
+src/engine/renderer/WebRenderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o
+.PHONY : src/engine/renderer/WebRenderer.cpp.o
+
+src/engine/renderer/WebRenderer.i: src/engine/renderer/WebRenderer.cpp.i
+.PHONY : src/engine/renderer/WebRenderer.i
+
+# target to preprocess a source file
+src/engine/renderer/WebRenderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.i
+.PHONY : src/engine/renderer/WebRenderer.cpp.i
+
+src/engine/renderer/WebRenderer.s: src/engine/renderer/WebRenderer.cpp.s
+.PHONY : src/engine/renderer/WebRenderer.s
+
+# target to generate assembly for a file
+src/engine/renderer/WebRenderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.s
+.PHONY : src/engine/renderer/WebRenderer.cpp.s
+
 src/engine/scene/Entity.o: src/engine/scene/Entity.cpp.o
 .PHONY : src/engine/scene/Entity.o
 
@@ -273,30 +297,6 @@ src/engine/scene/Scene.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.s
 .PHONY : src/engine/scene/Scene.cpp.s
 
-src/game.o: src/game.cpp.o
-.PHONY : src/game.o
-
-# target to build an object file
-src/game.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/game.cpp.o
-.PHONY : src/game.cpp.o
-
-src/game.i: src/game.cpp.i
-.PHONY : src/game.i
-
-# target to preprocess a source file
-src/game.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/game.cpp.i
-.PHONY : src/game.cpp.i
-
-src/game.s: src/game.cpp.s
-.PHONY : src/game.s
-
-# target to generate assembly for a file
-src/game.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Release.dir/build.make CMakeFiles/Release.dir/src/game.cpp.s
-.PHONY : src/game.cpp.s
-
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -342,15 +342,15 @@ help:
 	@echo "... src/engine/renderer/Shader.o"
 	@echo "... src/engine/renderer/Shader.i"
 	@echo "... src/engine/renderer/Shader.s"
+	@echo "... src/engine/renderer/WebRenderer.o"
+	@echo "... src/engine/renderer/WebRenderer.i"
+	@echo "... src/engine/renderer/WebRenderer.s"
 	@echo "... src/engine/scene/Entity.o"
 	@echo "... src/engine/scene/Entity.i"
 	@echo "... src/engine/scene/Entity.s"
 	@echo "... src/engine/scene/Scene.o"
 	@echo "... src/engine/scene/Scene.i"
 	@echo "... src/engine/scene/Scene.s"
-	@echo "... src/game.o"
-	@echo "... src/game.i"
-	@echo "... src/game.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

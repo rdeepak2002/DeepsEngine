@@ -17,7 +17,7 @@
 
 
    QUICK NOTES:
-      Primarily of interest to game developers and other people who can
+      Primarily of interest to WebRenderer developers and other people who can
           avoid problematic images and only need the trivial interface
 
       JPEG baseline & progressive (12 bpc/arithmetic not supported, same as stock IJG lib)

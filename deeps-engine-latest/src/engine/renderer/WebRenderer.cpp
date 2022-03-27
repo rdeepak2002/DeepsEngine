@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cassert>
 
-#include "game.hpp"
+#include "WebRenderer.hpp"
 
 #define enum_case(str)\
 	case str:\
@@ -189,14 +189,14 @@ public:
 };
 
 
-game::game()
+WebRenderer::WebRenderer()
         : me(new game_impl3())
 {}
 
-game::~game()
+WebRenderer::~WebRenderer()
 {}
 
-void game::draw()
+void WebRenderer::draw()
 {
     me->draw();
 }

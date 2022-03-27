@@ -9,7 +9,7 @@
 #include <glew.h>
 #endif
 #include <iostream>
-#include "game.hpp"
+#include "src/engine/renderer/WebRenderer.hpp"
 
 // Whether we should quit. It is most convenient for this to be filescope right now.
 static bool done = false;
@@ -85,11 +85,11 @@ static std::string locate_assets();
 
 struct program {
     SDL_graphics graphics_;
-    std::unique_ptr<game> game_;
+    std::unique_ptr<WebRenderer> game_;
 
     program(int width, int height)
             : graphics_(width, height)
-            , game_(new game())
+            , game_(new WebRenderer())
     {
     }
 };

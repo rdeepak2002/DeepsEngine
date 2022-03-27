@@ -129,11 +129,26 @@ CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.s"
 	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/Shader.cpp -o CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.s
 
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o: CMakeFiles/Release.dir/flags.make
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o: CMakeFiles/Release.dir/includes_CXX.rsp
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o: ../src/engine/renderer/WebRenderer.cpp
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o: CMakeFiles/Release.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o"
+	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o -MF CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o.d -o CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/WebRenderer.cpp
+
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.i"
+	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/WebRenderer.cpp > CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.i
+
+CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.s"
+	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/renderer/WebRenderer.cpp -o CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.s
+
 CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o: CMakeFiles/Release.dir/flags.make
 CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o: CMakeFiles/Release.dir/includes_CXX.rsp
 CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o: ../src/engine/scene/Entity.cpp
 CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o: CMakeFiles/Release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o"
 	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o -MF CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o.d -o CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/scene/Entity.cpp
 
 CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.i: cmake_force
@@ -148,7 +163,7 @@ CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o: CMakeFiles/Release.dir/flag
 CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o: CMakeFiles/Release.dir/includes_CXX.rsp
 CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o: ../src/engine/scene/Scene.cpp
 CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o: CMakeFiles/Release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o"
 	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o -MF CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o.d -o CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/scene/Scene.cpp
 
 CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.i: cmake_force
@@ -158,21 +173,6 @@ CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.i: cmake_force
 CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.s"
 	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/engine/scene/Scene.cpp -o CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.s
-
-CMakeFiles/Release.dir/src/game.cpp.o: CMakeFiles/Release.dir/flags.make
-CMakeFiles/Release.dir/src/game.cpp.o: CMakeFiles/Release.dir/includes_CXX.rsp
-CMakeFiles/Release.dir/src/game.cpp.o: ../src/game.cpp
-CMakeFiles/Release.dir/src/game.cpp.o: CMakeFiles/Release.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/web_build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Release.dir/src/game.cpp.o"
-	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Release.dir/src/game.cpp.o -MF CMakeFiles/Release.dir/src/game.cpp.o.d -o CMakeFiles/Release.dir/src/game.cpp.o -c /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/game.cpp
-
-CMakeFiles/Release.dir/src/game.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Release.dir/src/game.cpp.i"
-	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/game.cpp > CMakeFiles/Release.dir/src/game.cpp.i
-
-CMakeFiles/Release.dir/src/game.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Release.dir/src/game.cpp.s"
-	/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/src/game.cpp -o CMakeFiles/Release.dir/src/game.cpp.s
 
 CMakeFiles/Release.dir/src/main.cpp.o: CMakeFiles/Release.dir/flags.make
 CMakeFiles/Release.dir/src/main.cpp.o: CMakeFiles/Release.dir/includes_CXX.rsp
@@ -195,9 +195,9 @@ Release_OBJECTS = \
 "CMakeFiles/Release.dir/src/engine/include/glad.c.o" \
 "CMakeFiles/Release.dir/src/engine/renderer/Renderer.cpp.o" \
 "CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.o" \
+"CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o" \
 "CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o" \
 "CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o" \
-"CMakeFiles/Release.dir/src/game.cpp.o" \
 "CMakeFiles/Release.dir/src/main.cpp.o"
 
 # External object files for target Release
@@ -207,9 +207,9 @@ Release.js: CMakeFiles/Release.dir/src/engine/Logger.cpp.o
 Release.js: CMakeFiles/Release.dir/src/engine/include/glad.c.o
 Release.js: CMakeFiles/Release.dir/src/engine/renderer/Renderer.cpp.o
 Release.js: CMakeFiles/Release.dir/src/engine/renderer/Shader.cpp.o
+Release.js: CMakeFiles/Release.dir/src/engine/renderer/WebRenderer.cpp.o
 Release.js: CMakeFiles/Release.dir/src/engine/scene/Entity.cpp.o
 Release.js: CMakeFiles/Release.dir/src/engine/scene/Scene.cpp.o
-Release.js: CMakeFiles/Release.dir/src/game.cpp.o
 Release.js: CMakeFiles/Release.dir/src/main.cpp.o
 Release.js: CMakeFiles/Release.dir/build.make
 Release.js: /usr/local/lib/libGLEW.dylib

@@ -6,11 +6,11 @@
 
 class game_impl;
 
-class game {
+class WebRenderer {
     std::unique_ptr<game_impl> me;
 public:
-    game();
-    ~game();
+    WebRenderer();
+    ~WebRenderer();
     void draw();
 };
 
