@@ -2,6 +2,10 @@
 
 cmake_minimum_required(VERSION 3.16)
 
+if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+    set(CMAKE_C_COMPILER "emcc")
+endif ()
+
 # specify whether this should run as a standalone or build as a node gui plugin
 if(DEFINED ENV{STANDALONE})
     message(STATUS "running engine in standalone mode")
@@ -80,22 +84,14 @@ set(SDL2_LIBRARY /usr/local/Cellar/sdl2/2.0.20/lib/libSDL2.dylib)
 set(SDL2_IMAGE_LIBRARY /usr/local/Cellar/sdl2_image/2.0.5/lib/libSDL2_image.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY})
 
-if( ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-    set(USE_FLAGS "-s USE_SDL=2 -s USE_FREETYPE=1")
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${USE_FLAGS}")
-#    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${USE_FLAGS}")
-#    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${USE_FLAGS}")
-#    set(CMAKE_EXECUTABLE_SUFFIX .html)
-endif()
-
 if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "src/engine/renderer/WebRenderer.hpp"
-        "src/engine/renderer/WebRenderer.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/WebRenderer.hpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/renderer/WebRenderer.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
@@ -113,6 +109,10 @@ if(RUN_STANDALONE)
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
+
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
+    endif ()
 
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
     set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
