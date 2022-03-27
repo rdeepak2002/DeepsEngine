@@ -58,10 +58,8 @@ class Shader {
     vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {
-        Logger::Debug("shader debug point 1");
         // open files
       vShaderFile.open(vertexPath);
-        Logger::Debug("shader debug point 2");
         fShaderFile.open(fragmentPath);
       std::stringstream vShaderStream, fShaderStream;
       // read file's buffer contents into streams
@@ -100,7 +98,7 @@ class Shader {
     // necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
-    Logger::Debug("Loaded shaders");
+    Logger::Debug("Loaded shader");
   }
 
   // activate the shader
