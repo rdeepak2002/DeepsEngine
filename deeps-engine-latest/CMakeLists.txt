@@ -113,7 +113,7 @@ if(RUN_STANDALONE)
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
 #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
         # note if this doesnt work try: /tmp/my@ before the path
-    set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+    set_target_properties(Release PROPERTIES LINK_FLAGS "--use-preload-plugins -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"bmp\",\"png\", \"jpg\"]' -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
         #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
     endif ()
 
