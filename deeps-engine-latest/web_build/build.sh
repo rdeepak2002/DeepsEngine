@@ -1,3 +1,6 @@
+# script to build web application
+
+# identify standalone version of app is being built
 export STANDALONE="True"
 
 # remove current source code

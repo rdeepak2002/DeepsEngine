@@ -4,10 +4,10 @@
 
 #include<memory>
 
-class game_impl;
+class WebRendererImplementationExample;
 
 class WebRenderer {
-    std::unique_ptr<game_impl> me;
+    std::unique_ptr<WebRendererImplementationExample> me;
 public:
     WebRenderer();
     ~WebRenderer();

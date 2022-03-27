@@ -37,15 +37,9 @@ do {\
 gl_error_check(__FILE__, __LINE__); \
 } while(0)
 
+class WebRendererImplementationExample {
 
-class game_impl {
-public:
-    virtual void draw() = 0;
-};
-
-class game_impl3 : public game_impl {
-
-    GLuint program_object_, vbuffer_;
+    GLuint shaderProgram, vertexBufferObject;
 
     GLuint LoadShader(GLenum type, const char *shaderSrc)
     {
@@ -78,9 +72,7 @@ class game_impl3 : public game_impl {
         }
         return shader;
     }
-///
-// Initialize the shader and program object
-//
+
     bool Init()
     {
         const char vShaderStr[] =
@@ -133,16 +125,16 @@ class game_impl3 : public game_impl {
         GL_ERR_CHECK;
 
         // Store the program object
-        program_object_ = programObject;
+        shaderProgram = programObject;
 
         // Load the vertex buffer
         GLfloat vVertices[] = {0.0f,  0.5f, 0.0f,
                                -0.5f, -0.5f, 0.0f,
                                0.5f, -0.5f,  0.0f};
 
-        glGenBuffers(1, &vbuffer_);
+        glGenBuffers(1, &vertexBufferObject);
         GL_ERR_CHECK;
-        glBindBuffer(GL_ARRAY_BUFFER, vbuffer_);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
         GL_ERR_CHECK;
         glBufferData(GL_ARRAY_BUFFER, 9 *sizeof(GLfloat), &vVertices[0], GL_STATIC_DRAW);
         GL_ERR_CHECK;
@@ -158,11 +150,11 @@ class game_impl3 : public game_impl {
     {
         // Set the viewport
         // Use the program object
-        glUseProgram(program_object_);
+        glUseProgram(shaderProgram);
         GL_ERR_CHECK;
 
         // Bind the vertex buffer
-        glBindBuffer(GL_ARRAY_BUFFER, vbuffer_);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
         GL_ERR_CHECK;
 
         // Load the vertex data
@@ -177,7 +169,7 @@ class game_impl3 : public game_impl {
     }
 
 public:
-    game_impl3() {
+    WebRendererImplementationExample() {
         assert(Init());
     }
 
@@ -189,8 +181,7 @@ public:
 };
 
 
-WebRenderer::WebRenderer()
-        : me(new game_impl3())
+WebRenderer::WebRenderer(): me(new WebRendererImplementationExample())
 {}
 
 WebRenderer::~WebRenderer()
