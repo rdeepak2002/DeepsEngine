@@ -1,7 +1,5 @@
 #if defined(STANDALONE)
 
-#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
-
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
@@ -9,11 +7,15 @@
 using namespace DeepsEngine;
 
 void mainLoop() {
+#if (!defined(EMSCRIPTEN) and !defined (DEVELOP_WEB))
+    Renderer::getInstance().processInput();
+#endif
     Renderer::getInstance().clear();
     Renderer::getInstance().update();
 }
 
 int main() {
+    // create window and initialize opengl functions
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
 
@@ -36,40 +38,12 @@ int main() {
     }
 #endif
 
-    return 0;
-}
-
-#else
-#include "src/engine/renderer/Renderer.h"
-#include "src/engine/scene/Entity.h"
-#include "src/engine/component/Component.h"
-
-using namespace DeepsEngine;
-
-int main() {
-    Renderer::getInstance().createWindow();
-    Renderer::getInstance().initialize();
-
-    // add camera entity
-    Entity camera = Renderer::getInstance().scene.CreateEntity();
-    (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
-    camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
-
-    // add a single cube entity
-    Entity entity = Renderer::getInstance().scene.CreateEntity();
-    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
-
-    while(!Renderer::getInstance().shouldCloseWindow()) {
-        Renderer::getInstance().processInput();
-        Renderer::getInstance().clear();
-        Renderer::getInstance().update();
-    }
-
+#if (!defined(EMSCRIPTEN) and !defined (DEVELOP_WEB))
     Renderer::getInstance().closeWindow();
+#endif
 
     return 0;
 }
-#endif
 
 #else
 
