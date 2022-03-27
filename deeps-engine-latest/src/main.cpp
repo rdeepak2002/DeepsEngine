@@ -1,25 +1,15 @@
 #if defined(STANDALONE)
 
-////////
-
-#define SDL_MAIN_HANDLED
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
 #include <SDL.h>
-//#include <GLES2/gl2.h>
-#if !defined(EMSCRIPTEN)
-//#include <SDL_opengles2.h>
-//#include <OpenGL/gl3.h>
-#include <glew.h>
-#else
-#include <SDL_opengles2.h>
-#endif
-
-#ifdef EMSCRIPTEN
+#if defined(EMSCRIPTEN)
 #include <emscripten/emscripten.h>
+#include <SDL_opengles2.h>
+#else
+#include <glew.h>
 #endif
-
-#include "game.hpp"
-
 #include <iostream>
+#include "game.hpp"
 
 // Whether we should quit. It is most convenient for this to be filescope right now.
 static bool done = false;
@@ -66,25 +56,17 @@ struct SDL_graphics {
     int height_;
     SDL_Window * window_;
     SDL_GLContext context_;
-//	SDL_Renderer * renderer_;
 
     SDL_graphics(int width, int height)
             : width_(width)
             , height_(height)
             , window_(nullptr)
             , context_(nullptr)
-//		, renderer_(nullptr)
     {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-        // Probably not necessary but can't hurt
-
-//        glewExperimental = GL_TRUE;
-//        glewInit();
-
-//		SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_OPENGL, &window_, &renderer_);
-        window_ = SDL_CreateWindow("DEMO", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
+        window_ = SDL_CreateWindow("Deeps Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
                                    SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE /*| SDL_WINDOW_ALLOW_HIGHDPI*/);
         if (window_ == nullptr) { std::cerr << "Error when creating SDL GL Window: '" << SDL_GetError() << "'\n"; }
 
@@ -132,12 +114,6 @@ void loop_iteration(program* prog)
 
 int main(int argc, char* argv[])
 {
-#if !defined(EMSCRIPTEN)
-    glewExperimental = GL_TRUE;
-    glewInit();
-#endif
-
-//	SDL_Init(SDL_INIT_VIDEO);
     SDL_SetMainReady(); // Note: Emscripten crashes if SDL_INIT_TIMER is passed here
     if (SDL_Init(/*SDL_INIT_TIMER |*/ SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         std::cerr << "SDL_Init failed!\n";
@@ -167,39 +143,37 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+#else
+#include "src/engine/renderer/Renderer.h"
+#include "src/engine/scene/Entity.h"
+#include "src/engine/component/Component.h"
 
+using namespace DeepsEngine;
 
-////////
+int main() {
+    Renderer::getInstance().createWindow();
+    Renderer::getInstance().initialize();
 
-//#include "src/engine/renderer/Renderer.h"
-//#include "src/engine/scene/Entity.h"
-//#include "src/engine/component/Component.h"
-//
-//using namespace DeepsEngine;
-//
-//int main() {
-//    Renderer::getInstance().createWindow();
-//    Renderer::getInstance().initialize();
-//
-//    // add camera entity
-//    Entity camera = Renderer::getInstance().scene.CreateEntity();
-//    (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
-//    camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
-//
-//    // add a single cube entity
-//    Entity entity = Renderer::getInstance().scene.CreateEntity();
-//    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
-//
-//    while(!Renderer::getInstance().shouldCloseWindow()) {
-//        Renderer::getInstance().processInput();
-//        Renderer::getInstance().clear();
-//        Renderer::getInstance().update();
-//    }
-//
-//    Renderer::getInstance().closeWindow();
-//
-//    return 0;
-//}
+    // add camera entity
+    Entity camera = Renderer::getInstance().scene.CreateEntity();
+    (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
+    camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
+
+    // add a single cube entity
+    Entity entity = Renderer::getInstance().scene.CreateEntity();
+    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
+
+    while(!Renderer::getInstance().shouldCloseWindow()) {
+        Renderer::getInstance().processInput();
+        Renderer::getInstance().clear();
+        Renderer::getInstance().update();
+    }
+
+    Renderer::getInstance().closeWindow();
+
+    return 0;
+}
+#endif
 
 #else
 

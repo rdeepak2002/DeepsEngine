@@ -1,8 +1,10 @@
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+
 #include <SDL.h>
-#if !defined(EMSCRIPTEN)
-#include <glew.h>
-#else
+#if defined(EMSCRIPTEN)
 #include <SDL_opengles2.h>
+#else
+#include <glew.h>
 #endif
 #include <iostream>
 #include <cassert>
@@ -198,3 +200,5 @@ void game::draw()
 {
     me->draw();
 }
+
+#endif

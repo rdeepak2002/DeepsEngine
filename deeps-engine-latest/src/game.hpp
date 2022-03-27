@@ -1,3 +1,5 @@
+#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+
 #pragma once
 
 #include<memory>
@@ -11,3 +13,5 @@ public:
     ~game();
     void draw();
 };
+
+#endif

@@ -23,6 +23,8 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 - GLFW (refer to below commands)
 - GLEW (refer to below commands)
 - OpenCV (refer to below commands)
+- http-server (https://www.npmjs.com/package/http-server)
+- SDL2 (https://www.libsdl.org/download-2.0.php)
 
 Intel Mac:
 
