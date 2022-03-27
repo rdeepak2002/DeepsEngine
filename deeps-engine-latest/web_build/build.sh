@@ -12,6 +12,7 @@ cd src
 
 # build source code
 emcmake cmake ../..
+emcc -s USE_GLFW=3 $(mktemp)
 emcc -s USE_SDL=2 $(mktemp)
 emcc -s USE_SDL_IMAGE=2 $(mktemp)
 emcc -s USE_WEBGL2=1 $(mktemp)

@@ -1,148 +1,102 @@
 #if defined(STANDALONE)
 
 #if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
-#include <SDL.h>
-#if defined(EMSCRIPTEN)
-#include <emscripten/emscripten.h>
-#include <SDL_opengles2.h>
-#else
-#include <glew.h>
-#endif
+
 #include <iostream>
-#include "src/engine/renderer/WebRenderer.hpp"
 
-// Whether we should quit. It is most convenient for this to be filescope right now.
-static bool done = false;
-
-std::string align(std::string in, int num_tabs) {
-    for (int i = (num_tabs * 8 - in.size()); i > 0; --i) {
-        in += " ";
-    }
-    return in;
-}
-
-void log_gl_value(const std::string & name, SDL_GLattr sdl_enum) {
-    int val;
-    if (SDL_GL_GetAttribute(sdl_enum, &val)) { std::cerr << "(error?) "; }
-    std::cout << name << val << std::endl;
-}
-
-void output_gl_diagnostics() {
-    auto gl_version 	= reinterpret_cast< char const * >(glGetString(GL_VERSION));
-    auto gl_renderer 	= reinterpret_cast< char const * >(glGetString(GL_RENDERER));
-    auto gl_vendor	 	= reinterpret_cast< char const * >(glGetString(GL_VENDOR));
-    auto glsl_version 	= reinterpret_cast< char const * >(glGetString(GL_SHADING_LANGUAGE_VERSION));
-    auto gl_extensions	= reinterpret_cast< char const * >(glGetString(GL_EXTENSIONS));
-
-    if (!(gl_version && gl_renderer && gl_vendor && glsl_version)) {
-        std::cerr << "Could not obtain complete GL version info... GL context might not exist?!?\n";
-    }
-
-    std::cout << align("GL version:", 3) << (gl_version ? gl_version : "(null)") << std::endl;
-    std::cout << align("GL renderer:", 3) << (gl_renderer ? gl_renderer : "(null)") << std::endl;
-    std::cout << align("GL vendor:", 3) << (gl_vendor ? gl_vendor : "(null)") << std::endl;
-    std::cout << align("GLSL version:", 3) << (glsl_version ? glsl_version : "(null)") << std::endl;
-    std::cout << align("GL extensions:", 3) << (gl_extensions ? gl_extensions : "(null)") << std::endl;
-    log_gl_value(align("Red Size:", 3), SDL_GL_RED_SIZE);
-    log_gl_value(align("Blue Size:", 3), SDL_GL_BLUE_SIZE);
-    log_gl_value(align("Green Size:", 3), SDL_GL_GREEN_SIZE);
-    log_gl_value(align("Alpha Size:", 3), SDL_GL_ALPHA_SIZE);
-    log_gl_value(align("Depth Size:", 3), SDL_GL_DEPTH_SIZE);
-    log_gl_value(align("Double Buffer:", 3), SDL_GL_DOUBLEBUFFER);
-}
-
-struct SDL_graphics {
-    int width_;
-    int height_;
-    SDL_Window * window_;
-    SDL_GLContext context_;
-
-    SDL_graphics(int width, int height)
-            : width_(width)
-            , height_(height)
-            , window_(nullptr)
-            , context_(nullptr)
-    {
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-        window_ = SDL_CreateWindow("Deeps Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height,
-                                   SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE /*| SDL_WINDOW_ALLOW_HIGHDPI*/);
-        if (window_ == nullptr) { std::cerr << "Error when creating SDL GL Window: '" << SDL_GetError() << "'\n"; }
-
-        context_ = SDL_GL_CreateContext(window_);
-        if (!context_) { std::cerr << "Error when creating SDL GL Context: '" << (SDL_GetError()) <<"'\n"; }
-
-
-        int w, h;
-        SDL_GetWindowSize(window_, &w, &h);
-
-        output_gl_diagnostics();
-    }
-};
-
-static std::string locate_assets();
-
-struct program {
-    SDL_graphics graphics_;
-    std::unique_ptr<WebRenderer> game_;
-
-    program(int width, int height)
-            : graphics_(width, height)
-            , game_(new WebRenderer())
-    {
-    }
-};
-
-static Uint32 last_time = 0;
-
-void loop_iteration(program* prog)
-{
-    // Now render graphics
-    {
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        prog->game_->draw();
-
-        // Now flip the frame
-        SDL_GL_SwapWindow(prog->graphics_.window_); //->swap_buffers();
-    }
-
-    done |= SDL_QuitRequested();
-}
-
-
-int main(int argc, char* argv[])
-{
-    SDL_SetMainReady(); // Note: Emscripten crashes if SDL_INIT_TIMER is passed here
-    if (SDL_Init(/*SDL_INIT_TIMER |*/ SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
-        std::cerr << "SDL_Init failed!\n";
-        std::cerr << SDL_GetError() << std::endl;
-        throw 42;
-    }
-
-    int width = 800, height = 600;
-
-    // The mechanism of "emscripten_set_main_loop" is a bit opaque, better not to make this a stack object.
-    program * me = new program(width, height);
-
-    // Now enter main loop
-    last_time = SDL_GetTicks();
-
+// Include the EMSCRIPTEN specific headers
 #ifdef EMSCRIPTEN
-    emscripten_set_main_loop_arg((em_arg_callback_func)loop_iteration, me, 0, 1);
+#include <emscripten.h>
+#include <GLFW/glfw3.h>
 #else
-    while (!done) {
-        loop_iteration(me);
-    }
-    delete me;
+#include <glfw3.h>
 #endif
 
+// For example purpose we use global variables
+#define SPEED 0.005f
+GLFWwindow* window = nullptr;
+float red = 0.0f;
+bool increase = true;
 
-    SDL_Quit();
+/**
+ * @brief This function just increases and decreases the red value.
+ *
+ * @return The red value.
+ */
+float getRed() {
+    if (increase) {
+        red += SPEED;
+        if (red > 1.0f) {
+            red = 1.0f;
+            increase = false;
+        }
+    } else {
+        red -= SPEED;
+        if (red < 0.0f) {
+            red = 0.0f;
+            increase = true;
+        }
+    }
 
-    return 0;
+    return red;
 }
+
+/**
+ * @brief This function is called every frame.
+ */
+void mainLoop() {
+    // Clear the screen with a color
+    glClearColor(getRed(), 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Swap the buffers of the window
+    glfwSwapBuffers(window);
+
+    // Poll for the events
+    glfwPollEvents();
+}
+
+/**
+ * @brief The normal main() function.
+ *
+ * @return Exit code.
+ */
+int main() {
+    std::cout << "Starting" << std::endl;
+
+    // Initialize glfw
+    if (!glfwInit())
+        exit(EXIT_FAILURE);
+
+    // Create the window
+    window = glfwCreateWindow(640, 480, "Emscripten webgl example", nullptr, nullptr);
+    if (!window) {
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
+
+    // Make this window the current context
+    glfwMakeContextCurrent(window);
+
+    std::cout << "Going into loop" << std::endl;
+#ifdef EMSCRIPTEN
+    // Define a mail loop function, that will be called as fast as possible
+    emscripten_set_main_loop(&mainLoop, 0, 1);
+#else
+    // This is the normal C/C++ main loop
+    while (!glfwWindowShouldClose(window)) {
+        mainLoop();
+    }
+#endif
+
+    // Tear down the system
+    std::cout << "Loop ended" << std::endl;
+    glfwDestroyWindow(window);
+    glfwTerminate();
+
+    return EXIT_SUCCESS;
+}
+
 #else
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"

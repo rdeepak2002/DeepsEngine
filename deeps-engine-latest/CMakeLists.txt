@@ -89,10 +89,10 @@ if(RUN_STANDALONE)
     add_compile_definitions(STANDALONE)
 
     file(GLOB SOURCE_FILES_EXEC
+        "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/WebRenderer.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/WebRenderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
@@ -112,6 +112,8 @@ if(RUN_STANDALONE)
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
         set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
+
+        #        set_target_properties(Release PROPERTIES LINK_FLAGS "-s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3")
     endif ()
 
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
@@ -122,6 +124,7 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
+        "${PROJECT_SOURCE_DIR}/src/linmath.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
