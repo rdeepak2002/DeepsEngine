@@ -36,16 +36,16 @@ public:
         return instance;
     }
 
-    #if defined(STANDALONE)
+#if defined(STANDALONE)
     void createWindow();
-    #endif
+    bool shouldCloseWindow();
+#endif
 
     void initialize();
     void clear();
     void update();
 
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
-    bool shouldCloseWindow();
     void closeWindow();
     void processInput();
 #endif

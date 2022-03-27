@@ -100,9 +100,6 @@ void Renderer::createWindow() {
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 }
 
-#endif
-
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 bool Renderer::shouldCloseWindow() {
     if (window) {
         return glfwWindowShouldClose(window);
@@ -110,7 +107,9 @@ bool Renderer::shouldCloseWindow() {
         return true;
     }
 }
+#endif
 
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 void Renderer::closeWindow() {
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
@@ -128,7 +127,7 @@ void Renderer::initialize() {
     timer.start();
 #endif
 
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
+#if defined(STANDALONE) and !defined(EMSCRIPTEN)
     // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -142,7 +141,7 @@ void Renderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
-#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+#if defined(EMSCRIPTEN)
     ourShader = new Shader("assets/example-project/shaders/shader.vert", "assets/example-project/shaders/shader.frag");
 #else
     ourShader = new Shader(
@@ -179,7 +178,7 @@ void Renderer::initialize() {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
 
-#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+#if defined(EMSCRIPTEN)
     unsigned char *data = stbi_load("assets/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
 #else
     unsigned char *data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
@@ -206,7 +205,7 @@ void Renderer::initialize() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
-#if defined(EMSCRIPTEN) or defined(DEVELOP_WEB)
+#if defined(EMSCRIPTEN)
     data = stbi_load("assets/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
 #else
     data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
