@@ -25,6 +25,7 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 - OpenCV (refer to below commands)
 - http-server (https://www.npmjs.com/package/http-server)
 - SDL2 (https://www.libsdl.org/download-2.0.php)
+- Lua (refer to below commands)
 
 Intel Mac:
 
@@ -36,6 +37,7 @@ brew install glm
 brew install rapidjson
 brew install qt@5
 brew install skypjack/entt/entt
+brew install lua
 ```
 
 Refer to instructions below for M1 Mac
@@ -67,6 +69,7 @@ arch -x86_64 /usr/local/bin/brew install glm
 arch -x86_64 /usr/local/bin/brew install rapidjson
 arch -x86_64 /usr/local/bin/brew install qt@5
 arch -x86_64 /usr/local/bin/brew install skypjack/entt/entt
+arch -x86_64 /usr/local/bin/brew install lua
 ```
 
 ## Get Started

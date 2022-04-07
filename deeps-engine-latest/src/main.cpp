@@ -3,6 +3,7 @@
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
+#include "src/engine/include/sol.hpp"
 
 using namespace DeepsEngine;
 
@@ -15,6 +16,11 @@ void mainLoop() {
 }
 
 int main() {
+    sol::state lua;
+    lua.open_libraries(sol::lib::base);
+
+    lua.script("print('bark bark bark!')");
+
     // create window and initialize opengl functions
     Renderer::getInstance().createWindow();
     Renderer::getInstance().initialize();
