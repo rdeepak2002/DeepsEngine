@@ -38,6 +38,7 @@ brew install rapidjson
 brew install qt@5
 brew install skypjack/entt/entt
 brew install lua
+brew install lua@5.3
 ```
 
 Refer to instructions below for M1 Mac
@@ -70,6 +71,7 @@ arch -x86_64 /usr/local/bin/brew install rapidjson
 arch -x86_64 /usr/local/bin/brew install qt@5
 arch -x86_64 /usr/local/bin/brew install skypjack/entt/entt
 arch -x86_64 /usr/local/bin/brew install lua
+arch -x86_64 /usr/local/bin/brew install lua@5.3
 ```
 
 ## Get Started

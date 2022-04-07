@@ -75,7 +75,7 @@ set(KH_H /usr/local/include/KHR)
 set(RAPID_JSON /usr/local/include/rapidjson)
 set(SDL2_INCLUDE_DIR /usr/local/Cellar/sdl2/2.0.20/include/SDL2)
 set(SDL2_IMAGE_INCLUDE_DIR /usr/local/Cellar/sdl2_image/2.0.5/include/SDL2)
-set(LUA_INCLUDE_DIR /usr/local/Cellar/lua/5.4.4_1/include/lua)
+set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${SDL2_INCLUDE_DIR} ${SDL2_IMAGE_INCLUDE_DIR} ${LUA_INCLUDE_DIR})
 
 # link libraries used
@@ -83,7 +83,7 @@ set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
 set(GLFW_LINK /usr/local/lib/libglfw.dylib)
 set(SDL2_LIBRARY /usr/local/Cellar/sdl2/2.0.20/lib/libSDL2.dylib)
 set(SDL2_IMAGE_LIBRARY /usr/local/Cellar/sdl2_image/2.0.5/lib/libSDL2_image.dylib)
-set(LUA_LIBRARY /usr/local/Cellar/lua/5.4.4_1/lib/liblua.dylib)
+set(LUA_LIBRARY /usr/local/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY} ${LUA_LIBRARY})
 
 if(RUN_STANDALONE)
