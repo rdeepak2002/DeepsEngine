@@ -96,7 +96,7 @@ arch -x86_64 /usr/local/bin/brew install lua@5.3
 Run the following command in the deeps-engine-latest/src/engine/external/lua-5.3.6/src folder:
 
 ```shell
-make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib' in the lua/src folder
+make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib'
 ```
 
 Link as library for emscripten (step already done, just rewriting it here for future readers to understand):
