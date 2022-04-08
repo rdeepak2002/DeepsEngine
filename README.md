@@ -90,3 +90,19 @@ arch -x86_64 /usr/local/bin/brew install lua@5.3
       - In "Environment" add "STANDALONE="
 
 - Run the CMake application
+
+## How to Build Lua for Emscripten / Web Assembly
+
+Run the following command in the deeps-engine-latest/src/engine/external/lua-5.3.6/src folder:
+
+```shell
+make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib' in the lua/src folder
+```
+
+Link as library for emscripten (step already done, just rewriting it here for future readers to understand):
+
+```cmake
+if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+  set_target_properties(Release PROPERTIES LINK_FLAGS "... -L${PROJECT_SOURCE_DIR}/src/engine/external/lua-5.3.6/src -s ...")
+endif ()
+```
