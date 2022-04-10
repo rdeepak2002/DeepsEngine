@@ -106,3 +106,15 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
   set_target_properties(Release PROPERTIES LINK_FLAGS "... -L${PROJECT_SOURCE_DIR}/src/engine/external/lua-5.3.6/src -s ...")
 endif ()
 ```
+
+## How to Install QT
+
+Install qt on macOS:
+```shell
+arch -x86_64 /usr/local/bin/brew install qt@5
+```
+
+Compile options for CLion:
+```shell
+-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.2_1
+```
