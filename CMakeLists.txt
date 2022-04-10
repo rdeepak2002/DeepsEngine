@@ -87,8 +87,6 @@ set(LUA_LIBRARY /usr/local/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY} ${LUA_LIBRARY})
 
 if(RUN_STANDALONE)
-    file(COPY res DESTINATION assets)
-
     # standalone engine
     add_compile_definitions(STANDALONE)
 
@@ -117,6 +115,8 @@ if(RUN_STANDALONE)
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
         set_target_properties(Release PROPERTIES LINK_FLAGS "--use-preload-plugins -L${PROJECT_SOURCE_DIR}/src/engine/external/lua-5.3.6/src -s ALLOW_MEMORY_GROWTH=1 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='[\"bmp\",\"png\", \"jpg\"]' -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+    else()
+        file(COPY res DESTINATION assets)
     endif ()
 
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
