@@ -9,6 +9,9 @@ rm -rf src
 # create new folder for source code
 mkdir -p src
 
+# becareful cuz shaders work differently on web
+rm -rf assets/res
+cp -R ../res assets/res
 cp -R assets src/assets
 cp app.html src/app.html
 
