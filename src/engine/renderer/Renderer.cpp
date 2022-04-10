@@ -143,15 +143,9 @@ void Renderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
-#if defined(EMSCRIPTEN)
-    std::cout << "current path: " << current_path().c_str() << std::endl;
-
-    ourShader = new Shader("assets/example-project/shaders/shader.vert", "assets/example-project/shaders/shader.frag");
-#else
     ourShader = new Shader(
             current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.vert").c_str(),
             current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.frag").c_str());
-#endif
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -182,11 +176,7 @@ void Renderer::initialize() {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
 
-#if defined(EMSCRIPTEN)
-    unsigned char *data = stbi_load("assets/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
-#else
     unsigned char *data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("container.jpg").c_str(), &width, &height, &nrChannels, 0);
-#endif
 
     if (data)
     {
@@ -209,11 +199,7 @@ void Renderer::initialize() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
-#if defined(EMSCRIPTEN)
-    data = stbi_load("assets/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
-#else
     data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("awesomeface.png").c_str(), &width, &height, &nrChannels, 0);
-#endif
 
     if (data)
     {
