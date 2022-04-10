@@ -87,6 +87,8 @@ set(LUA_LIBRARY /usr/local/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${SDL2_LIBRARY} ${LUA_LIBRARY})
 
 if(RUN_STANDALONE)
+    file(COPY res DESTINATION assets)
+
     # standalone engine
     add_compile_definitions(STANDALONE)
 
@@ -120,6 +122,10 @@ if(RUN_STANDALONE)
     set_property(TARGET Release PROPERTY CXX_STANDARD 17)
     set_property(TARGET Release PROPERTY CXX_STANDARD_REQUIRED ON)
 else()
+    if(APPLE)
+        file(COPY res DESTINATION Editor.app/Contents/MacOS/assets)
+    endif()
+
     # build as a node gui plugin
     add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
 

@@ -16,6 +16,8 @@
 #include "src/engine/scene/Entity.h"
 #include "src/engine/Logger.h"
 
+using std::filesystem::current_path;
+
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -142,11 +144,13 @@ void Renderer::initialize() {
     glEnable(GL_DEPTH_TEST);
 
 #if defined(EMSCRIPTEN)
+    std::cout << "current path: " << current_path().c_str() << std::endl;
+
     ourShader = new Shader("assets/example-project/shaders/shader.vert", "assets/example-project/shaders/shader.frag");
 #else
     ourShader = new Shader(
-            "/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/shaders/shader.vert",
-            "/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/shaders/shader.frag");
+            current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.vert").c_str(),
+            current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.frag").c_str());
 #endif
 
     glGenVertexArrays(1, &VAO);
@@ -181,7 +185,7 @@ void Renderer::initialize() {
 #if defined(EMSCRIPTEN)
     unsigned char *data = stbi_load("assets/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
 #else
-    unsigned char *data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/container.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("container.jpg").c_str(), &width, &height, &nrChannels, 0);
 #endif
 
     if (data)
@@ -208,7 +212,7 @@ void Renderer::initialize() {
 #if defined(EMSCRIPTEN)
     data = stbi_load("assets/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
 #else
-    data = stbi_load("/Users/deepakramalingam/Documents/Projects/deeps-engine/deeps-engine-latest/res/example-project/textures/awesomeface.png", &width, &height, &nrChannels, 0);
+    data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("awesomeface.png").c_str(), &width, &height, &nrChannels, 0);
 #endif
 
     if (data)
