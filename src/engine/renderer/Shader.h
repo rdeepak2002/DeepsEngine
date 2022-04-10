@@ -74,6 +74,8 @@ class Shader {
     } catch (std::ifstream::failure &e) {
       Logger::Debug("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ");
     }
+
+    // #version 300 es
     const char *vShaderCode = vertexCode.c_str();
     const char *fShaderCode = fragmentCode.c_str();
     // 2. compile shaders

@@ -124,6 +124,10 @@ if(RUN_STANDALONE)
 else()
     if(APPLE)
         file(COPY res DESTINATION Editor.app/Contents/MacOS/assets)
+    elseif(WIN32)
+        # for Windows operating system in general
+    elseif(UNIX AND NOT APPLE)
+        # for Linux, BSD, Solaris, Minix
     endif()
 
     # build as a node gui plugin

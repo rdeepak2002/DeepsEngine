@@ -143,9 +143,15 @@ void Renderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
+#if defined(EMSCRIPTEN)
+    ourShader = new Shader(
+            current_path().append("assets").append("res").append("example-project").append("shaders-web").append("shader.vert").c_str(),
+            current_path().append("assets").append("res").append("example-project").append("shaders-web").append("shader.frag").c_str());
+#else
     ourShader = new Shader(
             current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.vert").c_str(),
             current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.frag").c_str());
+#endif
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
