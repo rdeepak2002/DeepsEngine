@@ -25,6 +25,12 @@ public:
         printf("%s\n", formattedText.c_str());
     }
 
+    static void Error(std::string text) {
+        std::string formattedText = "ERROR: " + text;
+        SendLogToEditor(formattedText);
+        printf("%s\n", formattedText.c_str());
+    }
+
     static int SendLogToEditor(std::string text) {
 #if !defined(STANDALONE)
         if (Logger::getInstance().consoleWidget) {

@@ -6,6 +6,7 @@
 #include "src/engine/include/sol.hpp"
 
 using namespace DeepsEngine;
+using std::filesystem::current_path;
 
 void mainLoop() {
 #if (!defined(EMSCRIPTEN) and !defined (DEVELOP_WEB))
@@ -19,7 +20,16 @@ int main() {
     sol::state lua;
     lua.open_libraries(sol::lib::base);
 
-    lua.script("print('bark bark bark!')");
+    sol::load_result script1 = lua.load_file(current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua"));
+    sol::protected_function_result script1result = script1();
+
+    if (script1result.valid()) {
+        Logger::Debug("Lua script successfully executed");
+    }
+    else {
+        Logger::Error("Lua script unsuccessfully executed");
+    }
+
 
     // create window and initialize opengl functions
     Renderer::getInstance().createWindow();
