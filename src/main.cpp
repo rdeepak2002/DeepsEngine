@@ -37,8 +37,26 @@ int main() {
     // execute lua script
     lua.new_usertype<Entity>("Entity",
                              "new", sol::no_constructor,
-                             "GetId", &Entity::GetId
+                             "GetId", &Entity::GetId,
+                             "GetTransform", &Entity::GetComponent<Component::Transform>
     );
+
+    lua.new_usertype<Component::Transform>("Transform",
+                                           "position", &Component::Transform::position,
+                                           "rotation", &Component::Transform::rotation,
+                                           "scale", &Component::Transform::scale);
+    lua.new_usertype<Component::Position>("Position",
+                                          "x", &Component::Position::x,
+                                          "y", &Component::Position::y,
+                                          "z", &Component::Position::z);
+    lua.new_usertype<Component::Rotation>("Rotation",
+                                          "x", &Component::Rotation::x,
+                                          "y", &Component::Rotation::y,
+                                          "z", &Component::Rotation::z);
+    lua.new_usertype<Component::Scale>("Scale",
+                                           "x", &Component::Scale::x,
+                                           "y", &Component::Scale::y,
+                                           "z", &Component::Scale::z);
 
     sol::load_result script1 = lua.load_file(current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua"));
 
@@ -47,10 +65,10 @@ int main() {
     if (!script1.valid()) {
         Logger::Error("Issue with lua script");
     } else {
-        sol::function updateFunc = lua["update"];
+        sol::function onCreateFunc = lua["onCreate"];
 
-        if (updateFunc) {
-            updateFunc(entity);
+        if (onCreateFunc) {
+            onCreateFunc(entity);
         } else {
             Logger::Error("No update function in script");
         }

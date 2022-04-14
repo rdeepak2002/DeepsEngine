@@ -1,4 +1,3 @@
-function update(entity)
-    print("Update inside lua")
-    print("Updating Entity with Id: " .. tostring(entity:GetId()))
+function onCreate(entity)
+    entity:GetTransform().position.x = 2.0
 end
