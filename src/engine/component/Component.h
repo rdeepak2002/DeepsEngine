@@ -6,6 +6,12 @@
 #define OPENGLCUBE_COMPONENTS_H
 
 #include <iostream>
+#include <filesystem>
+#include "src/engine/Logger.h"
+#define SOL_ALL_SAFETIES_ON 1
+#include "src/engine/include/sol.hpp"
+
+using std::filesystem::exists;
 
 namespace DeepsEngine::Component {
         struct Component {
@@ -94,6 +100,18 @@ namespace DeepsEngine::Component {
             float fov;
             float zNear;
             float zFar;
+        };
+
+        struct LuaScript : public Component {
+            LuaScript() = default;
+            LuaScript(std::string scriptPath) {
+                if (std::filesystem::exists(scriptPath)) {
+                    this->scriptPath = scriptPath;
+                } else {
+                    Logger::Error("Unable to find script " + scriptPath);
+                }
+            }
+            std::string scriptPath;
         };
     }
 

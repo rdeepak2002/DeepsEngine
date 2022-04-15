@@ -43,7 +43,7 @@ public:
 
     void initialize();
     void clear();
-    void update();
+    float update();
 
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     void closeWindow();

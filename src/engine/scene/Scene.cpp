@@ -67,6 +67,19 @@ namespace DeepsEngine {
         return arr;
     }
 
+    std::vector<DeepsEngine::Entity> Scene::GetScriptableEntities() {
+        // get all entities in the ecs that have a Transform component
+        auto entityHandles = registry.view<DeepsEngine::Component::LuaScript>();
+        std::vector<DeepsEngine::Entity> arr;
+
+        for (auto entityHandle : entityHandles) {
+            DeepsEngine::Entity entity = {this, entityHandle};
+            arr.push_back(entity);
+        }
+
+        return arr;
+    }
+
     std::vector<DeepsEngine::Entity> Scene::GetCameraEntities() {
         // get all entities in the ecs that have a Transform component
         auto entityHandles = registry.view<DeepsEngine::Component::Camera>();

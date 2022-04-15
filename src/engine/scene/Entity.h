@@ -15,6 +15,7 @@ namespace DeepsEngine {
         Entity(Scene* scene);
         Entity(Scene* sceneHandle, entt::entity entityHandle);
         Entity(const Entity& other) = default;
+        bool scriptOnCreateInvoked;
 
         template<typename T, typename... Args>
         T& AddComponent(Args&&... args) {

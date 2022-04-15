@@ -1,9 +1,7 @@
 function onCreate(self)
-    Logger.Debug("On create function")
-    self:GetTransform().position.x = 2.0
+    self:GetTransform().rotation.y = 0.0
 end
 
 function onUpdate(self, dt)
-    Logger.Debug("Update function")
-    Logger.Debug(tostring(dt))
+    self:GetTransform().rotation.y = self:GetTransform().rotation.y + 1.0 * dt
 end

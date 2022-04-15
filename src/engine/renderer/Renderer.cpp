@@ -230,7 +230,7 @@ void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::update() {
+float Renderer::update() {
 #if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
     glEnable(GL_DEPTH_TEST);
 #endif
@@ -328,6 +328,8 @@ void Renderer::update() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 #endif
+
+    return deltaTime;
 }
 
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
