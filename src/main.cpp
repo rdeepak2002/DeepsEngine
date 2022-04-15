@@ -34,7 +34,13 @@ int main() {
     Entity entity = Renderer::getInstance().scene.CreateEntity();
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 
-    // execute lua script
+    // define lua bindings
+    lua.new_usertype<Logger>("Logger",
+                             "Debug", &Logger::Debug,
+                             "Warn", &Logger::Warn,
+                             "Error", &Logger::Error
+    );
+
     lua.new_usertype<Entity>("Entity",
                              "new", sol::no_constructor,
                              "GetId", &Entity::GetId,
@@ -45,32 +51,38 @@ int main() {
                                            "position", &Component::Transform::position,
                                            "rotation", &Component::Transform::rotation,
                                            "scale", &Component::Transform::scale);
+
     lua.new_usertype<Component::Position>("Position",
                                           "x", &Component::Position::x,
                                           "y", &Component::Position::y,
                                           "z", &Component::Position::z);
+
     lua.new_usertype<Component::Rotation>("Rotation",
                                           "x", &Component::Rotation::x,
                                           "y", &Component::Rotation::y,
                                           "z", &Component::Rotation::z);
+
     lua.new_usertype<Component::Scale>("Scale",
                                            "x", &Component::Scale::x,
                                            "y", &Component::Scale::y,
                                            "z", &Component::Scale::z);
 
-    sol::load_result script1 = lua.load_file(current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua"));
+    std::string scriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua");
 
-    script1();
+    if (std::filesystem::exists(scriptPath)) {
+        sol::load_result script = lua.load_file(scriptPath);
+        script();
 
-    if (!script1.valid()) {
-        Logger::Error("Issue with lua script");
-    } else {
-        sol::function onCreateFunc = lua["onCreate"];
-
-        if (onCreateFunc) {
-            onCreateFunc(entity);
+        if (!script.valid()) {
+            Logger::Error("Issue with lua script");
         } else {
-            Logger::Error("No update function in script");
+            sol::function onCreateFunc = lua["onCreate"];
+
+            if (onCreateFunc) {
+                onCreateFunc(entity);
+            } else {
+                Logger::Error("No update function in script");
+            }
         }
     }
 

@@ -1,9 +1,9 @@
-function onCreate(entity)
-    print("On create function")
-    entity:GetTransform().position.x = 2.0
+function onCreate(self)
+    Logger.Debug("On create function")
+    self:GetTransform().position.x = 2.0
 end
 
-function onUpdate(entity, dt)
-    print("On update function")
-    print(dt)
+function onUpdate(self, dt)
+    Logger.Debug("Update function")
+    Logger.Debug(tostring(dt))
 end

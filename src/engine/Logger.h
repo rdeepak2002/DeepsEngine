@@ -9,6 +9,15 @@
 #include "src/editor/widget/ConsoleWidget.h"
 #endif
 
+#define KNRM  "\x1B[0m"
+#define KRED  "\x1B[31m"
+#define KGRN  "\x1B[32m"
+#define KYEL  "\x1B[33m"
+#define KBLU  "\x1B[34m"
+#define KMAG  "\x1B[35m"
+#define KCYN  "\x1B[36m"
+#define KWHT  "\x1B[37m"
+
 #include <iostream>
 
 class Logger {
@@ -22,13 +31,19 @@ public:
     static void Debug(std::string text) {
         std::string formattedText = "DEBUG: " + text;
         SendLogToEditor(formattedText);
-        printf("%s\n", formattedText.c_str());
+        printf("%s%s%s\n", KBLU, formattedText.c_str(), KNRM);
     }
 
     static void Error(std::string text) {
         std::string formattedText = "ERROR: " + text;
         SendLogToEditor(formattedText);
-        printf("%s\n", formattedText.c_str());
+        printf("%s%s%s\n", KRED, formattedText.c_str(), KNRM);
+    }
+
+    static void Warn(std::string text) {
+        std::string formattedText = "WARNING: " + text;
+        SendLogToEditor(formattedText);
+        printf("%s%s%s\n", KYEL, formattedText.c_str(), KNRM);
     }
 
     static int SendLogToEditor(std::string text) {
