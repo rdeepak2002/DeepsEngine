@@ -125,7 +125,7 @@ void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
     }
     else if(componentToAddName == "Mesh Filter") {
         // add mesh filter component
-        DeepsEngine::Component::MeshFilter cubeMeshFilter = {mesh: "cube"};
+        DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube"};
         entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
     }
 
