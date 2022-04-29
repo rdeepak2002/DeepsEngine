@@ -112,6 +112,7 @@ namespace DeepsEngine::Component {
                 }
             }
             std::string scriptPath;
+            sol::environment environment;
         };
     }
 

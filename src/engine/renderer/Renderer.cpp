@@ -19,8 +19,7 @@
 using std::filesystem::current_path;
 
 #if defined(STANDALONE)
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
@@ -123,6 +122,42 @@ void Renderer::closeWindow() {
 
 void Renderer::initialize() {
     Logger::Debug("initializing renderer");
+
+    // open libraries with lua
+    lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
+
+    // define lua bindings
+    lua.new_usertype<Logger>("Logger",
+                             "Debug", &Logger::Debug,
+                             "Warn", &Logger::Warn,
+                             "Error", &Logger::Error
+    );
+
+    lua.new_usertype<DeepsEngine::Entity>("Entity",
+                             "new", sol::no_constructor,
+                             "GetId", &DeepsEngine::Entity::GetId,
+                             "GetTransform", &DeepsEngine::Entity::GetComponent<DeepsEngine::Component::Transform>
+    );
+
+    lua.new_usertype<DeepsEngine::Component::Transform>("Transform",
+                                           "position", &DeepsEngine::Component::Transform::position,
+                                           "rotation", &DeepsEngine::Component::Transform::rotation,
+                                           "scale", &DeepsEngine::Component::Transform::scale);
+
+    lua.new_usertype<DeepsEngine::Component::Position>("Position",
+                                          "x", &DeepsEngine::Component::Position::x,
+                                          "y", &DeepsEngine::Component::Position::y,
+                                          "z", &DeepsEngine::Component::Position::z);
+
+    lua.new_usertype<DeepsEngine::Component::Rotation>("Rotation",
+                                          "x", &DeepsEngine::Component::Rotation::x,
+                                          "y", &DeepsEngine::Component::Rotation::y,
+                                          "z", &DeepsEngine::Component::Rotation::z);
+
+    lua.new_usertype<DeepsEngine::Component::Scale>("Scale",
+                                       "x", &DeepsEngine::Component::Scale::x,
+                                       "y", &DeepsEngine::Component::Scale::y,
+                                       "z", &DeepsEngine::Component::Scale::z);
 
 #if !defined(STANDALONE)
     // start timer for qt to keep track of delta time
@@ -328,6 +363,33 @@ float Renderer::update() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 #endif
+
+    // TODO: create separate (singleton?) class called Application which handles this stuff (and maybe physics) in the future
+    for(auto entity : Renderer::getInstance().scene.GetScriptableEntities()) {
+        DeepsEngine::Component::LuaScript luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
+        // sol::environment my_other_env(lua, sol::create, lua.globals());
+        lua.script_file(luaScriptComponent.scriptPath);
+
+        sol::function onCreateFunc = lua["onCreate"];
+
+//        if (!entity.scriptOnCreateInvoked) {
+//            entity.scriptOnCreateInvoked = true;
+//
+//            if (onCreateFunc) {
+//                onCreateFunc(entity);
+//            } else {
+//                Logger::Warn("No on create function in script");
+//            }
+//        }
+
+        sol::function onUpdateFunc = lua["onUpdate"];
+
+        if (onUpdateFunc) {
+            onUpdateFunc(entity, deltaTime);
+        } else {
+            Logger::Warn("No on update function in script");
+        }
+    }
 
     return deltaTime;
 }

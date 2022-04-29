@@ -23,6 +23,7 @@
 
 #include "Shader.h"
 #include "src/engine/scene/Scene.h"
+#include "src/engine/include/sol.hpp"
 
 #if defined(STANDALONE)
 class Renderer {
@@ -73,6 +74,7 @@ private:
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
+    sol::state lua;
 
 #if !defined(STANDALONE)
     QElapsedTimer timer;
