@@ -5,14 +5,11 @@
 #include "Entity.h"
 
 namespace DeepsEngine {
-    Entity::Entity(Scene* sceneHandle)
-            : scene(sceneHandle)
-    {
+    Entity::Entity(Scene* scene) {
         entity = scene->registry.create();
     }
 
-    Entity::Entity(Scene* sceneHandle, entt::entity entityHandle)
-            : scene(sceneHandle), entity(entityHandle)
+    Entity::Entity(entt::entity entityHandle) : entity(entityHandle)
     {
 
     }

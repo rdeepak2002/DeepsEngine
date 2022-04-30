@@ -9,7 +9,6 @@
 namespace DeepsEngine {
     DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {
         // create entity
-//        std::shared_ptr<DeepsEngine::Entity> entityPtr(new DeepsEngine::Entity(this));
         DeepsEngine::Entity entity = {this};
 
         // add transform component
@@ -44,7 +43,7 @@ namespace DeepsEngine {
         std::vector<DeepsEngine::Entity> arr;
 
         for(auto entityHandle : entityHandles) {
-            DeepsEngine::Entity entity = {this, entityHandle};
+            DeepsEngine::Entity entity = {entityHandle};
             arr.push_back(entity);
         }
 
@@ -57,7 +56,7 @@ namespace DeepsEngine {
         std::vector<DeepsEngine::Entity> arr;
 
         for (auto entityHandle : entityHandles) {
-            DeepsEngine::Entity entity = {this, entityHandle};
+            DeepsEngine::Entity entity = {entityHandle};
 
             if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
                 arr.push_back(entity);
@@ -73,7 +72,7 @@ namespace DeepsEngine {
         std::vector<DeepsEngine::Entity> arr;
 
         for (auto entityHandle : entityHandles) {
-            DeepsEngine::Entity entity = {this, entityHandle};
+            DeepsEngine::Entity entity = {entityHandle};
             arr.push_back(entity);
         }
 
@@ -86,7 +85,7 @@ namespace DeepsEngine {
         std::vector<DeepsEngine::Entity> arr;
 
         for (auto entityHandle : entityHandles) {
-            DeepsEngine::Entity entity = {this, entityHandle};
+            DeepsEngine::Entity entity = {entityHandle};
             arr.push_back(entity);
         }
 

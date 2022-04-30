@@ -7,19 +7,20 @@
 
 #include "src/engine/include/entt.hpp"
 #include "Scene.h"
+#include "src/engine/renderer/Renderer.h"
 
 namespace DeepsEngine {
     class Entity {
     public:
         Entity() = default;
         Entity(Scene* scene);
-        Entity(Scene* sceneHandle, entt::entity entityHandle);
+        Entity(entt::entity entityHandle);
         Entity(const Entity& other) = default;
 
         template<typename T, typename... Args>
         T& AddComponent(Args&&... args) {
             // TODO: assert entity does not already have a component
-            T& component = scene->registry.emplace<T>(entity, std::forward<Args>(args)...);
+            T& component = Renderer::getInstance().scene.registry.emplace<T>(entity, std::forward<Args>(args)...);
             // TODO: callback for when component added
             return component;
         }
@@ -27,17 +28,17 @@ namespace DeepsEngine {
         template<typename T>
         T& GetComponent() {
             // TODO: assert component exists
-            return scene->registry.get<T>(entity);
+            return Renderer::getInstance().scene.registry.get<T>(entity);
         }
 
         void Destroy() {
-            scene->registry.destroy(entity);
+            Renderer::getInstance().scene.registry.destroy(entity);
         }
 
         template<typename T>
         bool HasComponent() {
             // TODO: test this
-            if (auto *comp = scene->registry.try_get<T>(entity)) {
+            if (auto *comp = Renderer::getInstance().scene.registry.try_get<T>(entity)) {
                 return true;
             } else {
                 return false;
@@ -47,15 +48,11 @@ namespace DeepsEngine {
         template<typename T>
         void RemoveComponent() {
             // TODO: assert entity has component
-            scene->registry.remove<T>(entity);
+            Renderer::getInstance().scene.registry.remove<T>(entity);
         }
 
         uint32_t GetId() {
             return static_cast<uint32_t>(entity);
-        }
-
-        Scene* GetScene() {
-            return scene;
         }
 
         operator entt::entity() const {
@@ -77,7 +74,6 @@ namespace DeepsEngine {
         }
     private:
         entt::entity entity{entt::null};
-        Scene* scene = nullptr;
     };
 
 }
