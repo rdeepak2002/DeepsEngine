@@ -19,16 +19,18 @@
 using std::filesystem::current_path;
 
 void initScript(entt::registry &registry, entt::entity entity) {
+    // TODO: fix weird issue where program is still trying to close somehow caused by this...
     Logger::Debug("Script system adding component");
     auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
     Renderer::getInstance().lua.script_file(script.scriptPath);
-
+    script.hooks.init = Renderer::getInstance().lua["init"];
     script.hooks.update = Renderer::getInstance().lua["update"];
-    assert(script.hooks.update.valid());
-
+    if (!script.hooks.update.valid()) {
+        script.shouldUpdate = false;
+    }
+    script.hooks.destroy = Renderer::getInstance().lua["destroy"];
     script.self = Renderer::getInstance().lua.create_table_with();
     Renderer::getInstance().lua["self"] = script.self;
-
     script.shouldInit = true;
 }
 
@@ -394,6 +396,7 @@ float Renderer::update() {
     for(auto entity : Renderer::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
         lua.script_file(luaScriptComponent.scriptPath);
+        lua["self"] = luaScriptComponent.self;
 
         if (luaScriptComponent.shouldInit) {
             auto f = Renderer::getInstance().lua["init"];
@@ -401,10 +404,20 @@ float Renderer::update() {
             if(f.valid()) {
                 f(entity);
             } else {
-                Logger::Error("Invalid init function");
+                Logger::Warn("Invalid init function in script");
             }
 
             luaScriptComponent.shouldInit = false;
+        }
+
+        if (luaScriptComponent.shouldUpdate) {
+            auto f = lua["update"];
+
+            if (f.valid()) {
+                f(entity, deltaTime);
+            } else {
+                Logger::Warn("Invalid update function in script");
+            }
         }
 
         if (luaScriptComponent.shouldDestroy) {
@@ -413,21 +426,11 @@ float Renderer::update() {
             if (f.valid()) {
                 f(entity);
             } else {
-                Logger::Error("Invalid destroy function");
+                Logger::Warn("Invalid destroy function in script");
             }
 
             luaScriptComponent.self.abandon();
-
             luaScriptComponent.shouldDestroy = false;
-        }
-
-        sol::function onUpdateFunc = lua["update"];
-        lua["self"] = luaScriptComponent.self;
-
-        if (onUpdateFunc.valid()) {
-            onUpdateFunc(entity, deltaTime);
-        } else {
-            Logger::Error("Invalid update function in script");
         }
     }
 
