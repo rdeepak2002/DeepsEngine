@@ -45,6 +45,10 @@ namespace DeepsEngine {
             }
         }
 
+        bool IsValid() {
+            return Renderer::getInstance().scene.registry.valid(entity);
+        }
+
         template<typename T>
         void RemoveComponent() {
             // TODO: assert entity has component

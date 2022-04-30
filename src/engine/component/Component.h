@@ -113,6 +113,11 @@ namespace DeepsEngine::Component {
                 shouldInit = true;
                 shouldUpdate = true;
             }
+            ~LuaScript() {
+                self.abandon();
+                hooks.init.abandon();
+                hooks.update.abandon();
+            }
             std::string scriptPath;
             sol::table self;
             struct {

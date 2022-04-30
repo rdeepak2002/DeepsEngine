@@ -397,10 +397,10 @@ float Renderer::update() {
     for(auto entity : Renderer::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
         lua.script_file(luaScriptComponent.scriptPath);
-        lua["self"] = luaScriptComponent.self;
 
-        if (luaScriptComponent.shouldInit) {
-            lua["self"] = luaScriptComponent.self = lua.create_table_with();
+        if (entity.IsValid() && luaScriptComponent.shouldInit) {
+            luaScriptComponent.self = lua.create_table_with("value", "key");
+            lua["self"] = luaScriptComponent.self;
 
             auto f = Renderer::getInstance().lua["init"];
 
@@ -411,9 +411,9 @@ float Renderer::update() {
             }
 
             luaScriptComponent.shouldInit = false;
-        }
+        } else if (entity.IsValid() && luaScriptComponent.shouldUpdate) {
+            lua["self"] = luaScriptComponent.self;
 
-        if (luaScriptComponent.shouldUpdate) {
             auto f = lua["update"];
 
             if (f.valid()) {
