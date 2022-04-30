@@ -11,6 +11,3 @@ function update(entity, dt)
      entity:GetTransform().rotation.y = entity:GetTransform().rotation.y + 1.0 * dt
 end
 
-function destroy(entity)
-    Logger.Debug("On destroy in lua")
-end

@@ -18,27 +18,28 @@
 
 using std::filesystem::current_path;
 
-void initScript(entt::registry &registry, entt::entity entity) {
-    // TODO: fix weird issue where program is still trying to close somehow caused by this...
-    Logger::Debug("Script system adding component");
-    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
-    Renderer::getInstance().lua.script_file(script.scriptPath);
-    script.hooks.init = Renderer::getInstance().lua["init"];
-    script.hooks.update = Renderer::getInstance().lua["update"];
-    if (!script.hooks.update.valid()) {
-        script.shouldUpdate = false;
-    }
-    script.hooks.destroy = Renderer::getInstance().lua["destroy"];
-    script.self = Renderer::getInstance().lua.create_table_with();
-    Renderer::getInstance().lua["self"] = script.self;
-    script.shouldInit = true;
-}
+//void initScript(entt::registry &registry, entt::entity entity) {
+//    // TODO: fix weird issue where program is still trying to close somehow caused by this...
+//    Logger::Debug("Script system adding component");
+//    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
+//    Renderer::getInstance().lua.script_file(script.scriptPath);
+//    script.hooks.init = Renderer::getInstance().lua["init"];
+//    script.hooks.update = Renderer::getInstance().lua["update"];
+//    if (!script.hooks.update.valid()) {
+//        script.shouldUpdate = false;
+//    }
+//    script.self = Renderer::getInstance().lua.create_table_with();
+//    Renderer::getInstance().lua["self"] = script.self;
+//    script.shouldInit = true;
+//}
 
-void releaseScript(entt::registry &registry, entt::entity entity) {
-    Logger::Debug("Script system releasing component");
-    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
-    script.shouldDestroy = true;
-}
+//void releaseScript(entt::registry &registry, entt::entity entity) {
+//    Logger::Debug("Script system releasing component");
+//    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
+//    script.shouldInit = false;
+//    script.shouldUpdate = false;
+////    script.self.abandon();
+//}
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -182,8 +183,8 @@ void Renderer::initialize() {
                                        "y", &DeepsEngine::Component::Scale::y,
                                        "z", &DeepsEngine::Component::Scale::z);
 
-    scene.registry.on_construct<DeepsEngine::Component::LuaScript>().connect<&initScript>();
-    scene.registry.on_destroy<DeepsEngine::Component::LuaScript>().connect<&releaseScript>();
+//    scene.registry.on_construct<DeepsEngine::Component::LuaScript>().connect<&initScript>();
+//    scene.registry.on_destroy<DeepsEngine::Component::LuaScript>().connect<&releaseScript>();
 
     Logger::Debug("initializing renderer");
 
@@ -399,6 +400,8 @@ float Renderer::update() {
         lua["self"] = luaScriptComponent.self;
 
         if (luaScriptComponent.shouldInit) {
+            lua["self"] = luaScriptComponent.self = lua.create_table_with();
+
             auto f = Renderer::getInstance().lua["init"];
 
             if(f.valid()) {
@@ -418,19 +421,6 @@ float Renderer::update() {
             } else {
                 Logger::Warn("Invalid update function in script");
             }
-        }
-
-        if (luaScriptComponent.shouldDestroy) {
-            auto f = luaScriptComponent.self["destroy"];
-
-            if (f.valid()) {
-                f(entity);
-            } else {
-                Logger::Warn("Invalid destroy function in script");
-            }
-
-            luaScriptComponent.self.abandon();
-            luaScriptComponent.shouldDestroy = false;
         }
     }
 
