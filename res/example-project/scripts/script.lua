@@ -1,14 +1,16 @@
-local totalTime = 0.0
-
-function onCreate(self)
-    Logger.Debug("On Create")
-    -- TODO: fix issue where on create is randomly called which causes rotation stutter
-    -- self:GetTransform().rotation.y = 0.0
+function init(entity)
+    Logger.Debug("On init in lua")
+    self.totalTime = 0.0
+    entity:GetTransform().rotation.y = 1.0
 end
 
-function onUpdate(self, dt)
-    totalTime = totalTime + dt
-    Logger.Debug("Total time in script:")
-    Logger.Debug(tostring(totalTime))
-    self:GetTransform().rotation.y = self:GetTransform().rotation.y + 1.0 * dt
+function update(entity, dt)
+     Logger.Debug("On update in lua")
+     self.totalTime = self.totalTime + dt
+     Logger.Debug(tostring(self.totalTime))
+     entity:GetTransform().rotation.y = entity:GetTransform().rotation.y + 1.0 * dt
+end
+
+function destroy(entity)
+    Logger.Debug("On destroy in lua")
 end

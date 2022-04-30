@@ -62,6 +62,7 @@ public:
     Shader* ourShader;
 
     DeepsEngine::Scene scene = {};
+    sol::state lua;
 
     void (*cb)();
 private:
@@ -74,7 +75,6 @@ private:
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
-    sol::state lua;
 
 #if !defined(STANDALONE)
     QElapsedTimer timer;

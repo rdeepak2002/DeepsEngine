@@ -110,9 +110,16 @@ namespace DeepsEngine::Component {
                 } else {
                     Logger::Error("Unable to find script " + scriptPath);
                 }
+                shouldInit = false;
+                shouldDestroy = false;
             }
             std::string scriptPath;
-            sol::environment environment;
+            sol::table self;
+            struct {
+                sol::function update;
+            } hooks;
+            bool shouldInit;
+            bool shouldDestroy;
         };
     }
 

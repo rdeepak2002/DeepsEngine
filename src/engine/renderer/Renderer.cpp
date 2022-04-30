@@ -18,6 +18,26 @@
 
 using std::filesystem::current_path;
 
+void initScript(entt::registry &registry, entt::entity entity) {
+    Logger::Debug("Script system adding component");
+    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
+    Renderer::getInstance().lua.script_file(script.scriptPath);
+
+    script.hooks.update = Renderer::getInstance().lua["update"];
+    assert(script.hooks.update.valid());
+
+    script.self = Renderer::getInstance().lua.create_table_with();
+    Renderer::getInstance().lua["self"] = script.self;
+
+    script.shouldInit = true;
+}
+
+void releaseScript(entt::registry &registry, entt::entity entity) {
+    Logger::Debug("Script system releasing component");
+    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
+    script.shouldDestroy = true;
+}
+
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
@@ -121,7 +141,8 @@ void Renderer::closeWindow() {
 #endif
 
 void Renderer::initialize() {
-    Logger::Debug("initializing renderer");
+    // TODO: move this to application
+    Logger::Debug("initializing script system");
 
     // open libraries with lua
     lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
@@ -158,6 +179,11 @@ void Renderer::initialize() {
                                        "x", &DeepsEngine::Component::Scale::x,
                                        "y", &DeepsEngine::Component::Scale::y,
                                        "z", &DeepsEngine::Component::Scale::z);
+
+    scene.registry.on_construct<DeepsEngine::Component::LuaScript>().connect<&initScript>();
+    scene.registry.on_destroy<DeepsEngine::Component::LuaScript>().connect<&releaseScript>();
+
+    Logger::Debug("initializing renderer");
 
 #if !defined(STANDALONE)
     // start timer for qt to keep track of delta time
@@ -366,28 +392,42 @@ float Renderer::update() {
 
     // TODO: create separate (singleton?) class called Application which handles this stuff (and maybe physics) in the future
     for(auto entity : Renderer::getInstance().scene.GetScriptableEntities()) {
-        DeepsEngine::Component::LuaScript luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
-        // sol::environment my_other_env(lua, sol::create, lua.globals());
+        auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
         lua.script_file(luaScriptComponent.scriptPath);
 
-        sol::function onCreateFunc = lua["onCreate"];
+        if (luaScriptComponent.shouldInit) {
+            auto f = Renderer::getInstance().lua["init"];
 
-//        if (!entity.scriptOnCreateInvoked) {
-//            entity.scriptOnCreateInvoked = true;
-//
-//            if (onCreateFunc) {
-//                onCreateFunc(entity);
-//            } else {
-//                Logger::Warn("No on create function in script");
-//            }
-//        }
+            if(f.valid()) {
+                f(entity);
+            } else {
+                Logger::Error("Invalid init function");
+            }
 
-        sol::function onUpdateFunc = lua["onUpdate"];
+            luaScriptComponent.shouldInit = false;
+        }
 
-        if (onUpdateFunc) {
+        if (luaScriptComponent.shouldDestroy) {
+            auto f = luaScriptComponent.self["destroy"];
+
+            if (f.valid()) {
+                f(entity);
+            } else {
+                Logger::Error("Invalid destroy function");
+            }
+
+            luaScriptComponent.self.abandon();
+
+            luaScriptComponent.shouldDestroy = false;
+        }
+
+        sol::function onUpdateFunc = lua["update"];
+        lua["self"] = luaScriptComponent.self;
+
+        if (onUpdateFunc.valid()) {
             onUpdateFunc(entity, deltaTime);
         } else {
-            Logger::Warn("No on update function in script");
+            Logger::Error("Invalid update function in script");
         }
     }
 
