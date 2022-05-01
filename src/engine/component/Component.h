@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <filesystem>
-#include "src/engine/Logger.h"
+#include "src/engine/util/Logger.h"
 #define SOL_ALL_SAFETIES_ON 1
 #include "src/engine/include/sol.hpp"
 

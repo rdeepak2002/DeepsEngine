@@ -107,9 +107,9 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -168,9 +168,9 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

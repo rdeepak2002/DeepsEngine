@@ -26,7 +26,7 @@
 #include <vec2.hpp>
 #include <vec3.hpp>
 #include <vec4.hpp>
-#include "src/engine/Logger.h"
+#include "src/engine/util/Logger.h"
 
 //class Shader {
 #if defined(STANDALONE)

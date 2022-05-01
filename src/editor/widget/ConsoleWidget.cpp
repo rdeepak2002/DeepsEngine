@@ -3,7 +3,7 @@
 //
 
 #include "ConsoleWidget.h"
-#include "src/engine/Logger.h"
+#include "src/engine/util/Logger.h"
 #include <iostream>
 
 ConsoleWidget::ConsoleWidget(QWidget *parent) {
