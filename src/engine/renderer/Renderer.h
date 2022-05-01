@@ -30,11 +30,11 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
-    static Renderer& getInstance()
-    {
-        static Renderer instance;
-        return instance;
-    }
+//    static Renderer& getInstance()
+//    {
+//        static Renderer instance;
+//        return instance;
+//    }
 
     void createWindow();
     bool shouldCloseWindow();
@@ -58,14 +58,14 @@ public:
     QElapsedTimer timer;
 #endif
 private:
-    Renderer() {}
+//    Renderer() {}
 
     glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-public:
-    Renderer(Renderer const&) = delete;
-    void operator=(Renderer const&) = delete;
+//public:
+//    Renderer(Renderer const&) = delete;
+//    void operator=(Renderer const&) = delete;
 };
 
 #endif //EXAMPLE_RENDERER_H

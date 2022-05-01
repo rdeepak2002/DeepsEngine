@@ -7,6 +7,7 @@
 
 #include "src/engine/scene/Scene.h"
 #include "src/engine/component/LuaScriptComponentSystem.h"
+#include "src/engine/renderer/Renderer.h"
 
 class Application {
 public:
@@ -28,8 +29,10 @@ public:
     float lastFrame = 0.0f;
 private:
     Application() {
+        renderer = std::make_unique<Renderer>();
         componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
     }
+    std::unique_ptr<Renderer> renderer;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
 public:
     Application(Application const&)  = delete;

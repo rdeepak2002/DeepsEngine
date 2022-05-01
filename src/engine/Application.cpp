@@ -13,18 +13,18 @@ using std::filesystem::exists;
 
 void Application::update(bool clearScreen) {
     // calculate delta time
-    float currentFrame = Renderer::getInstance().getCurrentTime();
+    float currentFrame = renderer->getCurrentTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
     // update renderer
-    Renderer::getInstance().processInput();
+    renderer->processInput();
 
     if (clearScreen) {
-        Renderer::getInstance().clear();
+        renderer->clear();
     }
 
-    Renderer::getInstance().update();
+    renderer->update();
 
     // update lua component systems
     for (auto& componentSystem : componentSystems) {
@@ -34,10 +34,10 @@ void Application::update(bool clearScreen) {
 
 void Application::initialize() {
     // create window
-    Renderer::getInstance().createWindow();
+    renderer->createWindow();
 
     // initialize renderer
-    Renderer::getInstance().initialize();
+    renderer->initialize();
 
     // initialize component systems
     for (auto& componentSystem : componentSystems) {
@@ -46,11 +46,11 @@ void Application::initialize() {
 }
 
 void Application::close() {
-    Renderer::getInstance().closeWindow();
+    renderer->closeWindow();
 }
 
 bool Application::shouldClose() {
-    return Renderer::getInstance().shouldCloseWindow();
+    return renderer->shouldCloseWindow();
 }
 
 void Application::createSampleEntities() {
@@ -67,16 +67,16 @@ void Application::createSampleEntities() {
 }
 
 void Application::clearRenderer() {
-    Renderer::getInstance().clear();
+    renderer->clear();
 }
 
 void Application::resizeWindow(unsigned int width, unsigned int height, bool update) {
-    Renderer::getInstance().SCR_WIDTH = width;
-    Renderer::getInstance().SCR_HEIGHT = height;
+    renderer->SCR_WIDTH = width;
+    renderer->SCR_HEIGHT = height;
 
     if (update) {
-        Renderer::getInstance().clear();
-        Renderer::getInstance().update();
+        renderer->clear();
+        renderer->update();
     }
 }
 
