@@ -23,7 +23,6 @@
 
 #include "Shader.h"
 #include "src/engine/scene/Scene.h"
-#include "src/engine/include/sol.hpp"
 
 #if defined(STANDALONE)
 class Renderer {
@@ -41,9 +40,10 @@ public:
     bool shouldCloseWindow();
     void initialize();
     void clear();
-    float update();
+    void update();
     void closeWindow();
     void processInput();
+    float getCurrentTime();
 
 #if defined(STANDALONE)
     GLFWwindow* window;
@@ -54,24 +54,15 @@ public:
     unsigned int texture1, texture2;
 
     Shader* ourShader;
-
-    sol::state lua;
-
-    void (*cb)();
+#if !defined(STANDALONE)
+    QElapsedTimer timer;
+#endif
 private:
     Renderer() {}
 
     glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-
-    // timing
-    float deltaTime = 0.0f;	// time between current frame and last frame
-    float lastFrame = 0.0f;
-
-#if !defined(STANDALONE)
-    QElapsedTimer timer;
-#endif
 public:
     Renderer(Renderer const&) = delete;
     void operator=(Renderer const&) = delete;

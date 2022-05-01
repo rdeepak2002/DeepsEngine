@@ -20,7 +20,8 @@
 using std::filesystem::current_path;
 
 #if defined(STANDALONE)
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
+{
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
@@ -30,6 +31,11 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     Renderer::getInstance().clear();
     Renderer::getInstance().update();
 }
+
+void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
+{
+
+};
 #endif
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -80,26 +86,27 @@ float cubeVertices[] = {
 
 void Renderer::createWindow() {
 #if defined(STANDALONE)
-  // glfw: initialize and configure
-  // ------------------------------
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfw: initialize and configure
+    // ------------------------------
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifdef __APPLE__
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-  // glfw window creation
-  // --------------------
-  window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
-  if (window == nullptr) {
+    // glfw window creation
+    // --------------------
+    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
+    if (window == nullptr) {
     Logger::Debug("Failed to create GLFW window");
     glfwTerminate();
-  }
-  glfwMakeContextCurrent(window);
-  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    }
+    glfwMakeContextCurrent(window);
+    glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
+    glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
 #endif
 }
 
@@ -125,45 +132,6 @@ void Renderer::closeWindow() {
 }
 
 void Renderer::initialize() {
-    // TODO: move this to application
-    Logger::Debug("initializing script system");
-
-    // open libraries with lua
-    lua.open_libraries(sol::lib::base, sol::lib::math, sol::lib::string, sol::lib::io);
-
-    // define lua bindings
-    lua.new_usertype<Logger>("Logger",
-                             "Debug", &Logger::Debug,
-                             "Warn", &Logger::Warn,
-                             "Error", &Logger::Error
-    );
-
-    lua.new_usertype<DeepsEngine::Entity>("Entity",
-                             "new", sol::no_constructor,
-                             "GetId", &DeepsEngine::Entity::GetId,
-                             "GetTransform", &DeepsEngine::Entity::GetComponent<DeepsEngine::Component::Transform>
-    );
-
-    lua.new_usertype<DeepsEngine::Component::Transform>("Transform",
-                                           "position", &DeepsEngine::Component::Transform::position,
-                                           "rotation", &DeepsEngine::Component::Transform::rotation,
-                                           "scale", &DeepsEngine::Component::Transform::scale);
-
-    lua.new_usertype<DeepsEngine::Component::Position>("Position",
-                                          "x", &DeepsEngine::Component::Position::x,
-                                          "y", &DeepsEngine::Component::Position::y,
-                                          "z", &DeepsEngine::Component::Position::z);
-
-    lua.new_usertype<DeepsEngine::Component::Rotation>("Rotation",
-                                          "x", &DeepsEngine::Component::Rotation::x,
-                                          "y", &DeepsEngine::Component::Rotation::y,
-                                          "z", &DeepsEngine::Component::Rotation::z);
-
-    lua.new_usertype<DeepsEngine::Component::Scale>("Scale",
-                                       "x", &DeepsEngine::Component::Scale::x,
-                                       "y", &DeepsEngine::Component::Scale::y,
-                                       "z", &DeepsEngine::Component::Scale::z);
-
     Logger::Debug("initializing renderer");
 
 #if !defined(STANDALONE)
@@ -272,24 +240,10 @@ void Renderer::clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-float Renderer::update() {
+void Renderer::update() {
 #if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
     glEnable(GL_DEPTH_TEST);
 #endif
-
-    // per-frame time logic
-    // --------------------
-    float currentFrame;
-
-#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
-    currentFrame = static_cast<float>(timer.elapsed()) / 1000.0f;
-#else
-    currentFrame = static_cast<float>(glfwGetTime());
-#endif
-
-    // calculate delta time
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
 
     // bind textures on corresponding texture units
     glActiveTexture(GL_TEXTURE0);
@@ -370,44 +324,19 @@ float Renderer::update() {
     glfwSwapBuffers(window);
     glfwPollEvents();
 #endif
-
-    // TODO: create separate (singleton?) class called Application which handles this stuff (and maybe physics) in the future
-    for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
-        auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
-        lua.script_file(luaScriptComponent.scriptPath);
-
-        if (entity.IsValid() && luaScriptComponent.shouldInit) {
-            luaScriptComponent.self = lua.create_table_with("value", "key");
-            lua["self"] = luaScriptComponent.self;
-
-            auto f = Renderer::getInstance().lua["init"];
-
-            if(f.valid()) {
-                f(entity);
-            } else {
-                Logger::Warn("Invalid init function in script");
-            }
-
-            luaScriptComponent.shouldInit = false;
-        } else if (entity.IsValid() && luaScriptComponent.shouldUpdate) {
-            lua["self"] = luaScriptComponent.self;
-
-            auto f = lua["update"];
-
-            if (f.valid()) {
-                f(entity, deltaTime);
-            } else {
-                Logger::Warn("Invalid update function in script");
-            }
-        }
-    }
-
-    return deltaTime;
 }
 
 void Renderer::processInput() {
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+#endif
+}
+
+float Renderer::getCurrentTime() {
+#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+    return static_cast<float>(Renderer::getInstance().timer.elapsed()) / 1000.0f;
+#else
+    return static_cast<float>(glfwGetTime());
 #endif
 }
