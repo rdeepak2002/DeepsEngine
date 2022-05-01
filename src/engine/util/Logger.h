@@ -44,25 +44,20 @@ public:
     }
 
     static int SendLogToEditor(std::string text) {
-#if !defined(STANDALONE)
         if (Logger::getInstance().consoleWidget) {
             Logger::getInstance().consoleWidget->logCallback(text);
             return 1;
         }
-#endif
+
         return 0;
     }
 
-#if !defined(STANDALONE)
     static void setConsoleWidget(LoggerCallbackInterface* consoleWidget) {
         Logger::getInstance().consoleWidget = nullptr;
         Logger::getInstance().consoleWidget = consoleWidget;
     }
-#endif
 private:
-#if !defined(STANDALONE)
     LoggerCallbackInterface* consoleWidget;
-#endif
 };
 
 

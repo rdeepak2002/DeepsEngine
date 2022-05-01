@@ -136,8 +136,7 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/linmath.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/sol.hpp"
+            "${PROJECT_SOURCE_DIR}/src/engine/include/sol.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/config.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/forward.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
