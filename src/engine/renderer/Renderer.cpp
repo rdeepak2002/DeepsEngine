@@ -25,11 +25,7 @@ void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
-    Renderer::getInstance().SCR_WIDTH = width;
-    Renderer::getInstance().SCR_HEIGHT = height;
-    // keep updating while resizing
-    Renderer::getInstance().clear();
-    Renderer::getInstance().update();
+    Application::getInstance().resizeWindow(width, height, true);
 }
 
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
@@ -335,7 +331,7 @@ void Renderer::processInput() {
 
 float Renderer::getCurrentTime() {
 #if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
-    return static_cast<float>(Renderer::getInstance().timer.elapsed()) / 1000.0f;
+    return static_cast<float>(timer.elapsed()) / 1000.0f;
 #else
     return static_cast<float>(glfwGetTime());
 #endif

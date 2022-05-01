@@ -26,8 +26,7 @@ OpenGLWidget::~OpenGLWidget() {
 
 void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
     QOpenGLWidget::resizeEvent(ev);
-    Renderer::getInstance().SCR_WIDTH = width();
-    Renderer::getInstance().SCR_HEIGHT = height();
+    Application::getInstance().resizeWindow(width(), height(), false);
 }
 
 void OpenGLWidget::initializeGL() {
@@ -40,7 +39,7 @@ void OpenGLWidget::paintGL() {
     painter.begin(this);
 
     // clear screen
-    Renderer::getInstance().clear();
+    Application::getInstance().clearRenderer();
 
     // have qt bind its buffer
     m_buffer.bind();

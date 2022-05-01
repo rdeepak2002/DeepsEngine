@@ -18,11 +18,13 @@ public:
     }
     DeepsEngine::Scene scene = {};
     void createWindow();
+    void resizeWindow(unsigned int width, unsigned int height, bool update = false);
     void initialize();
     void createWindowAndInit();
     void update(bool clearScreen = true);
     bool shouldClose();
     void close();
+    void clearRenderer();
     void createSampleEntities();
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame

@@ -133,4 +133,18 @@ void Application::createSampleEntities() {
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({scriptPath}));
 }
 
+void Application::clearRenderer() {
+    Renderer::getInstance().clear();
+}
+
+void Application::resizeWindow(unsigned int width, unsigned int height, bool update) {
+    Renderer::getInstance().SCR_WIDTH = width;
+    Renderer::getInstance().SCR_HEIGHT = height;
+
+    if (update) {
+        Renderer::getInstance().clear();
+        Renderer::getInstance().update();
+    }
+}
+
 
