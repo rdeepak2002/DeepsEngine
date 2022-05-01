@@ -7,10 +7,11 @@
 
 #define SOL_ALL_SAFETIES_ON 1
 #include "src/engine/include/sol.hpp"
+#include "ComponentSystem.h"
 
-class LuaScriptComponentSystem {
+class LuaScriptComponentSystem : public ComponentSystem {
 public:
-    LuaScriptComponentSystem() {}
+    LuaScriptComponentSystem() = default;
     void init();
     void update(float deltaTime);
 private:

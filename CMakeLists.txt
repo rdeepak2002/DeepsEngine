@@ -112,6 +112,7 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/ComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
     )
@@ -176,6 +177,7 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/ComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
     )

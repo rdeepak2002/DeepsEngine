@@ -30,7 +30,7 @@ private:
     Application() {
         luaScriptComponentSystem = std::make_unique<LuaScriptComponentSystem>();
     }
-    std::unique_ptr<LuaScriptComponentSystem> luaScriptComponentSystem;
+    std::unique_ptr<ComponentSystem> luaScriptComponentSystem;
 public:
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
