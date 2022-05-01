@@ -78,9 +78,9 @@ float cubeVertices[] = {
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
-#if defined(STANDALONE)
 void Renderer::createWindow() {
-      // glfw: initialize and configure
+#if defined(STANDALONE)
+  // glfw: initialize and configure
   // ------------------------------
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -100,26 +100,29 @@ void Renderer::createWindow() {
   }
   glfwMakeContextCurrent(window);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+#endif
 }
 
 bool Renderer::shouldCloseWindow() {
+#if defined(STANDALONE)
     if (window) {
         return glfwWindowShouldClose(window);
     } else {
         return true;
     }
-}
 #endif
+    return false;
+}
 
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 void Renderer::closeWindow() {
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
 //    delete ourShader;
 //    ourShader = nullptr;
     glfwTerminate();
-}
 #endif
+}
 
 void Renderer::initialize() {
     // TODO: move this to application
@@ -161,9 +164,6 @@ void Renderer::initialize() {
                                        "y", &DeepsEngine::Component::Scale::y,
                                        "z", &DeepsEngine::Component::Scale::z);
 
-//    scene.registry.on_construct<DeepsEngine::Component::LuaScript>().connect<&initScript>();
-//    scene.registry.on_destroy<DeepsEngine::Component::LuaScript>().connect<&releaseScript>();
-
     Logger::Debug("initializing renderer");
 
 #if !defined(STANDALONE)
@@ -186,14 +186,14 @@ void Renderer::initialize() {
     glEnable(GL_DEPTH_TEST);
 
 #if defined(EMSCRIPTEN)
-    ourShader = new Shader(
-            current_path().append("assets").append("res").append("example-project").append("shaders-web").append("shader.vert").c_str(),
-            current_path().append("assets").append("res").append("example-project").append("shaders-web").append("shader.frag").c_str());
+    std::string shaderFolderName = "shaders-web";
 #else
-    ourShader = new Shader(
-            current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.vert").c_str(),
-            current_path().append("assets").append("res").append("example-project").append("shaders").append("shader.frag").c_str());
+    std::string shaderFolderName = "shaders";
 #endif
+
+    ourShader = new Shader(
+            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("shader.vert").c_str(),
+            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("shader.frag").c_str());
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -405,9 +405,9 @@ float Renderer::update() {
     return deltaTime;
 }
 
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
 void Renderer::processInput() {
+#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-}
 #endif
+}

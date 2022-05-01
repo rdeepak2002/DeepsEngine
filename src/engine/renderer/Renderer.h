@@ -37,19 +37,13 @@ public:
         return instance;
     }
 
-#if defined(STANDALONE)
     void createWindow();
     bool shouldCloseWindow();
-#endif
-
     void initialize();
     void clear();
     float update();
-
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     void closeWindow();
     void processInput();
-#endif
 
 #if defined(STANDALONE)
     GLFWwindow* window;

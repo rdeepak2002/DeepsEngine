@@ -12,9 +12,7 @@ using std::filesystem::current_path;
 using std::filesystem::exists;
 
 void Application::update(bool clearScreen) {
-#if defined(STANDALONE) and !defined(EMSCRIPTEN) and !defined (DEVELOP_WEB)
     Renderer::getInstance().processInput();
-#endif
 
     if (clearScreen) {
         Renderer::getInstance().clear();
@@ -24,10 +22,7 @@ void Application::update(bool clearScreen) {
 }
 
 void Application::createWindow() {
-    // create window and initialize opengl functions
-#if defined(STANDALONE)
     Renderer::getInstance().createWindow();
-#endif
 }
 
 void Application::initialize() {
@@ -40,16 +35,11 @@ void Application::createWindowAndInit() {
 }
 
 void Application::close() {
-#if defined(STANDALONE) and !defined(EMSCRIPTEN) and !defined (DEVELOP_WEB)
     Renderer::getInstance().closeWindow();
-#endif
 }
 
 bool Application::shouldClose() {
-#if defined(STANDALONE)
     return Renderer::getInstance().shouldCloseWindow();
-#endif
-    return false;
 }
 
 void Application::createSampleEntities() {
