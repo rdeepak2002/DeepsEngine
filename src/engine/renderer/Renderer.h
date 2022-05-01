@@ -30,12 +30,6 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
-//    static Renderer& getInstance()
-//    {
-//        static Renderer instance;
-//        return instance;
-//    }
-
     void createWindow();
     bool shouldCloseWindow();
     void initialize();
@@ -45,27 +39,23 @@ public:
     void processInput();
     float getCurrentTime();
 
-#if defined(STANDALONE)
-    GLFWwindow* window;
-#endif
     unsigned int SCR_WIDTH = 800;
     unsigned int SCR_HEIGHT = 600;
     unsigned int VBO, VAO;
     unsigned int texture1, texture2;
 
     Shader* ourShader;
-#if !defined(STANDALONE)
+
+#if defined(STANDALONE)
+    GLFWwindow* window;
+#else
     QElapsedTimer timer;
 #endif
-private:
-//    Renderer() {}
 
+private:
     glm::vec3 cameraPos   = glm::vec3(0.0f, 0.0f,  3.0f);
     glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
     glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
-//public:
-//    Renderer(Renderer const&) = delete;
-//    void operator=(Renderer const&) = delete;
 };
 
 #endif //EXAMPLE_RENDERER_H
