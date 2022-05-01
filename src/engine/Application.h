@@ -16,6 +16,12 @@ public:
         return instance;
     }
     DeepsEngine::Scene scene = {};
+    void createWindow();
+    void initialize();
+    void createWindowAndInit();
+    void update();
+    bool shouldClose();
+    void close();
 private:
     Application() {}
 public:
