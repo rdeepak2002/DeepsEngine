@@ -26,8 +26,10 @@ void Application::update(bool clearScreen) {
 
     Renderer::getInstance().update();
 
-    // update lua script component system
-    luaScriptComponentSystem->update(deltaTime);
+    // update lua component systems
+    for (auto& componentSystem : componentSystems) {
+        componentSystem->update(deltaTime);
+    }
 }
 
 void Application::initialize() {
@@ -37,8 +39,10 @@ void Application::initialize() {
     // initialize renderer
     Renderer::getInstance().initialize();
 
-    // initialize lua script component system
-    luaScriptComponentSystem->init();
+    // initialize component systems
+    for (auto& componentSystem : componentSystems) {
+        componentSystem->init();
+    }
 }
 
 void Application::close() {

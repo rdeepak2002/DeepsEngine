@@ -28,9 +28,9 @@ public:
     float lastFrame = 0.0f;
 private:
     Application() {
-        luaScriptComponentSystem = std::make_unique<LuaScriptComponentSystem>();
+        componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
     }
-    std::unique_ptr<ComponentSystem> luaScriptComponentSystem;
+    std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
 public:
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
