@@ -112,6 +112,8 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -138,7 +140,7 @@ else()
 
     set(SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-            "${PROJECT_SOURCE_DIR}/src/engine/include/sol.hpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/sol.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/config.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/forward.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
@@ -174,6 +176,8 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

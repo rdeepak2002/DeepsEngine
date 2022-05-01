@@ -23,7 +23,7 @@ void startUpdateLoop() {
 
 int main() {
     Application::getInstance().createSampleEntities();
-    Application::getInstance().createWindowAndInit();
+    Application::getInstance().initialize();
     startUpdateLoop();
     Application::getInstance().close();
 

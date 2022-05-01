@@ -5,9 +5,8 @@
 #ifndef EDITOR_APPLICATION_H
 #define EDITOR_APPLICATION_H
 
-#define SOL_ALL_SAFETIES_ON 1
-#include "src/engine/include/sol.hpp"
 #include "src/engine/scene/Scene.h"
+#include "src/engine/component/LuaScriptComponentSystem.h"
 
 class Application {
 public:
@@ -17,10 +16,8 @@ public:
         return instance;
     }
     DeepsEngine::Scene scene = {};
-    void createWindow();
     void resizeWindow(unsigned int width, unsigned int height, bool update = false);
     void initialize();
-    void createWindowAndInit();
     void update(bool clearScreen = true);
     bool shouldClose();
     void close();
@@ -30,8 +27,10 @@ public:
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
 private:
-    Application() {}
-    sol::state lua;
+    Application() {
+        luaScriptComponentSystem = std::make_unique<LuaScriptComponentSystem>();
+    }
+    std::unique_ptr<LuaScriptComponentSystem> luaScriptComponentSystem;
 public:
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
