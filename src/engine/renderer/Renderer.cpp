@@ -15,31 +15,9 @@
 #include "src/engine/include/stb_image.h"
 #include "src/engine/scene/Entity.h"
 #include "src/engine/util/Logger.h"
+#include "src/engine/Application.h"
 
 using std::filesystem::current_path;
-
-//void initScript(entt::registry &registry, entt::entity entity) {
-//    // TODO: fix weird issue where program is still trying to close somehow caused by this...
-//    Logger::Debug("Script system adding component");
-//    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
-//    Renderer::getInstance().lua.script_file(script.scriptPath);
-//    script.hooks.init = Renderer::getInstance().lua["init"];
-//    script.hooks.update = Renderer::getInstance().lua["update"];
-//    if (!script.hooks.update.valid()) {
-//        script.shouldUpdate = false;
-//    }
-//    script.self = Renderer::getInstance().lua.create_table_with();
-//    Renderer::getInstance().lua["self"] = script.self;
-//    script.shouldInit = true;
-//}
-
-//void releaseScript(entt::registry &registry, entt::entity entity) {
-//    Logger::Debug("Script system releasing component");
-//    auto &script = registry.get<DeepsEngine::Component::LuaScript>(entity);
-//    script.shouldInit = false;
-//    script.shouldUpdate = false;
-////    script.self.abandon();
-//}
 
 #if defined(STANDALONE)
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -322,7 +300,7 @@ float Renderer::update() {
     // activate shader
     ourShader->use();
 
-    std::vector<DeepsEngine::Entity> cameraEntities = scene.GetCameraEntities();
+    std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
     if (cameraEntities.size() > 0) {
         // get main camera
@@ -350,7 +328,7 @@ float Renderer::update() {
         glBindVertexArray(VAO);
 
         // get current scene and all the entities
-        for(auto entity : scene.GetDrawableEntities()) {
+        for(auto entity : Application::getInstance().scene.GetDrawableEntities()) {
             // get the entity's transform
             auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
             auto entityPosition = entityTransform.position;
@@ -394,7 +372,7 @@ float Renderer::update() {
 #endif
 
     // TODO: create separate (singleton?) class called Application which handles this stuff (and maybe physics) in the future
-    for(auto entity : Renderer::getInstance().scene.GetScriptableEntities()) {
+    for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
         lua.script_file(luaScriptComponent.scriptPath);
 

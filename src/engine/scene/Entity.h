@@ -8,6 +8,7 @@
 #include "src/engine/include/entt.hpp"
 #include "Scene.h"
 #include "src/engine/renderer/Renderer.h"
+#include "src/engine/Application.h"
 
 namespace DeepsEngine {
     class Entity {
@@ -20,7 +21,7 @@ namespace DeepsEngine {
         template<typename T, typename... Args>
         T& AddComponent(Args&&... args) {
             // TODO: assert entity does not already have a component
-            T& component = Renderer::getInstance().scene.registry.emplace<T>(entity, std::forward<Args>(args)...);
+            T& component = Application::getInstance().scene.registry.emplace<T>(entity, std::forward<Args>(args)...);
             // TODO: callback for when component added
             return component;
         }
@@ -28,17 +29,17 @@ namespace DeepsEngine {
         template<typename T>
         T& GetComponent() {
             // TODO: assert component exists
-            return Renderer::getInstance().scene.registry.get<T>(entity);
+            return Application::getInstance().scene.registry.get<T>(entity);
         }
 
         void Destroy() {
-            Renderer::getInstance().scene.registry.destroy(entity);
+            Application::getInstance().scene.registry.destroy(entity);
         }
 
         template<typename T>
         bool HasComponent() {
             // TODO: test this
-            if (auto *comp = Renderer::getInstance().scene.registry.try_get<T>(entity)) {
+            if (auto *comp = Application::getInstance().scene.registry.try_get<T>(entity)) {
                 return true;
             } else {
                 return false;
@@ -46,13 +47,13 @@ namespace DeepsEngine {
         }
 
         bool IsValid() {
-            return Renderer::getInstance().scene.registry.valid(entity);
+            return Application::getInstance().scene.registry.valid(entity);
         }
 
         template<typename T>
         void RemoveComponent() {
             // TODO: assert entity has component
-            Renderer::getInstance().scene.registry.remove<T>(entity);
+            Application::getInstance().scene.registry.remove<T>(entity);
         }
 
         uint32_t GetId() {

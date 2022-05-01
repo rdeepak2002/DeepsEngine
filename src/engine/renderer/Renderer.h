@@ -61,7 +61,6 @@ public:
 
     Shader* ourShader;
 
-    DeepsEngine::Scene scene = {};
     sol::state lua;
 
     void (*cb)();
@@ -79,6 +78,9 @@ private:
 #if !defined(STANDALONE)
     QElapsedTimer timer;
 #endif
+public:
+    Renderer(Renderer const&) = delete;
+    void operator=(Renderer const&) = delete;
 };
 
 #endif //EXAMPLE_RENDERER_H

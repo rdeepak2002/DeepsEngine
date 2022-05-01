@@ -5,6 +5,7 @@
 #include "src/engine/component/Component.h"
 #define SOL_ALL_SAFETIES_ON 1
 #include "src/engine/include/sol.hpp"
+#include "src/engine/Application.h"
 #include <iostream>
 
 using namespace DeepsEngine;
@@ -25,12 +26,12 @@ int main() {
     Renderer::getInstance().initialize();
 
     // add camera entity
-    Entity camera = Renderer::getInstance().scene.CreateEntity();
+    Entity camera = Application::getInstance().scene.CreateEntity();
     (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
 
     // add a single cube entity
-    Entity entity = Renderer::getInstance().scene.CreateEntity();
+    Entity entity = Application::getInstance().scene.CreateEntity();
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
     std::string scriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua");
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({scriptPath}));

@@ -11,6 +11,7 @@
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
 #include "src/editor/mainwindow.h"
+#include "src/engine/Application.h"
 
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // set max dimensions
@@ -45,7 +46,7 @@ SceneViewWidget::~SceneViewWidget() {
 }
 
 void SceneViewWidget::timerEvent(QTimerEvent *event) {
-    std::vector<DeepsEngine::Entity> newEntities = Renderer::getInstance().scene.GetEntities();
+    std::vector<DeepsEngine::Entity> newEntities = Application::getInstance().scene.GetEntities();
 
     if (newEntities.size() != entities.size()) {
         refreshSceneViewItems();
@@ -54,7 +55,7 @@ void SceneViewWidget::timerEvent(QTimerEvent *event) {
 
 void SceneViewWidget::refreshSceneViewItems() {
     sceneViewList->clear();
-    entities = Renderer::getInstance().scene.GetEntities();
+    entities = Application::getInstance().scene.GetEntities();
 
     for(auto entity : entities) {
         DeepsEngine::Component::Tag entityTag = entity.GetComponent<DeepsEngine::Component::Tag>();
@@ -84,5 +85,5 @@ void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
 }
 
 void SceneViewWidget::onAddButtonPressed() {
-    Renderer::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
+    Application::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
 }
