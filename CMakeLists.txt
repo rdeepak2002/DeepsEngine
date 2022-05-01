@@ -109,6 +109,7 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
         "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/LoggerCallbackInterface.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -169,6 +170,7 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
         "${PROJECT_SOURCE_DIR}/src/engine/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/Logger.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/LoggerCallbackInterface.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)

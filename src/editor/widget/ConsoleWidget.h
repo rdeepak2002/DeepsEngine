@@ -11,8 +11,9 @@
 #include <QLabel>
 #include <QPushButton>
 #include <iostream>
+#include "src/engine/LoggerCallbackInterface.h"
 
-class ConsoleWidget: public QWidget {
+class ConsoleWidget: public QWidget, LoggerCallbackInterface {
 Q_OBJECT;
 
 public:

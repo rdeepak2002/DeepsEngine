@@ -5,10 +5,6 @@
 #ifndef EDITOR_LOGGER_H
 #define EDITOR_LOGGER_H
 
-#if !defined(STANDALONE)
-#include "src/editor/widget/ConsoleWidget.h"
-#endif
-
 #define KNRM  "\x1B[0m"
 #define KRED  "\x1B[31m"
 #define KGRN  "\x1B[32m"
@@ -19,6 +15,7 @@
 #define KWHT  "\x1B[37m"
 
 #include <iostream>
+#include "LoggerCallbackInterface.h"
 
 class Logger {
 public:
@@ -57,14 +54,14 @@ public:
     }
 
 #if !defined(STANDALONE)
-    static void setConsoleWidget(ConsoleWidget* consoleWidget) {
+    static void setConsoleWidget(LoggerCallbackInterface* consoleWidget) {
         Logger::getInstance().consoleWidget = nullptr;
         Logger::getInstance().consoleWidget = consoleWidget;
     }
 #endif
 private:
 #if !defined(STANDALONE)
-    ConsoleWidget* consoleWidget;
+    LoggerCallbackInterface* consoleWidget;
 #endif
 };
 
