@@ -8,7 +8,6 @@
 #include <QListWidget>
 #include "SceneViewWidget.h"
 #include "src/engine/component/Component.h"
-#include "src/engine/renderer/Renderer.h"
 #include "src/engine/scene/Entity.h"
 #include "src/editor/mainwindow.h"
 #include "src/engine/Application.h"

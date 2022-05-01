@@ -32,18 +32,7 @@ void OpenGLWidget::resizeEvent(QResizeEvent* ev) {
 
 void OpenGLWidget::initializeGL() {
     // initialize renderer
-    Renderer::getInstance().initialize();
-    // create basic scene
-    // add camera entity
-    DeepsEngine::Entity camera = Application::getInstance().scene.CreateEntity("Main Camera");
-    (&camera.GetComponent<DeepsEngine::Component::Transform>())->position.z = 5.0;
-    camera.AddComponent<DeepsEngine::Component::Camera>(DeepsEngine::Component::Camera({45.0f, 0.1f, 100.0f}));
-
-    // add a single cube entity with simple script component
-    DeepsEngine::Entity entity = Application::getInstance().scene.CreateEntity("Cube");
-    entity.AddComponent<DeepsEngine::Component::MeshFilter>(DeepsEngine::Component::MeshFilter{"cube"});
-    std::string scriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua");
-    entity.AddComponent<DeepsEngine::Component::LuaScript>(DeepsEngine::Component::LuaScript({scriptPath}));
+    Application::getInstance().initialize();
 }
 
 void OpenGLWidget::paintGL() {
@@ -57,7 +46,7 @@ void OpenGLWidget::paintGL() {
     m_buffer.bind();
 
     // draw screen contents
-    Renderer::getInstance().update();
+    Application::getInstance().update(false);
 
     // have qt release its buffer
     m_buffer.release();
