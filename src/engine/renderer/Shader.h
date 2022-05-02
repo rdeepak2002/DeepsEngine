@@ -12,7 +12,7 @@
 #define EGL_EGLEXT_PROTOTYPES
 #include <GLFW/glfw3.h>
 #else
-#include <glad.h>
+#include <glad/glad.h>
 #endif
 #elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
 #include <QOpenGLExtraFunctions>

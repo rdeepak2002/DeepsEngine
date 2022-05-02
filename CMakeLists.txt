@@ -46,12 +46,11 @@ endif()
 set(GLEW_H /usr/local/include/gl)
 set(GLFW_H /usr/local/include/glfw)
 set(GLM /usr/local/include/glm)
-set(GLAD_H /usr/local/include/glad)
-set(KH_H /usr/local/include/KHR)
+set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
 set(ENTT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/entt/single_include)
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR})
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
@@ -61,7 +60,7 @@ link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIB
 
 set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
+        "${PROJECT_SOURCE_DIR}/src/engine/include/glad/src/glad.c"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"

@@ -12,7 +12,7 @@
 #define EGL_EGLEXT_PROTOTYPES
 #include <GLFW/glfw3.h>
 #else
-#include <glad.h>
+#include <glad/glad.h>
 #include <glfw3.h>
 #endif
 #else

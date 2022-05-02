@@ -22,17 +22,10 @@ git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.gi
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
   - refer to 'Node / NPM Troubleshooting (macOS)' section below
-- Glad
-  - generate zip file from https://glad.dav1d.de/ (gl: 'Version 3.3', profile: 'Core', 'Generate a loader' ticked)
-    - Permalink: https://glad.dav1d.de/#language=c&specification=gl&api=gl%3D3.3&api=gles1%3Dnone&api=gles2%3Dnone&api=glsc2%3Dnone&profile=core&loader=on
-  - extract zip, then move 'glad' and 'KHR' folders (located in 'include' folder) to '/usr/local/include'
-  - change line 89 of 'glad.h' (located in /usr/local/include/glad) from '#include <KHR/khrplatform.h>' to '#include <khrplatform.h>'
 - CMake (refer to below commands)
 - GLFW (refer to below commands)
 - GLEW (refer to below commands)
-- OpenCV (refer to below commands)
 - http-server (https://www.npmjs.com/package/http-server)
-- SDL2 (https://www.libsdl.org/download-2.0.php)
 - Lua (refer to below commands)
 
 Intel Mac:
@@ -43,7 +36,6 @@ brew install glfw3
 brew install glew
 brew install glm
 brew install qt@5
-brew install skypjack/entt/entt
 brew install lua
 brew install lua@5.3
 ```
@@ -75,7 +67,6 @@ arch -x86_64 /usr/local/bin/brew install glfw3
 arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
 arch -x86_64 /usr/local/bin/brew install qt@5
-arch -x86_64 /usr/local/bin/brew install skypjack/entt/entt
 arch -x86_64 /usr/local/bin/brew install lua
 arch -x86_64 /usr/local/bin/brew install lua@5.3
 ```
