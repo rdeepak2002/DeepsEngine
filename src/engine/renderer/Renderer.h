@@ -42,9 +42,11 @@ public:
     unsigned int SCR_WIDTH = 800;
     unsigned int SCR_HEIGHT = 600;
     unsigned int VBO, VAO;
+    unsigned int lightVAO;
     unsigned int texture1, texture2;
 
     Shader* ourShader;
+    Shader* lightingShader;
 
 #if defined(STANDALONE)
     GLFWwindow* window;
