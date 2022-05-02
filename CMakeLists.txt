@@ -50,7 +50,8 @@ set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
 set(RAPID_JSON /usr/local/include/rapidjson)
 set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${LUA_INCLUDE_DIR})
+set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
@@ -61,8 +62,6 @@ link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIB
 set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/sol.hpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/config.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/forward.hpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/include/entt.hpp"

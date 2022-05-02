@@ -1,0 +1,3 @@
+[submodule "src/engine/include/sol2"]
+	path = src/engine/include/sol2
+	url = https://github.com/ThePhD/sol2.git

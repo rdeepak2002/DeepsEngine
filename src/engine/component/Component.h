@@ -8,8 +8,9 @@
 #include <iostream>
 #include <filesystem>
 #include "src/engine/util/Logger.h"
+
 #define SOL_ALL_SAFETIES_ON 1
-#include "src/engine/include/sol.hpp"
+#include "sol/state.hpp"
 
 using std::filesystem::exists;
 

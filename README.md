@@ -6,6 +6,14 @@ Deepak Ramalingam
 ## About
 Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 
+## Clone with Submodules
+
+It is recommended to clone this repository with submodules
+
+```shell
+git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
+```
+
 ## Requirements (macOS)
 
 - Xcode (https://apps.apple.com/us/app/xcode/id497799835?mt=12)
