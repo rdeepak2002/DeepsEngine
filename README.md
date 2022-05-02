@@ -42,7 +42,6 @@ brew install cmake
 brew install glfw3
 brew install glew
 brew install glm
-brew install rapidjson
 brew install qt@5
 brew install skypjack/entt/entt
 brew install lua
@@ -75,7 +74,6 @@ arch -x86_64 /usr/local/bin/brew install cmake
 arch -x86_64 /usr/local/bin/brew install glfw3
 arch -x86_64 /usr/local/bin/brew install glew
 arch -x86_64 /usr/local/bin/brew install glm
-arch -x86_64 /usr/local/bin/brew install rapidjson
 arch -x86_64 /usr/local/bin/brew install qt@5
 arch -x86_64 /usr/local/bin/brew install skypjack/entt/entt
 arch -x86_64 /usr/local/bin/brew install lua

@@ -48,11 +48,10 @@ set(GLFW_H /usr/local/include/glfw)
 set(GLM /usr/local/include/glm)
 set(GLAD_H /usr/local/include/glad)
 set(KH_H /usr/local/include/KHR)
-set(RAPID_JSON /usr/local/include/rapidjson)
 set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
 set(ENTT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/entt/single_include)
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${RAPID_JSON} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR})
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_H} ${KH_H} ${GLM} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
