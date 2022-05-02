@@ -115,6 +115,8 @@ if(RUN_STANDALONE)
         "${PROJECT_SOURCE_DIR}/src/engine/component/ComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/Input.h"
     )
 
     add_executable(Release ${SOURCE_FILES_EXEC})
@@ -180,6 +182,8 @@ else()
         "${PROJECT_SOURCE_DIR}/src/engine/component/ComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
+        "${PROJECT_SOURCE_DIR}/src/engine/Input.h"
     )
 
     add_project_meta(META_FILES_TO_INCLUDE)
