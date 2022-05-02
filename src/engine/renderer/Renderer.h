@@ -5,7 +5,6 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
-#include "src/engine/include/entt.hpp"
 #if defined(STANDALONE)
 #ifdef EMSCRIPTEN
 #include <emscripten.h>

@@ -4,7 +4,7 @@
 #ifndef EDITOR_SCENE_H
 #define EDITOR_SCENE_H
 
-#include "src/engine/include/entt.hpp"
+#include <entt/entt.hpp>
 #include <iostream>
 
 namespace DeepsEngine {

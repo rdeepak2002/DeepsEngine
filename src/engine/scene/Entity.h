@@ -5,10 +5,10 @@
 #ifndef EDITOR_ENTITY_H
 #define EDITOR_ENTITY_H
 
-#include "src/engine/include/entt.hpp"
 #include "Scene.h"
 #include "src/engine/renderer/Renderer.h"
 #include "src/engine/Application.h"
+#include <entt/entt.hpp>
 
 namespace DeepsEngine {
     class Entity {

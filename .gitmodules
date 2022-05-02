@@ -1,3 +1,6 @@
 [submodule "src/engine/include/sol2"]
 	path = src/engine/include/sol2
 	url = https://github.com/ThePhD/sol2.git
+[submodule "src/engine/include/entt"]
+	path = src/engine/include/entt
+	url = https://github.com/skypjack/entt.git
