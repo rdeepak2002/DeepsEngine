@@ -384,6 +384,7 @@ void Renderer::update() {
         model = glm::translate(model, lightPos);
         model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
         lightingShader->setMat4("model", model);
+        lightingShader->setVec3("viewPos", cameraPos);
 
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
