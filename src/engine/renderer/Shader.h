@@ -40,7 +40,7 @@ class Shader {
   // constructor generates the shader on the fly
   // ------------------------------------------------------------------------
   Shader(const char *vertexPath, const char *fragmentPath) {
-#if !defined(STANDALONE)
+#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
       initializeOpenGLFunctions();
 #endif
 

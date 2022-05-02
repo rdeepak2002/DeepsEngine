@@ -176,7 +176,7 @@ void Renderer::closeWindow() {
 void Renderer::initialize() {
     Logger::Debug("initializing renderer");
 
-#if !defined(STANDALONE)
+#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
     // start timer for qt to keep track of delta time
     timer.start();
 #endif
