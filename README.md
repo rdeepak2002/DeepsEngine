@@ -32,7 +32,7 @@ sudo chmod 777 install-rosetta.sh
 ./install-arm64.sh
 ```
 
-### Run the engine in Release or Editor mode
+### Run the Engine in Desktop Release or Desktop Editor mode
 - Open 'deeps-engine-latest' folder in CLion
   - Enable autoreload for CMake changes
   - Go to Preferences -> Build, Execution, Deployment -> CMake and add the following profiles:
@@ -44,7 +44,8 @@ sudo chmod 777 install-rosetta.sh
         - "-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3"
 - Run the CMake application in either Editor or Release mode
 
-### Run the engine on the web
+### Run the Web Release of the Engine
+
 ```shell
 cd web_build
 sudo chmod 777 build.sh
