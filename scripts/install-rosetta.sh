@@ -1,6 +1,9 @@
 echo "Installing command line tools"
 sudo xcode-select --install
 
+echo "Installing git"
+brew install git
+
 echo "Installing node and http-server"
 brew update
 brew install node
