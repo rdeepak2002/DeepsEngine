@@ -44,7 +44,7 @@ sudo chmod 777 install-rosetta.sh
         - "-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3"
 - Run the CMake application in either Editor or Release mode
 
-### Run the Web Release of the Engine
+### Run the Web Release of the Engine on macOS
 
 ```shell
 cd web_build
