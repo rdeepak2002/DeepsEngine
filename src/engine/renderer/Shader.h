@@ -19,13 +19,10 @@
 #endif
 
 #include <fstream>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <vec2.hpp>
-#include <vec3.hpp>
-#include <vec4.hpp>
 #include "src/engine/util/Logger.h"
 
 //class Shader {

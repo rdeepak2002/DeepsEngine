@@ -5,8 +5,8 @@
 #include "Renderer.h"
 
 #include <iostream>
-#include <ext/matrix_transform.hpp>
-#include <ext/matrix_clip_space.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 #include <memory>
 #include "src/engine/component/Component.h"
 

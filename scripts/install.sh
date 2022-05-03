@@ -16,7 +16,7 @@ brew install http-server
 sudo echo "Installing Homebrew"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-echo "Installing dependencies view Homebrew"
+echo "Installing dependencies via Homebrew"
 brew install llvm
 brew install cmake
 brew install glfw3
