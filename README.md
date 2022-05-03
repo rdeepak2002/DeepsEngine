@@ -18,6 +18,7 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 ### Intel Mac:
 
 ```shell
+git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
 cd scripts
 sudo chmod 777 install.sh
 ./install.sh
@@ -26,6 +27,7 @@ sudo chmod 777 install.sh
 ### M1 Mac:
 
 ```shell
+git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
 cd scripts
 sudo chmod 777 install-rosetta.sh
 ./install-arm64.sh
@@ -39,14 +41,6 @@ sudo chmod 777 install-rosetta.sh
 git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
 ```
 
-- Add the following compile options for CLion
-
-```shell
--DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3
-```
-
-- Verify the above directory is correct (version numbers might change)
-
 - Open 'deeps-engine-latest' folder in CLion
   - Enable autoreload for CMake changes
   - Go to Preferences -> Build, Execution, Deployment -> CMake and add the following profiles:
@@ -54,6 +48,8 @@ git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.gi
       - In "Environment" add "STANDALONE="
     - Editor
       - Nothing in "Environment"
+      - Add the following compile options
+        - "-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3"
 
 - Run the CMake application
 

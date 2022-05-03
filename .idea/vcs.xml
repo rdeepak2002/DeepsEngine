@@ -4,6 +4,6 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/entt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/sol2" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/engine/libraries/lua-web" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/engine/lib/lua-web" vcs="Git" />
   </component>
 </project>
