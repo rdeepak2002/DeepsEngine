@@ -16,20 +16,12 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
 ```
 
-### Install Requirements on Intel Mac:
+### Install Requirements on Mac:
 
 ```shell
 cd scripts
 sudo chmod 777 install.sh
 ./install.sh
-```
-
-### Install Requirements on M1 Mac:
-
-```shell
-cd scripts
-sudo chmod 777 install-rosetta.sh
-./install-arm64.sh
 ```
 
 ### Run the Engine in Desktop Release or Desktop Editor mode
@@ -41,7 +33,7 @@ sudo chmod 777 install-rosetta.sh
     - Editor
       - Nothing in "Environment"
       - Add the following compile options
-        - "-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3"
+        - "-DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/qt@5/5.15.3"
 - Run the CMake application in either Editor or Release mode
 
 ### Run the Web Release of the Engine on macOS

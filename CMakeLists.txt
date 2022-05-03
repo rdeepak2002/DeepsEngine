@@ -28,9 +28,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Basic information about project
 project(DeepsEngine VERSION 1.0)
 
-if (APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "x86_64")
-endif()
+#if (APPLE)
+#    set(CMAKE_OSX_ARCHITECTURES "arm64")
+#endif()
 
 # Set additional project information
 set(COMPANY "DeepDev")
@@ -40,12 +40,36 @@ set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 # find opengl package
 if (NOT EMSCRIPTEN)
     find_package(OpenGL REQUIRED)
+
+    if(OPENGL_FOUND)
+        message("OPENGL_LIBRARIES = ${OPENGL_LIBRARIES} ")
+        message("OPENGL_INCLUDE_DIRS = ${OPENGL_INCLUDE_DIRS} ")
+    else( OPENGL_FOUND )
+        message(FATAL_ERROR "OpenGL not found")
+    endif( OPENGL_FOUND )
 endif()
 
+EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
+message( STATUS "Architecture: ${ARCHITECTURE}" )
+
+#find_package(glfw3 REQUIRED)
+#
+#if(GLFW_FOUND) # Works with some other methods
+#    message(STATUS "GLFW3_INCLUDE_PATH=${GLFW3_INCLUDE_PATH}")
+#    message(STATUS "GLFW_LIBRARIES=${GLFW_LIBRARIES}")
+#else( GLFW_FOUND )
+#    message(FATAL_ERROR "GLFW3 not found")
+#endif( GLFW_FOUND )
+
+#find_package(Lua REQUIRED)
+#
+#message(STATUS "LUA_INCLUDE_DIR=${LUA_INCLUDE_DIR}")
+#message(STATUS "LUA_LIBRARIES=${LUA_LIBRARIES}")
+
 # get include directories for libraries used
-set(GLEW_H /usr/local/include/gl)
-set(GLFW_H /usr/local/include/glfw)
-set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
+set(GLEW_H /opt/homebrew/Cellar/glew/2.2.0_1/include/GL)
+set(GLFW_H /opt/homebrew/Cellar/glfw/3.3.7/include/GLFW)
+set(LUA_INCLUDE_DIR /opt/homebrew/Cellar/lua@5.3/5.3.6/include/lua)
 set(GLM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glm)
 set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
@@ -54,9 +78,9 @@ set(STB_IMAGE_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/stb)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR} ${STB_IMAGE_INCLUDE_DIR})
 
 # link libraries used
-set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
-set(GLFW_LINK /usr/local/lib/libglfw.dylib)
-set(LUA_LIBRARY /usr/local/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
+set(GLEW_LINK /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.dylib)
+set(GLFW_LINK /opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.dylib)
+set(LUA_LIBRARY /opt/homebrew/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIBRARY})
 
 set(ENGINE_SOURCE_FILES
