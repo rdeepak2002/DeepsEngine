@@ -1,2 +1,2 @@
-src/engine/include linguist-vendored=false
-src/engine/lib linguist-vendored=false
+src/engine/include/* linguist-vendored=false
+src/engine/lib/* linguist-vendored=false
