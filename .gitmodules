@@ -7,9 +7,6 @@
 [submodule "src/engine/libraries/lua-web"]
 	path = src/engine/libraries/lua-web
 	url = https://github.com/rdeepak2002/lua-web.git
-[submodule "src/engine/lib/lua-web-5.3.6"]
-	path = src/engine/lib/lua-web-5.3.6
-	url = https://github.com/rdeepak2002/lua-web.git
 [submodule "src/engine/include/glm"]
 	path = src/engine/include/glm
 	url = https://github.com/g-truc/glm.git
