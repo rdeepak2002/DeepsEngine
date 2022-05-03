@@ -4,3 +4,6 @@
 [submodule "src/engine/include/entt"]
 	path = src/engine/include/entt
 	url = https://github.com/skypjack/entt.git
+[submodule "src/engine/libraries/lua-web"]
+	path = src/engine/libraries/lua-web
+	url = https://github.com/rdeepak2002/lua-web.git

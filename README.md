@@ -1,117 +1,95 @@
 # deeps-engine
 
 ## Author
+
 Deepak Ramalingam
 
 ## About
+
 Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
-
-## Clone with Submodules
-
-It is recommended to clone this repository with submodules
-
-```shell
-git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
-```
 
 ## Requirements (macOS)
 
 - Xcode (https://apps.apple.com/us/app/xcode/id497799835?mt=12)
-  - create an arbitrary blank project and build it to ensure everything is working properly
-- Homebrew (https://brew.sh/)
 - Node and NPM (https://nodejs.org/en/download/)
 - Yarn (https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
-  - refer to 'Node / NPM Troubleshooting (macOS)' section below
-- CMake (refer to below commands)
-- GLFW (refer to below commands)
-- GLEW (refer to below commands)
 - http-server (https://www.npmjs.com/package/http-server)
-- Lua (refer to below commands)
 
-Intel Mac:
+### Intel Mac:
+
+Open terminal
+
+Install Homebrew
 
 ```
-brew install cmake
-brew install glfw3
-brew install glew
-brew install glm
-brew install qt@5
-brew install lua
-brew install lua@5.3
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-Refer to instructions below for M1 Mac
+Install other dependencies
 
-## Requirements M1 Mac (using Rosetta)
+```shell
+cd scripts
+./install.sh
+```
+
+### arm64 Mac:
 
 Open terminal using Rosetta
 
-Install brew
+Install Homebrew
 
 ```
 arch -x86_64 zsh  
 arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
 
-Install clang
-
-```
-arch -x86_64 /usr/local/bin/brew install llvm
-```
-
 Install other dependencies
 
+```shell
+cd scripts
+./install-arm64.sh
 ```
-arch -x86_64 /usr/local/bin/brew install cmake
-arch -x86_64 /usr/local/bin/brew install glfw3
-arch -x86_64 /usr/local/bin/brew install glew
-arch -x86_64 /usr/local/bin/brew install glm
-arch -x86_64 /usr/local/bin/brew install qt@5
-arch -x86_64 /usr/local/bin/brew install lua
-arch -x86_64 /usr/local/bin/brew install lua@5.3
-```
-
 ## Get Started
+
+- It is recommended to clone this repository recursively with submodules
+
+```shell
+git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
+```
 
 - Add the following compile options for CLion
 
 ```shell
--DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.2_1
+-DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.3
 ```
+
+- Verify the above directory is correct (version numbers might change)
 
 - Open 'deeps-engine-latest' folder in CLion
   - Enable autoreload for CMake changes
-  - Recommended plugin for GLSL: https://plugins.jetbrains.com/plugin/6993-glsl-support
-  - Go to Preferences -> Build, Execution, Deployment -> CMake and add a profile:
+  - Go to Preferences -> Build, Execution, Deployment -> CMake and add the following profiles:
     - Release
       - In "Environment" add "STANDALONE="
+    - Editor
+      - Nothing in "Environment"
 
 - Run the CMake application
 
-## How to Build Lua for Emscripten / Web Assembly
-
-Run the following command in the deeps-engine-latest/src/engine/external/lua-5.3.6/src folder:
+## How to Install Lua (macOS)
 
 ```shell
-make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib'
+git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
+cd scripts
+./install-lua.sh
 ```
 
-Link as library for emscripten (step already done, just rewriting it here for future readers to understand):
+## Troubleshooting (macOS)
 
-```cmake
-if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-  set_target_properties(Release PROPERTIES LINK_FLAGS "... -L${PROJECT_SOURCE_DIR}/src/engine/external/lua-5.3.6/src -s ...")
-endif ()
+Solution to 'Error: EACCES: permission denied, access '/usr/local/lib/node_modules':
+
 ```
-
-## How to Install QT
-
-Install qt on macOS:
-```shell
-arch -x86_64 /usr/local/bin/brew install qt@5
-```
-
-Compile options for CLion:
-```shell
--DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt@5/5.15.2_1
+sudo chown -R $USER /usr/local/lib/
+sudo chown -R $USER /usr/local/lib/node_modules/
+sudo chown -R $USER /usr/local/bin/
+sudo chown -R $USER /usr/local/share/
 ```
