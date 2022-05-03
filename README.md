@@ -38,8 +38,19 @@ sudo chmod 777 install.sh
 
 ### Run the Web Release of the Engine on macOS
 
+Install Emscripten
+
 ```shell
+brew install emscripten
+```
+
+Create the Web Build and Serve It
+
+```shell
+sudo chmod 777 web_build
 cd web_build
 sudo chmod 777 build.sh
 ./build.sh
 ```
+
+Note: permission denied errors means that you might have to change the permission of the entire web_build folder

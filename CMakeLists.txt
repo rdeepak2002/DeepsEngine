@@ -2,6 +2,8 @@
 
 cmake_minimum_required(VERSION 3.16)
 
+set(CMAKE_OSX_ARCHITECTURES "arm64")
+
 if (EMSCRIPTEN)
     set(CMAKE_C_COMPILER "emcc")
 endif ()
@@ -31,6 +33,8 @@ project(DeepsEngine VERSION 1.0)
 #if (APPLE)
 #    set(CMAKE_OSX_ARCHITECTURES "arm64")
 #endif()
+
+set(CMAKE_OSX_ARCHITECTURES "arm64")
 
 # Set additional project information
 set(COMPANY "DeepDev")
