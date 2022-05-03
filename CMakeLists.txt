@@ -45,12 +45,13 @@ endif()
 # get include directories for libraries used
 set(GLEW_H /usr/local/include/gl)
 set(GLFW_H /usr/local/include/glfw)
-set(GLM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glm)
 set(LUA_INCLUDE_DIR /usr/local/Cellar/lua@5.3/5.3.6/include/lua)
+set(GLM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glm)
 set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
 set(ENTT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/entt/single_include)
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR})
+set(STB_IMAGE_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/stb)
+include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR} ${STB_IMAGE_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK /usr/local/lib/libGLEW.dylib)
@@ -61,7 +62,6 @@ link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIB
 set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad/src/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/stb_image.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"

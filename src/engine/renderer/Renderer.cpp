@@ -12,7 +12,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "src/engine/include/stb_image.h"
+#include <stb_image.h>
 #include "src/engine/scene/Entity.h"
 #include "src/engine/util/Logger.h"
 #include "src/engine/Application.h"

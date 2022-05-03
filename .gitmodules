@@ -13,3 +13,6 @@
 [submodule "src/engine/include/glm"]
 	path = src/engine/include/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "src/engine/include/stb"]
+	path = src/engine/include/stb
+	url = https://github.com/nothings/stb.git
