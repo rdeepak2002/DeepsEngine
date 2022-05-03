@@ -141,7 +141,7 @@ if(RUN_STANDALONE)
     add_executable(${PROJECT_NAME} ${SOURCE_FILES_EXEC})
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -L${PROJECT_SOURCE_DIR}/src/engine/lib/lua-web-5.4.4/src -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -L${PROJECT_SOURCE_DIR}/src/engine/lib/lua-web/src -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
     else()
         file(COPY res DESTINATION assets)
     endif ()

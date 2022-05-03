@@ -44,13 +44,18 @@ Install Emscripten
 brew install emscripten
 ```
 
+Update lua-web Build
+
+```shell
+cd src/engine/lib
+sudo chmod 777 download-lua-web.sh
+./download-lua-web.sh
+```
+
 Create the Web Build and Serve It
 
 ```shell
-sudo chmod 777 web_build
+sudo chmod -R 777 web_build
 cd web_build
-sudo chmod 777 build.sh
 ./build.sh
 ```
-
-Note: permission denied errors means that you might have to change the permission of the entire web_build folder
