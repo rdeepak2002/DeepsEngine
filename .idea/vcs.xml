@@ -7,6 +7,5 @@
     <mapping directory="$PROJECT_DIR$/src/engine/include/sol2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/stb" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/lib/lua-web-5.3.6" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/web_build/emsdk" vcs="Git" />
   </component>
 </project>

@@ -64,10 +64,35 @@ message( STATUS "Architecture: ${ARCHITECTURE}" )
 #message(STATUS "LUA_INCLUDE_DIR=${LUA_INCLUDE_DIR}")
 #message(STATUS "LUA_LIBRARIES=${LUA_LIBRARIES}")
 
+# macro to return full path of first folder in a directory
+MACRO(GETFIRSTDIR result curdir)
+    FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+    SET(dirlist "")
+    FOREACH(child ${children})
+        IF(IS_DIRECTORY ${curdir}/${child})
+            LIST(APPEND dirlist ${child})
+            BREAK()
+        ENDIF()
+    ENDFOREACH()
+    SET(${result} ${curdir}${dirlist})
+ENDMACRO()
+
+# get GLFW path use macro to get around differing versions
+GETFIRSTDIR(GLFW_H_PATH /opt/homebrew/Cellar/glfw/)
+message(${GLFW_H_PATH})
+
+# get GLEW path use macro to get around differing versions
+GETFIRSTDIR(GLEW_H_PATH /opt/homebrew/Cellar/glew/)
+message(${GLEW_H_PATH})
+
+# get LUA path use macro to get around differing versions
+GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
+message(${LUA_PATH})
+
 # get include directories for libraries used
-set(GLEW_H /opt/homebrew/Cellar/glew/2.2.0_1/include/GL)
-set(GLFW_H /opt/homebrew/Cellar/glfw/3.3.7/include/GLFW)
-set(LUA_INCLUDE_DIR /opt/homebrew/Cellar/lua/5.4.4_1/include/lua)
+set(GLEW_H ${GLEW_H_PATH}/include/GL)
+set(GLFW_H ${GLFW_H_PATH}/include/GLFW)
+set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
 set(GLM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glm)
 set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
@@ -76,9 +101,9 @@ set(STB_IMAGE_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/stb)
 include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR} ${STB_IMAGE_INCLUDE_DIR})
 
 # link libraries used
-set(GLEW_LINK /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.dylib)
-set(GLFW_LINK /opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.dylib)
-set(LUA_LIBRARY /opt/homebrew/Cellar/lua/5.4.4_1/lib/liblua.dylib)
+set(GLEW_LINK ${GLEW_H_PATH}/lib/libGLEW.dylib)
+set(GLFW_LINK ${GLFW_H_PATH}/lib/libglfw.dylib)
+set(LUA_LIBRARY ${LUA_PATH}/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIBRARY})
 
 set(ENGINE_SOURCE_FILES
