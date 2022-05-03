@@ -22,4 +22,4 @@ brew install cmake
 brew install glfw3
 brew install glew
 brew install qt@5
-brew install lua@5.3
+brew install lua

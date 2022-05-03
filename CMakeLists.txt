@@ -1,8 +1,4 @@
-# Reference: https://doc.qt.io/qt-6/cmake-manual.html
-
 cmake_minimum_required(VERSION 3.16)
-
-set(CMAKE_OSX_ARCHITECTURES "arm64")
 
 if (EMSCRIPTEN)
     set(CMAKE_C_COMPILER "emcc")
@@ -31,10 +27,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 project(DeepsEngine VERSION 1.0)
 
 #if (APPLE)
-#    set(CMAKE_OSX_ARCHITECTURES "arm64")
+#    set(CMAKE_OSX_ARCHITECTURES "x86_64")
 #endif()
-
-set(CMAKE_OSX_ARCHITECTURES "arm64")
 
 # Set additional project information
 set(COMPANY "DeepDev")
@@ -73,7 +67,7 @@ message( STATUS "Architecture: ${ARCHITECTURE}" )
 # get include directories for libraries used
 set(GLEW_H /opt/homebrew/Cellar/glew/2.2.0_1/include/GL)
 set(GLFW_H /opt/homebrew/Cellar/glfw/3.3.7/include/GLFW)
-set(LUA_INCLUDE_DIR /opt/homebrew/Cellar/lua@5.3/5.3.6/include/lua)
+set(LUA_INCLUDE_DIR /opt/homebrew/Cellar/lua/5.4.4_1/include/lua)
 set(GLM_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glm)
 set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
@@ -84,7 +78,7 @@ include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DI
 # link libraries used
 set(GLEW_LINK /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.dylib)
 set(GLFW_LINK /opt/homebrew/Cellar/glfw/3.3.7/lib/libglfw.dylib)
-set(LUA_LIBRARY /opt/homebrew/Cellar/lua@5.3/5.3.6/lib/liblua.dylib)
+set(LUA_LIBRARY /opt/homebrew/Cellar/lua/5.4.4_1/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIBRARY})
 
 set(ENGINE_SOURCE_FILES
@@ -122,7 +116,7 @@ if(RUN_STANDALONE)
     add_executable(${PROJECT_NAME} ${SOURCE_FILES_EXEC})
 
     if (${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
-        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -L${PROJECT_SOURCE_DIR}/src/engine/lib/lua-web-5.3.6/src -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -L${PROJECT_SOURCE_DIR}/src/engine/lib/lua-web-5.4.4/src -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
     else()
         file(COPY res DESTINATION assets)
     endif ()
