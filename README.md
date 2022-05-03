@@ -25,7 +25,7 @@ sudo chmod 777 install.sh
 ```
 
 ### Run the Engine in Desktop Release or Desktop Editor mode
-- Open 'deeps-engine-latest' folder in CLion
+- Open 'DeepsEngine' folder in CLion
   - Enable autoreload for CMake changes
   - Go to Preferences -> Build, Execution, Deployment -> CMake and add the following profiles:
     - Release
