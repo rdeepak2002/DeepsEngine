@@ -199,3 +199,5 @@ Temporary Items
 .apdisk
 /scripts/temp/
 /external/
+/web_build/emsdk/
+/web_build/emsdk/
