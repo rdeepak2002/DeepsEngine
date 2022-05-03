@@ -17,38 +17,20 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 
 ### Intel Mac:
 
-Open terminal
-
-Install Homebrew
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Install other dependencies
-
 ```shell
 cd scripts
+sudo chmod 777 install.sh
 ./install.sh
 ```
 
-### arm64 Mac:
-
-Open terminal using Rosetta
-
-Install Homebrew
-
-```
-arch -x86_64 zsh  
-arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
-Install other dependencies
+### M1 Mac:
 
 ```shell
 cd scripts
+sudo chmod 777 install-rosetta.sh
 ./install-arm64.sh
 ```
+
 ## Get Started
 
 - It is recommended to clone this repository recursively with submodules
