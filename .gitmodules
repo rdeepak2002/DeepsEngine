@@ -16,3 +16,4 @@
 [submodule "src/build/web/emsdk"]
 	path = src/build/web/emsdk
 	url = https://github.com/emscripten-core/emsdk.git
+	ignore = dirty
