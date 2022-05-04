@@ -5,6 +5,7 @@ sudo chmod -R 777 ./
 
 # download emscripten
 ./download-emscripten.sh
+source emsdk/emsdk_env.sh
 
 # downlaod lua web
 ./download-lua-web.sh
