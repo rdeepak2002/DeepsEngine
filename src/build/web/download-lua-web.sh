@@ -9,6 +9,10 @@ LUA_DOWNLOAD_URL_TEMP="https://www.lua.org/ftp/${LUA_DOWNLOAD_FOLDER_NAME}.tar.g
 if [ -d "${LUA_DOWNLOAD_FOLDER_NAME}" ]; then
   echo "Lua web already downloaded..."
 else
+  echo "Re-downloading emscripten..."
+  rm -rf emsdk
+  ./download-emscripten.sh
+
   echo "Downloading ${LUA_DOWNLOAD_FOLDER_NAME} and building lua for web..."
 
   # un zip the lua library to lua-web
