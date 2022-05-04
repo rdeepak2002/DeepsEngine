@@ -141,7 +141,6 @@ if(RUN_STANDALONE)
     add_executable(${PROJECT_NAME} ${SOURCE_FILES_EXEC})
 
     if (EMSCRIPTEN)
-#        file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/assets/res")
         file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/assets")
         FILE(GLOB LUA_WEB_BUILD_DIRECTORY "${PROJECT_SOURCE_DIR}/src/build/web/lua-*/src")
         message(STATUS ${LUA_WEB_BUILD_DIRECTORY})

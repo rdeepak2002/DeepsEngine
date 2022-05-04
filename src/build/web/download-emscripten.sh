@@ -1,8 +1,17 @@
-# script to build web application
-echo "Downloading and building emscripten..."
+#!/bin/sh
 
-# Get the emsdk repo
-git clone https://github.com/emscripten-core/emsdk.git
+if [ -d "emsdk" ]; then
+  echo "Emscripten already downloaded..."
+else
+  # script to build web application
+  echo "Downloading and building emscripten..."
+
+  # Delete current directory
+  rm -rf emsdk
+
+  # Get the emsdk repo
+  git clone https://github.com/emscripten-core/emsdk.git
+fi
 
 # Enter that directory
 cd emsdk

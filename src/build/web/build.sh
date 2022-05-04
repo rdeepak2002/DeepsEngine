@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # allow modification of this folder
 sudo chmod -R 777 ./
 
