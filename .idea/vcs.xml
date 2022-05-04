@@ -2,10 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/build/web/emsdk" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/entt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/glm" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/sol2" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/engine/include/stb" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src/engine/lib/lua-web-5.3.6" vcs="Git" />
   </component>
 </project>

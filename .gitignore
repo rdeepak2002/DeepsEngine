@@ -1,4 +1,3 @@
-build/
 .DS_Store
 web_build/src
 
@@ -201,3 +200,4 @@ Temporary Items
 /external/
 /web_build/emsdk/
 /web_build/emsdk/
+/src/build/web/src/
