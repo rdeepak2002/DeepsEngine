@@ -10,7 +10,7 @@ else
   rm -rf emsdk
 
   # Get the emsdk repo
-  git clone https://github.com/emscripten-core/emsdk.git
+  git clone https://github.com/emscripten-core/emsdk.git emsdk
 fi
 
 # Enter that directory

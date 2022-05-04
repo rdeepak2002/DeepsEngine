@@ -1,2 +1,3 @@
 /emsdk/
 /lua-*/
+/emsdk/ --assume-unchaged

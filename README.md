@@ -38,20 +38,6 @@ sudo chmod 777 install.sh
 
 ### Run the Web Release of the Engine on macOS
 
-Install Emscripten
-
-```shell
-brew install emscripten
-```
-
-Update lua-web Build
-
-```shell
-cd src/engine/lib
-sudo chmod 777 download-lua-web.sh
-./download-lua-web.sh
-```
-
 Create the Web Build and Serve It
 
 ```shell
