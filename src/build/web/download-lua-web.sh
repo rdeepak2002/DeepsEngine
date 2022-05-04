@@ -10,7 +10,7 @@ if [ -d "${LUA_DOWNLOAD_FOLDER_NAME}" ]; then
   echo "Lua web already downloaded..."
 else
   echo "Re-downloading emscripten..."
-  rm -rf emsdk
+#  rm -rf emsdk
   ./download-emscripten.sh
 
   echo "Downloading ${LUA_DOWNLOAD_FOLDER_NAME} and building lua for web..."
@@ -24,4 +24,7 @@ else
   cd $LUA_DOWNLOAD_FOLDER_NAME
   cd src
   make generic CC='emcc -s WASM=1' AR='emar rcu' RANLIB='emranlib'
+
+  cd ..
+  cd ..
 fi

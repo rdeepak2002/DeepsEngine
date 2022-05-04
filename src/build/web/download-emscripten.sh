@@ -7,17 +7,17 @@ else
   echo "Downloading and building emscripten..."
 
   # Delete current directory
-  rm -rf emsdk
+#  rm -rf emsdk
 
   # Get the emsdk repo
-  git clone https://github.com/emscripten-core/emsdk.git emsdk
+#  git clone https://github.com/emscripten-core/emsdk.git emsdk
 fi
 
 # Enter that directory
 cd emsdk
 
 # Fetch the latest version of the emsdk (not needed the first time you clone)
-git pull
+#git pull
 
 # Download and install the latest SDK tools.
 ./emsdk install latest
