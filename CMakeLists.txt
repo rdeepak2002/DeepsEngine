@@ -128,7 +128,8 @@ set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/Input.h"
-)
+        "${PROJECT_SOURCE_DIR}/src/engine/util/KeyCodes.h"
+        )
 
 if(RUN_STANDALONE)
     # standalone engine

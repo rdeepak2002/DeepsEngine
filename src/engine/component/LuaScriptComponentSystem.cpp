@@ -6,6 +6,8 @@
 #include "src/engine/Application.h"
 #include "src/engine/scene/Entity.h"
 #include "Component.h"
+#include "src/engine/Input.h"
+#include "src/engine/util/KeyCodes.h"
 #include <iostream>
 
 void LuaScriptComponentSystem::init() {
@@ -19,6 +21,40 @@ void LuaScriptComponentSystem::init() {
                              "Debug", &Logger::Debug,
                              "Warn", &Logger::Warn,
                              "Error", &Logger::Error
+    );
+
+    lua.new_usertype<Input>("Input",
+                            "GetButtonDown", &Input::GetButtonDown,
+                            "SetButtonDown", &Input::SetButtonDown
+    );
+
+    lua.new_enum("Key",
+                 "A", DeepsEngine::Key::A,
+                 "B", DeepsEngine::Key::B,
+                 "C", DeepsEngine::Key::C,
+                 "D", DeepsEngine::Key::D,
+                 "E", DeepsEngine::Key::E,
+                 "F", DeepsEngine::Key::F,
+                 "G", DeepsEngine::Key::G,
+                 "H", DeepsEngine::Key::H,
+                 "I", DeepsEngine::Key::I,
+                 "J", DeepsEngine::Key::J,
+                 "K", DeepsEngine::Key::K,
+                 "L", DeepsEngine::Key::L,
+                 "M", DeepsEngine::Key::M,
+                 "N", DeepsEngine::Key::N,
+                 "O", DeepsEngine::Key::O,
+                 "P", DeepsEngine::Key::P,
+                 "Q", DeepsEngine::Key::Q,
+                 "R", DeepsEngine::Key::R,
+                 "S", DeepsEngine::Key::S,
+                 "T", DeepsEngine::Key::T,
+                 "U", DeepsEngine::Key::U,
+                 "V", DeepsEngine::Key::V,
+                 "W", DeepsEngine::Key::W,
+                 "X", DeepsEngine::Key::X,
+                 "Y", DeepsEngine::Key::Y,
+                 "Z", DeepsEngine::Key::Z
     );
 
     lua.new_usertype<DeepsEngine::Entity>("Entity",

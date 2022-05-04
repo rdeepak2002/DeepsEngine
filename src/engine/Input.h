@@ -5,9 +5,24 @@
 #ifndef EDITOR_INPUT_H
 #define EDITOR_INPUT_H
 
+#include <iostream>
+#include <unordered_map>
 
 class Input {
-
+public:
+    static Input& getInstance()
+    {
+        static Input instance;
+        return instance;
+    }
+    static bool GetButtonDown(int keyCode);
+    static void SetButtonDown(int keyCode, bool state);
+private:
+    Input() {}
+    std::unordered_map<int, bool> keyDownMap;
+public:
+    Input(Input const&) = delete;
+    void operator=(Input const&) = delete;
 };
 
 

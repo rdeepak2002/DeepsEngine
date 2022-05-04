@@ -58,6 +58,8 @@ void Application::createSampleEntities() {
     Entity camera = Application::getInstance().scene.CreateEntity("Main Camera");
     (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
+    std::string cameraScriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("scene-camera.lua");
+    camera.AddComponent<Component::LuaScript>(Component::LuaScript({cameraScriptPath}));
 
     // add a single cube entity
     Entity entity = Application::getInstance().scene.CreateEntity("Cube");

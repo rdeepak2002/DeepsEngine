@@ -16,6 +16,7 @@
 #include "src/engine/scene/Entity.h"
 #include "src/engine/util/Logger.h"
 #include "src/engine/Application.h"
+#include "src/engine/Input.h"
 
 using std::filesystem::current_path;
 
@@ -26,6 +27,15 @@ void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
     Application::getInstance().resizeWindow(width, height, true);
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    if (action == GLFW_PRESS) {
+        Input::SetButtonDown(key, true);
+    } else if (action == GLFW_RELEASE) {
+        Input::SetButtonDown(key, false);
+    }
 }
 
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
@@ -148,6 +158,7 @@ void Renderer::createWindow() {
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
+    glfwSetKeyCallback(window, keyCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
 #endif
 }
@@ -404,9 +415,12 @@ void Renderer::update() {
 }
 
 void Renderer::processInput() {
+
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+//    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+//        glfwSetWindowShouldClose(window, true);
+
+
 
 //    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 //        camera.ProcessKeyboard(FORWARD, deltaTime);
