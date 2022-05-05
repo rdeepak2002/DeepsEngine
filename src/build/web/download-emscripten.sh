@@ -7,10 +7,12 @@ else
   echo "Downloading and building emscripten..."
 
   # Delete current directory
-#  rm -rf emsdk
+  rm -rf emsdk
 
   # Get the emsdk repo
-#  git clone https://github.com/emscripten-core/emsdk.git emsdk
+  git clone https://github.com/emscripten-core/emsdk.git emsdk
+
+  rm -rf emsdk/.git
 fi
 
 # Enter that directory

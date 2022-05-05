@@ -1,3 +1,5 @@
 /lua-*/
 vcpkg
 vcpkg/
+emsdk
+emsdk/
