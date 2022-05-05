@@ -54,10 +54,10 @@ endif()
 #    message(FATAL_ERROR "GLFW3 not found")
 #endif( GLFW_FOUND )
 
-#find_package(Lua REQUIRED)
-#
-#message(STATUS "LUA_INCLUDE_DIR=${LUA_INCLUDE_DIR}")
-#message(STATUS "LUA_LIBRARIES=${LUA_LIBRARIES}")
+find_package(Lua REQUIRED)
+
+message(STATUS "LUA_INCLUDE_DIR=${LUA_INCLUDE_DIR}")
+message(STATUS "LUA_LIBRARIES=${LUA_LIBRARIES}")
 
 # get OPENGL include path and libraries
 message(STATUS "OPENGL_INCLUDE_DIRS = ${OPENGL_INCLUDE_DIRS}")
@@ -84,11 +84,11 @@ message(STATUS "GLEW_LIBRARIES ${GLEW_LIBRARIES}")
 link_libraries(${GLEW_LIBRARIES})
 
 # get LUA path use macro to get around differing versions
-GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
-set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
+#GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
+#set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
 message(STATUS "LUA_INCLUDE_DIR ${LUA_INCLUDE_DIR}")
 include_directories(${LUA_INCLUDE_DIR})
-set(LUA_LIBRARIES ${LUA_PATH}/lib/liblua.dylib)
+#set(LUA_LIBRARIES /opt/homebrew/lib/liblua.dylib)
 message(STATUS "LUA_LIBRARIES ${LUA_LIBRARIES}")
 link_libraries(${LUA_LIBRARIES})
 
@@ -121,7 +121,7 @@ if(RUN_STANDALONE)
 
     if (EMSCRIPTEN)
         # web build
-        file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/assets")
+        file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/build/assets")
         FILE(GLOB LUA_WEB_BUILD_DIRECTORY "${PROJECT_SOURCE_DIR}/src/build/web/lua-*/src")
         message(STATUS ${LUA_WEB_BUILD_DIRECTORY})
         set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins \

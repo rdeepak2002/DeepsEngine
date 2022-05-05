@@ -17,4 +17,6 @@ brew install cmake
 brew install glfw3
 brew install glew
 brew install qt@5
-brew install lua
+
+echo "Installing dependencies via vcpkg"
+vcpkg install lua

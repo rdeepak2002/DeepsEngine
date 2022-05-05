@@ -20,20 +20,16 @@ rm -rf src
 
 # create new folder for source code
 mkdir -p src
+mkdir -p src/build/assets
 
-cp app.html src/app.html
+#cp app.html src/app.html
+cp app.html src/build/app.html
 cd src
 
 # build source code
-#emcmake cmake ../../../.. "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/Users/deepakramalingam/Documents/Projects/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten" "-DCMAKE_TOOLCHAIN_FILE=/Users/deepakramalingam/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DCMAKE_BUILD_TYPE=Release"
-emcmake cmake ../../../..
-#emcc -s USE_GLFW=3 $(mktemp)
-#emcc -s USE_WEBGL2=1 $(mktemp)
-#emcc -s USE_ZLIB=1 $(mktemp)
-#emcc -s EXPORTED_FUNCTIONS=['_main', '_int_sqrt'] $(mktemp)
-#emcc -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap'] $(mktemp)
-make
+cmake -S ../../../.. -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
+cmake --build build
 
 # serve content
 echo "Serving content..."
-http-server -o "/app"
+http-server -o "/build/app"
