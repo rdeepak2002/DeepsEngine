@@ -6,7 +6,6 @@
 #include <QScopedPointer>
 #include "src/engine/header/Entity.h"
 #include "src/editor/header/InspectorWidget.h"
-#include "src/editor/header/SceneViewWidget.h"
 #include "EntitySelectListenerInterface.h"
 
 namespace Ui
