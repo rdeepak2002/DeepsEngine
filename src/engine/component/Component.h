@@ -35,45 +35,9 @@ namespace DeepsEngine::Component {
             std::string tag;
         };
 
-        struct Position : public Component {
-            Position() = default;
-            Position(float x, float y, float z) {
-                this->x = x;
-                this->y = y;
-                this->z = z;
-            }
-            float x;
-            float y;
-            float z;
-        };
-
-        struct Rotation : public Component {
-            Rotation() = default;
-            Rotation(float x, float y, float z) {
-                this->x = x;
-                this->y = y;
-                this->z = z;
-            }
-            float x;
-            float y;
-            float z;
-        };
-
-        struct Scale : public Component {
-            Scale() = default;
-            Scale(float x, float y, float z) {
-                this->x = x;
-                this->y = y;
-                this->z = z;
-            }
-            float x;
-            float y;
-            float z;
-        };
-
         struct Transform : public Component {
             Transform() = default;
-            Transform(Position position, Rotation rotation, Scale scale) {
+            Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
                 this->position = position;
                 this->rotation = rotation;
                 this->scale = scale;
@@ -82,13 +46,6 @@ namespace DeepsEngine::Component {
                 float yaw = glm::degrees(rotation.y);
                 float pitch = glm::degrees(rotation.x);
                 float roll = glm::degrees(rotation.z);
-
-//                if (constrainPitch == true) {
-//                    if (pitch > 89.0f)
-//                        pitch = 89.0f;
-//                    if (pitch < -89.0f)
-//                        pitch = -89.0f;
-//                }
 
                 glm::vec3 front;
                 front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -101,9 +58,9 @@ namespace DeepsEngine::Component {
                 glm::vec3 up = glm::vec3(0.0f, 1.0f,  0.0f);
                 return glm::normalize(glm::cross(front(), up));
             }
-            Position position;
-            Rotation rotation;
-            Scale scale;
+            glm::vec3 position;
+            glm::vec3 rotation;
+            glm::vec3 scale;
         };
 
         struct MeshFilter : public Component {

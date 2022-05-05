@@ -113,9 +113,9 @@ void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
     }
     else if(componentToAddName == "Transform") {
         // add transform component
-        DeepsEngine::Component::Transform transform = {DeepsEngine::Component::Position({0, 0, 0}),
-                                          DeepsEngine::Component::Rotation({0, 0, 0}),
-                                          DeepsEngine::Component::Scale({1, 1, 1})};
+        DeepsEngine::Component::Transform transform = {glm::vec3(0, 0, 0),
+                                                       glm::vec3(0, 0, 0),
+                                                       glm::vec3(1, 1, 1)};
         entitySelected->AddComponent<DeepsEngine::Component::Transform>(transform);
     }
     else if(componentToAddName == "Camera") {

@@ -105,8 +105,6 @@ function update(entity, dt)
 
     -- update position of entity
     newPosition = entityPosition + dPosition
-    entity:GetTransform().position.x = newPosition.x
-    entity:GetTransform().position.y = newPosition.y
-    entity:GetTransform().position.z = newPosition.z
+    entity:GetTransform().position = newPosition
 end
 

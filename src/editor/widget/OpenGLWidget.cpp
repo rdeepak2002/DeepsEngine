@@ -34,6 +34,9 @@ OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
 
     specialKeysMap[16777235] = DeepsEngine::Key::Up;
     specialKeysMap[Qt::Key::Key_Up] = DeepsEngine::Key::Up;
+
+    specialKeysMap[16777248] = DeepsEngine::Key::LeftShift;
+    specialKeysMap[Qt::Key::Key_Shift] = DeepsEngine::Key::LeftShift;
 }
 
 OpenGLWidget::~OpenGLWidget() {
@@ -147,20 +150,7 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
 
     if (cursorLock) {
         if (specialKeysMap.count(event->key()) > 0) {
-            switch (specialKeysMap[event->key()]) {
-                case DeepsEngine::Key::Right:
-                    Input::SetButtonDown(DeepsEngine::Key::Right, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Left:
-                    Input::SetButtonDown(DeepsEngine::Key::Left, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Down:
-                    Input::SetButtonDown(DeepsEngine::Key::Down, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Up:
-                    Input::SetButtonDown(DeepsEngine::Key::Up, newKeyStateValue);
-                    break;
-            }
+            Input::SetButtonDown(specialKeysMap[event->key()], newKeyStateValue);
         } else {
             Input::SetButtonDown(event->key(), newKeyStateValue);
         }
@@ -172,20 +162,7 @@ void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
 
     if (cursorLock) {
         if (specialKeysMap.count(event->key()) > 0) {
-            switch (specialKeysMap[event->key()]) {
-                case DeepsEngine::Key::Right:
-                    Input::SetButtonDown(DeepsEngine::Key::Right, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Left:
-                    Input::SetButtonDown(DeepsEngine::Key::Left, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Down:
-                    Input::SetButtonDown(DeepsEngine::Key::Down, newKeyStateValue);
-                    break;
-                case DeepsEngine::Key::Up:
-                    Input::SetButtonDown(DeepsEngine::Key::Up, newKeyStateValue);
-                    break;
-            }
+            Input::SetButtonDown(specialKeysMap[event->key()], newKeyStateValue);
         } else {
             Input::SetButtonDown(event->key(), newKeyStateValue);
         }

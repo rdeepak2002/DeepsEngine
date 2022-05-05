@@ -99,21 +99,6 @@ void LuaScriptComponentSystem::init() {
                                                         "scale", &DeepsEngine::Component::Transform::scale,
                                                         "front", &DeepsEngine::Component::Transform::front,
                                                         "right", &DeepsEngine::Component::Transform::right);
-
-    lua.new_usertype<DeepsEngine::Component::Position>("Position",
-                                                       "x", &DeepsEngine::Component::Position::x,
-                                                       "y", &DeepsEngine::Component::Position::y,
-                                                       "z", &DeepsEngine::Component::Position::z);
-
-    lua.new_usertype<DeepsEngine::Component::Rotation>("Rotation",
-                                                       "x", &DeepsEngine::Component::Rotation::x,
-                                                       "y", &DeepsEngine::Component::Rotation::y,
-                                                       "z", &DeepsEngine::Component::Rotation::z);
-
-    lua.new_usertype<DeepsEngine::Component::Scale>("Scale",
-                                                    "x", &DeepsEngine::Component::Scale::x,
-                                                    "y", &DeepsEngine::Component::Scale::y,
-                                                    "z", &DeepsEngine::Component::Scale::z);
 }
 
 void LuaScriptComponentSystem::update(float deltaTime) {

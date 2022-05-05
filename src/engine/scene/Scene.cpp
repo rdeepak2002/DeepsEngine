@@ -12,9 +12,9 @@ namespace DeepsEngine {
         DeepsEngine::Entity entity = {this};
 
         // add transform component
-        Component::Transform transform = {Component::Position({0, 0, 0}),
-                                          Component::Rotation({0, 0, 0}),
-                                          Component::Scale({1, 1, 1})};
+        Component::Transform transform = {glm::vec3(0, 0, 0),
+                                          glm::vec3(0, 0, 0),
+                                          glm::vec3(1, 1, 1)};
         entity.AddComponent<Component::Transform>(transform);
 
         // add tag component
