@@ -42,7 +42,13 @@ void OpenGLWidget::paintGL() {
     painter.begin(this);
 
     if (cursorLock) {
-//        QCursor::setPos(0, 0);
+        setMouseTracking(true);
+
+        if (!underMouse()) {
+            moveMouseToCenter();
+        }
+    } else {
+        setMouseTracking(false);
     }
 
     // clear screen
@@ -67,25 +73,38 @@ void OpenGLWidget::mousePressEvent(QMouseEvent *event) {
     // focus on window on mouse click
     QWidget::setFocus();
     cursorLock = true;
-    // TODO: send this to engine
+    hideCursor();
     std::cout << "mouse pressed x: " << event->x() << std::endl;
     std::cout << "mouse pressed y: " << event->y() << std::endl;
+
+    if (cursorLock) {
+        // TODO: send this to engine
+
+    }
 }
 
 void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event) {
-    // focus on window on mouse click
-    // TODO: send this to engine
     std::cout << "mouse released x: " << event->x() << std::endl;
     std::cout << "mouse released y: " << event->y() << std::endl;
+
+    if (cursorLock) {
+        // TODO: send this to engine
+
+    }
 }
 
 void OpenGLWidget::mouseMoveEvent(QMouseEvent *event) {
-    // TODO: send this to engine
     std::cout << "mouse moved x: " << event->x() << std::endl;
     std::cout << "mouse moved y: " << event->y() << std::endl;
-};
+
+    if (cursorLock) {
+        // TODO: send this to engine
+
+        moveMouseToCenter();
+    }
+}
+
 void OpenGLWidget::wheelEvent(QWheelEvent *event) {
-    // TODO: send this to engine
     QPoint numPixels = event->pixelDelta();
     QPoint numDegrees = event->angleDelta() / 8;
 
@@ -104,11 +123,14 @@ void OpenGLWidget::wheelEvent(QWheelEvent *event) {
 };
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
-    if (cursorLock) {
-        if (event->key() == Qt::Key::Key_Escape) {
-            cursorLock = false;
-        }
+    int hardcodedEscapeCode = 16777216;
 
+    if (event->key() == Qt::Key::Key_Escape || event->key() == hardcodedEscapeCode) {
+        cursorLock = false;
+        showCursor();
+    }
+
+    if (cursorLock) {
         Input::SetButtonDown(event->key(), true);
     }
 }
@@ -117,4 +139,26 @@ void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
     if (cursorLock) {
         Input::SetButtonDown(event->key(), false);
     }
+}
+
+void OpenGLWidget::leaveEvent(QEvent *event) {
+    if (cursorLock) {
+        hideCursor();
+        moveMouseToCenter();
+    }
+}
+
+void OpenGLWidget::moveMouseToCenter() {
+    QPoint glob = mapToGlobal(QPoint(width()/2,height()/2));
+    QCursor::setPos(glob);
+}
+
+void OpenGLWidget::hideCursor() {
+    setCursor(Qt::BlankCursor);
+    QApplication::setOverrideCursor(Qt::BlankCursor);
+}
+
+void OpenGLWidget::showCursor() {
+    unsetCursor();
+    QApplication::restoreOverrideCursor();
 }

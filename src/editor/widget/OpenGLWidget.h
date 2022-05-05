@@ -14,6 +14,7 @@
 #include <QMouseEvent>
 #include <QKeyEvent>
 #include <QWheelEvent>
+#include <QApplication>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShader)
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -39,6 +40,12 @@ protected:
     void wheelEvent(QWheelEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    void leaveEvent(QEvent * event) override;
+
+private:
+    void moveMouseToCenter();
+    void hideCursor();
+    void showCursor();
 
 private:
     QOpenGLBuffer m_buffer;
