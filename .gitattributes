@@ -1,2 +1,3 @@
 src/engine/include/** linguist-vendored=false
 src/engine/lib/** linguist-vendored=false
+/src/build/web/emsdk/** linguist-vendored=false

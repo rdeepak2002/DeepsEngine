@@ -1,7 +1,3 @@
 [submodule "src/engine/libraries/lua-web"]
 	path = src/engine/libraries/lua-web
 	url = https://github.com/rdeepak2002/lua-web.git
-[submodule "src/build/web/emsdk"]
-	path = src/build/web/emsdk
-	url = https://github.com/emscripten-core/emsdk.git
-	ignore = dirty
