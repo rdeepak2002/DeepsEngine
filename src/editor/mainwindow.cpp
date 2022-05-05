@@ -1,7 +1,7 @@
 #include <QLabel>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "src/editor/widget/OpenGLWidget.h"
+#include "src/editor/header/OpenGLWidget.h"
 #include "src/engine/header/Entity.h"
 #include "src/engine/header/Component.h"
 #include "src/editor/widget/SceneViewWidget.h"

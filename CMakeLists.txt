@@ -167,7 +167,7 @@ else()
         ${ENGINE_SOURCE_FILES}
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.h"
+        "src/editor/header/OpenGLWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
