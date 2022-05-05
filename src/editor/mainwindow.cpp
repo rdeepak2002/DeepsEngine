@@ -6,7 +6,7 @@
 #include "src/engine/header/Component.h"
 #include "src/editor/widget/SceneViewWidget.h"
 #include "src/editor/widget/InspectorWidget.h"
-#include "src/editor/widget/ConsoleWidget.h"
+#include "src/editor/header/ConsoleWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {

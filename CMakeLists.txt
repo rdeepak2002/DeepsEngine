@@ -146,6 +146,9 @@ if(RUN_STANDALONE)
     set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
     set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
 else()
+    set(DEEPS_ENGINE_EDITOR_H ${PROJECT_SOURCE_DIR}/src/editor/header)
+    include_directories(${DEEPS_ENGINE_EDITOR_H})
+
     if(APPLE)
         file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
     elseif(WIN32)
@@ -170,15 +173,15 @@ else()
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.h"
+        "src/editor/header/ConsoleWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.h"
+        "src/editor/header/TransformComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.h"
+        "src/editor/header/TagComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.h"
+        "src/editor/header/MeshFilterComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.h"
+        "src/editor/header/CameraComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
     )
 

@@ -11,10 +11,10 @@
 #include <QLabel>
 #include <QPushButton>
 #include "src/engine/header/Entity.h"
-#include "src/editor/widget/component/TransformComponentWidget.h"
-#include "src/editor/widget/component/TagComponentWidget.h"
-#include "src/editor/widget/component/MeshFilterComponentWidget.h"
-#include "src/editor/widget/component/CameraComponentWidget.h"
+#include "src/editor/header/TransformComponentWidget.h"
+#include "src/editor/header/TagComponentWidget.h"
+#include "src/editor/header/MeshFilterComponentWidget.h"
+#include "src/editor/header/CameraComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
