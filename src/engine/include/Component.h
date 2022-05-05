@@ -10,7 +10,7 @@
 #include "Logger.h"
 
 #define SOL_ALL_SAFETIES_ON 1
-#include "src/engine/include/sol2/include/sol/state.hpp"
+#include "sol/state.hpp"
 
 using std::filesystem::exists;
 

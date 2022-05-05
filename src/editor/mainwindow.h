@@ -4,8 +4,8 @@
 #include <QtWidgets>
 #include <QMainWindow>
 #include <QScopedPointer>
-#include "src/engine/header/Entity.h"
-#include "src/editor/header/InspectorWidget.h"
+#include "Entity.h"
+#include "InspectorWidget.h"
 #include "EntitySelectListenerInterface.h"
 
 namespace Ui

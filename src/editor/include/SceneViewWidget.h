@@ -9,7 +9,7 @@
 #include <QOpenGLWidget>
 #include <QLineEdit>
 #include <QTextEdit>
-#include "src/engine/header/Entity.h"
+#include "Entity.h"
 #include "EntitySelectListenerInterface.h"
 
 class SceneViewWidget : public QWidget {

@@ -16,7 +16,7 @@
 #include <QWheelEvent>
 #include <QApplication>
 #include <unordered_map>
-#include "src/engine/header/KeyCodes.h"
+#include "KeyCodes.h"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShader)
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)

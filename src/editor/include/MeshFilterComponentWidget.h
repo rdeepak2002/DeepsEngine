@@ -10,8 +10,8 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
-#include "src/engine/header/Entity.h"
-#include "src/engine/header/Component.h"
+#include "Entity.h"
+#include "Component.h"
 
 class MeshFilterComponentWidget: public QWidget {
 Q_OBJECT;

@@ -34,6 +34,8 @@ void Application::update(bool clearScreen) {
 }
 
 void Application::initialize() {
+    Logger::Debug("Initializing DeepsEngine Version 1.0.0");
+
     // create window
     renderer->createWindow();
 

@@ -3,7 +3,7 @@
 //
 
 #include "ConsoleWidget.h"
-#include "src/engine/header/Logger.h"
+#include "Logger.h"
 #include <iostream>
 #include <string>
 #include <stdio.h>

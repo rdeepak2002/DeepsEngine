@@ -93,7 +93,7 @@ message(STATUS "LUA_LIBRARY ${LUA_LIBRARY}")
 link_libraries(${LUA_LIBRARY})
 
 # get include directories for libraries used
-set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/header)
+set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/include)
 message(STATUS "DEEPS_ENGINE_INCLUDE_DIRS ${DEEPS_ENGINE_INCLUDE_DIRS}")
 include_directories(${DEEPS_ENGINE_INCLUDE_DIRS})
 
@@ -113,13 +113,11 @@ if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
+    # create shared .dll library
+#    add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
+
     # create executable application
     add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
-
-    # create shared .dll library
-#    add_library(${PROJECT_NAME} SHARED
-#            ${ENGINE_SOURCE_FILES}
-#    )
 
     if (EMSCRIPTEN)
         # web build
@@ -141,7 +139,7 @@ if(RUN_STANDALONE)
         file(COPY res DESTINATION assets)
     endif ()
 else()
-    set(DEEPS_ENGINE_EDITOR_H ${PROJECT_SOURCE_DIR}/src/editor/header)
+    set(DEEPS_ENGINE_EDITOR_H ${PROJECT_SOURCE_DIR}/src/editor/include)
     include_directories(${DEEPS_ENGINE_EDITOR_H})
 
     if(APPLE)
@@ -162,21 +160,21 @@ else()
         ${ENGINE_SOURCE_FILES}
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
-        "src/editor/header/OpenGLWidget.h"
+        "src/editor/include/OpenGLWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
-        "src/editor/header/SceneViewWidget.h"
+        "src/editor/include/SceneViewWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
-        "src/editor/header/InspectorWidget.h"
+        "src/editor/include/InspectorWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
-        "src/editor/header/ConsoleWidget.h"
+        "src/editor/include/ConsoleWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.cpp"
-        "src/editor/header/TransformComponentWidget.h"
+        "src/editor/include/TransformComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
-        "src/editor/header/TagComponentWidget.h"
+        "src/editor/include/TagComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
-        "src/editor/header/MeshFilterComponentWidget.h"
+        "src/editor/include/MeshFilterComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
-        "src/editor/header/CameraComponentWidget.h"
+        "src/editor/include/CameraComponentWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
     )
 

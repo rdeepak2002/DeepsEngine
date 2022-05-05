@@ -10,8 +10,8 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QLineEdit>
-#include "src/engine/header/Entity.h"
-#include "src/engine/header/Component.h"
+#include "Entity.h"
+#include "Component.h"
 
 class TagComponentWidget: public QWidget {
 Q_OBJECT;

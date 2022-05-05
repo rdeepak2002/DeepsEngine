@@ -4,7 +4,7 @@
 
 #include "Scene.h"
 #include "Entity.h"
-#include "src/engine/header/Component.h"
+#include "Component.h"
 
 namespace DeepsEngine {
     DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {

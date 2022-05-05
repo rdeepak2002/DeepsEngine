@@ -3,12 +3,12 @@
 //
 
 #include "LuaScriptComponentSystem.h"
-#include "src/engine/header/Application.h"
-#include "src/engine/header/Entity.h"
+#include "Application.h"
+#include "Entity.h"
 #include "Component.h"
-#include "src/engine/header/Input.h"
-#include "src/engine/header/KeyCodes.h"
-#include "src/engine/header/DeepsMath.h"
+#include "Input.h"
+#include "KeyCodes.h"
+#include "DeepsMath.h"
 #include <iostream>
 
 void LuaScriptComponentSystem::init() {

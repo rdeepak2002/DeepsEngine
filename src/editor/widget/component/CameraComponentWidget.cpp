@@ -4,7 +4,7 @@
 
 #include "CameraComponentWidget.h"
 
-#include "src/engine/header/Component.h"
+#include "Component.h"
 #include <iostream>
 #include <QLabel>
 #include <QLineEdit>

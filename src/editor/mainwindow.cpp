@@ -1,10 +1,10 @@
 #include <QLabel>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "src/editor/header/OpenGLWidget.h"
-#include "src/engine/header/Entity.h"
-#include "src/editor/header/ConsoleWidget.h"
-#include "src/editor/header/SceneViewWidget.h"
+#include "OpenGLWidget.h"
+#include "Entity.h"
+#include "ConsoleWidget.h"
+#include "SceneViewWidget.h"
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
