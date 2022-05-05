@@ -343,33 +343,29 @@ void Renderer::update() {
 //            pitch = -89.0f;
 
         // note: my input is radians for rotation
-        float x = mainCameraTransformComponent.rotation.x;
-        float y = mainCameraTransformComponent.rotation.y;
-        float z = mainCameraTransformComponent.rotation.z;
+        float yaw = glm::degrees(mainCameraTransformComponent.rotation.y);
+        float pitch = glm::degrees(mainCameraTransformComponent.rotation.x);
+        float roll = glm::degrees(mainCameraTransformComponent.rotation.z);
 
-        float yaw = glm::degrees(y);
-        float pitch = glm::degrees(x);
-        float roll = glm::degrees(z);
-
-        Logger::Debug("yaw: " + std::to_string(yaw));
-        Logger::Debug("pitch: " + std::to_string(pitch));
-
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
+        // TODO: implement this constraint in lua script for scene camera
+//        if (pitch > 89.0f)
+//            pitch = 89.0f;
+//        if (pitch < -89.0f)
+//            pitch = -89.0f;
 
         glm::vec3 front;
         front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
         front.y = sin(glm::radians(pitch));
         front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
-        cameraFront = glm::normalize(front);
+        glm::vec3 cameraFront = glm::normalize(front);
 
         // create transformations
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 projection    = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
+        glm::vec3 cameraPos;
+        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
         cameraPos.x = mainCameraTransformComponent.position.x;
         cameraPos.y = mainCameraTransformComponent.position.y;
         cameraPos.z = mainCameraTransformComponent.position.z;

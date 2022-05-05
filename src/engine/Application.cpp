@@ -71,6 +71,11 @@ void Application::createSampleEntities() {
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
     std::string scriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua");
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({scriptPath}));
+
+    // add a single cube entity
+    Entity entity2 = Application::getInstance().scene.CreateEntity("Cube 2");
+    (&entity2.GetComponent<Component::Transform>())->position.x = -1.0;
+    entity2.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 }
 
 void Application::clearRenderer() {

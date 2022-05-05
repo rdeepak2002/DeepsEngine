@@ -54,7 +54,11 @@ void LuaScriptComponentSystem::init() {
                  "W", DeepsEngine::Key::W,
                  "X", DeepsEngine::Key::X,
                  "Y", DeepsEngine::Key::Y,
-                 "Z", DeepsEngine::Key::Z
+                 "Z", DeepsEngine::Key::Z,
+                 "Right", DeepsEngine::Key::Right,
+                 "Left", DeepsEngine::Key::Left,
+                 "Down", DeepsEngine::Key::Down,
+                 "Up", DeepsEngine::Key::Up
     );
 
     lua.new_usertype<DeepsEngine::Entity>("Entity",

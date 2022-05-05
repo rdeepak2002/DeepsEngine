@@ -15,6 +15,8 @@
 #include <QKeyEvent>
 #include <QWheelEvent>
 #include <QApplication>
+#include <unordered_map>
+#include "src/engine/util/KeyCodes.h"
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShader)
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -50,6 +52,7 @@ private:
 private:
     QOpenGLBuffer m_buffer;
     bool cursorLock;
+    std::unordered_map<int, DeepsEngine::KeyCode> specialKeysMap;
 };
 
 

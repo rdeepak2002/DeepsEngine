@@ -11,7 +11,6 @@
 #include "src/engine/component/Component.h"
 #include "src/engine/Application.h"
 #include "src/engine/Input.h"
-#include "src/engine/util/KeyCodes.h"
 
 using std::filesystem::current_path;
 
@@ -19,6 +18,22 @@ OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
     setMinimumSize(320, 320);
     setAttribute(Qt::WA_AlwaysStackOnTop, true);
     cursorLock = false;
+
+    // define weird key codes from QT
+    specialKeysMap[16777216] = DeepsEngine::Key::Escape;
+    specialKeysMap[Qt::Key::Key_Escape] = DeepsEngine::Key::Escape;
+
+    specialKeysMap[16777234] = DeepsEngine::Key::Right;
+    specialKeysMap[Qt::Key::Key_Right] = DeepsEngine::Key::Right;
+
+    specialKeysMap[16777234] = DeepsEngine::Key::Left;
+    specialKeysMap[Qt::Key::Key_Left] = DeepsEngine::Key::Left;
+
+    specialKeysMap[16777237] = DeepsEngine::Key::Down;
+    specialKeysMap[Qt::Key::Key_Down] = DeepsEngine::Key::Down;
+
+    specialKeysMap[16777235] = DeepsEngine::Key::Up;
+    specialKeysMap[Qt::Key::Key_Up] = DeepsEngine::Key::Up;
 }
 
 OpenGLWidget::~OpenGLWidget() {
@@ -123,21 +138,57 @@ void OpenGLWidget::wheelEvent(QWheelEvent *event) {
 };
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
-    int hardcodedEscapeCode = 16777216;
-
-    if (event->key() == Qt::Key::Key_Escape || event->key() == hardcodedEscapeCode) {
+    if (specialKeysMap.count(event->key()) > 0 && specialKeysMap[event->key()] == DeepsEngine::Key::Escape) {
         cursorLock = false;
         showCursor();
     }
 
+    bool newKeyStateValue = true;
+
     if (cursorLock) {
-        Input::SetButtonDown(event->key(), true);
+        if (specialKeysMap.count(event->key()) > 0) {
+            switch (specialKeysMap[event->key()]) {
+                case DeepsEngine::Key::Right:
+                    Input::SetButtonDown(DeepsEngine::Key::Right, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Left:
+                    Input::SetButtonDown(DeepsEngine::Key::Left, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Down:
+                    Input::SetButtonDown(DeepsEngine::Key::Down, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Up:
+                    Input::SetButtonDown(DeepsEngine::Key::Up, newKeyStateValue);
+                    break;
+            }
+        } else {
+            Input::SetButtonDown(event->key(), newKeyStateValue);
+        }
     }
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
+    bool newKeyStateValue = false;
+
     if (cursorLock) {
-        Input::SetButtonDown(event->key(), false);
+        if (specialKeysMap.count(event->key()) > 0) {
+            switch (specialKeysMap[event->key()]) {
+                case DeepsEngine::Key::Right:
+                    Input::SetButtonDown(DeepsEngine::Key::Right, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Left:
+                    Input::SetButtonDown(DeepsEngine::Key::Left, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Down:
+                    Input::SetButtonDown(DeepsEngine::Key::Down, newKeyStateValue);
+                    break;
+                case DeepsEngine::Key::Up:
+                    Input::SetButtonDown(DeepsEngine::Key::Up, newKeyStateValue);
+                    break;
+            }
+        } else {
+            Input::SetButtonDown(event->key(), newKeyStateValue);
+        }
     }
 }
 
