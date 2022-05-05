@@ -1,6 +1,6 @@
 echo "Installing command line tools"
 sudo xcode-select --install
-
+https://youtu.be/6IGwiDJZODY
 echo "Installing git"
 brew install git
 

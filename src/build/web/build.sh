@@ -7,9 +7,6 @@ sudo chmod -R 777 ./
 ./download-emscripten.sh
 source emsdk/emsdk_env.sh
 
-# downlaod lua web
-./download-lua-web.sh
-
 echo "Creating web build..."
 
 # identify standalone version of app is being built
