@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include <QScopedPointer>
 #include "src/engine/header/Entity.h"
-#include "src/editor/widget/InspectorWidget.h"
+#include "src/editor/header/InspectorWidget.h"
 #include "src/editor/widget/SceneViewWidget.h"
 
 namespace Ui
