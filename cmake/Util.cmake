@@ -1,0 +1,12 @@
+# macro to return full path of first folder in a directory
+MACRO(GETFIRSTDIR result curdir)
+    FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+    SET(dirlist "")
+    FOREACH(child ${children})
+        IF(IS_DIRECTORY ${curdir}/${child})
+            LIST(APPEND dirlist ${child})
+            BREAK()
+        ENDIF()
+    ENDFOREACH()
+    SET(${result} ${curdir}${dirlist})
+ENDMACRO()

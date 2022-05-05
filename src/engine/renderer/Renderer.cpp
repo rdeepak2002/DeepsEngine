@@ -12,7 +12,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include <stb_image.h>
+#include <stb/stb_image.h>
 #include "Entity.h"
 #include "Logger.h"
 #include "Application.h"
