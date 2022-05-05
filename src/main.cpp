@@ -2,6 +2,12 @@
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
+
+extern "C" {
+    void onResizeWindow(int width, int height) {
+        Application::getInstance().resizeWindow(width, height);
+    }
+}
 #endif
 
 #if defined(STANDALONE)

@@ -11,6 +11,9 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLExtraFunctions>
 #include <QOpenGLWidget>
+#include <QMouseEvent>
+#include <QKeyEvent>
+#include <QWheelEvent>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShader)
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -30,9 +33,16 @@ protected:
     void initializeGL() override;
     void paintGL() override;
     void resizeEvent(QResizeEvent* ev) override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
 private:
     QOpenGLBuffer m_buffer;
+    bool cursorLock;
 };
 
 

@@ -145,7 +145,16 @@ if(RUN_STANDALONE)
         file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/assets")
         FILE(GLOB LUA_WEB_BUILD_DIRECTORY "${PROJECT_SOURCE_DIR}/src/build/web/lua-*/src")
         message(STATUS ${LUA_WEB_BUILD_DIRECTORY})
-        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins -L${LUA_WEB_BUILD_DIRECTORY} -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 --preload-file assets")
+        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "--use-preload-plugins \
+        -L${LUA_WEB_BUILD_DIRECTORY} \
+         -s LLD_REPORT_UNDEFINED \
+         -s EXPORTED_FUNCTIONS=['_main','_onResizeWindow'] \
+         -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap'] \
+         -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 \
+         -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 \
+         -s FULL_ES3=1 \
+         -s USE_GLFW=3 \
+         --preload-file assets")
     else()
         file(COPY res DESTINATION assets)
     endif ()
