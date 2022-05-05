@@ -6,6 +6,7 @@
 #include "src/engine/scene/Entity.h"
 #include "src/engine/component/Component.h"
 #include <iostream>
+#include <glm/ext.hpp>
 
 using namespace DeepsEngine;
 using std::filesystem::current_path;
@@ -57,6 +58,9 @@ void Application::createSampleEntities() {
     // add camera entity
     Entity camera = Application::getInstance().scene.CreateEntity("Main Camera");
     (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
+    (&camera.GetComponent<Component::Transform>())->rotation.x = 0.0;
+    (&camera.GetComponent<Component::Transform>())->rotation.y = -glm::half_pi<float>();
+    (&camera.GetComponent<Component::Transform>())->rotation.z = 0.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
     std::string cameraScriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("scene-camera.lua");
     camera.AddComponent<Component::LuaScript>(Component::LuaScript({cameraScriptPath}));

@@ -5,9 +5,24 @@
 #include "ConsoleWidget.h"
 #include "src/engine/util/Logger.h"
 #include <iostream>
+#include <string>
+#include <stdio.h>
+#include <time.h>
+
+std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    // Visit http://en.cppreference.com/w/cpp/chrono/c/strftime
+    // for more information about date/time format
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
+}
 
 ConsoleWidget::ConsoleWidget(QWidget *parent) {
-    setMaximumHeight(200.0);
+    setMaximumHeight(210.0);
 
     // title for this panel
     QLabel* panelTitle = new QLabel("Console");;
@@ -28,6 +43,13 @@ ConsoleWidget::~ConsoleWidget() {
 
 void ConsoleWidget::logCallback(std::string text) {
     if (listWidget) {
-        listWidget->addItem(QString::fromStdString(text));
+        listWidget->addItem(QString::fromStdString(currentDateTime() + ": " + text));
+
+        // cap logs
+        int maxLogs = 100;
+
+        if (listWidget->count() > maxLogs) {
+            listWidget->takeItem(0);
+        }
     }
 }
