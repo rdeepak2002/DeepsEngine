@@ -49,7 +49,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     vLayout->addWidget(new ConsoleWidget);
 
     // scene view widget
-    sceneViewWidget = new SceneViewWidget;
+    SceneViewWidget* sceneViewWidget = new SceneViewWidget;
+    sceneViewWidget->setEntitySelectListener(this);
 
     // inspector widget
     inspectorWidget = new InspectorWidget;

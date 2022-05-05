@@ -20,7 +20,6 @@ class MainWindow : public QMainWindow, EntitySelectListenerInterface {
 public:
     MainWindow(QWidget *parent = 0);
     virtual ~MainWindow();
-    SceneViewWidget* sceneViewWidget;
     InspectorWidget* inspectorWidget;
 
 private:

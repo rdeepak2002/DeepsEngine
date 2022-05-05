@@ -11,11 +11,6 @@
 #include "src/engine/header/Entity.h"
 #include "src/engine/header/Application.h"
 
-class MainWindow {
-public:
-    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem);
-};
-
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // set max dimensions
     setMaximumWidth(300);
@@ -75,18 +70,28 @@ void SceneViewWidget::refreshSceneViewItems() {
 }
 
 void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
-    // reference to main window
-    auto *mainWindow = dynamic_cast<MainWindow *> (this->parentWidget()->parentWidget());
-
-    if (mainWindow) {
+    if (entitySelectListenerInterface) {
         int rowIndex = sceneViewList->row(item);
-        mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
+        entitySelectListenerInterface->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
+    } else {
+        Logger::Error("Entity select listener not defined in SceneViewWidget");
     }
-    else {
-        Logger::Debug("Error sending message from scene view to main window");
-    }
+//    // reference to main window
+//    auto *mainWindow = dynamic_cast<MainWindow *> (this->parentWidget()->parentWidget());
+//
+//    if (mainWindow) {
+//        int rowIndex = sceneViewList->row(item);
+//        mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
+//    }
+//    else {
+//        Logger::Debug("Error sending message from scene view to main window");
+//    }
 }
 
 void SceneViewWidget::onAddButtonPressed() {
     Application::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
+}
+
+void SceneViewWidget::setEntitySelectListener(EntitySelectListenerInterface *entitySelectListenerInterface) {
+    this->entitySelectListenerInterface = entitySelectListenerInterface;
 }

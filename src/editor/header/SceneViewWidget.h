@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include "src/engine/header/Entity.h"
+#include "EntitySelectListenerInterface.h"
 
 class SceneViewWidget : public QWidget {
 Q_OBJECT;
@@ -21,12 +22,14 @@ public:
 public slots:
     void onListItemPressed(QListWidgetItem* item);
     void onAddButtonPressed();
+    void setEntitySelectListener(EntitySelectListenerInterface *entitySelectListenerInterface);
 
 private:
     int timerId;
     QListWidget *sceneViewList;
     QPushButton *addButton;
     std::vector<DeepsEngine::Entity> entities;
+    EntitySelectListenerInterface *entitySelectListenerInterface;
     void refreshSceneViewItems();
 
 protected:
