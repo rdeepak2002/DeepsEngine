@@ -7,13 +7,14 @@
 #include "src/engine/header/Entity.h"
 #include "src/editor/header/InspectorWidget.h"
 #include "src/editor/header/SceneViewWidget.h"
+#include "EntitySelectListenerInterface.h"
 
 namespace Ui
 {
     class MainWindow;
 }
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow, EntitySelectListenerInterface {
     Q_OBJECT
 
 public:
@@ -26,7 +27,7 @@ private:
     QScopedPointer<Ui::MainWindow> ui;
 
 public slots:
-    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem);
+    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
 };
 
 #endif
