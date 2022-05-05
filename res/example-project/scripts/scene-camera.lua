@@ -2,56 +2,52 @@ function init(entity)
     -- define speed of camera movement and rotation
     self.translationSpeed = 2.0
     self.rotationSpeed = 1.0
+    self.maxPitch = 1.55334     -- +89 degrees in radians
+    self.minPitch = -1.55334    -- -89 degrees in radians
 end
 
 function update(entity, dt)
     -- change pitch of camera
+    local dRotation = vec3.new(0.0, 0.0, 0.0)
+
     if(Input.GetButtonDown(Key.Down))
     then
-        local pitch = entity:GetTransform().rotation.x - self.rotationSpeed * dt
-
-        if (pitch > 89.0)
-        then
-            pitch = 89.0
-        end
-
-        if (pitch < -89.0)
-        then
-            pitch = -89.0
-        end
-
-        entity:GetTransform().rotation.x = pitch
+        dRotation = dRotation - vec3.new(1.0,0.0,0.0)
     end
 
     if(Input.GetButtonDown(Key.Up))
     then
-        local pitch = entity:GetTransform().rotation.x + self.rotationSpeed * dt
-
-        if (pitch > 89.0)
-        then
-            pitch = 89.0
-        end
-
-        if (pitch < -89.0)
-        then
-            pitch = -89.0
-        end
-
-        entity:GetTransform().rotation.x = pitch
+        dRotation = dRotation - vec3.new(-1.0,0.0,0.0)
     end
 
     -- change yaw of camera
     if(Input.GetButtonDown(Key.Left))
     then
-        local yaw = entity:GetTransform().rotation.y - self.rotationSpeed * dt
-        entity:GetTransform().rotation.y = yaw
+        dRotation = dRotation - vec3.new(0.0,1.0,0.0)
     end
 
     if(Input.GetButtonDown(Key.Right))
     then
-        local yaw = entity:GetTransform().rotation.y + self.rotationSpeed * dt
-        entity:GetTransform().rotation.y = yaw
+        dRotation = dRotation - vec3.new(0.0,-1.0,0.0)
     end
+
+    -- normalize dRotation vector before multiplying by speed and change in time
+    dRotation = DeepsMath.normalizeVec3(dRotation) * self.rotationSpeed * dt
+    newRotation = entity:GetTransform().rotation + dRotation
+
+    -- keep pitch within boundaries to prevent weird camera behavior
+    if (newRotation.x > self.maxPitch)
+    then
+        newRotation.x = self.maxPitch
+    end
+
+    if (newRotation.x < self.minPitch)
+    then
+        newRotation.x = self.minPitch
+    end
+
+    -- update rotation of entity
+    entity:GetTransform().rotation = newRotation
 
     -- variables for translation
     local entityTransform = entity:GetTransform()
@@ -90,18 +86,17 @@ function update(entity, dt)
     -- move camera down
     if(Input.GetButtonDown(Key.LeftShift))
     then
-        dPosition.y = -1.0
+        dPosition.y = dPosition.y - 1.0
     end
 
     -- move camera up
     if(Input.GetButtonDown(Key.Space))
     then
-        dPosition.y = 1.0
+        dPosition.y = dPosition.y + 1.0
     end
 
-    -- TODO: normalize dPosition vector
-
-    dPosition = dPosition * self.translationSpeed * dt
+    -- normalize dPosition vector before multiplying by speed and change in time
+    dPosition = DeepsMath.normalizeVec3(dPosition) * self.translationSpeed * dt
 
     -- update position of entity
     newPosition = entityPosition + dPosition

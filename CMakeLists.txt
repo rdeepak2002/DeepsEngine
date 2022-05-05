@@ -129,6 +129,8 @@ set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/Input.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/KeyCodes.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.h"
+        "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.cpp"
         )
 
 if(RUN_STANDALONE)

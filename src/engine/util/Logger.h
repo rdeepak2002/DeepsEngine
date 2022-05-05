@@ -57,7 +57,11 @@ public:
         Logger::getInstance().consoleWidget = consoleWidget;
     }
 private:
+    Logger() {}
     LoggerCallbackInterface* consoleWidget;
+public:
+    Logger(Logger const&) = delete;
+    void operator=(Logger const&) = delete;
 };
 
 
