@@ -102,7 +102,8 @@ void LuaScriptComponentSystem::init() {
     );
 
     lua.new_usertype<DeepsMath>("DeepsMath",
-                             "normalizeVec3", &DeepsMath::normalizeVec3
+                             "normalizeVec3", &DeepsMath::normalizeVec3,
+                             "degreesToRadians", &DeepsMath::degreesToRadians
     );
 }
 

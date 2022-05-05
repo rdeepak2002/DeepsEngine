@@ -3,11 +3,15 @@
 //
 
 #include "DeepsMath.h"
-#include <iostream>
+#include "glm/trigonometric.hpp"
 
 glm::vec3 DeepsMath::normalizeVec3(glm::vec3 vec) {
     if (glm::length(vec) == 0) {
         return {};
     }
     return glm::normalize(vec);
+}
+
+float DeepsMath::degreesToRadians(float degrees) {
+    return glm::radians(degrees);
 }

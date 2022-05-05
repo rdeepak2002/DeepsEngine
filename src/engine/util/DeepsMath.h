@@ -11,6 +11,7 @@
 class DeepsMath {
 public:
     static glm::vec3 normalizeVec3(glm::vec3 vec);
+    static float degreesToRadians(float degrees);
 private:
     DeepsMath() {}
 public:

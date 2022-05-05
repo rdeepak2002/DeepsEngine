@@ -2,11 +2,16 @@ function init(entity)
     -- define speed of camera movement and rotation
     self.translationSpeed = 2.0
     self.rotationSpeed = 1.0
-    self.maxPitch = 1.55334     -- +89 degrees in radians
-    self.minPitch = -1.55334    -- -89 degrees in radians
+    self.maxPitch = DeepsMath.degreesToRadians(89.0)
+    self.minPitch = DeepsMath.degreesToRadians(-89.0)
 end
 
 function update(entity, dt)
+    updateRotation(entity, dt)
+    updateTranslation(entity, dt)
+end
+
+function updateRotation(entity, dt)
     -- change pitch of camera
     local dRotation = vec3.new(0.0, 0.0, 0.0)
 
@@ -48,7 +53,9 @@ function update(entity, dt)
 
     -- update rotation of entity
     entity:GetTransform().rotation = newRotation
+end
 
+function updateTranslation(entity, dt)
     -- variables for translation
     local entityTransform = entity:GetTransform()
     local entityPosition = vec3.new(entity:GetTransform().position.x, entity:GetTransform().position.y, entity:GetTransform().position.z)
@@ -102,4 +109,3 @@ function update(entity, dt)
     newPosition = entityPosition + dPosition
     entity:GetTransform().position = newPosition
 end
-
