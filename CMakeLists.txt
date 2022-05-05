@@ -45,7 +45,7 @@ if (NOT EMSCRIPTEN)
     endif()
 endif()
 
-#find_package(glfw3 REQUIRED)
+#find_package(glfw REQUIRED)
 #
 #if(GLFW_FOUND) # Works with some other methods
 #    message(STATUS "GLFW3_INCLUDE_PATH=${GLFW3_INCLUDE_PATH}")
@@ -88,9 +88,9 @@ GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
 set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
 message(STATUS "LUA_INCLUDE_DIR ${LUA_INCLUDE_DIR}")
 include_directories(${LUA_INCLUDE_DIR})
-set(LUA_LIBRARY ${LUA_PATH}/lib/liblua.dylib)
-message(STATUS "LUA_LIBRARY ${LUA_LIBRARY}")
-link_libraries(${LUA_LIBRARY})
+set(LUA_LIBRARIES ${LUA_PATH}/lib/liblua.dylib)
+message(STATUS "LUA_LIBRARIES ${LUA_LIBRARIES}")
+link_libraries(${LUA_LIBRARIES})
 
 # get include directories for libraries used
 set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/include)
