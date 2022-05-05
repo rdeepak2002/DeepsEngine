@@ -23,7 +23,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "src/engine/util/Logger.h"
+#include "Logger.h"
 
 //class Shader {
 #if defined(STANDALONE)

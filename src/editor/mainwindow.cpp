@@ -3,8 +3,6 @@
 #include "ui_mainwindow.h"
 #include "src/editor/header/OpenGLWidget.h"
 #include "src/engine/header/Entity.h"
-#include "src/engine/header/Component.h"
-#include "src/editor/widget/SceneViewWidget.h"
 #include "src/editor/header/InspectorWidget.h"
 #include "src/editor/header/ConsoleWidget.h"
 

@@ -14,7 +14,7 @@
 
 #include <stb_image.h>
 #include "src/engine/header/Entity.h"
-#include "src/engine/util/Logger.h"
+#include "src/engine/header/Logger.h"
 #include "src/engine/header/Application.h"
 #include "src/engine/header/Input.h"
 #include "glm/gtx/compatibility.hpp"

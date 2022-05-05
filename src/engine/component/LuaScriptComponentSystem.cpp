@@ -7,8 +7,8 @@
 #include "src/engine/header/Entity.h"
 #include "Component.h"
 #include "src/engine/header/Input.h"
-#include "src/engine/util/KeyCodes.h"
-#include "src/engine/util/DeepsMath.h"
+#include "src/engine/header/KeyCodes.h"
+#include "src/engine/header/DeepsMath.h"
 #include <iostream>
 
 void LuaScriptComponentSystem::init() {

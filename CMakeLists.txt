@@ -169,7 +169,7 @@ else()
         "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
         "src/editor/header/OpenGLWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.h"
+        "src/editor/header/SceneViewWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
         "src/editor/header/InspectorWidget.h"
         "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
