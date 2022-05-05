@@ -1,4 +1,4 @@
-#include "src/engine/header/Application.h"
+#include "Application.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>

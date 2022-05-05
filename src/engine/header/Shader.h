@@ -19,7 +19,7 @@
 #endif
 
 #include <fstream>
-#include "src/engine/include/glm/glm/glm.hpp"
+#include <glm/glm.hpp>
 #include <iostream>
 #include <sstream>
 #include <string>

@@ -6,9 +6,9 @@
 #define EDITOR_ENTITY_H
 
 #include "Scene.h"
-#include "src/engine/header/Renderer.h"
+#include "Renderer.h"
 #include "Application.h"
-#include "src/engine/include/entt/single_include/entt/entt.hpp"
+#include "entt/entt.hpp"
 
 namespace DeepsEngine {
     class Entity {

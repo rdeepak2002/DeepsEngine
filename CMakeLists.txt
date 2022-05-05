@@ -125,6 +125,10 @@ if(RUN_STANDALONE)
 
     add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
 
+#    add_library(${PROJECT_NAME} SHARED
+#            ${ENGINE_SOURCE_FILES}
+#    )
+
     if (EMSCRIPTEN)
         file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/assets")
         FILE(GLOB LUA_WEB_BUILD_DIRECTORY "${PROJECT_SOURCE_DIR}/src/build/web/lua-*/src")
