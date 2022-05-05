@@ -107,42 +107,23 @@ set(GLFW_LINK ${GLFW_H_PATH}/lib/libglfw.dylib)
 set(LUA_LIBRARY ${LUA_PATH}/lib/liblua.dylib)
 link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIBRARY})
 
-set(ENGINE_SOURCE_FILES
-        "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/include/glad/src/glad.c"
-        "src/engine/header/Shader.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
-        "src/engine/header/Component.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
-        "src/engine/header/Renderer.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/Application.cpp"
-        "src/engine/header/Application.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
-        "src/engine/header/Scene.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
-        "src/engine/header/Entity.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
-        "src/engine/header/ComponentSystem.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
-        "src/engine/header/LuaScriptComponentSystem.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
-        "src/engine/header/Input.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/KeyCodes.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.cpp"
-        )
+# source files for engine code
+FILE(GLOB ENGINE_SOURCE_FILES
+        src/main.cpp
+        src/engine/include/glad/src/glad.c
+        src/engine/*.cpp
+        src/engine/component/*.cpp
+        src/engine/renderer/*.cpp
+        src/engine/scene/*.cpp
+        src/engine/util/*.cpp)
+
+message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
 if(RUN_STANDALONE)
     # standalone engine
     add_compile_definitions(STANDALONE)
 
-    file(GLOB SOURCE_FILES_EXEC
-        ${ENGINE_SOURCE_FILES}
-    )
-
-    add_executable(${PROJECT_NAME} ${SOURCE_FILES_EXEC})
+    add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
 
     if (EMSCRIPTEN)
         file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/assets")
