@@ -56,7 +56,7 @@ bool Application::shouldClose() {
 
 void Application::createSampleEntities() {
     // add camera entity
-    Entity camera = Application::getInstance().scene.CreateEntity("Main Camera");
+    Entity camera = Application::getInstance().scene.CreateEntity("Scene Camera");
     (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
     (&camera.GetComponent<Component::Transform>())->rotation.x = 0.0;
     (&camera.GetComponent<Component::Transform>())->rotation.y = -glm::half_pi<float>();

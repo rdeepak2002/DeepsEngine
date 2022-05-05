@@ -78,6 +78,29 @@ namespace DeepsEngine::Component {
                 this->rotation = rotation;
                 this->scale = scale;
             }
+            glm::vec3 front() {
+                float yaw = glm::degrees(rotation.y);
+                float pitch = glm::degrees(rotation.x);
+                float roll = glm::degrees(rotation.z);
+
+//                if (constrainPitch == true) {
+//                    if (pitch > 89.0f)
+//                        pitch = 89.0f;
+//                    if (pitch < -89.0f)
+//                        pitch = -89.0f;
+//                }
+
+                glm::vec3 front;
+                front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+                front.y = sin(glm::radians(pitch));
+                front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+                return glm::normalize(front);
+            }
+            glm::vec3 right() {
+                glm::vec3 up = glm::vec3(0.0f, 1.0f,  0.0f);
+                return glm::normalize(glm::cross(front(), up));
+            }
             Position position;
             Rotation rotation;
             Scale scale;

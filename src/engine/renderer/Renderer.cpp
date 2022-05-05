@@ -330,35 +330,8 @@ void Renderer::update() {
         // set the clear color to light blue ish
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
-
-        glm::quat quat = glm::quat(glm::vec3(mainCameraTransformComponent.rotation.x, mainCameraTransformComponent.rotation.y, mainCameraTransformComponent.rotation.z));
-
-        // make sure that when pitch is out of bounds, screen doesn't get flipped
-//        float yaw   = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-//        float pitch =  0.0f;
-
-//        if (pitch > 89.0f)
-//            pitch = 89.0f;
-//        if (pitch < -89.0f)
-//            pitch = -89.0f;
-
-        // note: my input is radians for rotation
-        float yaw = glm::degrees(mainCameraTransformComponent.rotation.y);
-        float pitch = glm::degrees(mainCameraTransformComponent.rotation.x);
-        float roll = glm::degrees(mainCameraTransformComponent.rotation.z);
-
-        // TODO: implement this constraint in lua script for scene camera
-//        if (pitch > 89.0f)
-//            pitch = 89.0f;
-//        if (pitch < -89.0f)
-//            pitch = -89.0f;
-
-        glm::vec3 front;
-        front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-        front.y = sin(glm::radians(pitch));
-        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
-        glm::vec3 cameraFront = glm::normalize(front);
+        // get camera facing direction
+        glm::vec3 cameraFront = mainCameraTransformComponent.front();
 
         // create transformations
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -432,7 +405,6 @@ void Renderer::update() {
 
         glBindVertexArray(lightVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-
     }
     else {
         // set clear color to black to indicate no camera active
