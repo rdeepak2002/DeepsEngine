@@ -9,7 +9,7 @@
 #include "ComponentSystem.h"
 
 #define SOL_ALL_SAFETIES_ON 1
-#include <sol/state.hpp>
+#include "src/engine/include/sol2/include/sol/state.hpp"
 
 class LuaScriptComponentSystem : public ComponentSystem {
 public:

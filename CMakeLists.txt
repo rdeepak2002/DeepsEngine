@@ -90,6 +90,7 @@ GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
 message(${LUA_PATH})
 
 # get include directories for libraries used
+set(DEEPS_ENGINE_H ${PROJECT_SOURCE_DIR}/src/engine/header)
 set(GLEW_H ${GLEW_H_PATH}/include/GL)
 set(GLFW_H ${GLFW_H_PATH}/include/GLFW)
 set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
@@ -98,7 +99,7 @@ set(GLAD_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/glad/include)
 set(SOL_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/sol2/include)
 set(ENTT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/entt/single_include)
 set(STB_IMAGE_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/src/engine/include/stb)
-include_directories(${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR} ${STB_IMAGE_INCLUDE_DIR})
+include_directories(${DEEPS_ENGINE_H} ${OPENGL_INCLUDE_DIRS} ${GLEW_H} ${GLFW_H} ${GLAD_INCLUDE_DIR} ${GLM_INCLUDE_DIR} ${LUA_INCLUDE_DIR} ${SOL_INCLUDE_DIR} ${ENTT_INCLUDE_DIR} ${STB_IMAGE_INCLUDE_DIR})
 
 # link libraries used
 set(GLEW_LINK ${GLEW_H_PATH}/lib/libGLEW.dylib)
@@ -109,25 +110,25 @@ link_libraries(${OPENGL_LIBRARIES} ${OPENGL} ${GLEW_LINK} ${GLFW_LINK} ${LUA_LIB
 set(ENGINE_SOURCE_FILES
         "${PROJECT_SOURCE_DIR}/src/main.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/include/glad/src/glad.c"
-        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.h"
+        "src/engine/header/Shader.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Shader.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/component/Component.h"
+        "src/engine/header/Component.h"
         "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/renderer/Renderer.h"
+        "src/engine/header/Renderer.h"
         "${PROJECT_SOURCE_DIR}/src/engine/Application.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/Application.h"
+        "src/engine/header/Application.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/scene/Scene.h"
+        "src/engine/header/Scene.h"
         "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/scene/Entity.h"
+        "src/engine/header/Entity.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.cpp"
         "${PROJECT_SOURCE_DIR}/src/engine/util/Logger.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/LoggerCallbackInterface.h"
-        "${PROJECT_SOURCE_DIR}/src/engine/component/ComponentSystem.h"
+        "src/engine/header/ComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/component/LuaScriptComponentSystem.h"
+        "src/engine/header/LuaScriptComponentSystem.h"
         "${PROJECT_SOURCE_DIR}/src/engine/Input.cpp"
-        "${PROJECT_SOURCE_DIR}/src/engine/Input.h"
+        "src/engine/header/Input.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/KeyCodes.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.h"
         "${PROJECT_SOURCE_DIR}/src/engine/util/DeepsMath.cpp"

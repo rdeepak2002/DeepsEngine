@@ -5,9 +5,9 @@
 #ifndef EDITOR_APPLICATION_H
 #define EDITOR_APPLICATION_H
 
-#include "src/engine/scene/Scene.h"
-#include "src/engine/component/LuaScriptComponentSystem.h"
-#include "src/engine/renderer/Renderer.h"
+#include "src/engine/header/Scene.h"
+#include "src/engine/header/LuaScriptComponentSystem.h"
+#include "src/engine/header/Renderer.h"
 
 class Application {
 public:

@@ -3,7 +3,7 @@
 //
 
 #include "TagComponentWidget.h"
-#include "src/engine/component/Component.h"
+#include "src/engine/header/Component.h"
 #include <iostream>
 #include <QLabel>
 #include <QLineEdit>

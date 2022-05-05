@@ -21,7 +21,7 @@
 #endif
 
 #include "Shader.h"
-#include "src/engine/scene/Scene.h"
+#include "Scene.h"
 
 #if defined(STANDALONE)
 class Renderer {

@@ -3,8 +3,8 @@
 //
 
 #include "InspectorWidget.h"
-#include "src/engine/scene/Entity.h"
-#include "src/engine/component/Component.h"
+#include "src/engine/header/Entity.h"
+#include "src/engine/header/Component.h"
 #include <iostream>
 #include <QLabel>
 #include <QLineEdit>

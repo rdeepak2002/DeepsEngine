@@ -6,11 +6,11 @@
 #include <QPainter>
 #include <QString>
 #include <QWidget>
-#include "src/engine/scene/Entity.h"
-#include "src/engine/renderer/Renderer.h"
-#include "src/engine/component/Component.h"
-#include "src/engine/Application.h"
-#include "src/engine/Input.h"
+#include "src/engine/header/Entity.h"
+#include "src/engine/header/Renderer.h"
+#include "src/engine/header/Component.h"
+#include "src/engine/header/Application.h"
+#include "src/engine/header/Input.h"
 
 using std::filesystem::current_path;
 

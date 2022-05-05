@@ -2,9 +2,9 @@
 // Created by Deepak Ramalingam on 4/30/22.
 //
 #include "Application.h"
-#include "src/engine/renderer/Renderer.h"
-#include "src/engine/scene/Entity.h"
-#include "src/engine/component/Component.h"
+#include "src/engine/header/Renderer.h"
+#include "src/engine/header/Entity.h"
+#include "src/engine/header/Component.h"
 #include <iostream>
 #include <glm/ext.hpp>
 

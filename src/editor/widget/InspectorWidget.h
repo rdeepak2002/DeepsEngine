@@ -10,7 +10,7 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QPushButton>
-#include "src/engine/scene/Entity.h"
+#include "src/engine/header/Entity.h"
 #include "src/editor/widget/component/TransformComponentWidget.h"
 #include "src/editor/widget/component/TagComponentWidget.h"
 #include "src/editor/widget/component/MeshFilterComponentWidget.h"

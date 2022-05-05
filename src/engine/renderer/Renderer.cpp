@@ -8,15 +8,15 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <memory>
-#include "src/engine/component/Component.h"
+#include "src/engine/header/Component.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <stb_image.h>
-#include "src/engine/scene/Entity.h"
+#include "src/engine/header/Entity.h"
 #include "src/engine/util/Logger.h"
-#include "src/engine/Application.h"
-#include "src/engine/Input.h"
+#include "src/engine/header/Application.h"
+#include "src/engine/header/Input.h"
 #include "glm/gtx/compatibility.hpp"
 
 using std::filesystem::current_path;

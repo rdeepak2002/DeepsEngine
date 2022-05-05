@@ -7,10 +7,10 @@
 #include <QGridLayout>
 #include <QListWidget>
 #include "SceneViewWidget.h"
-#include "src/engine/component/Component.h"
-#include "src/engine/scene/Entity.h"
+#include "src/engine/header/Component.h"
+#include "src/engine/header/Entity.h"
 #include "src/editor/mainwindow.h"
-#include "src/engine/Application.h"
+#include "src/engine/header/Application.h"
 
 SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // set max dimensions
