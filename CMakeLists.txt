@@ -1,48 +1,18 @@
 cmake_minimum_required(VERSION 3.16)
 
-if (EMSCRIPTEN)
-    set(CMAKE_C_COMPILER "emcc")
-endif ()
-
-# specify whether this should run as a standalone or build as a node gui plugin
-if(DEFINED ENV{STANDALONE})
-    message(STATUS "Running engine in standalone mode")
-    set(RUN_STANDALONE TRUE)
-
-    if(DEFINED ENV{DEVELOP_WEB})
-        message(STATUS "developing in web mode")
-        set(DEVELOP_WEB TRUE)
-        add_compile_definitions(DEVELOP_WEB)
-    endif()
-else()
-    message(STATUS "Building engine as compiled library")
-    set(RUN_STANDALONE FALSE)
-endif()
-
 # Add folder where are supportive functions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include(FindLibraries)
+include(DeepsEngineSetup)
 
 # Basic information about project
 project(DeepsEngine VERSION 1.0)
 
-# Set additional project information
-set(COMPANY "DeepDev")
-set(COPYRIGHT "Copyright (c) 2022 Deepak Ramalingam. All rights reserved.")
-set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
-
-# print out the architecture
-EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
-message( STATUS "Architecture = ${ARCHITECTURE}" )
-
 # find the libraries for running deeps engine
-FIND_DEEPS_ENGINE_THIRD_PARTY_LIBRARIES()
+DEEPS_ENGINE_SETUP()
 
 # get include directories for libraries used
-set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/include)
-message(STATUS "DEEPS_ENGINE_INCLUDE_DIRS ${DEEPS_ENGINE_INCLUDE_DIRS}")
-include_directories(${DEEPS_ENGINE_INCLUDE_DIRS})
+include_directories(${PROJECT_SOURCE_DIR}/src/engine/include)
 
 # source files for engine code
 FILE(GLOB ENGINE_SOURCE_FILES
@@ -57,9 +27,6 @@ FILE(GLOB ENGINE_SOURCE_FILES
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
 if(RUN_STANDALONE)
-    # standalone engine
-    add_compile_definitions(STANDALONE)
-
     # create shared .dll library
 #    add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
 
@@ -68,7 +35,6 @@ if(RUN_STANDALONE)
 
     if (EMSCRIPTEN)
         # web build
-        file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/build/assets")
         set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \
         --use-preload-plugins \
         -s LLD_REPORT_UNDEFINED \
@@ -81,26 +47,23 @@ if(RUN_STANDALONE)
         --preload-file assets")
     else()
         # standalone build
-        file(COPY res DESTINATION assets)
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif ()
 else()
-    set(DEEPS_ENGINE_EDITOR_H ${PROJECT_SOURCE_DIR}/src/editor/include)
-    include_directories(${DEEPS_ENGINE_EDITOR_H})
-
-    if(APPLE)
-        file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
-    elseif(WIN32)
-        # for Windows operating system in general
-    elseif(UNIX AND NOT APPLE)
-        # for Linux, BSD, Solaris, Minix
-    endif()
+    include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
 
     include(QtCommon)
     fix_project_version()
 
-    # build as a node gui plugin
-    add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
+#    FILE(GLOB EDITOR_SOURCE_FILES
+#            src/editor/*.cpp
+#            src/editor/*.h
+#            src/editor/widget/*.cpp
+#            src/editor/widget/*.h
+#            src/editor/widget/component/*.cpp
+#            src/editor/widget/component/*.h)
+#
+#    message(STATUS "Editor source files: ${EDITOR_SOURCE_FILES}")
 
     set(EDITOR_SOURCE_FILES
         ${ENGINE_SOURCE_FILES}
@@ -132,7 +95,7 @@ else()
 
     source_group("UI Files" FILES ${UI_FILES})
 
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
