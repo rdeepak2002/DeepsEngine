@@ -74,15 +74,6 @@ set(GLFW_LIBRARIES ${GLFW_H_PATH}/lib/libglfw.dylib)
 message(STATUS "GLFW_LIBRARIES ${GLFW_LIBRARIES}")
 link_libraries(${GLFW_LIBRARIES})
 
-# get GLEW path use macro to get around differing versions
-GETFIRSTDIR(GLEW_H_PATH /opt/homebrew/Cellar/glew/)
-set(GLEW_INCLUDE_DIRS ${GLEW_H_PATH}/include/GL)
-message(STATUS "GLEW_INCLUDE_DIRS ${GLEW_INCLUDE_DIRS}")
-include_directories(${GLEW_INCLUDE_DIRS})
-set(GLEW_LIBRARIES ${GLEW_H_PATH}/lib/libGLEW.dylib)
-message(STATUS "GLEW_LIBRARIES ${GLEW_LIBRARIES}")
-link_libraries(${GLEW_LIBRARIES})
-
 # get LUA path use macro to get around differing versions
 #GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
 #set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
