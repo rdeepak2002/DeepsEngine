@@ -33,7 +33,7 @@ sudo chmod 777 setup-macos.sh
       - Nothing in "Environment"
       - Add the following compile options
         - "-DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/qt@5/5.15.3"
-- Run the CMake application in either Editor or Release mode
+- Run the CMake application in either Editor or Release mode (if you encounter errors, you might have to reload the CMake profiles)
 
 ### Run the Web Release of the Engine on macOS
 
