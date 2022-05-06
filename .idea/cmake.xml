@@ -2,14 +2,14 @@
 <project version="4">
   <component name="CMakeSharedSettings">
     <configurations>
-      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake">
+      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake" />
+      <configuration PROFILE_NAME="Editor" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/qt@5/5.15.3">
         <ADDITIONAL_GENERATION_ENVIRONMENT>
           <envs>
-            <env name="STANDALONE" value="" />
+            <env name="WITH_EDITOR" value="" />
           </envs>
         </ADDITIONAL_GENERATION_ENVIRONMENT>
       </configuration>
-      <configuration PROFILE_NAME="Editor" ENABLED="true" CONFIG_NAME="Release" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/qt@5/5.15.3" />
     </configurations>
   </component>
 </project>

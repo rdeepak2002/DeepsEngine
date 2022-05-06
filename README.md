@@ -28,7 +28,7 @@ sudo chmod 777 setup-macos.sh
   - Enable autoreload for CMake changes
   - Go to Preferences -> Build, Execution, Deployment -> CMake and add the following profiles:
     - Release
-      - In "Environment" add "STANDALONE="
+      - In "Environment" add "WITH_EDITOR="
     - Editor
       - Nothing in "Environment"
       - Add the following compile options

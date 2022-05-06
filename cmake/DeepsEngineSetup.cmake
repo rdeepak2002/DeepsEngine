@@ -6,14 +6,14 @@ macro(DEEPS_ENGINE_IDENTIFIERS)
 endmacro()
 
 macro(DEEPS_ENGINE_DEFINITIONS)
-    if(DEFINED ENV{STANDALONE})
-        message(STATUS "Running engine in standalone mode")
-        set(RUN_STANDALONE TRUE)
-        add_compile_definitions(STANDALONE)
-    else()
+    if(DEFINED ENV{WITH_EDITOR})
         message(STATUS "Building engine in editor mode")
         set(RUN_STANDALONE FALSE)
         add_compile_definitions(INCLUDE_DEEPS_ENGINE_LIBRARY)
+    else()
+        message(STATUS "Running engine in standalone mode")
+        set(RUN_STANDALONE TRUE)
+        add_compile_definitions(STANDALONE)
     endif()
 endmacro()
 
@@ -49,15 +49,7 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
 endmacro()
 
 macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
-    if(DEFINED ENV{STANDALONE})
-        if (EMSCRIPTEN)
-            # web build
-            file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/build/assets")
-        else()
-            # standalone build
-            file(COPY res DESTINATION assets)
-        endif ()
-    else()
+    if(DEFINED ENV{WITH_EDITOR})
         # editor mode
         if(APPLE)
             file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
@@ -66,6 +58,14 @@ macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
         elseif(UNIX AND NOT APPLE)
             # for Linux, BSD, Solaris, Minix
         endif()
+    else()
+        if (EMSCRIPTEN)
+            # web build
+            file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/build/assets")
+        else()
+            # standalone build
+            file(COPY res DESTINATION assets)
+        endif ()
     endif()
 endmacro()
 
