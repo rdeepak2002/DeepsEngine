@@ -43,7 +43,13 @@ if (NOT EMSCRIPTEN)
     if(NOT OPENGL_FOUND)
         message(FATAL_ERROR "OpenGL not found")
     endif()
+
+    find_package(glfw3 CONFIG REQUIRED)
 endif()
+
+
+#target_link_libraries(main PRIVATE glfw)
+
 
 #find_package(glfw REQUIRED)
 #
@@ -64,15 +70,6 @@ message(STATUS "OPENGL_INCLUDE_DIRS = ${OPENGL_INCLUDE_DIRS}")
 include_directories(${OPENGL_INCLUDE_DIRS})
 message(STATUS "OPENGL_LIBRARIES = ${OPENGL_LIBRARIES}")
 link_libraries(${OPENGL_LIBRARIES})
-
-# get GLFW path use macro to get around differing versions
-GETFIRSTDIR(GLFW_H_PATH /opt/homebrew/Cellar/glfw/)
-set(GLFW3_INCLUDE_PATH ${GLFW_H_PATH}/include/GLFW)
-message(STATUS "GLFW3_INCLUDE_PATH ${GLFW3_INCLUDE_PATH}")
-include_directories(${GLFW3_INCLUDE_PATH})
-set(GLFW_LIBRARIES ${GLFW_H_PATH}/lib/libglfw.dylib)
-message(STATUS "GLFW_LIBRARIES ${GLFW_LIBRARIES}")
-link_libraries(${GLFW_LIBRARIES})
 
 # get LUA path use macro to get around differing versions
 #GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
@@ -126,6 +123,7 @@ if(RUN_STANDALONE)
     else()
         # standalone build
         file(COPY res DESTINATION assets)
+        target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif ()
 else()
     set(DEEPS_ENGINE_EDITOR_H ${PROJECT_SOURCE_DIR}/src/editor/include)

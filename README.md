@@ -19,9 +19,8 @@ git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.gi
 ### Install Requirements on Mac:
 
 ```shell
-cd scripts
-sudo chmod 777 install.sh
-./install.sh
+sudo chmod 777 setup-macos.sh
+./setup-macos.sh
 ```
 
 ### Run the Engine in Desktop Release or Desktop Editor mode
@@ -37,8 +36,6 @@ sudo chmod 777 install.sh
 - Run the CMake application in either Editor or Release mode
 
 ### Run the Web Release of the Engine on macOS
-
-Create the Web Build and Serve It
 
 ```shell
 sudo chmod -R 777 web_build
