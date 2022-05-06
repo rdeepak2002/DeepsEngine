@@ -23,8 +23,6 @@ brew install http-server
 echo "Installing dependencies via Homebrew"
 brew install llvm
 brew install cmake
-brew install glfw3
-brew install glew
 brew install qt@5
 
 if [ -d "vcpkg" ]; then
