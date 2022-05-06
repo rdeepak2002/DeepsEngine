@@ -1,4 +1,4 @@
-macro(FIND_DEEPS_ENGINE_LIBRARIES)
+macro(FIND_DEEPS_ENGINE_THIRD_PARTY_LIBRARIES)
     # find packages
     if (NOT EMSCRIPTEN)
         find_package(OpenGL REQUIRED)

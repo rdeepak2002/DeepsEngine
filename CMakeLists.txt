@@ -37,7 +37,7 @@ EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTUR
 message( STATUS "Architecture = ${ARCHITECTURE}" )
 
 # find the libraries for running deeps engine
-FIND_DEEPS_ENGINE_LIBRARIES()
+FIND_DEEPS_ENGINE_THIRD_PARTY_LIBRARIES()
 
 # get include directories for libraries used
 set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/include)
