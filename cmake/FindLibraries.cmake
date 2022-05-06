@@ -19,7 +19,7 @@ macro(FIND_DEEPS_ENGINE_THIRD_PARTY_LIBRARIES)
     find_package(Lua REQUIRED)
 
     if (NOT LUA_FOUND)
-        message(FATAL_ERROR "LUA not found. Please refer to README.md file.")
+        message(FATAL_ERROR "LUA not found. Please refer to https://github.com/rdeepak2002/DeepsEngine/blob/main/README.md file.")
     endif()
 
     # get LUA path use macro to get around differing versions
