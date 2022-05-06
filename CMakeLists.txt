@@ -22,7 +22,7 @@ endif()
 # Add folder where are supportive functions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-include(Util)
+include(FindLibraries)
 
 # Basic information about project
 project(DeepsEngine VERSION 1.0)
@@ -36,49 +36,8 @@ set(IDENTIFIER "com.DeepDev.DeepsEngineEditor")
 EXECUTE_PROCESS( COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE )
 message( STATUS "Architecture = ${ARCHITECTURE}" )
 
-# find packages
-if (NOT EMSCRIPTEN)
-    find_package(OpenGL REQUIRED)
-
-    if(NOT OPENGL_FOUND)
-        message(FATAL_ERROR "OpenGL not found")
-    endif()
-
-    find_package(glfw3 CONFIG REQUIRED)
-endif()
-
-
-#target_link_libraries(main PRIVATE glfw)
-
-
-#find_package(glfw REQUIRED)
-#
-#if(GLFW_FOUND) # Works with some other methods
-#    message(STATUS "GLFW3_INCLUDE_PATH=${GLFW3_INCLUDE_PATH}")
-#    message(STATUS "GLFW_LIBRARIES=${GLFW_LIBRARIES}")
-#else( GLFW_FOUND )
-#    message(FATAL_ERROR "GLFW3 not found")
-#endif( GLFW_FOUND )
-
-find_package(Lua REQUIRED)
-
-message(STATUS "LUA_INCLUDE_DIR=${LUA_INCLUDE_DIR}")
-message(STATUS "LUA_LIBRARIES=${LUA_LIBRARIES}")
-
-# get OPENGL include path and libraries
-message(STATUS "OPENGL_INCLUDE_DIRS = ${OPENGL_INCLUDE_DIRS}")
-include_directories(${OPENGL_INCLUDE_DIRS})
-message(STATUS "OPENGL_LIBRARIES = ${OPENGL_LIBRARIES}")
-link_libraries(${OPENGL_LIBRARIES})
-
-# get LUA path use macro to get around differing versions
-#GETFIRSTDIR(LUA_PATH /opt/homebrew/Cellar/lua/)
-#set(LUA_INCLUDE_DIR ${LUA_PATH}/include/lua)
-message(STATUS "LUA_INCLUDE_DIR ${LUA_INCLUDE_DIR}")
-include_directories(${LUA_INCLUDE_DIR})
-#set(LUA_LIBRARIES /opt/homebrew/lib/liblua.dylib)
-message(STATUS "LUA_LIBRARIES ${LUA_LIBRARIES}")
-link_libraries(${LUA_LIBRARIES})
+# find the libraries for running deeps engine
+FIND_DEEPS_ENGINE_LIBRARIES()
 
 # get include directories for libraries used
 set(DEEPS_ENGINE_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/src/engine/include)
