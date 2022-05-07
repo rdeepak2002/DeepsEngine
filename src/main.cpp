@@ -28,7 +28,6 @@ void startUpdateLoop() {
 }
 
 int main() {
-    Application::getInstance().createSampleEntities();
     Application::getInstance().initialize();
     startUpdateLoop();
     Application::getInstance().close();

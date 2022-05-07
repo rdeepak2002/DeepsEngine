@@ -39,8 +39,6 @@ void Application::update(bool clearScreen) {
 void Application::initialize() {
     Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
 
-    Application::getInstance().createSampleEntities();
-
     // create window
     renderer->createWindow();
 
@@ -62,6 +60,8 @@ bool Application::shouldClose() {
 }
 
 void Application::createSampleEntities() {
+    Logger::Debug("Creating sample entities");
+
     // add camera entity
     Entity camera = Application::getInstance().scene.CreateEntity("Scene Camera");
     (&camera.GetComponent<Component::Transform>())->position.z = 5.0;
@@ -103,6 +103,7 @@ std::filesystem::path Application::getProjectPath() {
     if (projectPath.empty()) {
         Logger::Warn("Falling back to development project path");
         projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
+        Application::getInstance().createSampleEntities();
     }
 
     return std::filesystem::path(projectPath);
