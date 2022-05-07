@@ -5,12 +5,11 @@ sudo chmod -R 777 ./
 
 echo ${DEEPS_ENGINE_RESOURCE_DIRECTORY}
 
-if [[ -v DEEPS_ENGINE_RESOURCE_DIRECTORY ]];
-then
-    echo "Resource directory set to ${DEEPS_ENGINE_RESOURCE_DIRECTORY}"
+if [[ -z "${DEEPS_ENGINE_RESOURCE_DIRECTORY}" ]]; then
+  echo "Error: DEEPS_ENGINE_RESOURCE_DIRECTORY env variable not provided!"
+  exit 1
 else
-    echo "Error: DEEPS_ENGINE_RESOURCE_DIRECTORY env variable not provided!"
-    exit 1
+  echo "Resource directory set to ${DEEPS_ENGINE_RESOURCE_DIRECTORY}"
 fi
 
 if [ -d "DeepsEngine" ]; then
@@ -42,6 +41,8 @@ cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/res
 # build source code
 cmake -S ./ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
 cmake --build build
+
+echo "Build complete and present in $(pwd)/build/"
 
 # serve content
 echo "Serving content from /build/app.html"

@@ -5,6 +5,8 @@
 #include "ConsoleWidget.h"
 #include "SceneViewWidget.h"
 
+using std::filesystem::current_path;
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // set gl version
@@ -68,11 +70,52 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Set QWidget as the central layout of the main window
     setCentralWidget(window);
 
-    auto *quit = new QAction("&Quit", this);
+    // run web build process
+//    QString resourceFileDirectory = QString::fromStdString(current_path().append("assets").append("res"));
+//    QString resourceFileDirectory = QString("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
+//    std::string webBuildPath = current_path().append("assets").append("res").append("build").append("web");
+//    std::string webBuildPath="/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/";
+    // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
 
-    QMenu *file = menuBar()->addMenu("&File");
-    file->addAction(quit);
-    connect(quit, &QAction::triggered, qApp, QApplication::quit);
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
+    QProcess *process = new QProcess(this);
+    process->setProcessEnvironment(env);
+    process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");
+    process->start("./build.sh");
+    if(!process->waitForStarted())
+        Logger::Error("Flag 1 waiting for start");
+
+    bool retval = false;
+
+    QByteArray buffer;
+
+    while ((retval = process->waitForFinished())) {
+        buffer.append(process->readAll());
+    }
+
+    Logger::Debug(QString(buffer).toStdString());
+
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+    // TODO: make this run only after clicking build
+
+
+    // menu bar items
+    QMenu *fileMenu = new QMenu("File");
+    QAction* closeAction = fileMenu->addAction("Close");
+    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
+    menuBar()->addAction(fileMenu->menuAction());
+
+    QMenu *buildMenu = new QMenu("Build");
+    QAction* webBuildAction = buildMenu->addAction("Web");
+    connect(webBuildAction, &QAction::triggered, qApp, MainWindow::buildWeb);
+    menuBar()->addAction(buildMenu->menuAction());
 }
 
 MainWindow::~MainWindow()
@@ -81,4 +124,15 @@ MainWindow::~MainWindow()
 
 void MainWindow::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
     inspectorWidget->onEntitySelected(entity, listItem);
+}
+
+void MainWindow::buildWeb() {
+    Logger::Debug("TODO: build web");
+
+
+//    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Script"), "/", tr("Script Files (*.sh)"));
+//
+//    if (QProcess::execute(QString("/bin/sh ") + fileName) < 0)  {
+//        qDebug() << "Failed to run";
+//    }
 }

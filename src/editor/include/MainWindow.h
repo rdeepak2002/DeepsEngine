@@ -9,6 +9,10 @@
 #include "Entity.h"
 #include "InspectorWidget.h"
 #include "EntitySelectListenerInterface.h"
+#include <QString>
+#include <QFileDialog>
+#include <QProcess>
+#include <QDebug>
 
 class MainWindow : public QMainWindow, EntitySelectListenerInterface {
     Q_OBJECT
@@ -20,6 +24,7 @@ public:
 
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
+    static void buildWeb();
 };
 
 #endif
