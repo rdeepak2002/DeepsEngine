@@ -13,13 +13,8 @@ DEEPS_ENGINE_IDENTIFIERS()
 DEEPS_ENGINE_DEFINITIONS()
 DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES()
 
-set(DEEPS_ENGINE_H ${PROJECT_SOURCE_DIR}/DeepsEngine/include)
-include_directories(${DEEPS_ENGINE_H})
-
-set(DEEPS_ENGINE_LIB ${PROJECT_SOURCE_DIR}/libDeepsEngine.a)
-
-link_libraries(${DEEPS_ENGINE_LIB})
-
+include_directories(${PROJECT_SOURCE_DIR}/DeepsEngine/include)
+link_libraries(${PROJECT_SOURCE_DIR}/DeepsEngine/lib/web/libDeepsEngine.a)
 add_executable(${PROJECT_NAME} main.cpp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \

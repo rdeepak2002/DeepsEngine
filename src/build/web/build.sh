@@ -14,10 +14,6 @@ export VCPKG_ROOT="$(pwd)/vcpkg"
 
 echo "Creating web build..."
 
-# download source code to build web library
-#git clone https://github.com/rdeepak2002/DeepsEngine.git
-#rm -rf DeepsEngine/.git
-
 # remove current source code
 rm -rf src
 
@@ -32,7 +28,6 @@ cd src
 
 # build source code
 cmake -S ../. -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
-#cmake -S ../DeepsEngine/ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
 cmake --build build
 
 # serve content

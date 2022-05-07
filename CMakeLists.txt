@@ -53,39 +53,25 @@ if(WITH_EDITOR)
 
     target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
 else()
+    # copy libraries and include directories for builds
+    file(COPY ${PROJECT_SOURCE_DIR}/src/engine/include DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+    file(COPY ${PROJECT_SOURCE_DIR}/src/engine/lib DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+    file(COPY ${PROJECT_SOURCE_DIR}/cmake DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+
     # create shared .dll library
     if (AS_LIBRARY)
         # create compiled library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
-
-        # copy files for web build
-        if (EMSCRIPTEN)
-            file(COPY ${PROJECT_SOURCE_DIR}/src/engine/include DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-            file(COPY ${PROJECT_SOURCE_DIR}/src/engine/lib DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-            file(COPY ${PROJECT_SOURCE_DIR}/cmake DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-        endif()
     else()
         # create executable application
         add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
     endif()
 
-    if (EMSCRIPTEN)
-        # web build
-        set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \
-        --use-preload-plugins \
-        -s LLD_REPORT_UNDEFINED \
-        -s EXPORTED_FUNCTIONS=['_main','_onResizeWindow'] \
-        -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap'] \
-        -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 \
-        -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 \
-        -s FULL_ES3=1 \
-        -s USE_GLFW=3 \
-        --preload-file assets")
-    else()
+    if(NOT EMSCRIPTEN)
         # standalone build
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
-    endif ()
+    endif()
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE DEEPS_ENGINE_VERSION=${DEEPS_ENGINE_VERSION})
