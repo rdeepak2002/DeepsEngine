@@ -9,9 +9,7 @@
 #include <glm/ext.hpp>
 #include <memory>
 #include "Component.h"
-
 #define STB_IMAGE_IMPLEMENTATION
-
 #include <stb/stb_image.h>
 #include "Entity.h"
 #include "Logger.h"

@@ -25,6 +25,7 @@ public:
     void clearRenderer();
     void createSampleEntities();
     std::filesystem::path getProjectPath();
+    void setProjectPath(std::string projectPath);
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;

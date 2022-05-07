@@ -108,4 +108,8 @@ std::filesystem::path Application::getProjectPath() {
     return std::filesystem::path(projectPath);
 }
 
+void Application::setProjectPath(std::string projectPath) {
+    this->projectPath = projectPath;
+}
+
 
