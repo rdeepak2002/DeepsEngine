@@ -70,13 +70,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Set QWidget as the central layout of the main window
     setCentralWidget(window);
 
-    // run web build process
-//    QString resourceFileDirectory = QString::fromStdString(current_path().append("assets").append("res"));
-//    QString resourceFileDirectory = QString("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
-//    std::string webBuildPath = current_path().append("assets").append("res").append("build").append("web");
-//    std::string webBuildPath="/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/";
-    // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
-
     // menu bar items
     QMenu *fileMenu = new QMenu("File");
     QAction* closeAction = fileMenu->addAction("Close");
@@ -101,6 +94,7 @@ void MainWindow::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* l
 
 void MainWindow::buildWeb() {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
     // TODO: refer to process directory
     env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
     env.insert("DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED", "true");
