@@ -28,6 +28,8 @@ void startUpdateLoop() {
 }
 
 int main() {
+//    Application::getInstance().setProjectPath("/Users/deepakramalingam/Desktop/example-project");
+//    Application::getInstance().createSampleEntities();
     Application::getInstance().initialize();
     startUpdateLoop();
     Application::getInstance().close();
