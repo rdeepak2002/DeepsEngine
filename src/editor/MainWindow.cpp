@@ -1,4 +1,6 @@
 #include <QLabel>
+#include <QDir>
+#include <QFileDialog>
 #include "MainWindow.h"
 #include "OpenGLWidget.h"
 #include "Entity.h"
@@ -9,11 +11,10 @@ using std::filesystem::current_path;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    // set gl version
-    QSurfaceFormat glFormat;
-    glFormat.setVersion(3, 3);
-    glFormat.setProfile(QSurfaceFormat::CoreProfile);
-    QSurfaceFormat::setDefaultFormat(glFormat);
+    // prompt user to open project path
+    QString projectPath = QFileDialog::getExistingDirectory(this, tr("Open project"), QDir::homePath());
+    Application::getInstance().setProjectPath(projectPath.toStdString());
+    Application::getInstance().createSampleEntities();
 
     // set initial window size
     double startWidth = QDesktopWidget().availableGeometry(this).size().width() * 0.95;

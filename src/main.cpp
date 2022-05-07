@@ -28,8 +28,6 @@ void startUpdateLoop() {
 }
 
 int main() {
-//    Application::getInstance().setProjectPath("/Users/deepakramalingam/Desktop/example-project");
-//    Application::getInstance().createSampleEntities();
     Application::getInstance().initialize();
     startUpdateLoop();
     Application::getInstance().close();
@@ -44,6 +42,13 @@ int main() {
 
 int main(int argc, char *argv[])
 {
+    // set gl version
+    QSurfaceFormat glFormat;
+    glFormat.setVersion(3, 3);
+    glFormat.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(glFormat);
+
+    // launch qt application
     QApplication app(argc, argv);
     MainWindow mainWindow;
     mainWindow.show();
