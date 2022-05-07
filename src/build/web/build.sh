@@ -45,6 +45,8 @@ cmake --build build
 echo "Build complete and present in $(pwd)/build/"
 
 # serve content
+pkill http-server
+
 if [[ -z "${DEEPS_ENGINE_WEB_SERVE_CONTENT}" ]]; then
   echo "Not serving content attached"
 else
