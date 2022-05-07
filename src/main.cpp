@@ -43,7 +43,6 @@ int main() {
 
 int main(int argc, char *argv[])
 {
-    Application::getInstance().createSampleEntities();
     QApplication app(argc, argv);
     MainWindow mainWindow;
     mainWindow.show();

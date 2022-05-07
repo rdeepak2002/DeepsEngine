@@ -39,6 +39,8 @@ void Application::update(bool clearScreen) {
 void Application::initialize() {
     Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
 
+    Application::getInstance().createSampleEntities();
+
     // create window
     renderer->createWindow();
 
@@ -67,14 +69,14 @@ void Application::createSampleEntities() {
     (&camera.GetComponent<Component::Transform>())->rotation.y = -glm::half_pi<float>();
     (&camera.GetComponent<Component::Transform>())->rotation.z = 0.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
-    std::string cameraScriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("scene-camera.lua");
+    std::string cameraScriptPath = getProjectPath().append("scripts").append("scene-camera.lua");
     camera.AddComponent<Component::LuaScript>(Component::LuaScript({cameraScriptPath}));
 
     // add a single cube entity
     Entity entity = Application::getInstance().scene.CreateEntity("Cube");
     (&entity.GetComponent<Component::Transform>())->position.y = -1.2;
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
-    std::string scriptPath = current_path().append("assets").append("res").append("example-project").append("scripts").append("script.lua");
+    std::string scriptPath = getProjectPath().append("scripts").append("script.lua");
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({scriptPath}));
 
     // add a single cube entity
@@ -95,6 +97,15 @@ void Application::resizeWindow(unsigned int width, unsigned int height, bool upd
         renderer->clear();
         renderer->update();
     }
+}
+
+std::filesystem::path Application::getProjectPath() {
+    if (projectPath.empty()) {
+        Logger::Warn("Falling back to development project path");
+        projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
+    }
+
+    return std::filesystem::path(projectPath);
 }
 
 

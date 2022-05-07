@@ -19,8 +19,6 @@
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
 
-using std::filesystem::current_path;
-
 #if defined(STANDALONE)
 void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
@@ -215,12 +213,12 @@ void Renderer::initialize() {
 #endif
 
     ourShader = new Shader(
-            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("shader.vert").c_str(),
-            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("shader.frag").c_str());
+            Application::getInstance().getProjectPath().append(shaderFolderName).append("shader.vert").c_str(),
+            Application::getInstance().getProjectPath().append(shaderFolderName).append("shader.frag").c_str());
 
     lightingShader = new Shader(
-            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("lightingShader.vert").c_str(),
-            current_path().append("assets").append("res").append("example-project").append(shaderFolderName).append("lightingShader.frag").c_str());
+            Application::getInstance().getProjectPath().append(shaderFolderName).append("lightingShader.vert").c_str(),
+            Application::getInstance().getProjectPath().append(shaderFolderName).append("lightingShader.frag").c_str());
 
     // texture 1
     // ---------
@@ -236,7 +234,7 @@ void Renderer::initialize() {
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
 
-    unsigned char *data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("container.jpg").c_str(), &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load(Application::getInstance().getProjectPath().append("textures").append("container.jpg").c_str(), &width, &height, &nrChannels, 0);
 
     if (data)
     {
@@ -259,7 +257,7 @@ void Renderer::initialize() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     // load image, create texture and generate mipmaps
-    data = stbi_load(current_path().append("assets").append("res").append("example-project").append("textures").append("awesomeface.png").c_str(), &width, &height, &nrChannels, 0);
+    data = stbi_load(Application::getInstance().getProjectPath().append("textures").append("awesomeface.png").c_str(), &width, &height, &nrChannels, 0);
 
     if (data)
     {

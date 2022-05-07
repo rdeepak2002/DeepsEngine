@@ -24,6 +24,7 @@ public:
     void close();
     void clearRenderer();
     void createSampleEntities();
+    std::filesystem::path getProjectPath();
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
@@ -34,6 +35,7 @@ private:
     }
     std::unique_ptr<Renderer> renderer;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
+    std::string projectPath;
 public:
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
