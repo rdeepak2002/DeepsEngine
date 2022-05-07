@@ -102,6 +102,7 @@ void MainWindow::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* l
 void MainWindow::buildWeb() {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
+    env.insert("DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED", "true");
     QProcess *process = new QProcess(this);
     process->setProcessEnvironment(env);
     process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");

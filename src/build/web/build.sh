@@ -46,8 +46,15 @@ echo "Build complete and present in $(pwd)/build/"
 
 # serve content
 if [[ -z "${DEEPS_ENGINE_WEB_SERVE_CONTENT}" ]]; then
+  echo "Not serving content attached"
+else
+  echo "Serving content attached from /build/app.html"
+  http-server -o "/build/app.html" --silent
+fi
+
+if [[ -z "${DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED}" ]]; then
   exit 0
 else
-  echo "Serving content from /build/app.html"
-  http-server -o "/build/app.html" --silent
+  echo "Serving content detached from /build/app.html"
+  http-server -o "/build/app.html" --silent &
 fi
