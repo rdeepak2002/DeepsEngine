@@ -27,5 +27,5 @@ cmake -S ./ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/ems
 cmake --build build
 
 # serve content
-echo "Serving content..."
-http-server -o "/build/app" --silent
+echo "Serving content from /build/app.html"
+http-server -o "/build/app.html" --silent
