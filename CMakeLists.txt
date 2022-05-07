@@ -83,6 +83,7 @@ else()
     if (AS_LIBRARY)
         # create compiled library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
+        set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
     else()
         # create executable application
         add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
