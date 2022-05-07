@@ -58,9 +58,8 @@ else()
     file(COPY ${PROJECT_SOURCE_DIR}/src/engine/lib DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
     file(COPY ${PROJECT_SOURCE_DIR}/cmake DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
 
-    # create shared .dll library
     if (AS_LIBRARY)
-        # create compiled library
+        # create shared library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
     else()
