@@ -45,5 +45,9 @@ cmake --build build
 echo "Build complete and present in $(pwd)/build/"
 
 # serve content
-echo "Serving content from /build/app.html"
-http-server -o "/build/app.html" --silent
+if [[ -z "${DEEPS_ENGINE_WEB_SERVE_CONTENT}" ]]; then
+  exit 0
+else
+  echo "Serving content from /build/app.html"
+  http-server -o "/build/app.html" --silent
+fi

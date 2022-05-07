@@ -77,45 +77,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 //    std::string webBuildPath="/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/";
     // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
 
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
-    QProcess *process = new QProcess(this);
-    process->setProcessEnvironment(env);
-    process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");
-    process->start("./build.sh");
-    if(!process->waitForStarted())
-        Logger::Error("Flag 1 waiting for start");
-
-    bool retval = false;
-
-    QByteArray buffer;
-
-    while ((retval = process->waitForFinished())) {
-        buffer.append(process->readAll());
-    }
-
-    Logger::Debug(QString(buffer).toStdString());
-
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-    // TODO: make this run only after clicking build
-
-
     // menu bar items
     QMenu *fileMenu = new QMenu("File");
     QAction* closeAction = fileMenu->addAction("Close");
-    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
     menuBar()->addAction(fileMenu->menuAction());
+
+    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
 
     QMenu *buildMenu = new QMenu("Build");
     QAction* webBuildAction = buildMenu->addAction("Web");
-    connect(webBuildAction, &QAction::triggered, qApp, MainWindow::buildWeb);
     menuBar()->addAction(buildMenu->menuAction());
+
+    connect(webBuildAction, SIGNAL(triggered()), this, SLOT(buildWeb()));
 }
 
 MainWindow::~MainWindow()
@@ -127,12 +100,22 @@ void MainWindow::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* l
 }
 
 void MainWindow::buildWeb() {
-    Logger::Debug("TODO: build web");
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
+    QProcess *process = new QProcess(this);
+    process->setProcessEnvironment(env);
+    process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");
+    process->start("./build.sh");
+    if(!process->waitForStarted())
+        Logger::Error("Error creating web build");
 
+    bool retval = false;
 
-//    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Script"), "/", tr("Script Files (*.sh)"));
-//
-//    if (QProcess::execute(QString("/bin/sh ") + fileName) < 0)  {
-//        qDebug() << "Failed to run";
-//    }
+    QByteArray buffer;
+
+    while ((retval = process->waitForFinished())) {
+        buffer.append(process->readAll());
+    }
+
+    Logger::Debug(QString(buffer).toStdString());
 }

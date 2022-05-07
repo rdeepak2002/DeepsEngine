@@ -24,7 +24,7 @@ public:
 
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
-    static void buildWeb();
+    void buildWeb();
 };
 
 #endif

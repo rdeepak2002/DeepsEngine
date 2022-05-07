@@ -13,6 +13,7 @@
     <option name="EXECUTE_SCRIPT_FILE" value="true" />
     <envs>
       <env name="DEEPS_ENGINE_RESOURCE_DIRECTORY" value="../../../res" />
+      <env name="DEEPS_ENGINE_WEB_SERVE_CONTENT" value="true" />
     </envs>
     <method v="2" />
   </configuration>
