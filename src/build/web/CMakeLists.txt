@@ -9,9 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include(DeepsEngineSetup)
 
 # load third party libraries
-DEEPS_ENGINE_IDENTIFIERS()
-DEEPS_ENGINE_DEFINITIONS()
-DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES()
+DEEPS_ENGINE_SETUP()
 
 include_directories(${PROJECT_SOURCE_DIR}/DeepsEngine/include)
 link_libraries(${PROJECT_SOURCE_DIR}/DeepsEngine/lib/web/libDeepsEngine.a)
