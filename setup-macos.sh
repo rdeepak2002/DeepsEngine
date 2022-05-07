@@ -25,7 +25,23 @@ brew install http-server
 echo "Installing dependencies via Homebrew"
 brew install llvm
 brew install cmake
-brew install qt@5
+
+# additional downloads for vcpkg
+brew install autoconf
+brew install autoconf-archive
+brew install automake
+brew install bison
+brew install gettext
+brew install gfortran
+brew install gperf
+brew install gtk-doc
+brew install libtool
+brew install meson
+brew install mono
+brew install nasm
+brew install pkg-config
+brew install texinfo
+brew install yasm
 
 if [ -d "vcpkg" ]; then
   echo "vcpkg already downloaded..."
@@ -40,3 +56,4 @@ fi
 echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install lua
 ./vcpkg/vcpkg install glfw3
+./vcpkg/vcpkg install qt5

@@ -28,7 +28,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
 if(WITH_EDITOR)
-    find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
+    find_package(Qt5 COMPONENTS Widgets Concurrent OpenGL CONFIG REQUIRED)
 
     include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
 
