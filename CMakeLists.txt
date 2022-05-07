@@ -35,24 +35,11 @@ if(WITH_EDITOR)
     include(QtCommon)
     fix_project_version()
 
-    FILE(GLOB EDITOR_SOURCE_FILES_2
+    FILE(GLOB EDITOR_SOURCE_FILES
             src/editor/*.cpp
-            src/editor/*.h
             src/editor/widget/*.cpp
-            src/editor/widget/*.h
             src/editor/widget/component/*.cpp
-            src/editor/widget/component/*.h)
-
-    set(EDITOR_SOURCE_FILES
-            "src/editor/include/OpenGLWidget.h"
-            "src/editor/include/SceneViewWidget.h"
-            "src/editor/include/InspectorWidget.h"
-            "src/editor/include/ConsoleWidget.h"
-            "src/editor/include/TransformComponentWidget.h"
-            "src/editor/include/TagComponentWidget.h"
-            "src/editor/include/MeshFilterComponentWidget.h"
-            "src/editor/include/CameraComponentWidget.h"
-    )
+            src/editor/include/*.h)
 
     add_project_meta(META_FILES_TO_INCLUDE)
 
@@ -60,7 +47,7 @@ if(WITH_EDITOR)
 
     source_group("UI Files" FILES ${UI_FILES})
 
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${EDITOR_SOURCE_FILES_2} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
