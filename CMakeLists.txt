@@ -79,10 +79,13 @@ if(WITH_EDITOR)
     target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
 else()
     # create shared .dll library
-    #    add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
-
-    # create executable application
-    add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
+    if (AS_LIBRARY)
+        # create compiled library
+        add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
+    else()
+        # create executable application
+        add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
+    endif()
 
     if (EMSCRIPTEN)
         # web build
