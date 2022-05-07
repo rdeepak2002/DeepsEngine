@@ -59,16 +59,14 @@ macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
         # editor mode
         if(APPLE)
             file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
+            #file(COPY src DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
         elseif(WIN32)
             # for Windows operating system in general
         elseif(UNIX AND NOT APPLE)
             # for Linux, BSD, Solaris, Minix
         endif()
     else()
-        if (EMSCRIPTEN)
-            # web build
-            file(COPY res DESTINATION "${PROJECT_SOURCE_DIR}/src/build/web/src/build/assets")
-        else()
+        if (NOT EMSCRIPTEN)
             # standalone build
             file(COPY res DESTINATION assets)
         endif ()
