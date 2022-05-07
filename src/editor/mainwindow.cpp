@@ -1,12 +1,12 @@
 #include <QLabel>
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+//#include "ui_mainwindow.h"
 #include "OpenGLWidget.h"
 #include "Entity.h"
 #include "ConsoleWidget.h"
 #include "SceneViewWidget.h"
 
-MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent)
 {
     // set gl version
     QSurfaceFormat glFormat;
@@ -14,17 +14,16 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     glFormat.setProfile(QSurfaceFormat::CoreProfile);
     QSurfaceFormat::setDefaultFormat(glFormat);
 
-    // ui file
-    ui->setupUi(this);
-
     // set initial window size
-    resize(QDesktopWidget().availableGeometry(this).size().width() * 0.95, QDesktopWidget().availableGeometry(this).size().height() * 0.8);
+    double startWidth = QDesktopWidget().availableGeometry(this).size().width() * 0.95;
+    double startHeight = QDesktopWidget().availableGeometry(this).size().height() * 0.8;
+    resize(startWidth, startHeight);
 
     // move window to center of screen
     QSize screenGeometry = QDesktopWidget().availableGeometry(this).size();
-    int x = (screenGeometry.width()-this->width()) / 2;
-    int y = (screenGeometry.height()-this->height()) / 2;
-    move(x, y);
+    int startX = (screenGeometry.width()-this->width()) / 2;
+    int startY = (screenGeometry.height()-this->height()) / 2;
+    move(startX, startY);
 
     // set window title
     this->setWindowTitle("Deeps Engine");
@@ -63,8 +62,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
 
-    // display the main layout
-    ui->centralwidget->setLayout(mainLayout);
+    this->setLayout(mainLayout);
 }
 
 MainWindow::~MainWindow()

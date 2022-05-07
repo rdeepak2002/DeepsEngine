@@ -45,7 +45,7 @@ if(WITH_EDITOR)
 
     set(RESOURCE_FILES src/editor/example.qrc)
 
-    source_group("UI Files" FILES ${UI_FILES})
+#    source_group("UI Files" FILES ${UI_FILES})
 
     add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
