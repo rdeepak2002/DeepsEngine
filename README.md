@@ -16,11 +16,11 @@ Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 git clone --recurse-submodules -j8 https://github.com/rdeepak2002/DeepsEngine.git
 ```
 
-### Install Requirements on Mac:
+### Install Requirements:
 
 ```shell
-sudo chmod 777 setup-macos.sh
-./setup-macos.sh
+sudo chmod 777 setup.sh
+./setup.sh
 ```
 
 ### Run the Engine in Desktop Release or Desktop Editor mode
@@ -35,10 +35,20 @@ sudo chmod 777 setup-macos.sh
         - "-DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/qt@5/5.15.3"
 - Run the CMake application in either Editor or Release mode (if you encounter errors, you might have to reload the CMake profiles)
 
-### Run the Web Release of the Engine on macOS
+### Run the Web Release of the Engine
 
 ```shell
 sudo chmod -R 777 web_build
 cd web_build
 ./build.sh
+```
+
+## Troubleshooting (Development)
+
+If you are receiving errors while installing new vcpkg packages, please delete the vcpkg folder in root and reinstall everything.
+
+```shell
+sudo chmod 777 setup.sh
+rm -rf vcpkg
+./setup.sh
 ```
