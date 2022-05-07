@@ -6,7 +6,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include(DeepsEngineSetup)
 
 # Basic information about project
-project(DeepsEngine VERSION 1.0)
+set(DEEPS_ENGINE_VERSION "0.1")
+project(DeepsEngine VERSION ${DEEPS_ENGINE_VERSION})
 
 # find the libraries for running deeps engine
 DEEPS_ENGINE_SETUP()
@@ -62,7 +63,7 @@ if(WITH_EDITOR)
             "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
             "src/editor/include/CameraComponentWidget.h"
             "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
-            )
+    )
 
     add_project_meta(META_FILES_TO_INCLUDE)
 
@@ -104,6 +105,8 @@ else()
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif ()
 endif()
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE DEEPS_ENGINE_VERSION=${DEEPS_ENGINE_VERSION})
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)

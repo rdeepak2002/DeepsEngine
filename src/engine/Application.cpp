@@ -8,6 +8,9 @@
 #include <iostream>
 #include <glm/ext.hpp>
 
+#define XSTR(x) STR(x)
+#define STR(x) #x
+
 using namespace DeepsEngine;
 using std::filesystem::current_path;
 using std::filesystem::exists;
@@ -34,7 +37,7 @@ void Application::update(bool clearScreen) {
 }
 
 void Application::initialize() {
-    Logger::Debug("Initializing DeepsEngine Version 1.0.0");
+    Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
 
     // create window
     renderer->createWindow();
