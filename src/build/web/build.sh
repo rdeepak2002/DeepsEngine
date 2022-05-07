@@ -13,6 +13,13 @@ else
     exit 1
 fi
 
+if [ -d "DeepsEngine" ]; then
+  echo "DeepsEngine already built..."
+else
+  echo "Building DeepsEngine..."
+  ./build-library.sh
+fi
+
 # download emscripten
 ./download-emscripten.sh
 source emsdk/emsdk_env.sh

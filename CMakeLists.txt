@@ -53,15 +53,15 @@ if(WITH_EDITOR)
 
     target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
 else()
-    # copy libraries and include directories for builds
-    file(COPY ${PROJECT_SOURCE_DIR}/src/engine/include DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-    file(COPY ${PROJECT_SOURCE_DIR}/src/engine/lib DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-    file(COPY ${PROJECT_SOURCE_DIR}/cmake DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
-
     if (AS_LIBRARY)
         # create shared library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
+
+        # copy build files to web build folder
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/include ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/include)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/lib ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/lib)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/cmake)
     else()
         # create executable application
         add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
