@@ -26,9 +26,60 @@ FILE(GLOB ENGINE_SOURCE_FILES
 
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
-if(RUN_STANDALONE)
+if(WITH_EDITOR)
+    include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
+
+    include(QtCommon)
+    fix_project_version()
+
+    #    FILE(GLOB EDITOR_SOURCE_FILES
+    #            src/editor/*.cpp
+    #            src/editor/*.h
+    #            src/editor/widget/*.cpp
+    #            src/editor/widget/*.h
+    #            src/editor/widget/component/*.cpp
+    #            src/editor/widget/component/*.h)
+    #
+    #    message(STATUS "Editor source files: ${EDITOR_SOURCE_FILES}")
+
+    set(EDITOR_SOURCE_FILES
+            ${ENGINE_SOURCE_FILES}
+            "${PROJECT_SOURCE_DIR}/src/main.cpp"
+            "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
+            "src/editor/include/OpenGLWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
+            "src/editor/include/SceneViewWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
+            "src/editor/include/InspectorWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
+            "src/editor/include/ConsoleWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.cpp"
+            "src/editor/include/TransformComponentWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
+            "src/editor/include/TagComponentWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
+            "src/editor/include/MeshFilterComponentWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
+            "src/editor/include/CameraComponentWidget.h"
+            "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
+            )
+
+    add_project_meta(META_FILES_TO_INCLUDE)
+
+    set(RESOURCE_FILES src/editor/example.qrc)
+
+    find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
+
+    source_group("UI Files" FILES ${UI_FILES})
+
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+
+    target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
+
+    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
+else()
     # create shared .dll library
-#    add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
+    #    add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
 
     # create executable application
     add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
@@ -49,57 +100,6 @@ if(RUN_STANDALONE)
         # standalone build
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif ()
-else()
-    include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
-
-    include(QtCommon)
-    fix_project_version()
-
-#    FILE(GLOB EDITOR_SOURCE_FILES
-#            src/editor/*.cpp
-#            src/editor/*.h
-#            src/editor/widget/*.cpp
-#            src/editor/widget/*.h
-#            src/editor/widget/component/*.cpp
-#            src/editor/widget/component/*.h)
-#
-#    message(STATUS "Editor source files: ${EDITOR_SOURCE_FILES}")
-
-    set(EDITOR_SOURCE_FILES
-        ${ENGINE_SOURCE_FILES}
-        "${PROJECT_SOURCE_DIR}/src/main.cpp"
-        "${PROJECT_SOURCE_DIR}/src/editor/mainwindow.cpp"
-        "src/editor/include/OpenGLWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/OpenGLWidget.cpp"
-        "src/editor/include/SceneViewWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/SceneViewWidget.cpp"
-        "src/editor/include/InspectorWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/InspectorWidget.cpp"
-        "src/editor/include/ConsoleWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/ConsoleWidget.cpp"
-        "src/editor/include/TransformComponentWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TransformComponentWidget.cpp"
-        "src/editor/include/TagComponentWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/TagComponentWidget.cpp"
-        "src/editor/include/MeshFilterComponentWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/MeshFilterComponentWidget.cpp"
-        "src/editor/include/CameraComponentWidget.h"
-        "${PROJECT_SOURCE_DIR}/src/editor/widget/component/CameraComponentWidget.cpp"
-    )
-
-    add_project_meta(META_FILES_TO_INCLUDE)
-
-    set(RESOURCE_FILES src/editor/example.qrc)
-
-    find_package(Qt5 COMPONENTS Widgets OpenGL REQUIRED)
-
-    source_group("UI Files" FILES ${UI_FILES})
-
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
-
-    target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
-
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
 endif()
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)

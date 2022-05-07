@@ -14,9 +14,6 @@ export VCPKG_ROOT="$(pwd)/vcpkg"
 
 echo "Creating web build..."
 
-# identify standalone version of app is being built
-export STANDALONE="True"
-
 # remove current source code
 rm -rf src
 
