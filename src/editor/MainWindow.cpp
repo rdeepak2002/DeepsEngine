@@ -5,7 +5,7 @@
 #include "ConsoleWidget.h"
 #include "SceneViewWidget.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // set gl version
     QSurfaceFormat glFormat;
@@ -61,12 +61,18 @@ MainWindow::MainWindow(QWidget *parent)
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
 
-//    auto *quit = new QAction("&Quit", this);
-//
-//    QMenu *file = menuBar()->addMenu("&File");
-//    file->addAction(quit);
+    // Set layout in QWidget
+    QWidget *window = new QWidget();
+    window->setLayout(mainLayout);
 
-    this->setLayout(mainLayout);
+    // Set QWidget as the central layout of the main window
+    setCentralWidget(window);
+
+    auto *quit = new QAction("&Quit", this);
+
+    QMenu *file = menuBar()->addMenu("&File");
+    file->addAction(quit);
+    connect(quit, &QAction::triggered, qApp, QApplication::quit);
 }
 
 MainWindow::~MainWindow()

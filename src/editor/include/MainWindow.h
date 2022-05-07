@@ -10,7 +10,7 @@
 #include "InspectorWidget.h"
 #include "EntitySelectListenerInterface.h"
 
-class MainWindow : public QWidget, EntitySelectListenerInterface {
+class MainWindow : public QMainWindow, EntitySelectListenerInterface {
     Q_OBJECT
 
 public:
