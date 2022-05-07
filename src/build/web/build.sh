@@ -14,22 +14,27 @@ export VCPKG_ROOT="$(pwd)/vcpkg"
 
 echo "Creating web build..."
 
+# download source code to build web library
+#git clone https://github.com/rdeepak2002/DeepsEngine.git
+#rm -rf DeepsEngine/.git
+
 # remove current source code
 rm -rf src
 
 # create new folder for source code
 mkdir -p src
 mkdir -p src/build/assets
+cp -R /Users/deepakramalingam/Documents/Projects/DeepsEngine/res src/build/assets/res
 
 #cp app.html src/app.html
 cp app.html src/build/app.html
 cd src
 
 # build source code
-# TODO: update vcpkg toolchain path
-cmake -S ../../../.. -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
+cmake -S ../. -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
+#cmake -S ../DeepsEngine/ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/../emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/../vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
 cmake --build build
 
 # serve content
 echo "Serving content..."
-http-server -o "/build/app"
+http-server -o "/build/app" --silent

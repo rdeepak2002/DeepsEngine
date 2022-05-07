@@ -45,7 +45,7 @@ if(WITH_EDITOR)
 
     set(RESOURCE_FILES src/editor/example.qrc)
 
-#    source_group("UI Files" FILES ${UI_FILES})
+    source_group("UI Files" FILES ${UI_FILES})
 
     add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
@@ -58,6 +58,13 @@ else()
         # create compiled library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
+
+        # copy files for web build
+        if (EMSCRIPTEN)
+            file(COPY ${PROJECT_SOURCE_DIR}/src/engine/include DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+            file(COPY ${PROJECT_SOURCE_DIR}/src/engine/lib DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+            file(COPY ${PROJECT_SOURCE_DIR}/cmake DESTINATION ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine)
+        endif()
     else()
         # create executable application
         add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})

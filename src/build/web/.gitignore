@@ -1,5 +1,3 @@
-/lua-*/
-vcpkg
 vcpkg/
-emsdk
 emsdk/
+#DeepsEngine/
