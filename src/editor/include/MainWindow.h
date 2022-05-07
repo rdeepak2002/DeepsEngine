@@ -3,6 +3,9 @@
 
 #include <QtWidgets>
 #include <QMainWindow>
+#include <QWidget>
+#include <QApplication>
+#include <QObject>
 #include "Entity.h"
 #include "InspectorWidget.h"
 #include "EntitySelectListenerInterface.h"
