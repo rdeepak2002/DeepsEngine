@@ -61,6 +61,11 @@ MainWindow::MainWindow(QWidget *parent)
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
 
+//    auto *quit = new QAction("&Quit", this);
+//
+//    QMenu *file = menuBar()->addMenu("&File");
+//    file->addAction(quit);
+
     this->setLayout(mainLayout);
 }
 
