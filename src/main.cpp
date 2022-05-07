@@ -39,7 +39,7 @@ int main() {
 #else
 
 #include <QApplication>
-#include "src/editor/mainwindow.h"
+#include "src/editor/include/MainWindow.h"
 
 int main(int argc, char *argv[])
 {

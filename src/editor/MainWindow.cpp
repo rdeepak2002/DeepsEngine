@@ -1,6 +1,5 @@
 #include <QLabel>
-#include "mainwindow.h"
-//#include "ui_mainwindow.h"
+#include "MainWindow.h"
 #include "OpenGLWidget.h"
 #include "Entity.h"
 #include "ConsoleWidget.h"
