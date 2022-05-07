@@ -7,7 +7,7 @@ sudo chmod -R 777 ./
 echo "Installing command line tools"
 sudo xcode-select --install
 
-# install homebrew if not already installed
+# download homebrew (if not already installed)
 which -s brew
 if [[ $? != 0 ]] ; then
   sudo echo "Installing Homebrew"
@@ -48,7 +48,7 @@ brew install pkg-config
 brew install texinfo
 brew install yasm
 
-# install vcpkg for installing libraries in a cross platform manner
+# download vcpkg (if not already installed) for installing libraries in a cross platform manner
 if [ -d "vcpkg" ]; then
   echo "vcpkg already downloaded..."
 else
