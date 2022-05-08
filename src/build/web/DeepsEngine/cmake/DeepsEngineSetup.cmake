@@ -73,6 +73,20 @@ macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
     endif()
 endmacro()
 
+macro(DEEPS_ENGINE_EXPORT_BUILD_FOLDER)
+    if(DEFINED ENV{WITH_EDITOR})
+        # editor mode
+        if(APPLE)
+            file(COPY src/build DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets/res)
+            #file(COPY src DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
+        elseif(WIN32)
+            # for Windows operating system in general
+        elseif(UNIX AND NOT APPLE)
+            # for Linux, BSD, Solaris, Minix
+        endif()
+    endif()
+endmacro()
+
 macro(DEEPS_ENGINE_SETUP)
     if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/vcpkg)
         message(WARNING "vcpkg folder not found. Please refer to https://github.com/rdeepak2002/DeepsEngine/blob/main/README.md")
@@ -81,4 +95,5 @@ macro(DEEPS_ENGINE_SETUP)
     DEEPS_ENGINE_DEFINITIONS()
     DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES()
     DEEPS_ENGINE_EXPORT_ASSETS_FOLDER()
+    DEEPS_ENGINE_EXPORT_BUILD_FOLDER()
 endmacro()

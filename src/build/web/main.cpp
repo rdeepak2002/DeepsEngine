@@ -39,13 +39,13 @@ int main() {
 #else
 
 #include <QApplication>
-#include "src/editor/include/MainWindow.h"
+#include "src/editor/include/ProjectWindow.h"
 
 int main(int argc, char *argv[])
 {
     Application::getInstance().createSampleEntities();
     QApplication app(argc, argv);
-    MainWindow mainWindow;
+    ProjectWindow mainWindow;
     mainWindow.show();
     return app.exec();
 }
