@@ -61,6 +61,7 @@ void ProjectWindow::buildWeb() {
     env.insert("DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED", "true");
     QProcess *process = new QProcess(this);
     process->setProcessEnvironment(env);
+    // TODO: fix this
     process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");
     process->start("./build.sh");
     if(!process->waitForStarted())
