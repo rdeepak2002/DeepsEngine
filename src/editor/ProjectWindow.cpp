@@ -6,7 +6,8 @@
 #include "Entity.h"
 #include "ConsoleWidget.h"
 #include "SceneViewWidget.h"
-#include "src/editor/widget/ProjectWidget.h"
+#include "ProjectWidget.h"
+#include "ProjectsWidget.h"
 
 using std::filesystem::current_path;
 
@@ -32,21 +33,28 @@ ProjectWindow::ProjectWindow(QWidget *parent) : QMainWindow(parent)
     this->setWindowTitle("Deeps Engine");
 
     // menu bar items
-    QMenu *fileMenu = new QMenu("File");
-    QAction* closeAction = fileMenu->addAction("Close");
-    menuBar()->addAction(fileMenu->menuAction());
+//    QMenu *fileMenu = new QMenu("File");
+//    QAction* closeAction = fileMenu->addAction("Close");
+//    this->menuBar()->addAction(fileMenu->menuAction());
+//    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
 
-    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
-
-    QMenu *buildMenu = new QMenu("Build");
-    QAction* webBuildAction = buildMenu->addAction("Web");
-    menuBar()->addAction(buildMenu->menuAction());
-
-    connect(webBuildAction, SIGNAL(triggered()), this, SLOT(buildWeb()));
+//    QMenu *buildMenu = new QMenu("Build");
+//    QAction* webBuildAction = buildMenu->addAction("Web");
+//    this->menuBar()->addAction(buildMenu->menuAction());
+//    connect(webBuildAction, SIGNAL(triggered()), this, SLOT(buildWeb()));
 
     // Set QWidget as the central layout of the main window
-    ProjectWidget* projectWidget = new ProjectWidget;
-    setCentralWidget(projectWidget);
+    ProjectWidget* projectWidget = new ProjectWidget(this);
+    projectWidget->show();
+    projectWidget->setWindowTitle("DeepsEngine Project");
+
+    ProjectsWidget* projectsWidget = new ProjectsWidget(this);
+    projectsWidget->show();
+    projectsWidget->setWindowTitle("DeepsEngine");
+
+    // hide this main window (initially show it to make the menu bar appear)
+    this->show();
+    this->close();
 }
 
 ProjectWindow::~ProjectWindow()

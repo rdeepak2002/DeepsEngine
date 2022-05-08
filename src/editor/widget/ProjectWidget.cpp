@@ -14,6 +14,19 @@
 #include "SceneViewWidget.h"
 
 ProjectWidget::ProjectWidget(QWidget *parent) {
+    // reference to project window to modify menu bar
+    projectWindow = dynamic_cast<ProjectWindow*>(parent);
+
+    fileMenu = new QMenu("File");
+    QAction* closeAction = fileMenu->addAction("Close");
+    projectWindow->menuBar()->addAction(fileMenu->menuAction());
+    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
+
+    buildMenu = new QMenu("Build");
+    QAction* webBuildAction = buildMenu->addAction("Web");
+    projectWindow->menuBar()->addAction(buildMenu->menuAction());
+    connect(webBuildAction, SIGNAL(triggered()), parent, SLOT(buildWeb()));
+
     // opengl widget
     OpenGLWidget* openGLWidget = new OpenGLWidget;
 
@@ -58,4 +71,10 @@ ProjectWidget::~ProjectWidget() {
 
 void ProjectWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
     inspectorWidget->onEntitySelected(entity, listItem);
+}
+
+void ProjectWidget::closeEvent(QCloseEvent *event) {
+    QWidget::closeEvent(event);
+    projectWindow->menuBar()->removeAction(buildMenu->menuAction());
+    projectWindow->menuBar()->removeAction(fileMenu->menuAction());
 }

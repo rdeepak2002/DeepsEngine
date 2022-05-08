@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
     // launch qt application
     QApplication app(argc, argv);
     ProjectWindow mainWindow;
-    mainWindow.show();
+//    mainWindow.show();
     return app.exec();
 }
 

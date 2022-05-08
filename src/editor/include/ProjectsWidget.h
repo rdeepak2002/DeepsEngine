@@ -11,6 +11,10 @@
 #include <QLabel>
 #include <QPushButton>
 #include <iostream>
+#include <QApplication>
+#include <QMenu>
+#include <QAction>
+#include "ProjectWindow.h"
 
 class ProjectsWidget: public QWidget {
 Q_OBJECT;
@@ -18,6 +22,10 @@ Q_OBJECT;
 public:
     explicit ProjectsWidget(QWidget *parent = nullptr);
     ~ProjectsWidget();
+    void closeEvent(QCloseEvent *event) override;
+private:
+    ProjectWindow* projectWindow;
+    QMenu *fileMenu;
 };
 
 

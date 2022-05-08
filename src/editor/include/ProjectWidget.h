@@ -13,6 +13,7 @@
 #include <iostream>
 #include "InspectorWidget.h"
 #include "EntitySelectListenerInterface.h"
+#include "ProjectWindow.h"
 
 class ProjectWidget: public QWidget, EntitySelectListenerInterface {
 Q_OBJECT;
@@ -20,7 +21,11 @@ Q_OBJECT;
 public:
     explicit ProjectWidget(QWidget *parent = nullptr);
     ~ProjectWidget();
+    void closeEvent(QCloseEvent *event) override;
 private:
+    ProjectWindow* projectWindow;
+    QMenu *fileMenu;
+    QMenu *buildMenu;
     InspectorWidget* inspectorWidget;
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
