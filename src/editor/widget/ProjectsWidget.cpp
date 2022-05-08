@@ -15,6 +15,7 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
 
     // outer Layer
     auto *mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(new QLabel("new project button"));
     mainLayout->addWidget(new QLabel("TODO: list of projects"));
     setLayout(mainLayout);
 }
