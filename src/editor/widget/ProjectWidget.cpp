@@ -14,6 +14,19 @@
 #include "SceneViewWidget.h"
 
 ProjectWidget::ProjectWidget(QWidget *parent) {
+    Application::getInstance().createSampleEntities();
+
+    // set initial window size
+    double startWidth = QDesktopWidget().availableGeometry(this).size().width() * 0.95;
+    double startHeight = QDesktopWidget().availableGeometry(this).size().height() * 0.8;
+    resize(startWidth, startHeight);
+
+    // move window to center of screen
+    QSize screenGeometry = QDesktopWidget().availableGeometry(this).size();
+    int startX = (screenGeometry.width()-this->width()) / 2;
+    int startY = (screenGeometry.height()-this->height()) / 2;
+    move(startX, startY);
+
     // reference to project window to modify menu bar
     projectWindow = dynamic_cast<ProjectWindow*>(parent);
 

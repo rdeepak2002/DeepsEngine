@@ -22,6 +22,8 @@ public:
     virtual ~ProjectWindow();
 
 public slots:
+    void showProjectWindow();
+    void showProjectsWindow();
     void buildWeb();
 };
 

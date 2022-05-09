@@ -14,6 +14,9 @@
 #include <QApplication>
 #include <QMenu>
 #include <QAction>
+#include <QSettings>
+#include <QDir>
+#include <QFileInfo>
 #include "ProjectWindow.h"
 
 class ProjectsWidget: public QWidget {
@@ -23,9 +26,15 @@ public:
     explicit ProjectsWidget(QWidget *parent = nullptr);
     ~ProjectsWidget();
     void closeEvent(QCloseEvent *event) override;
+public slots:
+    void promptOpenProject();
+    void onProjectsListClicked(QListWidgetItem* item);
+signals:
+    void showProjectWindow();
 private:
     ProjectWindow* projectWindow;
     QMenu *fileMenu;
+    void openProject(QString projectPath);
 };
 
 

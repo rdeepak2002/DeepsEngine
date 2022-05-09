@@ -14,9 +14,9 @@ using std::filesystem::current_path;
 ProjectWindow::ProjectWindow(QWidget *parent) : QMainWindow(parent)
 {
     // prompt user to open project path
-    QString projectPath = QFileDialog::getExistingDirectory(this, tr("Open project"), QDir::homePath());
-    Application::getInstance().setProjectPath(projectPath.toStdString());
-    Application::getInstance().createSampleEntities();
+//    QString projectPath = QFileDialog::getExistingDirectory(this, tr("Open project"), QDir::homePath());
+//    Application::getInstance().setProjectPath(projectPath.toStdString());
+//    Application::getInstance().createSampleEntities();
 
     // set initial window size
     double startWidth = QDesktopWidget().availableGeometry(this).size().width() * 0.95;
@@ -32,33 +32,39 @@ ProjectWindow::ProjectWindow(QWidget *parent) : QMainWindow(parent)
     // set window title
     this->setWindowTitle("Deeps Engine");
 
-    // menu bar items
-//    QMenu *fileMenu = new QMenu("File");
-//    QAction* closeAction = fileMenu->addAction("Close");
-//    this->menuBar()->addAction(fileMenu->menuAction());
-//    connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
-
-//    QMenu *buildMenu = new QMenu("Build");
-//    QAction* webBuildAction = buildMenu->addAction("Web");
-//    this->menuBar()->addAction(buildMenu->menuAction());
-//    connect(webBuildAction, SIGNAL(triggered()), this, SLOT(buildWeb()));
+    this->show();
 
     // Set QWidget as the central layout of the main window
-    ProjectWidget* projectWidget = new ProjectWidget(this);
-    projectWidget->show();
-    projectWidget->setWindowTitle("DeepsEngine Project");
+//    ProjectWidget* projectWidget = new ProjectWidget(this);
+//    projectWidget->show();
+//    projectWidget->setWindowTitle("DeepsEngine Project");
 
-    ProjectsWidget* projectsWidget = new ProjectsWidget(this);
-    projectsWidget->show();
-    projectsWidget->setWindowTitle("DeepsEngine");
+//    ProjectsWidget* projectsWidget = new ProjectsWidget(this);
+//    projectsWidget->show();
+//    projectsWidget->setWindowTitle("DeepsEngine");
+
+//    showProjectsWindow();
 
     // hide this main window (initially show it to make the menu bar appear)
-    this->show();
+//    this->show();
     this->close();
+    showProjectsWindow();
 }
 
 ProjectWindow::~ProjectWindow()
 {
+}
+
+void ProjectWindow::showProjectWindow() {
+    ProjectWidget* projectWidget = new ProjectWidget(this);
+    projectWidget->show();
+    projectWidget->setWindowTitle("DeepsEngine Project");
+}
+
+void ProjectWindow::showProjectsWindow() {
+    ProjectsWidget* projectsWidget = new ProjectsWidget(this);
+    projectsWidget->show();
+    projectsWidget->setWindowTitle("DeepsEngine");
 }
 
 void ProjectWindow::buildWeb() {
