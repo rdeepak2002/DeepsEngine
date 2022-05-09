@@ -15,7 +15,7 @@
 #include <QDebug>
 
 class ProjectWindow : public QMainWindow {
-    Q_OBJECT
+    Q_OBJECT;
 
 public:
     ProjectWindow(QWidget *parent = 0);
