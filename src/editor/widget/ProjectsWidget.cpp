@@ -72,14 +72,19 @@ void ProjectsWidget::closeEvent(QCloseEvent *event) {
 
 void ProjectsWidget::promptOpenProject() {
     QString projectPath = QFileDialog::getExistingDirectory(this, tr("Open project"), QDir::homePath());
-    openProject(projectPath);
+    if (!projectPath.isEmpty()) {
+        openProject(projectPath);
+    }
 }
 
 void ProjectsWidget::onProjectsListClicked(QListWidgetItem* item)
 {
     QString projectPath = item->text();
     QString filePrefix = QDir::separator();
-    openProject(filePrefix + projectPath);
+
+    if (!projectPath.isEmpty()) {
+        openProject(filePrefix + projectPath);
+    }
 }
 
 void ProjectsWidget::openProject(QString projectPath) {
@@ -102,7 +107,10 @@ void ProjectsWidget::createProject() {
 
     // TODO: make directory with name of the project similar to Jetbrains IDEs
     copyFolder(blankProjectPath, projectPath);
-    openProject(projectPath);
+
+    if (!projectPath.isEmpty() && !blankProjectPath.isEmpty()) {
+        openProject(projectPath);
+    }
 }
 
 void ProjectsWidget::copyFolder(QString sourceFolder, QString destFolder)
@@ -115,22 +123,21 @@ void ProjectsWidget::copyFolder(QString sourceFolder, QString destFolder)
     QDir destDir(destFolder);
     if(!destDir.exists())
     {
-        Logger::Warn("Destination directory does not exist: " + destFolder.toStdString());
         destDir.mkdir(destFolder);
     }
     QStringList files = sourceDir.entryList(QDir::Files);
     for(int i = 0; i< files.count(); i++)
     {
-        QString srcName = sourceFolder + "/" + files[i];
-        QString destName = destFolder + "/" + files[i];
+        QString srcName = sourceFolder + QDir::separator() + files[i];
+        QString destName = destFolder + QDir::separator() + files[i];
         QFile::copy(srcName, destName);
     }
     files.clear();
     files = sourceDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
     for(int i = 0; i< files.count(); i++)
     {
-        QString srcName = sourceFolder + "/" + files[i];
-        QString destName = destFolder + "/" + files[i];
+        QString srcName = sourceFolder + QDir::separator() + files[i];
+        QString destName = destFolder + QDir::separator() + files[i];
         copyFolder(srcName, destName);
     }
 }
