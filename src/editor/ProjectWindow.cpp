@@ -58,7 +58,8 @@ ProjectWindow::~ProjectWindow()
 void ProjectWindow::showProjectWindow() {
     ProjectWidget* projectWidget = new ProjectWidget(this);
     projectWidget->show();
-    projectWidget->setWindowTitle("DeepsEngine Project");
+    std::string projectPath = Application::getInstance().getProjectPath().u8string();
+    projectWidget->setWindowTitle(QString::fromStdString(projectPath));
 }
 
 void ProjectWindow::showProjectsWindow() {
