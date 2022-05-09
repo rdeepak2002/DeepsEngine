@@ -27,6 +27,7 @@ ConsoleWidget::ConsoleWidget(QWidget *parent) {
     // title for this panel
     QLabel* panelTitle = new QLabel("Console");;
     listWidget = new QListWidget;
+//    listWidget->setStyleSheet(listWidget->styleSheet().append("background-color: transparent;"));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;

@@ -24,6 +24,7 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
 
     // scene view list
     sceneViewList = new QListWidget;
+    sceneViewList->setStyleSheet(sceneViewList->styleSheet().append("background-color: transparent;"));
     connect(sceneViewList, SIGNAL(itemClicked(QListWidgetItem*)),
             this, SLOT(onListItemPressed(QListWidgetItem * )));
 

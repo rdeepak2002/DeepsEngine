@@ -33,6 +33,7 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
     mainLayout->addWidget(button);
     connect(button, &QPushButton::released, this, &ProjectsWidget::promptOpenProject);
     QListWidget* qListWidget = new QListWidget();
+    qListWidget->setStyleSheet(qListWidget->styleSheet().append("background-color: transparent;"));
     mainLayout->addWidget(qListWidget);
     setLayout(mainLayout);
 
@@ -71,6 +72,7 @@ void ProjectsWidget::promptOpenProject() {
 void ProjectsWidget::onProjectsListClicked(QListWidgetItem* item)
 {
     QString projectPath = item->text();
+    // TODO: fix this for windows
     QString filePrefix = "/";
     openProject(filePrefix + projectPath);
 }
