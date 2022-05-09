@@ -25,6 +25,7 @@ Q_OBJECT;
 public:
     explicit ProjectsWidget(QWidget *parent = nullptr);
     ~ProjectsWidget();
+protected:
     void closeEvent(QCloseEvent *event) override;
 public slots:
     void promptOpenProject();

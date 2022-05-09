@@ -21,12 +21,15 @@ Q_OBJECT;
 public:
     explicit ProjectWidget(QWidget *parent = nullptr);
     ~ProjectWidget();
+protected:
     void closeEvent(QCloseEvent *event) override;
 private:
     ProjectWindow* projectWindow;
     QMenu *fileMenu;
     QMenu *buildMenu;
     InspectorWidget* inspectorWidget;
+signals:
+    void showProjectsWindow();
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
 };

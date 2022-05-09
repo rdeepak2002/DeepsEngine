@@ -65,7 +65,7 @@ void ProjectWindow::showProjectWindow() {
 void ProjectWindow::showProjectsWindow() {
     ProjectsWidget* projectsWidget = new ProjectsWidget(this);
     projectsWidget->show();
-    projectsWidget->setWindowTitle("DeepsEngine");
+    projectsWidget->setWindowTitle("Welcome to DeepsEngine");
 }
 
 void ProjectWindow::buildWeb() {

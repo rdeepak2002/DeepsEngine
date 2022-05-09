@@ -14,7 +14,15 @@
 #include "SceneViewWidget.h"
 
 ProjectWidget::ProjectWidget(QWidget *parent) {
+    // reference to project window to modify menu bar
+    projectWindow = dynamic_cast<ProjectWindow*>(parent);
+
+    // create some sample entities
+    // TODO: have entity serialization
     Application::getInstance().createSampleEntities();
+
+    // allow this window to show projects open window
+    connect(this, SIGNAL(showProjectsWindow()), projectWindow, SLOT(showProjectsWindow()));
 
     // set initial window size
     double startWidth = QDesktopWidget().availableGeometry(this).size().width() * 0.95;
@@ -27,8 +35,8 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
     int startY = (screenGeometry.height()-this->height()) / 2;
     move(startX, startY);
 
-    // reference to project window to modify menu bar
-    projectWindow = dynamic_cast<ProjectWindow*>(parent);
+    // update menu bar
+    projectWindow->show();
 
     fileMenu = new QMenu("File");
     QAction* closeAction = fileMenu->addAction("Close");
@@ -39,6 +47,8 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
     QAction* webBuildAction = buildMenu->addAction("Web");
     projectWindow->menuBar()->addAction(buildMenu->menuAction());
     connect(webBuildAction, SIGNAL(triggered()), parent, SLOT(buildWeb()));
+
+    projectWindow->close();
 
     // opengl widget
     OpenGLWidget* openGLWidget = new OpenGLWidget;
@@ -87,7 +97,8 @@ void ProjectWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem
 }
 
 void ProjectWidget::closeEvent(QCloseEvent *event) {
-    QWidget::closeEvent(event);
+    emit showProjectsWindow();
     projectWindow->menuBar()->removeAction(buildMenu->menuAction());
     projectWindow->menuBar()->removeAction(fileMenu->menuAction());
+    QWidget::closeEvent(event);
 }

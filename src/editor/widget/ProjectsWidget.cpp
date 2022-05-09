@@ -22,10 +22,15 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
     int startY = (screenGeometry.height()-this->height()) / 2;
     move(startX, startY);
 
+    // show menu bar
+    projectWindow->show();
+
     fileMenu = new QMenu("File");
     QAction* closeAction = fileMenu->addAction("Close");
     projectWindow->menuBar()->addAction(fileMenu->menuAction());
     connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
+
+    projectWindow->close();
 
     // outer Layer
     auto *mainLayout = new QVBoxLayout;
@@ -66,8 +71,8 @@ ProjectsWidget::~ProjectsWidget() {
 }
 
 void ProjectsWidget::closeEvent(QCloseEvent *event) {
-    QWidget::closeEvent(event);
     projectWindow->menuBar()->removeAction(fileMenu->menuAction());
+    QWidget::closeEvent(event);
 }
 
 void ProjectsWidget::promptOpenProject() {
