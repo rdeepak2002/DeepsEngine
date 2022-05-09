@@ -29,19 +29,25 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
 
     // outer Layer
     auto *mainLayout = new QVBoxLayout;
-    QPushButton *button = new QPushButton("Open Project", this);
-    mainLayout->addWidget(button);
-    connect(button, &QPushButton::released, this, &ProjectsWidget::promptOpenProject);
+
+    QPushButton *newProjectButton = new QPushButton("New Project", this);
+    connect(newProjectButton, &QPushButton::released, this, &ProjectsWidget::createProject);
+    mainLayout->addWidget(newProjectButton);
+
+    QPushButton *openProjectButton = new QPushButton("Open Project", this);
+    connect(openProjectButton, &QPushButton::released, this, &ProjectsWidget::promptOpenProject);
+    mainLayout->addWidget(openProjectButton);
+
     QListWidget* qListWidget = new QListWidget();
     qListWidget->setStyleSheet(qListWidget->styleSheet().append("background-color: transparent;"));
     mainLayout->addWidget(qListWidget);
+
     setLayout(mainLayout);
 
     QSettings settings("DeepDev", "DeepsEngine");
     settings.beginGroup("ProjectsList");
     for (QString projectFilePath : settings.allKeys()) {
-        // TODO: fix this for windows
-        QString filePrefix = "/";
+        QString filePrefix = QDir::separator();
         QFileInfo projectDirectoryInfo = QFileInfo(filePrefix + projectFilePath);
         if (projectDirectoryInfo.exists() && projectDirectoryInfo.isDir()) {
             qListWidget->addItem(projectFilePath);
@@ -72,8 +78,7 @@ void ProjectsWidget::promptOpenProject() {
 void ProjectsWidget::onProjectsListClicked(QListWidgetItem* item)
 {
     QString projectPath = item->text();
-    // TODO: fix this for windows
-    QString filePrefix = "/";
+    QString filePrefix = QDir::separator();
     openProject(filePrefix + projectPath);
 }
 
@@ -89,4 +94,43 @@ void ProjectsWidget::openProject(QString projectPath) {
 
     emit showProjectWindow();
     this->close();
+}
+
+void ProjectsWidget::createProject() {
+    QString projectPath = QFileDialog::getExistingDirectory(this, tr("New project folder"), QDir::homePath());
+    QString blankProjectPath = qApp->applicationDirPath().append(QDir::separator()).append("assets").append(QDir::separator()).append("res").append(QDir::separator()).append("example-project");
+
+    // TODO: make directory with name of the project similar to Jetbrains IDEs
+    copyFolder(blankProjectPath, projectPath);
+    openProject(projectPath);
+}
+
+void ProjectsWidget::copyFolder(QString sourceFolder, QString destFolder)
+{
+    QDir sourceDir(sourceFolder);
+    if(!sourceDir.exists()) {
+        Logger::Error("Source directory does not exist: " + sourceFolder.toStdString());
+        return;
+    }
+    QDir destDir(destFolder);
+    if(!destDir.exists())
+    {
+        Logger::Warn("Destination directory does not exist: " + destFolder.toStdString());
+        destDir.mkdir(destFolder);
+    }
+    QStringList files = sourceDir.entryList(QDir::Files);
+    for(int i = 0; i< files.count(); i++)
+    {
+        QString srcName = sourceFolder + "/" + files[i];
+        QString destName = destFolder + "/" + files[i];
+        QFile::copy(srcName, destName);
+    }
+    files.clear();
+    files = sourceDir.entryList(QDir::AllDirs | QDir::NoDotAndDotDot);
+    for(int i = 0; i< files.count(); i++)
+    {
+        QString srcName = sourceFolder + "/" + files[i];
+        QString destName = destFolder + "/" + files[i];
+        copyFolder(srcName, destName);
+    }
 }

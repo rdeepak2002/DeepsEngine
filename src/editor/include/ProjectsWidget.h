@@ -29,12 +29,14 @@ public:
 public slots:
     void promptOpenProject();
     void onProjectsListClicked(QListWidgetItem* item);
+    void createProject();
 signals:
     void showProjectWindow();
 private:
     ProjectWindow* projectWindow;
     QMenu *fileMenu;
     void openProject(QString projectPath);
+    void copyFolder(QString sourceFolder, QString destFolder);
 };
 
 
