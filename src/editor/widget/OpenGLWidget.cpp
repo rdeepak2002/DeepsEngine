@@ -43,6 +43,7 @@ OpenGLWidget::~OpenGLWidget() {
     makeCurrent();
     m_buffer.destroy();
     doneCurrent();
+    Application::getInstance().close();
 }
 
 void OpenGLWidget::resizeEvent(QResizeEvent* ev) {

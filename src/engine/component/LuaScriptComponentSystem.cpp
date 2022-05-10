@@ -12,6 +12,7 @@
 #include <iostream>
 
 void LuaScriptComponentSystem::init() {
+    ComponentSystem::init();
     Logger::Debug("initializing script system");
 
     // open libraries with lua
@@ -105,9 +106,12 @@ void LuaScriptComponentSystem::init() {
                              "normalizeVec3", &DeepsMath::normalizeVec3,
                              "degreesToRadians", &DeepsMath::degreesToRadians
     );
+
+    lua.end();
 }
 
 void LuaScriptComponentSystem::update(float deltaTime) {
+    ComponentSystem::update(deltaTime);
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
         std::string scriptPath = Application::getInstance().getProjectPath().append(luaScriptComponent.scriptPath);
@@ -138,4 +142,8 @@ void LuaScriptComponentSystem::update(float deltaTime) {
             }
         }
     }
+}
+
+void LuaScriptComponentSystem::destroy() {
+    ComponentSystem::destroy();
 }

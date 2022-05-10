@@ -39,6 +39,11 @@ void Application::update(bool clearScreen) {
 
 void Application::initialize() {
     Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
+    Logger::Debug("Initializing engine");
+
+    // add component systems
+    componentSystems.clear();
+    componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
 
     // create window
     renderer->createWindow();
@@ -57,6 +62,11 @@ void Application::initialize() {
 }
 
 void Application::close() {
+    Logger::Debug("Destroying engine");
+    for (auto& componentSystem : componentSystems) {
+        componentSystem->destroy();
+    }
+
     renderer->closeWindow();
 }
 
