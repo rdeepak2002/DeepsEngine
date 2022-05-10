@@ -63,4 +63,5 @@ fi
 echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install lua
 ./vcpkg/vcpkg install glfw3
+./vcpkg/vcpkg install yaml-cpp
 ./vcpkg/vcpkg install qt5

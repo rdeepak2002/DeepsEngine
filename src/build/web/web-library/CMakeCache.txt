@@ -294,6 +294,9 @@ _VCPKG_INSTALLED_DIR:PATH=/Users/deepakramalingam/Documents/Projects/DeepsEngine
 //The directory containing a CMake configuration file for unofficial-lua.
 unofficial-lua_DIR:PATH=/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/share/unofficial-lua
 
+//The directory containing a CMake configuration file for yaml-cpp.
+yaml-cpp_DIR:PATH=/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/share/yaml-cpp
+
 
 ########################
 # INTERNAL cache entries

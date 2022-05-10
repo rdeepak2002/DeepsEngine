@@ -42,6 +42,10 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
     QAction* closeAction = fileMenu->addAction("Close");
     projectWindow->menuBar()->addAction(fileMenu->menuAction());
     connect(closeAction, &QAction::triggered, qApp, QApplication::quit);
+    // TODO: add save action
+    QAction* saveAction = fileMenu->addAction("Save");
+    projectWindow->menuBar()->addAction(fileMenu->menuAction());
+    connect(saveAction, SIGNAL(triggered()), this, SLOT(saveProject()));
 
     buildMenu = new QMenu("Build");
     QAction* webBuildAction = buildMenu->addAction("Web");
@@ -101,4 +105,8 @@ void ProjectWidget::closeEvent(QCloseEvent *event) {
     projectWindow->menuBar()->removeAction(buildMenu->menuAction());
     projectWindow->menuBar()->removeAction(fileMenu->menuAction());
     QWidget::closeEvent(event);
+}
+
+void ProjectWidget::saveProject() {
+    Application::getInstance().saveProject();
 }

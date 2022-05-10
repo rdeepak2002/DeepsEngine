@@ -19,6 +19,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/engine/include)
 FILE(GLOB ENGINE_SOURCE_FILES
         src/main.cpp
         src/engine/renderer/glad.c
+        src/engine/include/yaml/Yaml.cpp
         src/engine/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
@@ -51,7 +52,7 @@ if(WITH_EDITOR)
 
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL)
+    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL yaml-cpp)
 else()
     if (AS_LIBRARY)
         # create shared library
@@ -71,6 +72,8 @@ else()
         # standalone build
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif()
+
+    target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp)
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE DEEPS_ENGINE_VERSION=${DEEPS_ENGINE_VERSION})

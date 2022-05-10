@@ -52,6 +52,9 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     include_directories(${LUA_INCLUDE_DIR})
     message(STATUS "LUA_LIBRARIES ${LUA_LIBRARIES}")
     link_libraries(${LUA_LIBRARIES})
+
+    # find yaml parsing library
+    find_package(yaml-cpp CONFIG REQUIRED)
 endmacro()
 
 macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)

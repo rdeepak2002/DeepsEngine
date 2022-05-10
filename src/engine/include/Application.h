@@ -38,6 +38,8 @@ private:
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
     std::string projectPath;
 public:
+    void saveProject();
+    void loadProject();
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
 };

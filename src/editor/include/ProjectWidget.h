@@ -32,6 +32,7 @@ signals:
     void showProjectsWindow();
 public slots:
     void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
+    void saveProject();
 };
 
 
