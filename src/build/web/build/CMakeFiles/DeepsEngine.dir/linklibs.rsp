@@ -1,1 +1,0 @@
- "../vcpkg/installed/wasm32-emscripten/debug/lib/liblua.a" ../DeepsEngine/lib/web/libDeepsEngine.a "../vcpkg/installed/wasm32-emscripten/debug/lib/libyaml-cppd.a" 

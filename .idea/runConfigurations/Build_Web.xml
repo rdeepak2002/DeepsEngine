@@ -5,14 +5,14 @@
     <option name="SCRIPT_PATH" value="$PROJECT_DIR$/res/example-project/build/web/build.sh" />
     <option name="SCRIPT_OPTIONS" value="" />
     <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
-    <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$/res/example-project/build/web" />
+    <option name="SCRIPT_WORKING_DIRECTORY" value="$USER_HOME$/Desktop/example-project/build/web" />
     <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
     <option name="INTERPRETER_PATH" value="/bin/zsh" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="EXECUTE_IN_TERMINAL" value="false" />
     <option name="EXECUTE_SCRIPT_FILE" value="true" />
     <envs>
-      <env name="DEEPS_ENGINE_RESOURCE_DIRECTORY" value="$PROJECT_DIR$/res/example-project" />
+      <env name="DEEPS_ENGINE_RESOURCE_DIRECTORY" value="$PROJECT_DIR$/res/example-project/src" />
       <env name="DEEPS_ENGINE_WEB_SERVE_CONTENT" value="true" />
     </envs>
     <method v="2" />

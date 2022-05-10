@@ -61,7 +61,9 @@ macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
     if(DEFINED ENV{WITH_EDITOR})
         # editor mode
         if(APPLE)
-            file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
+            # TODO: this happens in the main cmake file
+#            file(REMOVE_RECURSE ${PROJECT_NAME}.app/Contents/MacOS/assets)
+#            file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
             #file(COPY src DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
         elseif(WIN32)
             # for Windows operating system in general

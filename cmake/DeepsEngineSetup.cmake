@@ -62,7 +62,6 @@ macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)
         # editor mode
         if(APPLE)
             file(COPY res DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
-            #file(COPY src DESTINATION ${PROJECT_NAME}.app/Contents/MacOS/assets)
         elseif(WIN32)
             # for Windows operating system in general
         elseif(UNIX AND NOT APPLE)

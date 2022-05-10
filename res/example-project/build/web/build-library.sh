@@ -26,6 +26,13 @@ cmake --build web-library
 # copy compiled library to engine lib folder
 mkdir -p ../../../../src/engine/lib/web
 cp web-library/libDeepsEngine.a ../../../../src/engine/lib/web/libDeepsEngine.a
+cp web-library/libDeepsEngine.a DeepsEngine/lib/web/libDeepsEngine.a
 
 # serve content
 echo "Done building emscripten version of DeepsEngine library in web-library folder"
+
+echo "Cleaning up..."
+
+rm -rf emsdk
+rm -rf vcpkg
+rm -rf build

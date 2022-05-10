@@ -53,6 +53,12 @@ if(WITH_EDITOR)
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
     target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL yaml-cpp)
+
+    add_custom_command(
+            TARGET ${PROJECT_NAME} PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${PROJECT_SOURCE_DIR}/res
+            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.app/Contents/MacOS/assets/res)
 else()
     if (AS_LIBRARY)
         # create shared library

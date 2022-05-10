@@ -5,5 +5,17 @@
     <sourceRoots>
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/res/example-project/build/web/build" />
+      <file path="$PROJECT_DIR$/res/example-project/build/web/emsdk" />
+      <file path="$PROJECT_DIR$/res/example-project/build/web/vcpkg" />
+      <file path="$PROJECT_DIR$/src/engine/include/KHR" />
+      <file path="$PROJECT_DIR$/src/engine/include/entt" />
+      <file path="$PROJECT_DIR$/src/engine/include/glad" />
+      <file path="$PROJECT_DIR$/src/engine/include/glm" />
+      <file path="$PROJECT_DIR$/src/engine/include/sol" />
+      <file path="$PROJECT_DIR$/src/engine/include/stb" />
+      <file path="$PROJECT_DIR$/vcpkg" />
+    </excludeRoots>
   </component>
 </project>
