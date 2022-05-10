@@ -110,7 +110,8 @@ void LuaScriptComponentSystem::init() {
 void LuaScriptComponentSystem::update(float deltaTime) {
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
-        lua.script_file(luaScriptComponent.scriptPath);
+        std::string scriptPath = Application::getInstance().getProjectPath().append(luaScriptComponent.scriptPath);
+        lua.script_file(scriptPath);
 
         if (entity.IsValid() && luaScriptComponent.shouldInit) {
             luaScriptComponent.self = lua.create_table_with("value", "key");

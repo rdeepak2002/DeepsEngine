@@ -70,15 +70,17 @@ void Application::createSampleEntities() {
     (&camera.GetComponent<Component::Transform>())->rotation.y = -glm::half_pi<float>();
     (&camera.GetComponent<Component::Transform>())->rotation.z = 0.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
-    std::string cameraScriptPath = getProjectPath().append("scripts").append("scene-camera.lua");
-    camera.AddComponent<Component::LuaScript>(Component::LuaScript({cameraScriptPath}));
+//    std::string cameraScriptPath = getProjectPath().append("scripts").append("scene-camera.lua");
+    std::string relativeScriptPath1 = std::filesystem::path("scripts").append("scene-camera.lua");
+    camera.AddComponent<Component::LuaScript>(Component::LuaScript({relativeScriptPath1}));
 
     // add a single cube entity
     Entity entity = Application::getInstance().scene.CreateEntity("Cube");
     (&entity.GetComponent<Component::Transform>())->position.y = -1.2;
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
-    std::string scriptPath = getProjectPath().append("scripts").append("script.lua");
-    entity.AddComponent<Component::LuaScript>(Component::LuaScript({scriptPath}));
+//    std::string scriptPath = getProjectPath().append("scripts").append("script.lua");
+    std::string relativeScriptPath2 = std::filesystem::path("scripts").append("script.lua");
+    entity.AddComponent<Component::LuaScript>(Component::LuaScript({relativeScriptPath2}));
 
     // add a single cube entity
     Entity entity2 = Application::getInstance().scene.CreateEntity("Cube 2");
@@ -156,19 +158,7 @@ void Application::saveProject() {
             return;
         }
 
-        // start defining entity
-        out << YAML::BeginMap;
-        out << YAML::Key << "Entity" << YAML::Value << "EntityId"; // TODO: entity id
-
-        // start defining components
-        out << YAML::Key << "TagComponent";
-        out << YAML::BeginMap;
-        out << YAML::Key << "tag" << YAML::Value << "someTag"; // TODO: entity tag
-        out << YAML::EndMap;
-        // stop defining components
-
-        out << YAML::EndMap;
-        // stop defining entity
+        entity.Serialize(out);
     });
 
     out << YAML::EndSeq;

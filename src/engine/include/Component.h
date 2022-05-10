@@ -11,12 +11,24 @@
 
 #define SOL_ALL_SAFETIES_ON 1
 #include "sol/state.hpp"
+#include <yaml-cpp/yaml.h>
+#include <glm/gtx/string_cast.hpp>
 
 using std::filesystem::exists;
 
 namespace DeepsEngine::Component {
         struct Component {
+            virtual void Serialize(YAML::Emitter &out) {
 
+            }
+
+            void glmVec3ToYaml(YAML::Emitter &out, glm::vec3 vec) {
+                out << YAML::BeginMap;
+                out << YAML::Key << "x" << YAML::Value << std::to_string(vec.x);
+                out << YAML::Key << "y" << YAML::Value << std::to_string(vec.y);
+                out << YAML::Key << "z" << YAML::Value << std::to_string(vec.z);
+                out << YAML::EndMap;
+            }
         };
 
         struct Id : public Component {
@@ -33,6 +45,12 @@ namespace DeepsEngine::Component {
                 this->tag = tag;
             }
             std::string tag;
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Tag";
+                out << YAML::BeginMap;
+                out << YAML::Key << "tag" << YAML::Value << tag;
+                out << YAML::EndMap;
+            }
         };
 
         struct Transform : public Component {
@@ -61,6 +79,21 @@ namespace DeepsEngine::Component {
             glm::vec3 position;
             glm::vec3 rotation;
             glm::vec3 scale;
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Transform";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "position" << YAML::Value;
+                glmVec3ToYaml(out, position);
+
+                out << YAML::Key << "rotation" << YAML::Value;
+                glmVec3ToYaml(out, rotation);
+
+                out << YAML::Key << "scale" << YAML::Value;
+                glmVec3ToYaml(out, scale);
+
+                out << YAML::EndMap;
+            }
         };
 
         struct MeshFilter : public Component {
@@ -69,6 +102,14 @@ namespace DeepsEngine::Component {
                 this->mesh = mesh;
             }
             std::string mesh;
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "MeshFilter";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "position" << YAML::Value << mesh;
+
+                out << YAML::EndMap;
+            }
         };
 
         struct Camera : public Component {
@@ -81,16 +122,22 @@ namespace DeepsEngine::Component {
             float fov;
             float zNear;
             float zFar;
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Camera";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "fov" << YAML::Value << std::to_string(fov);
+                out << YAML::Key << "zNear" << YAML::Value << std::to_string(zNear);
+                out << YAML::Key << "zFar" << YAML::Value << std::to_string(zFar);
+
+                out << YAML::EndMap;
+            }
         };
 
         struct LuaScript : public Component {
             LuaScript() = default;
             LuaScript(std::string scriptPath) {
-                if (std::filesystem::exists(scriptPath)) {
-                    this->scriptPath = scriptPath;
-                } else {
-                    Logger::Error("Unable to find script " + scriptPath);
-                }
+                this->scriptPath = scriptPath;
                 shouldInit = true;
                 shouldUpdate = true;
             }
@@ -107,6 +154,14 @@ namespace DeepsEngine::Component {
             } hooks;
             bool shouldInit;
             bool shouldUpdate;
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "LuaScript";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "scriptPath" << YAML::Value << scriptPath;
+
+                out << YAML::EndMap;
+            }
         };
     }
 
