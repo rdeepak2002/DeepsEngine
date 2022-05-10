@@ -103,11 +103,17 @@ void Application::resizeWindow(unsigned int width, unsigned int height, bool upd
 }
 
 std::filesystem::path Application::getProjectPath() {
+#ifdef EMSCRIPTEN
+    if (projectPath.empty()) {
+        projectPath = std::filesystem::current_path().append("assets").append("project");
+    }
+#else
     if (projectPath.empty()) {
         Logger::Warn("Falling back to development project path");
         projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
         Application::getInstance().createSampleEntities();
     }
+#endif
 
     return std::filesystem::path(projectPath);
 }

@@ -72,7 +72,7 @@ void ProjectWindow::buildWeb() {
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
     // TODO: refer to process directory
-    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res");
+    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project");
     env.insert("DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED", "true");
     QProcess *process = new QProcess(this);
     process->setProcessEnvironment(env);

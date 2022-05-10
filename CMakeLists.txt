@@ -73,7 +73,7 @@ else()
         target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
     endif()
 
-    target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp)
+    DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET()
 endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE DEEPS_ENGINE_VERSION=${DEEPS_ENGINE_VERSION})
