@@ -50,6 +50,10 @@ void Application::initialize() {
     for (auto& componentSystem : componentSystems) {
         componentSystem->init();
     }
+
+    // load the project and deserialize all entities
+    loadProject();
+//    createSampleEntities();
 }
 
 void Application::close() {
@@ -109,7 +113,7 @@ std::filesystem::path Application::getProjectPath() {
     if (projectPath.empty()) {
         Logger::Warn("Falling back to development project path");
         projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
-        Application::getInstance().createSampleEntities();
+//        Application::getInstance().createSampleEntities();
     }
 #endif
 
@@ -120,29 +124,22 @@ void Application::setProjectPath(std::string projectPath) {
     this->projectPath = projectPath;
 
     // load the project (deserialize the entities)
-    loadProject();
+//    loadProject();
 }
 
 void Application::loadProject() {
+    scene.DestroyAllEntities();
+
     std::string loadScenePath = std::filesystem::path(Application::getProjectPath()).append("src").append("example.scene");
 
+    YAML::Node doc = YAML::LoadFile(loadScenePath);
+    std::string sceneName = doc["Scene"].as<std::string>();
+    std::vector<YAML::Node> entitiesYaml = doc["Entities"].as<std::vector<YAML::Node>>();
 
-//
-//    Yaml::Node root;
-//
-//    try
-//    {
-//        Parse(root, loadScenePath.c_str());
-//        Logger::Debug("Loaded scene file: " + loadScenePath);
-//    }
-//    catch (const Yaml::Exception e)
-//    {
-//        Logger::Error("Error reading scene file: " + loadScenePath);
-//        std::cout << "Exception " << e.Type() << ": " << e.what() << std::endl;
-//        return;
-//    }
-//
-//    Logger::Debug("Loaded scene: " + root["Scene"].As<std::string>());
+    for (YAML::Node entityYaml : entitiesYaml) {
+        Entity entity = scene.CreateEntity();
+        entity.Deserialize(entityYaml);
+    }
 }
 
 void Application::saveProject() {
@@ -170,89 +167,6 @@ void Application::saveProject() {
 
     std::ofstream fout(savePath);
     fout << out.c_str();
-
-//    Yaml::Node root;
-//
-//    // define what to serialize in object
-//    root["Scene"] = "example-project-scene-1";
-//
-//    // TODO: serialize list of entities
-//    // TODO: this is the wrong syntax! fix it
-////    Yaml::Node entity;
-////    entity["Id"] = "sample-entity-id";
-//
-//    std::string blankYamlArr = "list:"
-//                               "  - hello world";
-//
-//    Yaml::Node entityArray;
-//
-//    try {
-//        Yaml::Parse(entityArray, blankYamlArr);
-//    }
-//    catch (const Yaml::Exception e)
-//    {
-//        Logger::Error("Error parsing blank yaml array");
-//        std::cout << "Exception " << e.Type() << ": " << e.what() << std::endl;
-//        std::cin.get();
-//    }
-//
-////    entityArray["Entities"][0] = "Entity1";
-//
-////    Yaml::
-//
-////    std::string entitiesArrData = "";
-////    std::string entitiesArrData =
-////            "\t- Entity1: entityId\n"
-////            "\t\tTag: tagComponentData\n"
-////            "\t- Entity2: entity2Id\n"
-////            "\t\tTag: tagComponentData\n";
-//
-////    auto entityHandles = scene.registry.view<DeepsEngine::Component::Tag>();
-////
-////    for (auto entityHandle : entityHandles) {
-////        DeepsEngine::Entity entity = {entityHandle};
-////
-////        entitiesArrData.append("\t- Entity: ").append(std::to_string(entity.GetId())).append("\n");
-////    }
-//
-////    Yaml::Node entitiesArrNode;
-//
-////    try
-////    {
-////        Parse(entitiesArrNode, entitiesArrData);
-////    }
-////    catch (const Yaml::Exception e)
-////    {
-////        Logger::Error("Error parsing entities array data");
-////        std::cout << "Exception " << e.Type() << ": " << e.what() << std::endl;
-////        return;
-////    }
-//
-//    root["list"] = entityArray;
-//
-////    Yaml::Iterator
-////    root["Entities"] = entity;
-////    std::vector<std::string> testArr;
-////    testArr.push_back("exampleVal");
-////    root["Entities"] = testArr;
-////    root["Entities"][0] = entity;
-//
-//    std::string savePath = std::filesystem::path(Application::getProjectPath()).append("example.scene");
-//
-//    try
-//    {
-//        Serialize(root, savePath.c_str());
-//        Logger::Debug("Successfully saved scene to: " + savePath);
-//    }
-//    catch (const Yaml::Exception e)
-//    {
-//        Logger::Error("Error saving scene to: " + savePath);
-//        std::cout << "Exception " << e.Type() << ": " << e.what() << std::endl;
-//        std::cin.get();
-//    }
-//
-//    // refresh project to be safe
-////    loadProject();
 }
 
 

@@ -91,4 +91,10 @@ namespace DeepsEngine {
 
         return arr;
     }
+
+    void Scene::DestroyAllEntities() {
+        registry.each([&](entt::entity entity) {
+            registry.destroy(entity);
+        });
+    }
 }

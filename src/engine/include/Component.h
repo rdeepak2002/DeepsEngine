@@ -29,12 +29,19 @@ namespace DeepsEngine::Component {
                 out << YAML::Key << "z" << YAML::Value << std::to_string(vec.z);
                 out << YAML::EndMap;
             }
+
+            glm::vec3 yamlToGlmVec3(YAML::Node yaml) {
+                return {yaml["x"].as<float>(), yaml["y"].as<float>(), yaml["z"].as<float>()};
+            }
         };
 
         struct Id : public Component {
             Id() = default;
             Id(uint32_t id) {
                 this->id = id;
+            }
+            Id(YAML::Node yamlData) {
+                this->id = yamlData["id"].as<uint32_t>();
             }
             uint32_t id;
         };
@@ -43,6 +50,9 @@ namespace DeepsEngine::Component {
             Tag() = default;
             Tag(std::string tag) {
                 this->tag = tag;
+            }
+            Tag(YAML::Node yamlData) {
+                this->tag = yamlData["tag"].as<std::string>();
             }
             std::string tag;
             virtual void Serialize(YAML::Emitter &out) override {
@@ -59,6 +69,11 @@ namespace DeepsEngine::Component {
                 this->position = position;
                 this->rotation = rotation;
                 this->scale = scale;
+            }
+            Transform(YAML::Node yamlData) {
+                this->position = yamlToGlmVec3(yamlData["position"]);
+                this->rotation = yamlToGlmVec3(yamlData["rotation"]);
+                this->scale = yamlToGlmVec3(yamlData["scale"]);
             }
             glm::vec3 front() {
                 float yaw = glm::degrees(rotation.y);
@@ -101,12 +116,15 @@ namespace DeepsEngine::Component {
             MeshFilter(std::string mesh) {
                 this->mesh = mesh;
             }
+            MeshFilter(YAML::Node yamlData) {
+                this->mesh = yamlData["mesh"].as<std::string>();
+            }
             std::string mesh;
             virtual void Serialize(YAML::Emitter &out) override {
                 out << YAML::Key << "MeshFilter";
                 out << YAML::BeginMap;
 
-                out << YAML::Key << "position" << YAML::Value << mesh;
+                out << YAML::Key << "mesh" << YAML::Value << mesh;
 
                 out << YAML::EndMap;
             }
@@ -118,6 +136,11 @@ namespace DeepsEngine::Component {
                 this->fov = fov;
                 this->zNear = zNear;
                 this->zFar = zFar;
+            }
+            Camera(YAML::Node yamlData) {
+                this->fov = yamlData["fov"].as<float>();
+                this->zNear = yamlData["zNear"].as<float>();
+                this->zFar = yamlData["zFar"].as<float>();
             }
             float fov;
             float zNear;
@@ -138,6 +161,11 @@ namespace DeepsEngine::Component {
             LuaScript() = default;
             LuaScript(std::string scriptPath) {
                 this->scriptPath = scriptPath;
+                shouldInit = true;
+                shouldUpdate = true;
+            }
+            LuaScript(YAML::Node yamlData) {
+                this->scriptPath = yamlData["scriptPath"].as<std::string>();
                 shouldInit = true;
                 shouldUpdate = true;
             }

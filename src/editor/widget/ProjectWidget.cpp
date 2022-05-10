@@ -19,7 +19,7 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
 
     // create some sample entities
     // TODO: have entity serialization
-    Application::getInstance().createSampleEntities();
+//    Application::getInstance().createSampleEntities();
 
     // allow this window to show projects open window
     connect(this, SIGNAL(showProjectsWindow()), projectWindow, SLOT(showProjectsWindow()));
@@ -102,6 +102,7 @@ void ProjectWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem
 
 void ProjectWidget::closeEvent(QCloseEvent *event) {
     emit showProjectsWindow();
+    Application::getInstance().scene.DestroyAllEntities();
     projectWindow->menuBar()->removeAction(buildMenu->menuAction());
     projectWindow->menuBar()->removeAction(fileMenu->menuAction());
     QWidget::closeEvent(event);

@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "LuaScriptComponentSystem.h"
 #include "Renderer.h"
+#include <fstream>
 
 class Application {
 public:

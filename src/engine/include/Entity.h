@@ -28,7 +28,7 @@ namespace DeepsEngine {
         }
 
         template<typename T>
-        T& GetComponent() {
+        T& GetComponent() const {
             // TODO: assert component exists
             return Application::getInstance().scene.registry.get<T>(entity);
         }
@@ -38,7 +38,7 @@ namespace DeepsEngine {
         }
 
         template<typename T>
-        bool HasComponent() {
+        bool HasComponent() const {
             // TODO: test this
             if (auto *comp = Application::getInstance().scene.registry.try_get<T>(entity)) {
                 return true;
@@ -57,7 +57,9 @@ namespace DeepsEngine {
             Application::getInstance().scene.registry.remove<T>(entity);
         }
 
-        void Serialize(YAML::Emitter &out);
+        void Serialize(YAML::Emitter &out) const;
+
+        void Deserialize(YAML::Node entityYaml);
 
         uint32_t GetId() {
             return static_cast<uint32_t>(entity);
@@ -79,6 +81,12 @@ namespace DeepsEngine {
         bool operator!=(Entity& other)
         {
             return GetId() != other.GetId();
+        }
+
+        operator std::string() const {
+            YAML::Emitter out;
+            Serialize(out);
+            return out.c_str();
         }
     private:
         entt::entity entity{entt::null};

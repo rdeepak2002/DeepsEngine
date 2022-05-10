@@ -20,6 +20,7 @@ namespace DeepsEngine {
         std::vector<DeepsEngine::Entity> GetScriptableEntities();
         std::vector<DeepsEngine::Entity> GetCameraEntities();
         void DestroyEntity(DeepsEngine::Entity entity);
+        void DestroyAllEntities();
     };
 }
 
