@@ -29,6 +29,10 @@ void startUpdateLoop() {
 
 int main() {
     Application::getInstance().initialize();
+#ifdef EMSCRIPTEN
+    // create sample entities for web build
+    Application::getInstance().createSampleEntities();
+#endif
     startUpdateLoop();
     Application::getInstance().close();
 
@@ -38,7 +42,7 @@ int main() {
 #else
 
 #include <QApplication>
-#include "src/editor/include/ProjectWindow.h"
+#include "ProjectWindow.h"
 
 int main(int argc, char *argv[])
 {

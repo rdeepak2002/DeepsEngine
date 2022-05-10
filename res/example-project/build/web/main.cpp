@@ -28,8 +28,11 @@ void startUpdateLoop() {
 }
 
 int main() {
-    Application::getInstance().createSampleEntities();
     Application::getInstance().initialize();
+#ifdef EMSCRIPTEN
+    // create sample entities for web build
+    Application::getInstance().createSampleEntities();
+#endif
     startUpdateLoop();
     Application::getInstance().close();
 
@@ -39,14 +42,20 @@ int main() {
 #else
 
 #include <QApplication>
-#include "src/editor/include/ProjectWindow.h"
+#include "ProjectWindow.h"
 
 int main(int argc, char *argv[])
 {
-    Application::getInstance().createSampleEntities();
+    // set gl version
+    QSurfaceFormat glFormat;
+    glFormat.setVersion(3, 3);
+    glFormat.setProfile(QSurfaceFormat::CoreProfile);
+    QSurfaceFormat::setDefaultFormat(glFormat);
+
+    // launch qt application
     QApplication app(argc, argv);
     ProjectWindow mainWindow;
-    mainWindow.show();
+//    mainWindow.show();
     return app.exec();
 }
 
