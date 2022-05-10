@@ -7,6 +7,7 @@
 #include "Component.h"
 #include <iostream>
 #include <glm/ext.hpp>
+#include <yaml-cpp/yaml.h>
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
@@ -114,7 +115,6 @@ void Application::setProjectPath(std::string projectPath) {
 
     // load the project (deserialize the entities)
     loadProject();
-    saveProject();
 }
 
 void Application::loadProject() {
@@ -142,7 +142,40 @@ void Application::loadProject() {
 void Application::saveProject() {
     std::string savePath = std::filesystem::path(Application::getProjectPath()).append("example.scene");
 
+    YAML::Emitter out;
+    out << YAML::BeginMap;
 
+    out << YAML::Key << "Scene" << YAML::Value << "example-scene";
+
+    out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
+
+    scene.registry.each([&](auto entityId) {
+        Entity entity = { entityId };
+
+        if (!entity) {
+            return;
+        }
+
+        // start defining entity
+        out << YAML::BeginMap;
+        out << YAML::Key << "Entity" << YAML::Value << "EntityId"; // TODO: entity id
+
+        // start defining components
+        out << YAML::Key << "TagComponent";
+        out << YAML::BeginMap;
+        out << YAML::Key << "tag" << YAML::Value << "someTag"; // TODO: entity tag
+        out << YAML::EndMap;
+        // stop defining components
+
+        out << YAML::EndMap;
+        // stop defining entity
+    });
+
+    out << YAML::EndSeq;
+    out << YAML::EndMap;
+
+    std::ofstream fout(savePath);
+    fout << out.c_str();
 
 //    Yaml::Node root;
 //
