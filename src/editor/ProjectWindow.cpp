@@ -69,26 +69,23 @@ void ProjectWindow::showProjectsWindow() {
 }
 
 void ProjectWindow::buildWeb() {
-    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
-    // TODO: fix directories (just have builds in same folder as project in some writeable directory for simplicity?)
-    // TODO: refer to process directory
-    env.insert("DEEPS_ENGINE_RESOURCE_DIRECTORY", "/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project");
-    env.insert("DEEPS_ENGINE_WEB_SERVE_CONTENT_DETACHED", "true");
-    QProcess *process = new QProcess(this);
-    process->setProcessEnvironment(env);
-    // TODO: fix this
-    process->setWorkingDirectory("/Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/");
-    process->start("./build.sh");
-    if(!process->waitForStarted())
-        Logger::Error("Error creating web build");
+    std::string resourcePath = Application::getInstance().getProjectPath().append("src");
+    std::string buildDirectory = Application::getInstance().getProjectPath().append("build").append("web");
+    std::string terminalCommand = "export DEEPS_ENGINE_RESOURCE_DIRECTORY=" + resourcePath + " && cd " + buildDirectory + " && " + "./build.sh";
+//    /usr/bin/osascript -e 'do shell script "/Users/deepakramalingam/Desktop/example-project/build/web/build.sh args 2>&1 etc" with administrator privileges'
 
-    bool retval = false;
+    FILE *fp;
+    char path[1035];
 
-    QByteArray buffer;
+    fp = popen(terminalCommand.c_str(), "r");
+    if (fp == NULL) {
+        Logger::Error("Failed to create web build");
+    } else {
+        while (fgets(path, sizeof(path), fp) != NULL) {
+            printf("%s", path);
+            Logger::Debug("Web build: " + std::string(path));
+        }
 
-    while ((retval = process->waitForFinished())) {
-        buffer.append(process->readAll());
+        pclose(fp);
     }
-
-    Logger::Debug(QString(buffer).toStdString());
 }

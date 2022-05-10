@@ -71,7 +71,7 @@ void Application::createSampleEntities() {
     (&camera.GetComponent<Component::Transform>())->rotation.z = 0.0;
     camera.AddComponent<Component::Camera>(Component::Camera({45.0f, 0.1f, 100.0f}));
 //    std::string cameraScriptPath = getProjectPath().append("scripts").append("scene-camera.lua");
-    std::string relativeScriptPath1 = std::filesystem::path("scripts").append("scene-camera.lua");
+    std::string relativeScriptPath1 = std::filesystem::path("src").append("scripts").append("scene-camera.lua");
     camera.AddComponent<Component::LuaScript>(Component::LuaScript({relativeScriptPath1}));
 
     // add a single cube entity
@@ -79,7 +79,7 @@ void Application::createSampleEntities() {
     (&entity.GetComponent<Component::Transform>())->position.y = -1.2;
     entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
 //    std::string scriptPath = getProjectPath().append("scripts").append("script.lua");
-    std::string relativeScriptPath2 = std::filesystem::path("scripts").append("script.lua");
+    std::string relativeScriptPath2 = std::filesystem::path("src").append("scripts").append("script.lua");
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({relativeScriptPath2}));
 
     // add a single cube entity
@@ -126,7 +126,7 @@ void Application::setProjectPath(std::string projectPath) {
 }
 
 void Application::loadProject() {
-    std::string loadScenePath = std::filesystem::path(Application::getProjectPath()).append("example.scene");
+    std::string loadScenePath = std::filesystem::path(Application::getProjectPath()).append("src").append("example.scene");
 
 
 //
@@ -148,7 +148,7 @@ void Application::loadProject() {
 }
 
 void Application::saveProject() {
-    std::string savePath = std::filesystem::path(Application::getProjectPath()).append("example.scene");
+    std::string savePath = std::filesystem::path(Application::getProjectPath()).append("src").append("example.scene");
 
     YAML::Emitter out;
     out << YAML::BeginMap;

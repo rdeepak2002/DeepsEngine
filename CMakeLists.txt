@@ -60,9 +60,9 @@ else()
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
 
         # copy build files to web build folder
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/include ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/include)
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/lib ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/lib)
-        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/src/build/web/DeepsEngine/cmake)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/include ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/include)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/lib ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/lib)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/cmake)
     else()
         # create executable application
         add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
