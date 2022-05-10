@@ -859,6 +859,46 @@ CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/state_handling.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/lua_value.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/thread.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/yaml.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/parser.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/dll.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitter.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/binary.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitterdef.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emittermanip.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/null.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/ostream_wrapper.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitterstyle.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/stlemitter.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/exceptions.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/mark.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/noexcept.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/traits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/node.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/iterator_fwd.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/ptr.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/type.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/impl.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/memory.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_ref.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_data.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/convert.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/impl.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/parse.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/emit.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/string_cast.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../glm.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/type_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/quaternion.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtx/dual_quaternion.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/dual_quaternion.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/string_cast.inl \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/stb/stb_image.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Entity.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Application.h \
@@ -866,6 +906,4 @@ CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/ComponentSystem.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Input.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/compatibility.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../glm.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/quaternion.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/compatibility.inl

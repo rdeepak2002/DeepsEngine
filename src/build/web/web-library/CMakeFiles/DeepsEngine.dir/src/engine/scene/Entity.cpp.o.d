@@ -1,52 +1,35 @@
 CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/scene/Entity.cpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Entity.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Scene.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/entt/entt.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdint \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitter.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cmath \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__config_site \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/pthread.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdint.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/stdint.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/math.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/math.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/math.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/features.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/algorithm \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__debug \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iosfwd \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/wchar.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/wchar.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stddef.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/alltypes.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdlib.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdlib.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/stdlib.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/alloca.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/type_traits \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstddef \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/version \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/stddef.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/__stddef_max_align_t.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__nullptr \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/wchar.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bits \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__undef_macros \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstddef \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/version \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstring \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/string.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/string.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/strings.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/functional \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/search.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/comp.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/iterator_traits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/incrementable_traits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/concepts \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/memory \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional_base \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binary_function.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/invoke.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/weak_result_type.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binary_function.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/unary_function.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/type_traits \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/forward.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional_base \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/operations.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/reference_wrapper.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/addressof.h \
@@ -55,18 +38,24 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/exception \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__availability \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdlib \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdlib.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdlib.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/stdlib.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/alloca.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/new \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/typeinfo \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdint \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdint.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/stdint.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/stdint.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/stdint.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/utility \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__debug \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iosfwd \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/wchar.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/wchar.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stddef.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/wchar.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__tuple \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/as_const.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/move.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/cmp.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/declval.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/exchange.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/in_place.h \
@@ -79,47 +68,14 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/to_underlying.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/compare \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/initializer_list \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/readable_traits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binary_negate.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/bind_front.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/perfect_forward.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/tuple \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/bind.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binder1st.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binder2nd.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/default_searcher.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/function.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/allocation_guard.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/allocator_traits.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/construct_at.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/pointer_traits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/compressed_pair.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/shared_ptr.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/allocation_guard.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/allocator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdexcept \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/unique_ptr.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/hash.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/atomic \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__threading_support \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/chrono \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ctime \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/time.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/time.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ratio \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/climits \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/limits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/limits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/limits.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/errno.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/errno.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/errno.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/sched.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/semaphore.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/fcntl.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/fcntl.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/memory \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/compressed_pair.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/tuple \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/pointer_safety.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/raw_storage_iterator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iterator \
@@ -127,7 +83,11 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/advance.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__function_like.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/concepts.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/incrementable_traits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/concepts \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/iter_move.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/iterator_traits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/readable_traits.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/back_insert_iterator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/iterator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/common_iterator.h \
@@ -136,6 +96,12 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__ranges/enable_borrowed_range.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__utility/__decay_copy.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/variant \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/hash.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstring \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/string.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/string.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/strings.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__variant/monostate.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/counted_iterator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/default_sentinel.h \
@@ -157,8 +123,48 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/reverse_iterator.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/size.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__iterator/wrap_iter.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/shared_ptr.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/unique_ptr.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/atomic \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__threading_support \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/chrono \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ctime \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/time.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/time.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ratio \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/climits \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/limits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/limits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/limits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/limits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/errno.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/errno.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/errno.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/wasi/api.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/sched.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/semaphore.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/fcntl.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/bits/fcntl.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/temporary_buffer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__memory/uninitialized_algorithms.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ostream \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/bitset \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit_reference \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bits \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/algorithm \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/functional \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/search.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/comp.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binary_negate.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/bind_front.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/perfect_forward.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/bind.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binder1st.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/binder2nd.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/default_searcher.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/function.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/identity.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/mem_fn.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/mem_fun_ref.h \
@@ -259,16 +265,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/transform.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/unique_copy.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__algorithm/unique.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cmath \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/math.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/math.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/math.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/vector \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bit_reference \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__split_buffer \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string_view \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__ranges/enable_view.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__string \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdio \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/stdio.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/stdio.h \
@@ -281,6 +278,37 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/wctype.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/wctype.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/wctype.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string_view \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__ranges/enable_view.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__string \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__locale \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/mutex \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__mutex_base \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/system_error \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__errc \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cerrno \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/locale.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/locale.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/xlocale.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/locale \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdarg \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdarg.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/stdarg.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/streambuf \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/binary.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/vector \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__split_buffer \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/dll.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitterdef.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emittermanip.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/null.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/ostream_wrapper.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Scene.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/entt/entt.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cassert \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/assert.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/array \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/map \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__functional/is_transparent.h \
@@ -293,26 +321,6 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/list \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__locale \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/string \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/mutex \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__mutex_base \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/system_error \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__errc \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cerrno \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/locale.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/locale.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/xlocale.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/istream \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ostream \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/bitset \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/locale \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/cstdarg \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/compat/stdarg.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/lib/clang/15.0.0/include/stdarg.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/streambuf \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/__bsd_locale_fallbacks.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/emscripten.h \
@@ -485,7 +493,6 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/vector_relational.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/integer.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/func_integer.inl \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/sstream \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Logger.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/LoggerCallbackInterface.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Application.h \
@@ -599,4 +606,144 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/load_result.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/state_handling.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/lua_value.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/thread.hpp
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/thread.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Component.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/yaml.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/parser.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitterstyle.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/stlemitter.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/exceptions.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/mark.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/noexcept.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/traits.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/node.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/iterator_fwd.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/ptr.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/type.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/impl.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/memory.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_ref.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_data.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/node_iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/iterator.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/convert.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/detail/impl.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/parse.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/node/emit.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/string_cast.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../glm.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/type_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../gtc/quaternion.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../gtc/constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/scalar_constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/scalar_constants.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/constants.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../gtc/matrix_transform.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../mat4x4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../vec2.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../vec3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../vec4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/matrix_projection.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../gtc/constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../trigonometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../matrix.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/matrix_projection.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/matrix_clip_space.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../ext/scalar_constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/matrix_clip_space.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/matrix_transform.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/matrix_transform.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/matrix_transform.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../trigonometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../matrix.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../detail/qualifier.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/vector_relational.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../common.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../detail/type_float.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_common.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../ext/quaternion_geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../exponential.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../ext/vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/quaternion_geometric.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/quaternion_common.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_float.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../detail/type_quat.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../detail/type_mat3x3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../detail/type_mat4x4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../detail/type_vec3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../detail/type_vec4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../ext/vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../ext/quaternion_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/quaternion_relational.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../gtc/constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../gtc/matrix_transform.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/type_quat.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../trigonometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../ext/quaternion_common.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/../ext/quaternion_geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_float_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_double.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_double_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_trigonometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/scalar_constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/quaternion_trigonometric.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/quaternion_transform.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/quaternion_transform.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat3x3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat4x4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_vec3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_vec4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/quaternion.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../exponential.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/epsilon.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/setup.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/qualifier.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/epsilon.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../vector_relational.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../common.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../gtc/vec1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_bool1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../detail/type_vec1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_bool1_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_float1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_float1_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_double1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_double1_precision.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_int1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_int1_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../ext/vector_int1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_uint1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_uint1_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/./ext/../ext/vector_uint1.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_int2_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_int3_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_int4_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/scalar_int_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_uint2_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_uint3_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/vector_uint4_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../ext/scalar_uint_sized.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_vec2.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat2x2.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat2x3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat2x4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat3x2.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat3x4.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat4x2.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/../detail/type_mat4x3.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/type_precision.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/quaternion.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtx/dual_quaternion.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../gtc/constants.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/dual_quaternion.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/../geometric.hpp \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/gtx/string_cast.inl

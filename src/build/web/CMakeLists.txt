@@ -25,3 +25,5 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \
         -s FULL_ES3=1 \
         -s USE_GLFW=3 \
         --preload-file assets")
+
+DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET()

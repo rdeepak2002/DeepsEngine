@@ -5,6 +5,7 @@
 #ifndef EDITOR_ENTITY_H
 #define EDITOR_ENTITY_H
 
+#include <yaml-cpp/emitter.h>
 #include "Scene.h"
 #include "Renderer.h"
 #include "Application.h"
@@ -55,6 +56,8 @@ namespace DeepsEngine {
             // TODO: assert entity has component
             Application::getInstance().scene.registry.remove<T>(entity);
         }
+
+        void Serialize(YAML::Emitter &out);
 
         uint32_t GetId() {
             return static_cast<uint32_t>(entity);

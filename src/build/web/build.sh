@@ -37,7 +37,7 @@ rm -rf build
 # create new folder for source code
 mkdir -p build/assets
 cp app.html build/app.html
-cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/res
+cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/project
 
 # build source code
 cmake -S ./ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
