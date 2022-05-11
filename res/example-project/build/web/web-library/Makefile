@@ -369,6 +369,30 @@ src/engine/util/Logger.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.s
 .PHONY : src/engine/util/Logger.cpp.s
 
+src/engine/window/GLFWWindow.o: src/engine/window/GLFWWindow.cpp.o
+.PHONY : src/engine/window/GLFWWindow.o
+
+# target to build an object file
+src/engine/window/GLFWWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o
+.PHONY : src/engine/window/GLFWWindow.cpp.o
+
+src/engine/window/GLFWWindow.i: src/engine/window/GLFWWindow.cpp.i
+.PHONY : src/engine/window/GLFWWindow.i
+
+# target to preprocess a source file
+src/engine/window/GLFWWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.i
+.PHONY : src/engine/window/GLFWWindow.cpp.i
+
+src/engine/window/GLFWWindow.s: src/engine/window/GLFWWindow.cpp.s
+.PHONY : src/engine/window/GLFWWindow.s
+
+# target to generate assembly for a file
+src/engine/window/GLFWWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.s
+.PHONY : src/engine/window/GLFWWindow.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -432,6 +456,9 @@ help:
 	@echo "... src/engine/util/Logger.o"
 	@echo "... src/engine/util/Logger.i"
 	@echo "... src/engine/util/Logger.s"
+	@echo "... src/engine/window/GLFWWindow.o"
+	@echo "... src/engine/window/GLFWWindow.i"
+	@echo "... src/engine/window/GLFWWindow.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -185,7 +185,7 @@ void Renderer::closeWindow() {
 void Renderer::initialize() {
     Logger::Debug("initializing renderer");
 
-#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+#if defined(WITH_EDITOR)
     // start timer for qt to keep track of delta time
     timer.start();
 #endif
@@ -284,9 +284,8 @@ void Renderer::clear() {
 }
 
 void Renderer::update() {
-#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+    // TODO: figure out why we need this here for QT renderer
     glEnable(GL_DEPTH_TEST);
-#endif
 
     // bind textures on corresponding texture units
     glActiveTexture(GL_TEXTURE0);
@@ -424,7 +423,7 @@ void Renderer::processInput() {
 }
 
 float Renderer::getCurrentTime() {
-#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+#if defined(WITH_EDITOR)
     return static_cast<float>(timer.elapsed()) / 1000.0f;
 #else
     return static_cast<float>(glfwGetTime());

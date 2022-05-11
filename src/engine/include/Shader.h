@@ -14,7 +14,7 @@
 #else
 #include <glad/glad.h>
 #endif
-#elif defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+#elif defined(WITH_EDITOR)
 #include <QOpenGLExtraFunctions>
 #endif
 
@@ -37,7 +37,7 @@ class Shader {
   // constructor generates the shader on the fly
   // ------------------------------------------------------------------------
   Shader(const char *vertexPath, const char *fragmentPath) {
-#if defined(INCLUDE_DEEPS_ENGINE_LIBRARY)
+#if defined(WITH_EDITOR)
       initializeOpenGLFunctions();
 #endif
 

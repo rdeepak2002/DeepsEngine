@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/DeepsEngine.dir/src/engine/util/DeepsMath.cpp.o.d"
   "CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.o"
   "CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.o.d"
+  "CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o"
+  "CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o.d"
   "CMakeFiles/DeepsEngine.dir/src/main.cpp.o"
   "CMakeFiles/DeepsEngine.dir/src/main.cpp.o.d"
   "libDeepsEngine.a"

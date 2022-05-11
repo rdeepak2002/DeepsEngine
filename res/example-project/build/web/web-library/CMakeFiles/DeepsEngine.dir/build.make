@@ -219,11 +219,26 @@ CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.s"
 	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/util/Logger.cpp -o CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.s
 
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: CMakeFiles/DeepsEngine.dir/flags.make
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: CMakeFiles/DeepsEngine.dir/includes_CXX.rsp
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: ../../../../../src/engine/window/GLFWWindow.cpp
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: CMakeFiles/DeepsEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o -MF CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o.d -o CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o -c /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/window/GLFWWindow.cpp
+
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.i"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/window/GLFWWindow.cpp > CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.i
+
+CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.s"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/window/GLFWWindow.cpp -o CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.s
+
 CMakeFiles/DeepsEngine.dir/src/main.cpp.o: CMakeFiles/DeepsEngine.dir/flags.make
 CMakeFiles/DeepsEngine.dir/src/main.cpp.o: CMakeFiles/DeepsEngine.dir/includes_CXX.rsp
 CMakeFiles/DeepsEngine.dir/src/main.cpp.o: ../../../../../src/main.cpp
 CMakeFiles/DeepsEngine.dir/src/main.cpp.o: CMakeFiles/DeepsEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/DeepsEngine.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/DeepsEngine.dir/src/main.cpp.o"
 	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DeepsEngine.dir/src/main.cpp.o -MF CMakeFiles/DeepsEngine.dir/src/main.cpp.o.d -o CMakeFiles/DeepsEngine.dir/src/main.cpp.o -c /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/main.cpp
 
 CMakeFiles/DeepsEngine.dir/src/main.cpp.i: cmake_force
@@ -246,6 +261,7 @@ DeepsEngine_OBJECTS = \
 "CMakeFiles/DeepsEngine.dir/src/engine/scene/Scene.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/util/DeepsMath.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.o" \
+"CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/main.cpp.o"
 
 # External object files for target DeepsEngine
@@ -261,10 +277,11 @@ libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/scene/Scene.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/util/DeepsMath.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/util/Logger.cpp.o
+libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/main.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/build.make
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX static library libDeepsEngine.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX static library libDeepsEngine.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/DeepsEngine.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DeepsEngine.dir/link.txt --verbose=$(VERBOSE)
 	/opt/homebrew/Cellar/cmake/3.23.1/bin/cmake -E copy_directory /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/DeepsEngine/include
