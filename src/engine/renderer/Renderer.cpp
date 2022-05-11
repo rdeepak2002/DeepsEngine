@@ -183,12 +183,7 @@ float cubeVertices[] = {
 //}
 
 void Renderer::initialize() {
-    Logger::Debug("initializing renderer");
-
-#if defined(WITH_EDITOR)
-    // start timer for qt to keep track of delta time
-    timer.start();
-#endif
+    Logger::Debug("Initializing renderer");
 
 #if defined(STANDALONE) and !defined(EMSCRIPTEN)
     // glad: load all OpenGL function pointers
@@ -196,10 +191,11 @@ void Renderer::initialize() {
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
         Logger::Debug("Failed to initialize GLAD");
     }
-#elif !(defined(EMSCRIPTEN) or defined(DEVELOP_WEB))
+#elif defined(WITH_EDITOR)
     // have qt initialize opengl functions
     initializeOpenGLFunctions();
 #endif
+
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
@@ -406,31 +402,6 @@ void Renderer::update() {
         // set clear color to black to indicate no camera active
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
-
-    // TODO: don't call these in renderer (instead application)?
-    Application::getInstance().window->swapBuffers();
-    Application::getInstance().window->pollEvents();
-//#if defined(STANDALONE)
-//    // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-//    // -------------------------------------------------------------------------------
-//    glfwSwapBuffers(window);
-//    glfwPollEvents();
-//#endif
-}
-
-//void Renderer::processInput() {
-//#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
-//    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-//        glfwSetWindowShouldClose(window, true);
-//#endif
-//}
-
-float Renderer::getCurrentTime() {
-#if defined(WITH_EDITOR)
-    return static_cast<float>(timer.elapsed()) / 1000.0f;
-#else
-    return static_cast<float>(glfwGetTime());
-#endif
 }
 
 void Renderer::deinit() {

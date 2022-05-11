@@ -29,15 +29,10 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
-//    void createWindow();
-//    bool shouldCloseWindow();
-    void initialize();
-    void deinit();
-    void clear();
-    void update();
-//    void closeWindow();
-//    void processInput();
-    float getCurrentTime();
+    virtual void initialize();
+    virtual void deinit();
+    virtual void clear();
+    virtual void update();
 
     unsigned int SCR_WIDTH = 800;
     unsigned int SCR_HEIGHT = 600;
@@ -47,13 +42,6 @@ public:
 
     Shader* ourShader;
     Shader* lightingShader;
-
-#if defined(STANDALONE)
-//    GLFWwindow* window;
-#else
-    QElapsedTimer timer;
-#endif
-
 private:
     glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
 };

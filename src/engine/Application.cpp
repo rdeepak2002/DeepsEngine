@@ -18,12 +18,11 @@ using std::filesystem::exists;
 
 void Application::update(bool clearScreen) {
     // calculate delta time
-    float currentFrame = renderer->getCurrentTime();
+    float currentFrame = getCurrentTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
     // update renderer
-//    renderer->processInput();
     window->processInput();
 
     if (clearScreen) {
@@ -31,6 +30,8 @@ void Application::update(bool clearScreen) {
     }
 
     renderer->update();
+    window->swapBuffers();
+    window->pollEvents();
 
     // update lua component systems
     for (auto& componentSystem : componentSystems) {
@@ -42,12 +43,17 @@ void Application::initialize() {
     Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
     Logger::Debug("Initializing engine");
 
+    // start qt timer
+#if defined(WITH_EDITOR)
+    // start timer for qt to keep track of delta time
+    timer.start();
+#endif
+
     // add component systems
     componentSystems.clear();
     componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
 
     // create window
-//    renderer->createWindow();
     window->createWindow();
 
     // initialize renderer
@@ -60,7 +66,6 @@ void Application::initialize() {
 
     // load the project and deserialize all entities
     loadProject();
-//    createSampleEntities();
 }
 
 void Application::close() {
@@ -70,12 +75,10 @@ void Application::close() {
     }
 
     renderer->deinit();
-//    renderer->closeWindow();
     window->closeWindow();
 }
 
 bool Application::shouldClose() {
-//    return renderer->shouldCloseWindow();
     return window->shouldCloseWindow();
 }
 
@@ -116,6 +119,8 @@ void Application::resizeWindow(unsigned int width, unsigned int height, bool upd
     if (update) {
         renderer->clear();
         renderer->update();
+        window->swapBuffers();
+        window->pollEvents();
     }
 }
 
@@ -188,4 +193,11 @@ std::pair<unsigned int, unsigned int> Application::getWindowDimensions() {
     return {renderer->SCR_WIDTH, renderer->SCR_HEIGHT};
 }
 
+float Application::getCurrentTime() {
+#if defined(WITH_EDITOR)
+    return static_cast<float>(timer.elapsed()) / 1000.0f;
+#else
+    return static_cast<float>(glfwGetTime());
+#endif
+}
 

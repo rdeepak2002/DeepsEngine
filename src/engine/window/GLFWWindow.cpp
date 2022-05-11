@@ -4,7 +4,6 @@
 
 #include "GLFWWindow.h"
 #include "Logger.h"
-#include "Renderer.h"
 #include "Input.h"
 #include "Application.h"
 
