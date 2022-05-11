@@ -127,11 +127,12 @@ void Renderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
-#if defined(EMSCRIPTEN)
-    std::string shaderFolderName = "shaders-web";
-#else
+//#if defined(EMSCRIPTEN)
+//    std::string shaderFolderName = "shaders-web";
+//#else
+//    std::string shaderFolderName = "shaders";
+//#endif
     std::string shaderFolderName = "shaders";
-#endif
 
     ourShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("shader.vert").c_str(),

@@ -57,11 +57,20 @@ class Shader {
     try {
         // open files
       vShaderFile.open(vertexPath);
-        fShaderFile.open(fragmentPath);
+      fShaderFile.open(fragmentPath);
       std::stringstream vShaderStream, fShaderStream;
       // read file's buffer contents into streams
-      vShaderStream << vShaderFile.rdbuf();
-      fShaderStream << fShaderFile.rdbuf();
+      std::string glslVersionHeader = "#version 330 core";
+
+#if defined(EMSCRIPTEN)
+      glslVersionHeader = "#version 300 es";
+      Logger::Debug("Using es version of GLSL");
+#else
+    Logger::Debug("Using core version of GLSL");
+#endif
+
+      vShaderStream << glslVersionHeader << std::endl << vShaderFile.rdbuf();
+      fShaderStream << glslVersionHeader << std::endl << fShaderFile.rdbuf();
       // close file handlers
       vShaderFile.close();
       fShaderFile.close();
