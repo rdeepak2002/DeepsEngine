@@ -7,7 +7,7 @@
 
 #include <yaml-cpp/emitter.h>
 #include "Scene.h"
-#include "Renderer.h"
+#include "OpenGLRenderer.h"
 #include "Application.h"
 #include "entt/entt.hpp"
 

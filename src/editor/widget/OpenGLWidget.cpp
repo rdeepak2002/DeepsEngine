@@ -7,7 +7,7 @@
 #include <QString>
 #include <QWidget>
 #include "Entity.h"
-#include "Renderer.h"
+#include "OpenGLRenderer.h"
 #include "Component.h"
 #include "Application.h"
 #include "Input.h"

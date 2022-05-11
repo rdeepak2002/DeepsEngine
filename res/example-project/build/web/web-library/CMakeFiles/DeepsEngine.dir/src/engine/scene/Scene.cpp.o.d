@@ -321,7 +321,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Scene.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emittermanip.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/null.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/ostream_wrapper.h \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/OpenGLRenderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/emscripten.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_asm.h \
@@ -495,6 +495,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Scene.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/func_integer.inl \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Logger.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/LoggerCallbackInterface.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Application.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/LuaScriptComponentSystem.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/ComponentSystem.h \
@@ -608,6 +609,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/scene/Scene.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/lua_value.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/thread.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/GLFWWindow.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Window.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Component.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/yaml.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/parser.h \

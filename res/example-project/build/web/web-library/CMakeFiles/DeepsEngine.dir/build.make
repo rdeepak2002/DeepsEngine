@@ -114,20 +114,20 @@ CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.s: 
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.s"
 	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/component/LuaScriptComponentSystem.cpp -o CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.s
 
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: CMakeFiles/DeepsEngine.dir/flags.make
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: CMakeFiles/DeepsEngine.dir/includes_CXX.rsp
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: ../../../../../src/engine/renderer/Renderer.cpp
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o: CMakeFiles/DeepsEngine.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o"
-	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o -MF CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o.d -o CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o -c /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/Renderer.cpp
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o: CMakeFiles/DeepsEngine.dir/flags.make
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o: CMakeFiles/DeepsEngine.dir/includes_CXX.rsp
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o: ../../../../../src/engine/renderer/OpenGLRenderer.cpp
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o: CMakeFiles/DeepsEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/web-library/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o -MF CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o.d -o CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o -c /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/OpenGLRenderer.cpp
 
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.i"
-	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/Renderer.cpp > CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.i
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.i"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/OpenGLRenderer.cpp > CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.i
 
-CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.s"
-	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/Renderer.cpp -o CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.s
+CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.s"
+	/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/em++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/renderer/OpenGLRenderer.cpp -o CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.s
 
 CMakeFiles/DeepsEngine.dir/src/engine/renderer/Shader.cpp.o: CMakeFiles/DeepsEngine.dir/flags.make
 CMakeFiles/DeepsEngine.dir/src/engine/renderer/Shader.cpp.o: CMakeFiles/DeepsEngine.dir/includes_CXX.rsp
@@ -254,7 +254,7 @@ DeepsEngine_OBJECTS = \
 "CMakeFiles/DeepsEngine.dir/src/engine/Application.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/Input.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.o" \
-"CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o" \
+"CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/renderer/Shader.cpp.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/renderer/glad.c.o" \
 "CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o" \
@@ -270,7 +270,7 @@ DeepsEngine_EXTERNAL_OBJECTS =
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/Application.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/Input.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.o
-libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o
+libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/renderer/Shader.cpp.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/renderer/glad.c.o
 libDeepsEngine.a: CMakeFiles/DeepsEngine.dir/src/engine/scene/Entity.cpp.o

@@ -2,7 +2,7 @@
 // Created by Deepak Ramalingam on 4/30/22.
 //
 #include "Application.h"
-#include "Renderer.h"
+#include "OpenGLRenderer.h"
 #include "Entity.h"
 #include "Component.h"
 #include <iostream>

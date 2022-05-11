@@ -25,6 +25,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/GL/gl.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/GL/glext.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/KHR/khrplatform.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Window.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Logger.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/iostream \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/ios \
@@ -441,7 +442,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/state_handling.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/lua_value.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/sol/thread.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/OpenGLRenderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Shader.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/fstream \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/filesystem \
@@ -600,4 +601,5 @@ CMakeFiles/DeepsEngine.dir/src/engine/window/GLFWWindow.cpp.o: \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/matrix.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/vector_relational.hpp \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/integer.hpp \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/func_integer.inl
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/func_integer.inl \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h

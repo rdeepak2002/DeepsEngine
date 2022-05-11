@@ -201,29 +201,29 @@ src/engine/component/LuaScriptComponentSystem.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.s
 .PHONY : src/engine/component/LuaScriptComponentSystem.cpp.s
 
-src/engine/renderer/Renderer.o: src/engine/renderer/Renderer.cpp.o
-.PHONY : src/engine/renderer/Renderer.o
+src/engine/renderer/OpenGLRenderer.o: src/engine/renderer/OpenGLRenderer.cpp.o
+.PHONY : src/engine/renderer/OpenGLRenderer.o
 
 # target to build an object file
-src/engine/renderer/Renderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.o
-.PHONY : src/engine/renderer/Renderer.cpp.o
+src/engine/renderer/OpenGLRenderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.o
+.PHONY : src/engine/renderer/OpenGLRenderer.cpp.o
 
-src/engine/renderer/Renderer.i: src/engine/renderer/Renderer.cpp.i
-.PHONY : src/engine/renderer/Renderer.i
+src/engine/renderer/OpenGLRenderer.i: src/engine/renderer/OpenGLRenderer.cpp.i
+.PHONY : src/engine/renderer/OpenGLRenderer.i
 
 # target to preprocess a source file
-src/engine/renderer/Renderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.i
-.PHONY : src/engine/renderer/Renderer.cpp.i
+src/engine/renderer/OpenGLRenderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.i
+.PHONY : src/engine/renderer/OpenGLRenderer.cpp.i
 
-src/engine/renderer/Renderer.s: src/engine/renderer/Renderer.cpp.s
-.PHONY : src/engine/renderer/Renderer.s
+src/engine/renderer/OpenGLRenderer.s: src/engine/renderer/OpenGLRenderer.cpp.s
+.PHONY : src/engine/renderer/OpenGLRenderer.s
 
 # target to generate assembly for a file
-src/engine/renderer/Renderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/Renderer.cpp.s
-.PHONY : src/engine/renderer/Renderer.cpp.s
+src/engine/renderer/OpenGLRenderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DeepsEngine.dir/build.make CMakeFiles/DeepsEngine.dir/src/engine/renderer/OpenGLRenderer.cpp.s
+.PHONY : src/engine/renderer/OpenGLRenderer.cpp.s
 
 src/engine/renderer/Shader.o: src/engine/renderer/Shader.cpp.o
 .PHONY : src/engine/renderer/Shader.o
@@ -435,9 +435,9 @@ help:
 	@echo "... src/engine/component/LuaScriptComponentSystem.o"
 	@echo "... src/engine/component/LuaScriptComponentSystem.i"
 	@echo "... src/engine/component/LuaScriptComponentSystem.s"
-	@echo "... src/engine/renderer/Renderer.o"
-	@echo "... src/engine/renderer/Renderer.i"
-	@echo "... src/engine/renderer/Renderer.s"
+	@echo "... src/engine/renderer/OpenGLRenderer.o"
+	@echo "... src/engine/renderer/OpenGLRenderer.i"
+	@echo "... src/engine/renderer/OpenGLRenderer.s"
 	@echo "... src/engine/renderer/Shader.o"
 	@echo "... src/engine/renderer/Shader.i"
 	@echo "... src/engine/renderer/Shader.s"

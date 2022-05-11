@@ -7,8 +7,10 @@
 
 #include "Scene.h"
 #include "LuaScriptComponentSystem.h"
-#include "Renderer.h"
+#include "OpenGLRenderer.h"
 #include "GLFWWindow.h"
+#include "Window.h"
+#include "Renderer.h"
 #include <fstream>
 
 class Application {
@@ -35,11 +37,11 @@ public:
     float lastFrame = 0.0f;
 private:
     Application() {
-        renderer = std::make_unique<Renderer>();
+        renderer = std::make_unique<OpenGLRenderer>();
         window = std::make_unique<GLFWWindow>();
     }
     std::unique_ptr<Renderer> renderer;
-    std::unique_ptr<GLFWWindow> window;
+    std::unique_ptr<Window> window;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
     std::string projectPath;
 #if defined(WITH_EDITOR)

@@ -5,7 +5,6 @@
 #ifndef DEEPSENGINE_GLFWWINDOW_H
 #define DEEPSENGINE_GLFWWINDOW_H
 
-
 #if defined(STANDALONE)
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -15,20 +14,23 @@
 #else
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Window.h"
 #endif
 #else
 #include <QOpenGLExtraFunctions>
 #include <QElapsedTimer>
 #endif
 
-class GLFWWindow {
+#include "Window.h"
+
+class GLFWWindow: public Window {
 public:
-    virtual void createWindow();
-    virtual bool shouldCloseWindow();
-    virtual void closeWindow();
-    virtual void processInput();
-    virtual void swapBuffers();
-    virtual void pollEvents();
+    void createWindow() override;
+    bool shouldCloseWindow() override;
+    void closeWindow() override;
+    void processInput() override;
+    void swapBuffers() override;
+    void pollEvents() override;
 private:
 #if defined(STANDALONE)
     GLFWwindow* window;

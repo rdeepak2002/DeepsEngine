@@ -425,7 +425,7 @@ CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.o: 
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/set \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/unordered_set \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/c++/v1/list \
-  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/OpenGLRenderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/emscripten.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/emsdk/upstream/emscripten/cache/sysroot/include/emscripten/em_asm.h \
@@ -599,7 +599,9 @@ CMakeFiles/DeepsEngine.dir/src/engine/component/LuaScriptComponentSystem.cpp.o: 
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/glm/detail/func_integer.inl \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Logger.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/LoggerCallbackInterface.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Renderer.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/GLFWWindow.h \
+  /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Window.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/src/engine/include/Entity.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/emitter.h \
   /Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/vcpkg/installed/wasm32-emscripten/include/yaml-cpp/binary.h \
