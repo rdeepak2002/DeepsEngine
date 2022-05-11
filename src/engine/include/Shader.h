@@ -25,7 +25,6 @@
 #include <string>
 #include "Logger.h"
 
-//class Shader {
 #if defined(STANDALONE)
 class Shader {
 #else
