@@ -66,8 +66,9 @@ bool GLFWWindow::shouldCloseWindow() {
     } else {
         return true;
     }
-#endif
+#else
     return false;
+#endif
 }
 
 void GLFWWindow::closeWindow() {

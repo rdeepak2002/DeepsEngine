@@ -17,30 +17,6 @@
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
 
-//#if defined(STANDALONE)
-//void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
-//{
-//    // make sure the viewport matches the new window dimensions; note that width and
-//    // height will be significantly larger than specified on retina displays.
-//    glViewport(0, 0, width, height);
-//    Application::getInstance().resizeWindow(width, height, true);
-//}
-//
-//void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-//{
-//    if (action == GLFW_PRESS) {
-//        Input::SetButtonDown(key, true);
-//    } else if (action == GLFW_RELEASE) {
-//        Input::SetButtonDown(key, false);
-//    }
-//}
-//
-//void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
-//{
-//
-//};
-//#endif
-
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
 float cubeWithTextureVertices[] = {
@@ -132,55 +108,6 @@ float cubeVertices[] = {
         -0.5f,  0.5f,  0.5f,
         -0.5f,  0.5f, -0.5f,
 };
-
-//void Renderer::createWindow() {
-//#if defined(STANDALONE)
-//    // glfw: initialize and configure
-//    // ------------------------------
-//    glfwInit();
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-//    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-//
-//#ifdef __APPLE__
-//    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-//#endif
-//
-//    // glfw window creation
-//    // --------------------
-//    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Deeps Engine", NULL, NULL);
-//    if (window == nullptr) {
-//    Logger::Debug("Failed to create GLFW window");
-//    glfwTerminate();
-//    }
-//    glfwMakeContextCurrent(window);
-//    glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
-//    glfwSetKeyCallback(window, keyCallback);
-//    glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
-//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-//#endif
-//}
-
-//bool Renderer::shouldCloseWindow() {
-//#if defined(STANDALONE)
-//    if (window) {
-//        return glfwWindowShouldClose(window);
-//    } else {
-//        return true;
-//    }
-//#endif
-//    return false;
-//}
-
-//void Renderer::closeWindow() {
-//#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
-//    glDeleteVertexArrays(1, &VAO);
-//    glDeleteBuffers(1, &VBO);
-////    delete ourShader;
-////    ourShader = nullptr;
-//    glfwTerminate();
-//#endif
-//}
 
 void Renderer::initialize() {
     Logger::Debug("Initializing renderer");
