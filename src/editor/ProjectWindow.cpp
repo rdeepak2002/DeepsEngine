@@ -69,10 +69,13 @@ void ProjectWindow::showProjectsWindow() {
 }
 
 void ProjectWindow::buildWeb() {
+    // update the builds to the latest version
+    updateBuilds();
+
+    // create web build
     std::string resourcePath = Application::getInstance().getProjectPath().append("src");
     std::string buildDirectory = Application::getInstance().getProjectPath().append("build").append("web");
     std::string terminalCommand = "export DEEPS_ENGINE_RESOURCE_DIRECTORY=" + resourcePath + " && cd " + buildDirectory + " && " + "./build.sh";
-//    /usr/bin/osascript -e 'do shell script "/Users/deepakramalingam/Desktop/example-project/build/web/build.sh args 2>&1 etc" with administrator privileges'
 
     FILE *fp;
     char path[1035];
@@ -84,6 +87,26 @@ void ProjectWindow::buildWeb() {
         while (fgets(path, sizeof(path), fp) != NULL) {
             printf("%s", path);
             Logger::Debug("Web build: " + std::string(path));
+        }
+
+        pclose(fp);
+    }
+}
+
+void ProjectWindow::updateBuilds() {
+    std::string projectDirectory = Application::getInstance().getProjectPath();
+    std::string terminalCommand = "cd " + projectDirectory + " && ./update-builds.sh";
+
+    FILE *fp;
+    char path[1035];
+
+    fp = popen(terminalCommand.c_str(), "r");
+    if (fp == NULL) {
+        Logger::Error("Failed to update builds");
+    } else {
+        while (fgets(path, sizeof(path), fp) != NULL) {
+            printf("%s", path);
+            Logger::Debug("Build update: " + std::string(path));
         }
 
         pclose(fp);

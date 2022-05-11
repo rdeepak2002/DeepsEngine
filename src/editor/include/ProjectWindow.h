@@ -25,6 +25,7 @@ public slots:
     void showProjectWindow();
     void showProjectsWindow();
     void buildWeb();
+    void updateBuilds();
 };
 
 #endif

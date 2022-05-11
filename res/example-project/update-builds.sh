@@ -9,8 +9,8 @@ rm -rf .git
 rm -rf build
 mv res/example-project/build ../build
 
-# remove source code
-rm -rf DeepsEngine
-
 # return to original directory
 cd ..
+
+# remove source code
+rm -rf DeepsEngine
