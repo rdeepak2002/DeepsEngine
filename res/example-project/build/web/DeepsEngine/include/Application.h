@@ -33,7 +33,7 @@ public:
 private:
     Application() {
         renderer = std::make_unique<Renderer>();
-        componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
+//        componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
     }
     std::unique_ptr<Renderer> renderer;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;

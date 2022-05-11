@@ -11,6 +11,7 @@ class ComponentSystem
 {
 public:
     virtual void init () {};
+    virtual void destroy() {};
     virtual void update (float dt) {};
 };
 

@@ -14,8 +14,9 @@
 class LuaScriptComponentSystem : public ComponentSystem {
 public:
     LuaScriptComponentSystem() = default;
-    void init();
-    void update(float deltaTime);
+    void init() override;
+    void destroy() override;
+    void update(float deltaTime) override;
 private:
     sol::state lua;
 };
