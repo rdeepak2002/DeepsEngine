@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "LuaScriptComponentSystem.h"
 #include "Renderer.h"
+#include "GLFWWindow.h"
 #include <fstream>
 
 class Application {
@@ -18,7 +19,9 @@ public:
         return instance;
     }
     DeepsEngine::Scene scene = {};
+    std::unique_ptr<GLFWWindow> window;
     void resizeWindow(unsigned int width, unsigned int height, bool update = false);
+    std::pair<unsigned int, unsigned int> getWindowDimensions();
     void initialize();
     void update(bool clearScreen = true);
     bool shouldClose();
@@ -33,6 +36,7 @@ public:
 private:
     Application() {
         renderer = std::make_unique<Renderer>();
+        window = std::make_unique<GLFWWindow>();
 //        componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
     }
     std::unique_ptr<Renderer> renderer;

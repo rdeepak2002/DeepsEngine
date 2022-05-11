@@ -29,13 +29,14 @@ class Renderer {
 class Renderer: protected QOpenGLExtraFunctions {
 #endif
 public:
-    void createWindow();
-    bool shouldCloseWindow();
+//    void createWindow();
+//    bool shouldCloseWindow();
     void initialize();
+    void deinit();
     void clear();
     void update();
-    void closeWindow();
-    void processInput();
+//    void closeWindow();
+//    void processInput();
     float getCurrentTime();
 
     unsigned int SCR_WIDTH = 800;
@@ -48,7 +49,7 @@ public:
     Shader* lightingShader;
 
 #if defined(STANDALONE)
-    GLFWwindow* window;
+//    GLFWwindow* window;
 #else
     QElapsedTimer timer;
 #endif

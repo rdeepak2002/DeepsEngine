@@ -23,7 +23,8 @@ void Application::update(bool clearScreen) {
     lastFrame = currentFrame;
 
     // update renderer
-    renderer->processInput();
+//    renderer->processInput();
+    window->processInput();
 
     if (clearScreen) {
         renderer->clear();
@@ -46,7 +47,8 @@ void Application::initialize() {
     componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
 
     // create window
-    renderer->createWindow();
+//    renderer->createWindow();
+    window->createWindow();
 
     // initialize renderer
     renderer->initialize();
@@ -67,11 +69,14 @@ void Application::close() {
         componentSystem->destroy();
     }
 
-    renderer->closeWindow();
+    renderer->deinit();
+//    renderer->closeWindow();
+    window->closeWindow();
 }
 
 bool Application::shouldClose() {
-    return renderer->shouldCloseWindow();
+//    return renderer->shouldCloseWindow();
+    return window->shouldCloseWindow();
 }
 
 void Application::createSampleEntities() {
@@ -177,6 +182,10 @@ void Application::saveProject() {
 
     std::ofstream fout(savePath);
     fout << out.c_str();
+}
+
+std::pair<unsigned int, unsigned int> Application::getWindowDimensions() {
+    return {renderer->SCR_WIDTH, renderer->SCR_HEIGHT};
 }
 
 
