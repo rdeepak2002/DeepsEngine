@@ -157,8 +157,8 @@ void OpenGLRenderer::update() {
 
         // get camera vectors
         glm::vec3 cameraFront = mainCameraTransformComponent.front();
-        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
-        glm::vec3 cameraPos = glm::vec3(mainCameraTransformComponent.position.x, mainCameraTransformComponent.position.y, mainCameraTransformComponent.position.z);
+        glm::vec3 cameraUp = mainCameraTransformComponent.up();
+        glm::vec3 cameraPos = mainCameraTransformComponent.position;
 
         // calculate projection matrix
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
