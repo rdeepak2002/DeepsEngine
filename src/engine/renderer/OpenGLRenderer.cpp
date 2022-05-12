@@ -241,7 +241,7 @@ void OpenGLRenderer::update() {
                 unsigned int specularMap = entity.GetComponent<DeepsEngine::Component::Material>().specular;
                 materialShininess = entity.GetComponent<DeepsEngine::Component::Material>().shininess;
 
-                // bind diffuse map
+                // bind diffuse maps
                 glActiveTexture(GL_TEXTURE0);
                 glBindTexture(GL_TEXTURE_2D, diffuseMap);
 
