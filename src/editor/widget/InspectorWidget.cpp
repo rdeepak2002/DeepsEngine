@@ -36,6 +36,10 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     meshFilterComponentWidget = new MeshFilterComponentWidget;
     meshFilterComponentWidget->setVisible(false);
 
+    // light widget
+    lightComponentWidget = new LightComponentWidget;
+    lightComponentWidget->setVisible(false);
+
     // drop down to add components
     addComponentButton = new QPushButton("Add Component");
     addComponentButton->setVisible(false);
@@ -53,6 +57,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     mainLayout->addWidget(transformComponentWidget);
     mainLayout->addWidget(cameraComponentWidget);
     mainLayout->addWidget(meshFilterComponentWidget);
+    mainLayout->addWidget(lightComponentWidget);
     mainLayout->addWidget(addComponentButton);
     mainLayout->addWidget(removeEntityButton);
     setLayout(mainLayout);
@@ -100,6 +105,9 @@ void InspectorWidget::hideAllComponentWidgets() {
 
     // mesh filter widget
     meshFilterComponentWidget->setVisible(false);
+
+    // light component widget
+    lightComponentWidget->setVisible(false);
 }
 
 void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
@@ -128,6 +136,11 @@ void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
         DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube"};
         entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
     }
+    else if(componentToAddName == "Light") {
+        // light component
+        DeepsEngine::Component::Light light = {"directional"};
+        entitySelected->AddComponent<DeepsEngine::Component::Light>(light);
+    }
 
     refresh();
 }
@@ -150,7 +163,7 @@ void InspectorWidget::refresh() {
             tagComponentWidget->setListWidgetItem(listItem);
             tagComponentWidget->setVisible(true);
             DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
-            tagComponentWidget->setTag(tagComponent);
+            tagComponentWidget->setComponent(tagComponent);
         }
         else {
             addComponentMenu->addAction(tr("Tag"));
@@ -160,7 +173,7 @@ void InspectorWidget::refresh() {
         if (entitySelected->HasComponent<DeepsEngine::Component::Transform>()) {
             transformComponentWidget->setVisible(true);
             DeepsEngine::Component::Transform* transformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
-            transformComponentWidget->setTransform(transformComponent);
+            transformComponentWidget->setComponent(transformComponent);
         }
         else {
             addComponentMenu->addAction(tr("Transform"));
@@ -170,7 +183,7 @@ void InspectorWidget::refresh() {
         if (entitySelected->HasComponent<DeepsEngine::Component::Camera>()) {
             cameraComponentWidget->setVisible(true);
             DeepsEngine::Component::Camera* cameraComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Camera>());
-            cameraComponentWidget->setCamera(cameraComponent);
+            cameraComponentWidget->setComponent(cameraComponent);
         }
         else {
             addComponentMenu->addAction(tr("Camera"));
@@ -180,10 +193,20 @@ void InspectorWidget::refresh() {
         if (entitySelected->HasComponent<DeepsEngine::Component::MeshFilter>()) {
             meshFilterComponentWidget->setVisible(true);
             DeepsEngine::Component::MeshFilter* meshFilterComponent = &(entitySelected->GetComponent<DeepsEngine::Component::MeshFilter>());
-            meshFilterComponentWidget->setMeshFilter(meshFilterComponent);
+            meshFilterComponentWidget->setComponent(meshFilterComponent);
         }
         else {
             addComponentMenu->addAction(tr("Mesh Filter"));
+        }
+
+        // show light of entity
+        if (entitySelected->HasComponent<DeepsEngine::Component::Light>()) {
+            lightComponentWidget->setVisible(true);
+            DeepsEngine::Component::Light* light = &(entitySelected->GetComponent<DeepsEngine::Component::Light>());
+            lightComponentWidget->setComponent(light);
+        }
+        else {
+            addComponentMenu->addAction(tr("Light"));
         }
 
         // update the menu of possible components to add

@@ -45,8 +45,8 @@ CameraComponentWidget::~CameraComponentWidget() {
 
 }
 
-void CameraComponentWidget::setCamera(DeepsEngine::Component::Camera* camera) {
-    cameraComponent = camera;
+void CameraComponentWidget::setComponent(DeepsEngine::Component::Component* component) {
+    cameraComponent = dynamic_cast<DeepsEngine::Component::Camera*>(component);
 
     if (cameraComponent) {
         fovInput->setText(QString::fromStdString(std::to_string(cameraComponent->fov)));

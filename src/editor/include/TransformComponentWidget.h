@@ -11,8 +11,9 @@
 #include <QLabel>
 #include "Entity.h"
 #include "Component.h"
+#include "ComponentWidget.h"
 
-class TransformComponentWidget: public QWidget {
+class TransformComponentWidget: public QWidget, ComponentWidget {
 Q_OBJECT;
 public:
     explicit TransformComponentWidget(QWidget *parent = nullptr);
@@ -37,7 +38,7 @@ private:
     QLineEdit* scaleZInput;
 
 public slots:
-    void setTransform(DeepsEngine::Component::Transform* transform);
+    void setComponent(DeepsEngine::Component::Component* component) override;
 
     void onPositionXInputChange();
     void onPositionYInputChange();

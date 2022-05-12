@@ -12,8 +12,9 @@
 #include <QLineEdit>
 #include "Entity.h"
 #include "Component.h"
+#include "ComponentWidget.h"
 
-class TagComponentWidget: public QWidget {
+class TagComponentWidget: public QWidget, ComponentWidget {
 Q_OBJECT;
 public:
     explicit TagComponentWidget(QWidget *parent = nullptr);
@@ -25,7 +26,7 @@ private:
     QListWidgetItem* listWidgetItem;
 
 public slots:
-    void setTag(DeepsEngine::Component::Tag* tag);
+    void setComponent(DeepsEngine::Component::Component* component) override;
     void onTagInputChange();
     void setListWidgetItem(QListWidgetItem* listWidgetItem);
 };

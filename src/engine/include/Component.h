@@ -238,7 +238,7 @@ namespace DeepsEngine::Component {
         struct Light: public Component {
             Light() = default;
 
-            explicit Light(std::string type) {
+            Light(std::string type) {
                 if (type != "directional" && type != "point" && type != "spotlight") {
                     Logger::Error("Invalid light type: " + type);
                     exit(1);

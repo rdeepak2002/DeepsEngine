@@ -15,6 +15,7 @@
 #include "TagComponentWidget.h"
 #include "MeshFilterComponentWidget.h"
 #include "CameraComponentWidget.h"
+#include "LightComponentWidget.h"
 
 class InspectorWidget: public QWidget {
 Q_OBJECT;
@@ -30,6 +31,7 @@ private:
     TransformComponentWidget* transformComponentWidget;
     CameraComponentWidget* cameraComponentWidget;
     MeshFilterComponentWidget* meshFilterComponentWidget;
+    LightComponentWidget* lightComponentWidget;
     QListWidgetItem* listItem;
     void hideAllComponentWidgets();
     void refresh();

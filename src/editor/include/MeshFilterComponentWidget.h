@@ -12,8 +12,9 @@
 #include <QLabel>
 #include "Entity.h"
 #include "Component.h"
+#include "ComponentWidget.h"
 
-class MeshFilterComponentWidget: public QWidget {
+class MeshFilterComponentWidget: public QWidget, ComponentWidget {
 Q_OBJECT;
 public:
     explicit MeshFilterComponentWidget(QWidget *parent = nullptr);
@@ -23,7 +24,7 @@ private:
     DeepsEngine::Component::MeshFilter* meshFilterComponent;
 
 public slots:
-    void setMeshFilter(DeepsEngine::Component::MeshFilter* meshFilter);
+    void setComponent(DeepsEngine::Component::Component* component) override;
 };
 
 
