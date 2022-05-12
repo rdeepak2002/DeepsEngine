@@ -33,16 +33,16 @@ public:
     void deinit() override;
     void clear() override;
     void update() override;
+    unsigned int loadTexture(char const * path);
+private:
+    unsigned int diffuseMap, specularMap;
+    unsigned int VBO, cubeVAO, lightCubeVAO;
 
-    unsigned int VBO, cubeVAO;
-    unsigned int lightCubeVAO;
+    glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
+    glm::vec3 cameraPos;
 
     Shader* ourShader;
     Shader* lightingShader;
-private:
-    glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
-    unsigned int diffuseMap;
-    glm::vec3 cameraPos;
 };
 
 #endif //EXAMPLE_RENDERER_H
