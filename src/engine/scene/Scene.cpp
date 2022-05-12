@@ -66,6 +66,30 @@ namespace DeepsEngine {
         return arr;
     }
 
+    std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> Scene::GetLightEntities() {
+        // get all entities in the ecs that have a light component
+        auto entityHandles = registry.view<DeepsEngine::Component::Light>();
+        std::vector<DeepsEngine::Entity> directionalLights, pointLights, spotLights;
+
+        for (auto entityHandle : entityHandles) {
+            DeepsEngine::Entity entity = {entityHandle};
+
+            std::string lightType = entity.GetComponent<Component::Light>().type;
+
+            if (lightType == "directional") {
+                directionalLights.push_back(entity);
+            } else if (lightType == "point") {
+                pointLights.push_back(entity);
+            } else if (lightType == "spotlight") {
+                spotLights.push_back(entity);
+            } else {
+                Logger::Error("Invalid light type detected in Light component: " + lightType);
+            }
+        }
+
+        return {directionalLights, pointLights, spotLights};
+    }
+
     std::vector<DeepsEngine::Entity> Scene::GetScriptableEntities() {
         // get all entities in the ecs that have a Transform component
         auto entityHandles = registry.view<DeepsEngine::Component::LuaScript>();

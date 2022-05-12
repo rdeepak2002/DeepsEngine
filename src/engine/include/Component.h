@@ -191,6 +191,47 @@ namespace DeepsEngine::Component {
                 out << YAML::EndMap;
             }
         };
+
+        struct Material: public Component {
+            int diffuse; // index of diffuse texture
+            int specular; // index of specular texture
+            float shininess;
+        };
+
+        struct Light: public Component {
+            Light() = default;
+
+            explicit Light(std::string type) {
+                if (type != "directional" && type != "point" && type != "spotlight") {
+                    Logger::Error("Invalid light type: " + type);
+                    exit(1);
+                }
+
+                this->type = std::move(type);
+            }
+
+            Light(const std::string &type, const glm::vec3 &direction, float cutOff, float outerCutOff,
+                           const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular,
+                           float constant, float linear, float quadratic) : type(type), direction(direction),
+                                                                            cutOff(cutOff), outerCutOff(outerCutOff),
+                                                                            ambient(ambient), diffuse(diffuse),
+                                                                            specular(specular), constant(constant),
+                                                                            linear(linear), quadratic(quadratic) {}
+
+            std::string type;
+
+            glm::vec3 direction;
+            float cutOff;
+            float outerCutOff;
+
+            glm::vec3 ambient;
+            glm::vec3 diffuse;
+            glm::vec3 specular;
+
+            float constant;
+            float linear;
+            float quadratic;
+        };
     }
 
 #endif  // OPENGLCUBE_COMPONENTS_H

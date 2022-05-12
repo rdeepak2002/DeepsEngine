@@ -91,11 +91,11 @@ void OpenGLRenderer::initialize() {
 
     std::string shaderFolderName = "shaders";
 
-    ourShader = new Shader(
+    lightingShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("shader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("shader.frag").c_str());
 
-    lightingShader = new Shader(
+    lightCubeShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("lightingShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("lightingShader.frag").c_str());
 
@@ -128,9 +128,11 @@ void OpenGLRenderer::initialize() {
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
-    ourShader->use();
-    ourShader->setInt("material.diffuse", 0);
-    ourShader->setInt("material.specular", 1);
+    lightingShader->use();
+    int diffuseTextureId = diffuseMap - 1;
+    lightingShader->setInt("material.diffuse", diffuseTextureId);
+    int specularTextureId = specularMap - 1;
+    lightingShader->setInt("material.specular", specularTextureId);
 }
 
 void OpenGLRenderer::clear() {
@@ -145,89 +147,89 @@ void OpenGLRenderer::update() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // be sure to activate shader when setting uniforms/drawing objects
-    ourShader->use();
-    ourShader->setVec3("viewPos", cameraPos);
-    ourShader->setFloat("material.shininess", 32.0f);
-
-    // define current number of point lights
-    ourShader->setInt("numberOfDirLights", 1);
-    ourShader->setInt("numberOfPointLights", 4);
-    ourShader->setInt("numberOfSpotLights", 1);
-
-    // directional light
-    ourShader->setVec3("dirLights[0].direction", -0.2f, -1.0f, -0.3f);
-    ourShader->setVec3("dirLights[0].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("dirLights[0].diffuse", 0.4f, 0.4f, 0.4f);
-    ourShader->setVec3("dirLights[0].specular", 0.5f, 0.5f, 0.5f);
-    // point light 1
-    ourShader->setVec3("pointLights[0].position", pointLightPositions[0]);
-    ourShader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("pointLights[0].constant", 1.0f);
-    ourShader->setFloat("pointLights[0].linear", 0.09f);
-    ourShader->setFloat("pointLights[0].quadratic", 0.032f);
-    // point light 2
-    ourShader->setVec3("pointLights[1].position", pointLightPositions[1]);
-    ourShader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("pointLights[1].constant", 1.0f);
-    ourShader->setFloat("pointLights[1].linear", 0.09f);
-    ourShader->setFloat("pointLights[1].quadratic", 0.032f);
-    // point light 3
-    ourShader->setVec3("pointLights[2].position", pointLightPositions[2]);
-    ourShader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("pointLights[2].constant", 1.0f);
-    ourShader->setFloat("pointLights[2].linear", 0.09f);
-    ourShader->setFloat("pointLights[2].quadratic", 0.032f);
-    // point light 4
-    ourShader->setVec3("pointLights[3].position", pointLightPositions[3]);
-    ourShader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-    ourShader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("pointLights[3].constant", 1.0f);
-    ourShader->setFloat("pointLights[3].linear", 0.09f);
-    ourShader->setFloat("pointLights[3].quadratic", 0.032f);
-    // spotLight
-    ourShader->setVec3("spotLights[0].position", cameraPos);
-    ourShader->setVec3("spotLights[0].direction", cameraFront);
-    ourShader->setVec3("spotLights[0].ambient", 0.0f, 0.0f, 0.0f);
-    ourShader->setVec3("spotLights[0].diffuse", 1.0f, 1.0f, 1.0f);
-    ourShader->setVec3("spotLights[0].specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("spotLights[0].constant", 1.0f);
-    ourShader->setFloat("spotLights[0].linear", 0.09f);
-    ourShader->setFloat("spotLights[0].quadratic", 0.032f);
-    ourShader->setFloat("spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
-    ourShader->setFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
-
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
-    if (cameraEntities.size() > 0) {
-        // get main camera
+    if (!cameraEntities.empty()) {
+        // get main camera entity and its components
         std::unique_ptr<DeepsEngine::Entity> mainCameraEntity = std::make_unique<DeepsEngine::Entity>(cameraEntities.front());
         DeepsEngine::Component::Camera mainCameraComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Camera>();
         DeepsEngine::Component::Transform mainCameraTransformComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Transform>();
 
-        // get camera facing direction
-        cameraFront = mainCameraTransformComponent.front();
+        // get camera vectors
+        glm::vec3 cameraFront = mainCameraTransformComponent.front();
+        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
+        glm::vec3 cameraPos = glm::vec3(mainCameraTransformComponent.position.x, mainCameraTransformComponent.position.y, mainCameraTransformComponent.position.z);
 
-        // create transformations
+        // calculate projection matrix
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 projection    = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
-        glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f,  0.0f);
-        cameraPos.x = mainCameraTransformComponent.position.x;
-        cameraPos.y = mainCameraTransformComponent.position.y;
-        cameraPos.z = mainCameraTransformComponent.position.z;
+
+        // calculate view matrix
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
+        // be sure to activate shader when setting uniforms/drawing objects
+        lightingShader->use();
+        lightingShader->setVec3("viewPos", cameraPos);
+        lightingShader->setFloat("material.shininess", 32.0f);
+
+        // define current number of point lights
+        lightingShader->setInt("numberOfDirLights", 1);
+        lightingShader->setInt("numberOfPointLights", 4);
+        lightingShader->setInt("numberOfSpotLights", 1);
+
+        // directional light
+        lightingShader->setVec3("dirLights[0].direction", -0.2f, -1.0f, -0.3f);
+        lightingShader->setVec3("dirLights[0].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader->setVec3("dirLights[0].diffuse", 0.4f, 0.4f, 0.4f);
+        lightingShader->setVec3("dirLights[0].specular", 0.5f, 0.5f, 0.5f);
+        // point light 1
+        lightingShader->setVec3("pointLights[0].position", pointLightPositions[0]);
+        lightingShader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader->setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader->setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader->setFloat("pointLights[0].constant", 1.0f);
+        lightingShader->setFloat("pointLights[0].linear", 0.09f);
+        lightingShader->setFloat("pointLights[0].quadratic", 0.032f);
+        // point light 2
+        lightingShader->setVec3("pointLights[1].position", pointLightPositions[1]);
+        lightingShader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader->setFloat("pointLights[1].constant", 1.0f);
+        lightingShader->setFloat("pointLights[1].linear", 0.09f);
+        lightingShader->setFloat("pointLights[1].quadratic", 0.032f);
+        // point light 3
+        lightingShader->setVec3("pointLights[2].position", pointLightPositions[2]);
+        lightingShader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader->setFloat("pointLights[2].constant", 1.0f);
+        lightingShader->setFloat("pointLights[2].linear", 0.09f);
+        lightingShader->setFloat("pointLights[2].quadratic", 0.032f);
+        // point light 4
+        lightingShader->setVec3("pointLights[3].position", pointLightPositions[3]);
+        lightingShader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+        lightingShader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+        lightingShader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader->setFloat("pointLights[3].constant", 1.0f);
+        lightingShader->setFloat("pointLights[3].linear", 0.09f);
+        lightingShader->setFloat("pointLights[3].quadratic", 0.032f);
+        // spotLight
+        lightingShader->setVec3("spotLights[0].position", cameraPos);
+        lightingShader->setVec3("spotLights[0].direction", cameraFront);
+        lightingShader->setVec3("spotLights[0].ambient", 0.0f, 0.0f, 0.0f);
+        lightingShader->setVec3("spotLights[0].diffuse", 1.0f, 1.0f, 1.0f);
+        lightingShader->setVec3("spotLights[0].specular", 1.0f, 1.0f, 1.0f);
+        lightingShader->setFloat("spotLights[0].constant", 1.0f);
+        lightingShader->setFloat("spotLights[0].linear", 0.09f);
+        lightingShader->setFloat("spotLights[0].quadratic", 0.032f);
+        lightingShader->setFloat("spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
+        lightingShader->setFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
+
         // pass transformation matrices to the shader
-        ourShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-        ourShader->setMat4("view", view);
+        lightingShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+        lightingShader->setMat4("view", view);
 
         // get all entities with meshes
         for(auto entity : Application::getInstance().scene.GetDrawableEntities()) {
@@ -255,7 +257,7 @@ void OpenGLRenderer::update() {
             // Scale the model
             model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
-            ourShader->setMat4("model", model);
+            lightingShader->setMat4("model", model);
 
             // bind diffuse map
             glActiveTexture(GL_TEXTURE0);
@@ -270,9 +272,9 @@ void OpenGLRenderer::update() {
         }
 
         // also draw the lamp object(s)
-        lightingShader->use();
-        lightingShader->setMat4("projection", projection);
-        lightingShader->setMat4("view", view);
+        lightCubeShader->use();
+        lightCubeShader->setMat4("projection", projection);
+        lightCubeShader->setMat4("view", view);
 
         // we now draw as many light bulbs as we have point lights.
         glBindVertexArray(lightCubeVAO);
@@ -281,7 +283,7 @@ void OpenGLRenderer::update() {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, pointLightPositions[i]);
             model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-            lightingShader->setMat4("model", model);
+            lightCubeShader->setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
     }
