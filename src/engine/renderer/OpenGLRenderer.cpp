@@ -150,17 +150,16 @@ void OpenGLRenderer::update() {
     ourShader->setVec3("viewPos", cameraPos);
     ourShader->setFloat("material.shininess", 32.0f);
 
-    /*
-       Here we set all the uniforms for the 5/6 types of lights we have. We have to set them manually and index
-       the proper PointLight struct in the array to set each uniform variable. This can be done more code-friendly
-       by defining light types as classes and set their values in there, or by using a more efficient uniform approach
-       by using 'Uniform buffer objects', but that is something we'll discuss in the 'Advanced GLSL' tutorial.
-    */
+    // define current number of point lights
+    ourShader->setInt("numberOfDirLights", 1);
+    ourShader->setInt("numberOfPointLights", 4);
+    ourShader->setInt("numberOfSpotLights", 1);
+
     // directional light
-    ourShader->setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-    ourShader->setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-    ourShader->setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-    ourShader->setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+    ourShader->setVec3("dirLights[0].direction", -0.2f, -1.0f, -0.3f);
+    ourShader->setVec3("dirLights[0].ambient", 0.05f, 0.05f, 0.05f);
+    ourShader->setVec3("dirLights[0].diffuse", 0.4f, 0.4f, 0.4f);
+    ourShader->setVec3("dirLights[0].specular", 0.5f, 0.5f, 0.5f);
     // point light 1
     ourShader->setVec3("pointLights[0].position", pointLightPositions[0]);
     ourShader->setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
@@ -194,16 +193,16 @@ void OpenGLRenderer::update() {
     ourShader->setFloat("pointLights[3].linear", 0.09f);
     ourShader->setFloat("pointLights[3].quadratic", 0.032f);
     // spotLight
-    ourShader->setVec3("spotLight.position", cameraPos);
-    ourShader->setVec3("spotLight.direction", cameraFront);
-    ourShader->setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-    ourShader->setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
-    ourShader->setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-    ourShader->setFloat("spotLight.constant", 1.0f);
-    ourShader->setFloat("spotLight.linear", 0.09f);
-    ourShader->setFloat("spotLight.quadratic", 0.032f);
-    ourShader->setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-    ourShader->setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+    ourShader->setVec3("spotLights[0].position", cameraPos);
+    ourShader->setVec3("spotLights[0].direction", cameraFront);
+    ourShader->setVec3("spotLights[0].ambient", 0.0f, 0.0f, 0.0f);
+    ourShader->setVec3("spotLights[0].diffuse", 1.0f, 1.0f, 1.0f);
+    ourShader->setVec3("spotLights[0].specular", 1.0f, 1.0f, 1.0f);
+    ourShader->setFloat("spotLights[0].constant", 1.0f);
+    ourShader->setFloat("spotLights[0].linear", 0.09f);
+    ourShader->setFloat("spotLights[0].quadratic", 0.032f);
+    ourShader->setFloat("spotLights[0].cutOff", glm::cos(glm::radians(12.5f)));
+    ourShader->setFloat("spotLights[0].outerCutOff", glm::cos(glm::radians(15.0f)));
 
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
