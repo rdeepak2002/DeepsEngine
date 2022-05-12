@@ -266,6 +266,7 @@ void OpenGLRenderer::update() {
 
         // set the clear color to light blue ish
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+//        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // get camera facing direction
         glm::vec3 cameraFront = mainCameraTransformComponent.front();
