@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
+#include <QPushButton>
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
@@ -19,11 +20,13 @@ public:
     explicit LightComponentWidget(QWidget *parent = nullptr);
     ~LightComponentWidget();
 private:
-    QLabel* lightLabel;
+    void updateLightDropDownText();
+    QPushButton* lightTypeBtn;
     DeepsEngine::Component::Light* lightComponent;
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
+    void onLightTypeMenuClicked(QAction* action);
 };
 
 
