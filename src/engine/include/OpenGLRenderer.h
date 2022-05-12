@@ -34,14 +34,15 @@ public:
     void clear() override;
     void update() override;
 
-    unsigned int VBO, VAO;
-    unsigned int lightVAO;
-    unsigned int texture1, texture2;
+    unsigned int VBO, cubeVAO;
+    unsigned int lightCubeVAO;
 
     Shader* ourShader;
     Shader* lightingShader;
 private:
     glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
+    unsigned int diffuseMap;
+    glm::vec3 cameraPos;
 };
 
 #endif //EXAMPLE_RENDERER_H
