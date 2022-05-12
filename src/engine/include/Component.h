@@ -8,6 +8,7 @@
 #include <iostream>
 #include <filesystem>
 #include "Logger.h"
+#include "Application.h"
 
 #define SOL_ALL_SAFETIES_ON 1
 #include "sol/state.hpp"
@@ -196,9 +197,42 @@ namespace DeepsEngine::Component {
         };
 
         struct Material: public Component {
-            int diffuse; // index of diffuse texture
-            int specular; // index of specular texture
+            std::string diffuseTexturePath;
+            std::string specularTexturePath;
             float shininess;
+            unsigned int diffuse; // index of diffuse texture for OpenGL
+            unsigned int specular; // index of specular texture for OpenGL
+
+            Material(const std::string &diffuseTexturePath, const std::string &specularTexturePath, float shininess)
+                    : diffuseTexturePath(diffuseTexturePath), specularTexturePath(specularTexturePath),
+                      shininess(shininess) {
+                loadTextures();
+            }
+
+            Material(YAML::Node yamlData) {
+                this->diffuseTexturePath = yamlData["diffuseTexturePath"].as<std::string>();
+                this->specularTexturePath = yamlData["specularTexturePath"].as<std::string>();
+                this->shininess = yamlData["shininess"].as<float>();
+                loadTextures();
+            }
+
+            void loadTextures() {
+                std::string diffuseTextureAbsPath = Application::getInstance().getProjectPath().append(diffuseTexturePath);
+                std::string specularTextureAbsPath = Application::getInstance().getProjectPath().append(specularTexturePath);
+                diffuse = Application::getInstance().renderer->loadTexture(diffuseTextureAbsPath.c_str());
+                specular = Application::getInstance().renderer->loadTexture(specularTextureAbsPath.c_str());
+            }
+
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Material";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "diffuseTexturePath" << YAML::Value << diffuseTexturePath;
+                out << YAML::Key << "specularTexturePath" << YAML::Value << specularTexturePath;
+                out << YAML::Key << "shininess" << YAML::Value << std::to_string(shininess);
+
+                out << YAML::EndMap;
+            }
         };
 
         struct Light: public Component {

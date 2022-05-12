@@ -33,10 +33,10 @@ public:
     void deinit() override;
     void clear() override;
     void update() override;
-    unsigned int loadTexture(char const * path);
+    unsigned int loadTexture(char const * path) override;
 private:
-    unsigned int diffuseMap, specularMap;
     unsigned int VBO, cubeVAO, lightCubeVAO;
+    unsigned int missingTextureDiffuse, missingTextureSpecular;
 
     Shader* lightingShader;
     Shader* lightCubeShader;

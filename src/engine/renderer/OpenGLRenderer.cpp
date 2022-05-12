@@ -123,16 +123,11 @@ void OpenGLRenderer::initialize() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    diffuseMap = loadTexture(Application::getInstance().getProjectPath().append("src").append("textures").append("container2.png").c_str());
-    specularMap = loadTexture(Application::getInstance().getProjectPath().append("src").append("textures").append("container2_specular.png").c_str());
-
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    lightingShader->use();
-    int diffuseTextureId = diffuseMap - 1;
-    lightingShader->setInt("material.diffuse", diffuseTextureId);
-    int specularTextureId = specularMap - 1;
-    lightingShader->setInt("material.specular", specularTextureId);
+    // set unsigned texture
+    std::string missingTextureDiffuseFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture.png");
+    std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
+    missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
+    missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 }
 
 void OpenGLRenderer::clear() {
@@ -171,7 +166,6 @@ void OpenGLRenderer::update() {
         // be sure to activate shader when setting uniforms/drawing objects
         lightingShader->use();
         lightingShader->setVec3("viewPos", cameraPos);
-        lightingShader->setFloat("material.shininess", 32.0f);
 
         // define current number of point lights
         lightingShader->setInt("numberOfDirLights", 1);
@@ -239,6 +233,36 @@ void OpenGLRenderer::update() {
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;
 
+            // get diffuse and specular map from entity material
+            float materialShininess = 32.0f;
+
+            if (entity.HasComponent<DeepsEngine::Component::Material>()) {
+                unsigned int diffuseMap = entity.GetComponent<DeepsEngine::Component::Material>().diffuse;
+                unsigned int specularMap = entity.GetComponent<DeepsEngine::Component::Material>().specular;
+                materialShininess = entity.GetComponent<DeepsEngine::Component::Material>().shininess;
+
+                // bind diffuse map
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
+                // bind specular map
+                glActiveTexture(GL_TEXTURE1);
+                glBindTexture(GL_TEXTURE_2D, specularMap);
+            } else {
+                // bind diffuse map
+                glActiveTexture(GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_2D, missingTextureDiffuse);
+
+                // bind specular map
+                glActiveTexture(GL_TEXTURE1);
+                glBindTexture(GL_TEXTURE_2D, missingTextureSpecular);
+            }
+
+            // bind texture maps
+            lightingShader->setInt("material.diffuse", 0);
+            lightingShader->setInt("material.specular", 1);
+            lightingShader->setFloat("material.shininess", materialShininess);
+
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 
@@ -258,13 +282,6 @@ void OpenGLRenderer::update() {
             model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
             lightingShader->setMat4("model", model);
-
-            // bind diffuse map
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, diffuseMap);
-            // bind specular map
-            glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, specularMap);
 
             // render the cube
             glBindVertexArray(cubeVAO);

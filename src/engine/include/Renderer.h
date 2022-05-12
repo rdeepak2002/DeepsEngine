@@ -22,6 +22,9 @@ public:
     virtual void update() {
 
     }
+    virtual unsigned int loadTexture(char const * path) {
+
+    }
 };
 
 #endif //DEEPSENGINE_RENDERER_H

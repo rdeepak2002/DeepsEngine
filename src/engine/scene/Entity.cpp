@@ -38,6 +38,10 @@ namespace DeepsEngine {
             GetComponent<Component::LuaScript>().Serialize(out);
         }
 
+        if (HasComponent<Component::Material>()) {
+            GetComponent<Component::Material>().Serialize(out);
+        }
+
         out << YAML::EndMap;
     }
 
@@ -75,6 +79,11 @@ namespace DeepsEngine {
         if(entityYaml["LuaScript"]) {
             RemoveComponent<Component::LuaScript>();
             AddComponent<Component::LuaScript>(entityYaml["LuaScript"]);
+        }
+
+        if(entityYaml["Material"]) {
+            RemoveComponent<Component::Material>();
+            AddComponent<Component::Material>(entityYaml["Material"]);
         }
     }
 }

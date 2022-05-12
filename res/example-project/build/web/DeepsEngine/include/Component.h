@@ -8,6 +8,7 @@
 #include <iostream>
 #include <filesystem>
 #include "Logger.h"
+#include "Application.h"
 
 #define SOL_ALL_SAFETIES_ON 1
 #include "sol/state.hpp"
@@ -90,6 +91,9 @@ namespace DeepsEngine::Component {
             glm::vec3 right() {
                 glm::vec3 up = glm::vec3(0.0f, 1.0f,  0.0f);
                 return glm::normalize(glm::cross(front(), up));
+            }
+            glm::vec3 up() {
+                return glm::vec3(0.0f, 1.0f,  0.0f);
             }
             glm::vec3 position;
             glm::vec3 rotation;
@@ -190,6 +194,80 @@ namespace DeepsEngine::Component {
 
                 out << YAML::EndMap;
             }
+        };
+
+        struct Material: public Component {
+            std::string diffuseTexturePath;
+            std::string specularTexturePath;
+            float shininess;
+            unsigned int diffuse; // index of diffuse texture for OpenGL
+            unsigned int specular; // index of specular texture for OpenGL
+
+            Material(const std::string &diffuseTexturePath, const std::string &specularTexturePath, float shininess)
+                    : diffuseTexturePath(diffuseTexturePath), specularTexturePath(specularTexturePath),
+                      shininess(shininess) {
+                loadTextures();
+            }
+
+            Material(YAML::Node yamlData) {
+                this->diffuseTexturePath = yamlData["diffuseTexturePath"].as<std::string>();
+                this->specularTexturePath = yamlData["specularTexturePath"].as<std::string>();
+                this->shininess = yamlData["shininess"].as<float>();
+                loadTextures();
+            }
+
+            void loadTextures() {
+                std::string diffuseTextureAbsPath = Application::getInstance().getProjectPath().append(diffuseTexturePath);
+                std::string specularTextureAbsPath = Application::getInstance().getProjectPath().append(specularTexturePath);
+                diffuse = Application::getInstance().renderer->loadTexture(diffuseTextureAbsPath.c_str());
+                specular = Application::getInstance().renderer->loadTexture(specularTextureAbsPath.c_str());
+            }
+
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Material";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "diffuseTexturePath" << YAML::Value << diffuseTexturePath;
+                out << YAML::Key << "specularTexturePath" << YAML::Value << specularTexturePath;
+                out << YAML::Key << "shininess" << YAML::Value << std::to_string(shininess);
+
+                out << YAML::EndMap;
+            }
+        };
+
+        struct Light: public Component {
+            Light() = default;
+
+            explicit Light(std::string type) {
+                if (type != "directional" && type != "point" && type != "spotlight") {
+                    Logger::Error("Invalid light type: " + type);
+                    exit(1);
+                }
+
+                this->type = std::move(type);
+            }
+
+            Light(const std::string &type, const glm::vec3 &direction, float cutOff, float outerCutOff,
+                           const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular,
+                           float constant, float linear, float quadratic) : type(type), direction(direction),
+                                                                            cutOff(cutOff), outerCutOff(outerCutOff),
+                                                                            ambient(ambient), diffuse(diffuse),
+                                                                            specular(specular), constant(constant),
+                                                                            linear(linear), quadratic(quadratic) {}
+
+            std::string type;
+
+            glm::vec3 direction;
+            float cutOff;
+            float outerCutOff;
+
+            glm::vec3 ambient;
+            glm::vec3 diffuse;
+            glm::vec3 specular;
+
+            float constant;
+            float linear;
+            float quadratic;
         };
     }
 

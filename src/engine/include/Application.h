@@ -35,12 +35,12 @@ public:
     // timing
     float deltaTime = 0.0f;	// time between current frame and last frame
     float lastFrame = 0.0f;
+    std::unique_ptr<Renderer> renderer;
 private:
     Application() {
         renderer = std::make_unique<OpenGLRenderer>();
         window = std::make_unique<GLFWWindow>();
     }
-    std::unique_ptr<Renderer> renderer;
     std::unique_ptr<Window> window;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
     std::string projectPath;
