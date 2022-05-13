@@ -80,10 +80,18 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
     // inspector widget
     inspectorWidget = new InspectorWidget;
 
+    QScrollArea* inspectorWidgetScrollWrapper = new QScrollArea;
+    inspectorWidgetScrollWrapper->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff );
+    inspectorWidgetScrollWrapper->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded );
+    inspectorWidgetScrollWrapper->setWidgetResizable(true );
+    inspectorWidgetScrollWrapper->setWidget(inspectorWidget);
+    inspectorWidgetScrollWrapper->setMaximumWidth(330);
+    inspectorWidgetScrollWrapper->setMinimumWidth(330);
+
     // outer horizontal layout
     hLayout->addWidget(sceneViewWidget);
     hLayout->addLayout(vLayout);
-    hLayout->addWidget(inspectorWidget);
+    hLayout->addWidget(inspectorWidgetScrollWrapper);
 
     // add horizontal layout to main layout
     mainLayout->addLayout(hLayout);
