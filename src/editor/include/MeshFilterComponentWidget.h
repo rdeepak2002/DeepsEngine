@@ -14,7 +14,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class MeshFilterComponentWidget: public QWidget, ComponentWidget {
+class MeshFilterComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit MeshFilterComponentWidget(QWidget *parent = nullptr);
@@ -25,6 +25,10 @@ private:
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
+
+    std::string getName() override {
+        return "Mesh Filter";
+    }
 };
 
 

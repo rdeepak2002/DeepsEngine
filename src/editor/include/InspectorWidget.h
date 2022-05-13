@@ -33,6 +33,7 @@ private:
     MeshFilterComponentWidget* meshFilterComponentWidget;
     LightComponentWidget* lightComponentWidget;
     QListWidgetItem* listItem;
+    QList<ComponentWidget*> componentWidgets;
     void hideAllComponentWidgets();
     void refresh();
 

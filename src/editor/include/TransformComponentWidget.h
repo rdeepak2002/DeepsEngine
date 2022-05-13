@@ -13,7 +13,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class TransformComponentWidget: public QWidget, ComponentWidget {
+class TransformComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit TransformComponentWidget(QWidget *parent = nullptr);
@@ -51,6 +51,10 @@ public slots:
     void onScaleXInputChange();
     void onScaleYInputChange();
     void onScaleZInputChange();
+
+    std::string getName() override {
+        return "Transform";
+    }
 };
 
 

@@ -15,7 +15,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class LightComponentWidget: public QWidget, ComponentWidget {
+class LightComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit LightComponentWidget(QWidget *parent = nullptr);
@@ -81,6 +81,10 @@ public slots:
     void onConstantInputChange();
     void onLinearInputChange();
     void onQuadraticInputChange();
+
+    std::string getName() override {
+        return "Light";
+    }
 };
 
 

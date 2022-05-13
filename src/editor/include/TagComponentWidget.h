@@ -14,7 +14,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class TagComponentWidget: public QWidget, ComponentWidget {
+class TagComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit TagComponentWidget(QWidget *parent = nullptr);
@@ -27,6 +27,9 @@ private:
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
+    std::string getName() override {
+        return "Tag";
+    }
     void onTagInputChange();
     void setListWidgetItem(QListWidgetItem* listWidgetItem);
 };

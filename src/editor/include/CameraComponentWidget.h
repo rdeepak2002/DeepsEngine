@@ -13,7 +13,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class CameraComponentWidget: public QWidget, ComponentWidget {
+class CameraComponentWidget: public ComponentWidget {
     Q_OBJECT;
 public:
     explicit CameraComponentWidget(QWidget *parent = nullptr);
@@ -30,6 +30,9 @@ public slots:
     void onFovInputChange();
     void onZNearInputChange();
     void onZFarInputChange();
+    std::string getName() override {
+        return "Camera";
+    }
 };
 
 

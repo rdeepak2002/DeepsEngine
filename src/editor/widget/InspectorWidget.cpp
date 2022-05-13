@@ -45,27 +45,29 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     removeEntityButton->setVisible(false);
     connect(removeEntityButton, SIGNAL(clicked()), this, SLOT(onRemoveEntityButtonClicked()));
 
+    // add component widgets to be iterated through
+    componentWidgets.append(tagComponentWidget);
+    componentWidgets.append(transformComponentWidget);
+    componentWidgets.append(cameraComponentWidget);
+    componentWidgets.append(meshFilterComponentWidget);
+    componentWidgets.append(lightComponentWidget);
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(panelTitle);
-    mainLayout->addWidget(tagComponentWidget);
-    mainLayout->addWidget(transformComponentWidget);
-    mainLayout->addWidget(cameraComponentWidget);
-    mainLayout->addWidget(meshFilterComponentWidget);
-    mainLayout->addWidget(lightComponentWidget);
+    for (ComponentWidget* componentWidget : componentWidgets) {
+        mainLayout->addWidget(componentWidget);
+    }
     mainLayout->addWidget(addComponentButton);
     mainLayout->addWidget(removeEntityButton);
     setLayout(mainLayout);
 }
 
 InspectorWidget::~InspectorWidget() {
-    delete addComponentButton;
-    delete removeEntityButton;
-    delete tagComponentWidget;
-    delete transformComponentWidget;
-    delete cameraComponentWidget;
-    delete meshFilterComponentWidget;
+    for (ComponentWidget* componentWidget : componentWidgets) {
+        delete componentWidget;
+    }
 }
 
 void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
@@ -84,26 +86,9 @@ void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetIt
 }
 
 void InspectorWidget::hideAllComponentWidgets() {
-    // add component button
-    addComponentButton->setVisible(false);
-
-    // remove entity button
-    removeEntityButton->setVisible(false);
-
-    // tag widget
-    tagComponentWidget->setVisible(false);
-
-    // transform widget
-    transformComponentWidget->setVisible(false);
-
-    // camera widget
-    cameraComponentWidget->setVisible(false);
-
-    // mesh filter widget
-    meshFilterComponentWidget->setVisible(false);
-
-    // light component widget
-    lightComponentWidget->setVisible(false);
+    for (ComponentWidget* componentWidget : componentWidgets) {
+        componentWidget->setVisible(false);
+    }
 }
 
 void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
