@@ -333,13 +333,16 @@ void OpenGLRenderer::update() {
 
         // we now draw as many light bulbs as we have point lights.
         glBindVertexArray(lightCubeVAO);
-        for (DeepsEngine::Entity entity : directionalLights) {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
-            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-            lightCubeShader->setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
+        // don't render directional light due to how it behaves
+        // TODO: draw gizmo for directional light
+//        for (DeepsEngine::Entity entity : directionalLights) {
+//            glm::mat4 model = glm::mat4(1.0f);
+//            model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
+//            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+//            lightCubeShader->setMat4("model", model);
+//            glDrawArrays(GL_TRIANGLES, 0, 36);
+//        }
+        // TODO: draw gizmo for point light
         for (DeepsEngine::Entity entity : pointLights) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
@@ -347,6 +350,7 @@ void OpenGLRenderer::update() {
             lightCubeShader->setMat4("model", model);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+        // TODO: draw gizmo for spot light
         for (DeepsEngine::Entity entity : spotLights) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);

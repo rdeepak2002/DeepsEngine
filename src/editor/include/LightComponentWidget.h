@@ -43,6 +43,10 @@ private:
     QLineEdit* cutOffInput;
     QLineEdit* outerCutOffInput;
 
+    QLineEdit* constantInput;
+    QLineEdit* linearInput;
+    QLineEdit* quadraticInput;
+
     DeepsEngine::Component::Light* lightComponent;
 
 public slots:
@@ -67,6 +71,10 @@ public slots:
     void onSpecularRInputChange();
     void onSpecularGInputChange();
     void onSpecularBInputChange();
+
+    void onConstantInputChange();
+    void onLinearInputChange();
+    void onQuadraticInputChange();
 };
 
 

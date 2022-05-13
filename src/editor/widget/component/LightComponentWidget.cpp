@@ -91,6 +91,24 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     outerCutOffInput->setPlaceholderText("outer cut off");
     connect(outerCutOffInput, SIGNAL(textChanged(const QString &)), this, SLOT(onOuterCutOffInputChange()));
 
+    // constant input
+    constantInput = new QLineEdit;
+    constantInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    constantInput->setPlaceholderText("constant");
+    connect(constantInput, SIGNAL(textChanged(const QString &)), this, SLOT(onConstantInputChange()));
+
+    // linear input
+    linearInput = new QLineEdit;
+    linearInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    linearInput->setPlaceholderText("linear");
+    connect(linearInput, SIGNAL(textChanged(const QString &)), this, SLOT(onLinearInputChange()));
+
+    // quadratic input
+    quadraticInput = new QLineEdit;
+    quadraticInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
+    quadraticInput->setPlaceholderText("quadratic");
+    connect(linearInput, SIGNAL(textChanged(const QString &)), this, SLOT(onQuadraticInputChange()));
+
     // dropdown to select type of light
     QMenu* lightTypeMenu = new QMenu;
     lightTypeMenu->addAction("Directional");
@@ -154,6 +172,12 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     mainLayout->addLayout(diffuseInputFieldsGroup);
     mainLayout->addWidget(new QLabel("Specular"));
     mainLayout->addLayout(specularInputFieldsGroup);
+    mainLayout->addWidget(new QLabel("Constant"));
+    mainLayout->addWidget(constantInput);
+    mainLayout->addWidget(new QLabel("Linear"));
+    mainLayout->addWidget(linearInput);
+    mainLayout->addWidget(new QLabel("Quadratic"));
+    mainLayout->addWidget(quadraticInput);
     setLayout(mainLayout);
 }
 
@@ -185,6 +209,10 @@ void LightComponentWidget::setComponent(DeepsEngine::Component::Component *compo
         specularRInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.x)));
         specularGInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.y)));
         specularBInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.z)));
+
+        constantInput->setText(QString::fromStdString(std::to_string(lightComponent->constant)));
+        linearInput->setText(QString::fromStdString(std::to_string(lightComponent->linear)));
+        quadraticInput->setText(QString::fromStdString(std::to_string(lightComponent->quadratic)));
     }
 }
 
@@ -269,3 +297,14 @@ void LightComponentWidget::onSpecularBInputChange() {
     lightComponent->specular.z = specularBInput->text().toFloat();
 }
 
+void LightComponentWidget::onConstantInputChange() {
+    lightComponent->constant = constantInput->text().toFloat();
+}
+
+void LightComponentWidget::onLinearInputChange() {
+    lightComponent->linear = linearInput->text().toFloat();
+}
+
+void LightComponentWidget::onQuadraticInputChange() {
+    lightComponent->quadratic = quadraticInput->text().toFloat();
+}
