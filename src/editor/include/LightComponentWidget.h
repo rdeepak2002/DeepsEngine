@@ -24,10 +24,6 @@ private:
     void updateLightDropDownText();
     QPushButton* lightTypeBtn;
 
-    QLineEdit* directionXInput;
-    QLineEdit* directionYInput;
-    QLineEdit* directionZInput;
-
     QLineEdit* ambientRInput;
     QLineEdit* ambientGInput;
     QLineEdit* ambientBInput;
@@ -52,10 +48,6 @@ private:
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
     void onLightTypeMenuClicked(QAction* action);
-
-    void onDirectionXInputChange();
-    void onDirectionYInputChange();
-    void onDirectionZInputChange();
 
     void onCutOffInputChange();
     void onOuterCutOffInputChange();

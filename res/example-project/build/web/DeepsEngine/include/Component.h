@@ -244,7 +244,6 @@ namespace DeepsEngine::Component {
                     exit(1);
                 }
 
-                direction = glm::vec3(0,0,0);
                 cutOff = 0.0f;
                 outerCutOff = 0.0f;
 
@@ -259,9 +258,9 @@ namespace DeepsEngine::Component {
                 this->type = std::move(type);
             }
 
-            Light(const std::string &type, const glm::vec3 &direction, float cutOff, float outerCutOff,
+            Light(const std::string &type, float cutOff, float outerCutOff,
                            const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular,
-                           float constant, float linear, float quadratic) : type(type), direction(direction),
+                           float constant, float linear, float quadratic) : type(type),
                                                                             cutOff(cutOff), outerCutOff(outerCutOff),
                                                                             ambient(ambient), diffuse(diffuse),
                                                                             specular(specular), constant(constant),
@@ -270,7 +269,6 @@ namespace DeepsEngine::Component {
             Light(YAML::Node yamlData) {
                 this->type = yamlData["type"].as<std::string>();
 
-                this->direction = yamlToGlmVec3(yamlData["direction"]);
                 this->cutOff = yamlData["cutOff"].as<float>();
                 this->outerCutOff = yamlData["outerCutOff"].as<float>();
 
@@ -285,7 +283,6 @@ namespace DeepsEngine::Component {
 
             std::string type;
 
-            glm::vec3 direction;
             float cutOff;
             float outerCutOff;
 
@@ -303,8 +300,6 @@ namespace DeepsEngine::Component {
 
                 out << YAML::Key << "type" << YAML::Value << type;
 
-                out << YAML::Key << "direction" << YAML::Value;
-                glmVec3ToYaml(out, direction);
                 out << YAML::Key << "cutOff" << YAML::Value << std::to_string(cutOff);
                 out << YAML::Key << "outerCutOff" << YAML::Value << std::to_string(outerCutOff);
 

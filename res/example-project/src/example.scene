@@ -1,6 +1,6 @@
 Scene: example-scene
 Entities:
-  - Entity: 1
+  - Entity: 7
     Tag:
       tag: Point Light 1
     Transform:
@@ -18,10 +18,6 @@ Entities:
         z: 1.000000
     Light:
       type: point
-      direction:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
       cutOff: 0.000000
       outerCutOff: 0.000000
       ambient:
@@ -39,14 +35,14 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 2
+  - Entity: 6
     Tag:
       tag: Point Light 2
     Transform:
       position:
         x: 2.300000
-        y: -3.3000
-        z: -4.0000
+        y: -3.300000
+        z: -4.000000
       rotation:
         x: 0.000000
         y: 0.000000
@@ -57,10 +53,6 @@ Entities:
         z: 1.000000
     Light:
       type: point
-      direction:
-        x: -4.000
-        y: 2.0000
-        z: -12.00
       cutOff: 0.000000
       outerCutOff: 0.000000
       ambient:
@@ -78,14 +70,14 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 3
+  - Entity: 5
     Tag:
       tag: Point Light 3
     Transform:
       position:
-        x: -4.000
-        y: 2.0000
-        z: -12.00
+        x: -4.000000
+        y: 2.000000
+        z: -12.000000
       rotation:
         x: 0.000000
         y: 0.000000
@@ -96,10 +88,6 @@ Entities:
         z: 1.000000
     Light:
       type: point
-      direction:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
       cutOff: 0.000000
       outerCutOff: 0.000000
       ambient:
@@ -124,7 +112,7 @@ Entities:
       position:
         x: 0.000000
         y: 0.000000
-        z: -3.000
+        z: -3.000000
       rotation:
         x: 0.000000
         y: 0.000000
@@ -135,10 +123,6 @@ Entities:
         z: 1.000000
     Light:
       type: point
-      direction:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
       cutOff: 0.000000
       outerCutOff: 0.000000
       ambient:
@@ -156,7 +140,7 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 1048579
+  - Entity: 3
     Tag:
       tag: Box
     Transform:
@@ -178,7 +162,7 @@ Entities:
       diffuseTexturePath: src/textures/container2.png
       specularTexturePath: src/textures/container2_specular.png
       shininess: 32.000000
-  - Entity: 1048578
+  - Entity: 2
     Tag:
       tag: Spinning Cube
     Transform:
@@ -188,7 +172,7 @@ Entities:
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 108.052025
+        y: 4.540003
         z: 0.000000
       scale:
         x: 1.000000
@@ -198,17 +182,17 @@ Entities:
       mesh: cube
     LuaScript:
       scriptPath: src/scripts/script.lua
-  - Entity: 1048577
+  - Entity: 1
     Tag:
       tag: Scene Camera
     Transform:
       position:
-        x: -0.100680
-        y: 1.026212
-        z: 5.369753
+        x: 1.076203
+        y: 2.114950
+        z: 4.788005
       rotation:
-        x: -0.072193
-        y: -1.568805
+        x: -0.305883
+        y: -1.751495
         z: 0.000000
       scale:
         x: 1.000000
@@ -222,10 +206,6 @@ Entities:
       scriptPath: src/scripts/scene-camera.lua
     Light:
       type: spotlight
-      direction:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
       cutOff: 12.500000
       outerCutOff: 15.000000
       ambient:
@@ -243,7 +223,7 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.000000
-  - Entity: 1048576
+  - Entity: 0
     Tag:
       tag: Directional Light (Sun)
     Transform:
@@ -261,10 +241,6 @@ Entities:
         z: 1.000000
     Light:
       type: directional
-      direction:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
       cutOff: 0.000000
       outerCutOff: 0.000000
       ambient:

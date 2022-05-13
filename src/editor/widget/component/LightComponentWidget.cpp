@@ -7,24 +7,6 @@
 #include <QAction>
 
 LightComponentWidget::LightComponentWidget(QWidget *parent) {
-    // direction x input
-    directionXInput = new QLineEdit;
-    directionXInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
-    directionXInput->setPlaceholderText("x");
-    connect(directionXInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDirectionXInputChange()));
-
-    // direction y input
-    directionYInput = new QLineEdit;
-    directionYInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
-    directionYInput->setPlaceholderText("y");
-    connect(directionYInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDirectionYInputChange()));
-
-    // direction z input
-    directionZInput = new QLineEdit;
-    directionZInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
-    directionZInput->setPlaceholderText("z");
-    connect(directionZInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDirectionZInputChange()));
-
     // ambient r input
     ambientRInput = new QLineEdit;
     ambientRInput->setValidator(new QDoubleValidator(0, 1, 3, this));
@@ -118,15 +100,6 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     lightTypeBtn = new QPushButton("Light Type");
     lightTypeBtn->setMenu(lightTypeMenu);
 
-    // input fields for direction
-    QHBoxLayout* directionInputFieldsGroup = new QHBoxLayout;
-    directionInputFieldsGroup->addWidget(new QLabel("x"));
-    directionInputFieldsGroup->addWidget(directionXInput);
-    directionInputFieldsGroup->addWidget(new QLabel("y"));
-    directionInputFieldsGroup->addWidget(directionYInput);
-    directionInputFieldsGroup->addWidget(new QLabel("z"));
-    directionInputFieldsGroup->addWidget(directionZInput);
-
     // input fields for ambient
     QHBoxLayout* ambientInputFieldsGroup = new QHBoxLayout;
     ambientInputFieldsGroup->addWidget(new QLabel("r"));
@@ -160,8 +133,6 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(new QLabel("Type"));
     mainLayout->addWidget(lightTypeBtn);
-    mainLayout->addWidget(new QLabel("Direction"));
-    mainLayout->addLayout(directionInputFieldsGroup);
     mainLayout->addWidget(new QLabel("Cut Off"));
     mainLayout->addWidget(cutOffInput);
     mainLayout->addWidget(new QLabel("Outer Cut Off"));
@@ -190,10 +161,6 @@ void LightComponentWidget::setComponent(DeepsEngine::Component::Component *compo
 
     if (lightComponent) {
         updateLightDropDownText();
-
-        directionXInput->setText(QString::fromStdString(std::to_string(lightComponent->direction.x)));
-        directionYInput->setText(QString::fromStdString(std::to_string(lightComponent->direction.y)));
-        directionZInput->setText(QString::fromStdString(std::to_string(lightComponent->direction.z)));
 
         cutOffInput->setText(QString::fromStdString(std::to_string(lightComponent->cutOff)));
         outerCutOffInput->setText(QString::fromStdString(std::to_string(lightComponent->outerCutOff)));
@@ -239,18 +206,6 @@ void LightComponentWidget::updateLightDropDownText() {
         lightType[0] = toupper(lightType[0]);
     }
     lightTypeBtn->setText(QString::fromStdString(lightType));
-}
-
-void LightComponentWidget::onDirectionXInputChange() {
-    lightComponent->direction.x = directionXInput->text().toFloat();
-}
-
-void LightComponentWidget::onDirectionYInputChange() {
-    lightComponent->direction.y = directionYInput->text().toFloat();
-}
-
-void LightComponentWidget::onDirectionZInputChange() {
-    lightComponent->direction.z = directionZInput->text().toFloat();
 }
 
 void LightComponentWidget::onCutOffInputChange() {
