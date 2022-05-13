@@ -127,29 +127,77 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     specularInputFieldsGroup->addWidget(new QLabel("b"));
     specularInputFieldsGroup->addWidget(specularBInput);
 
+    // group fields together
+    lightTypeGroup = new QWidget;
+    QVBoxLayout* lightTypeGroupLayout = new QVBoxLayout;
+    lightTypeGroupLayout->addWidget(new QLabel("Type"));
+    lightTypeGroupLayout->addWidget(lightTypeBtn);
+    lightTypeGroup->setLayout(lightTypeGroupLayout);
+
+    cutOffGroup = new QWidget;
+    QVBoxLayout* cutOffGroupLayout = new QVBoxLayout;
+    cutOffGroupLayout->addWidget(new QLabel("Cut Off"));
+    cutOffGroupLayout->addWidget(cutOffInput);
+    cutOffGroup->setLayout(cutOffGroupLayout);
+
+    outerCutOffGroup = new QWidget;
+    QVBoxLayout* outerCutOffGroupLayout = new QVBoxLayout;
+    outerCutOffGroupLayout->addWidget(new QLabel("Outer Cut Off"));
+    outerCutOffGroupLayout->addWidget(outerCutOffInput);
+    outerCutOffGroup->setLayout(outerCutOffGroupLayout);
+
+    ambientGroup = new QWidget;
+    QVBoxLayout* ambientGroupLayout = new QVBoxLayout;
+    ambientGroupLayout->addWidget(new QLabel("Ambient"));
+    ambientGroupLayout->addLayout(ambientInputFieldsGroup);
+    ambientGroup->setLayout(ambientGroupLayout);
+
+    diffuseGroup = new QWidget;
+    QVBoxLayout* diffuseGroupLayout = new QVBoxLayout;
+    diffuseGroupLayout->addWidget(new QLabel("Diffuse"));
+    diffuseGroupLayout->addLayout(diffuseInputFieldsGroup);
+    diffuseGroup->setLayout(diffuseGroupLayout);
+
+    specularGroup = new QWidget;
+    QVBoxLayout* specularGroupLayout = new QVBoxLayout;
+    specularGroupLayout->addWidget(new QLabel("Specular"));
+    specularGroupLayout->addLayout(specularInputFieldsGroup);
+    specularGroup->setLayout(specularGroupLayout);
+
+    constantGroup = new QWidget;
+    QVBoxLayout* constantGroupLayout = new QVBoxLayout;
+    constantGroupLayout->addWidget(new QLabel("Constant"));
+    constantGroupLayout->addWidget(constantInput);
+    constantGroup->setLayout(constantGroupLayout);
+
+    linearGroup = new QWidget;
+    QVBoxLayout* linearGroupLayout = new QVBoxLayout;
+    linearGroupLayout->addWidget(new QLabel("Linear"));
+    linearGroupLayout->addWidget(linearInput);
+    linearGroup->setLayout(linearGroupLayout);
+
+    quadraticGroup = new QWidget;
+    QVBoxLayout* quadraticGroupLayout = new QVBoxLayout;
+    quadraticGroupLayout->addWidget(new QLabel("Quadratic"));
+    quadraticGroupLayout->addWidget(quadraticInput);
+    quadraticGroup->setLayout(quadraticGroupLayout);
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(new QLabel("Light"));
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(new QLabel("Type"));
-    mainLayout->addWidget(lightTypeBtn);
-    mainLayout->addWidget(new QLabel("Cut Off"));
-    mainLayout->addWidget(cutOffInput);
-    mainLayout->addWidget(new QLabel("Outer Cut Off"));
-    mainLayout->addWidget(outerCutOffInput);
-    mainLayout->addWidget(new QLabel("Ambient"));
-    mainLayout->addLayout(ambientInputFieldsGroup);
-    mainLayout->addWidget(new QLabel("Diffuse"));
-    mainLayout->addLayout(diffuseInputFieldsGroup);
-    mainLayout->addWidget(new QLabel("Specular"));
-    mainLayout->addLayout(specularInputFieldsGroup);
-    mainLayout->addWidget(new QLabel("Constant"));
-    mainLayout->addWidget(constantInput);
-    mainLayout->addWidget(new QLabel("Linear"));
-    mainLayout->addWidget(linearInput);
-    mainLayout->addWidget(new QLabel("Quadratic"));
-    mainLayout->addWidget(quadraticInput);
+    mainLayout->addWidget(lightTypeGroup);
+    mainLayout->addWidget(cutOffGroup);
+    mainLayout->addWidget(outerCutOffGroup);
+    mainLayout->addWidget(ambientGroup);
+    mainLayout->addWidget(diffuseGroup);
+    mainLayout->addWidget(specularGroup);
+    mainLayout->addWidget(constantGroup);
+    mainLayout->addWidget(linearGroup);
+    mainLayout->addWidget(quadraticGroup);
     setLayout(mainLayout);
+
+    hideAllLightConfigOptions();
 }
 
 LightComponentWidget::~LightComponentWidget() {
@@ -158,6 +206,8 @@ LightComponentWidget::~LightComponentWidget() {
 
 void LightComponentWidget::setComponent(DeepsEngine::Component::Component *component) {
     lightComponent = dynamic_cast<DeepsEngine::Component::Light*>(component);
+
+    hideAllLightConfigOptions();
 
     if (lightComponent) {
         updateLightDropDownText();
@@ -180,10 +230,14 @@ void LightComponentWidget::setComponent(DeepsEngine::Component::Component *compo
         constantInput->setText(QString::fromStdString(std::to_string(lightComponent->constant)));
         linearInput->setText(QString::fromStdString(std::to_string(lightComponent->linear)));
         quadraticInput->setText(QString::fromStdString(std::to_string(lightComponent->quadratic)));
+
+        showNecessaryLightConfigOptions();
     }
 }
 
 void LightComponentWidget::onLightTypeMenuClicked(QAction *action) {
+    hideAllLightConfigOptions();
+
     // get name of selected action from drop down menu
     std::string lightTypeName = action->text().toStdString();
 
@@ -201,10 +255,13 @@ void LightComponentWidget::onLightTypeMenuClicked(QAction *action) {
 }
 
 void LightComponentWidget::updateLightDropDownText() {
+    showNecessaryLightConfigOptions();
+
     std::string lightType = lightComponent->type;
     if (!lightType.empty()) {
         lightType[0] = toupper(lightType[0]);
     }
+
     lightTypeBtn->setText(QString::fromStdString(lightType));
 }
 
@@ -262,4 +319,48 @@ void LightComponentWidget::onLinearInputChange() {
 
 void LightComponentWidget::onQuadraticInputChange() {
     lightComponent->quadratic = quadraticInput->text().toFloat();
+}
+
+void LightComponentWidget::hideAllLightConfigOptions() {
+    ambientGroup->setVisible(false);
+    diffuseGroup->setVisible(false);
+    specularGroup->setVisible(false);
+
+    constantGroup->setVisible(false);
+    linearGroup->setVisible(false);
+    quadraticGroup->setVisible(false);
+
+    cutOffGroup->setVisible(false);
+    outerCutOffGroup->setVisible(false);
+}
+
+void LightComponentWidget::showNecessaryLightConfigOptions() {
+    if (!lightComponent) {
+        return;
+    }
+
+    if (lightComponent->type == "directional") {
+        ambientGroup->setVisible(true);
+        diffuseGroup->setVisible(true);
+        specularGroup->setVisible(true);
+    } else if (lightComponent->type == "point") {
+        ambientGroup->setVisible(true);
+        diffuseGroup->setVisible(true);
+        specularGroup->setVisible(true);
+
+        constantGroup->setVisible(true);
+        linearGroup->setVisible(true);
+        quadraticGroup->setVisible(true);
+    } else if (lightComponent->type == "spotlight") {
+        ambientGroup->setVisible(true);
+        diffuseGroup->setVisible(true);
+        specularGroup->setVisible(true);
+
+        constantGroup->setVisible(true);
+        linearGroup->setVisible(true);
+        quadraticGroup->setVisible(true);
+
+        cutOffGroup->setVisible(true);
+        outerCutOffGroup->setVisible(true);
+    }
 }

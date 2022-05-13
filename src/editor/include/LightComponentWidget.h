@@ -22,6 +22,20 @@ public:
     ~LightComponentWidget();
 private:
     void updateLightDropDownText();
+    void hideAllLightConfigOptions();
+    void showNecessaryLightConfigOptions();
+
+    // field groups to easily make visible and invisible
+    QWidget* lightTypeGroup;
+    QWidget* cutOffGroup;
+    QWidget* outerCutOffGroup;
+    QWidget* ambientGroup;
+    QWidget* diffuseGroup;
+    QWidget* specularGroup;
+    QWidget* constantGroup;
+    QWidget* linearGroup;
+    QWidget* quadraticGroup;
+
     QPushButton* lightTypeBtn;
 
     QLineEdit* ambientRInput;
