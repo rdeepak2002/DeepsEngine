@@ -42,6 +42,10 @@ namespace DeepsEngine {
             GetComponent<Component::Material>().Serialize(out);
         }
 
+        if (HasComponent<Component::Light>()) {
+            GetComponent<Component::Light>().Serialize(out);
+        }
+
         out << YAML::EndMap;
     }
 
@@ -84,6 +88,11 @@ namespace DeepsEngine {
         if(entityYaml["Material"]) {
             RemoveComponent<Component::Material>();
             AddComponent<Component::Material>(entityYaml["Material"]);
+        }
+
+        if(entityYaml["Light"]) {
+            RemoveComponent<Component::Light>();
+            AddComponent<Component::Light>(entityYaml["Light"]);
         }
     }
 }

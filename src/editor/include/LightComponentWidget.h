@@ -10,6 +10,7 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QPushButton>
+#include <QLineEdit>
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
@@ -22,11 +23,34 @@ public:
 private:
     void updateLightDropDownText();
     QPushButton* lightTypeBtn;
+
+    QLineEdit* directionXInput;
+    QLineEdit* directionYInput;
+    QLineEdit* directionZInput;
+
+    QLineEdit* ambientRInput;
+    QLineEdit* ambientGInput;
+    QLineEdit* ambientBInput;
+
+    QLineEdit* cutOffInput;
+    QLineEdit* outerCutOffInput;
+
     DeepsEngine::Component::Light* lightComponent;
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
     void onLightTypeMenuClicked(QAction* action);
+
+    void onDirectionXInputChange();
+    void onDirectionYInputChange();
+    void onDirectionZInputChange();
+
+    void onCutOffInputChange();
+    void onOuterCutOffInputChange();
+
+    void onAmbientRInputChange();
+    void onAmbientGInputChange();
+    void onAmbientBInputChange();
 };
 
 
