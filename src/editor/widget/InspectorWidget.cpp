@@ -17,7 +17,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     // TODO: make all these component widgets extend a common class so you can just iterate through vector for this
 
     // tag widget
-    tagComponentWidget = new TagComponentWidget;
+    tagComponentWidget = new TagComponentWidget(this);
     tagComponentWidget->setVisible(false);
 
     // transform widget
@@ -141,7 +141,6 @@ void InspectorWidget::refresh() {
 
         // show tag of entity
         if (entitySelected->HasComponent<DeepsEngine::Component::Tag>()) {
-            tagComponentWidget->setListWidgetItem(listItem);
             tagComponentWidget->setVisible(true);
             DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
             tagComponentWidget->setComponent(tagComponent);

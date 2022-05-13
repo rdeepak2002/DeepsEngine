@@ -17,12 +17,15 @@
 #include "CameraComponentWidget.h"
 #include "LightComponentWidget.h"
 
-class InspectorWidget: public QWidget {
+class InspectorWidget: public QWidget, public TagComponentChangeListener {
 Q_OBJECT;
 
 public:
     explicit InspectorWidget(QWidget *parent = nullptr);
     ~InspectorWidget();
+    void onTagComponentChange(std::string newText) override {
+        this->listItem->setText(QString::fromStdString(newText));
+    }
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QPushButton* addComponentButton;

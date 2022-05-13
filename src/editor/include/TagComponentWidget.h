@@ -13,6 +13,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
+#include "TagComponentChangeListener.h"
 
 class TagComponentWidget: public ComponentWidget {
 Q_OBJECT;
@@ -23,7 +24,7 @@ private:
     DeepsEngine::Component::Tag* tagComponent;
     // inputs
     QLineEdit* tagInput;
-    QListWidgetItem* listWidgetItem;
+    TagComponentChangeListener* tagComponentChangeListener;
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
@@ -31,7 +32,6 @@ public slots:
         return "Tag";
     }
     void onTagInputChange();
-    void setListWidgetItem(QListWidgetItem* listWidgetItem);
 };
 
 #endif //EDITOR_TAGCOMPONENTWIDGET_H
