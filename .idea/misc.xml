@@ -9,6 +9,7 @@
       <file path="$PROJECT_DIR$/res/example-project/build/web/build" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/emsdk" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/vcpkg" />
+      <file path="$PROJECT_DIR$/res/example-project/build/web/web-library" />
       <file path="$PROJECT_DIR$/src/engine/include/KHR" />
       <file path="$PROJECT_DIR$/src/engine/include/entt" />
       <file path="$PROJECT_DIR$/src/engine/include/glad" />

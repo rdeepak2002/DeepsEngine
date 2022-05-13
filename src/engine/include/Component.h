@@ -238,26 +238,51 @@ namespace DeepsEngine::Component {
         struct Light: public Component {
             Light() = default;
 
-            explicit Light(std::string type) {
+            Light(std::string type) {
                 if (type != "directional" && type != "point" && type != "spotlight") {
                     Logger::Error("Invalid light type: " + type);
                     exit(1);
                 }
 
+                cutOff = 0.0f;
+                outerCutOff = 0.0f;
+
+                ambient = glm::vec3(0,0,0);
+                diffuse = glm::vec3(0,0,0);
+                specular = glm::vec3(0,0,0);
+
+                constant = 0.0f;
+                linear = 0.0f;
+                quadratic = 0.0f;
+
                 this->type = std::move(type);
             }
 
-            Light(const std::string &type, const glm::vec3 &direction, float cutOff, float outerCutOff,
+            Light(const std::string &type, float cutOff, float outerCutOff,
                            const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular,
-                           float constant, float linear, float quadratic) : type(type), direction(direction),
+                           float constant, float linear, float quadratic) : type(type),
                                                                             cutOff(cutOff), outerCutOff(outerCutOff),
                                                                             ambient(ambient), diffuse(diffuse),
                                                                             specular(specular), constant(constant),
                                                                             linear(linear), quadratic(quadratic) {}
 
+            Light(YAML::Node yamlData) {
+                this->type = yamlData["type"].as<std::string>();
+
+                this->cutOff = yamlData["cutOff"].as<float>();
+                this->outerCutOff = yamlData["outerCutOff"].as<float>();
+
+                this->ambient = yamlToGlmVec3(yamlData["ambient"]);
+                this->diffuse = yamlToGlmVec3(yamlData["diffuse"]);
+                this->specular = yamlToGlmVec3(yamlData["specular"]);
+
+                this->constant = yamlData["constant"].as<float>();
+                this->linear = yamlData["linear"].as<float>();
+                this->quadratic = yamlData["quadratic"].as<float>();
+            }
+
             std::string type;
 
-            glm::vec3 direction;
             float cutOff;
             float outerCutOff;
 
@@ -268,6 +293,29 @@ namespace DeepsEngine::Component {
             float constant;
             float linear;
             float quadratic;
+
+            virtual void Serialize(YAML::Emitter &out) override {
+                out << YAML::Key << "Light";
+                out << YAML::BeginMap;
+
+                out << YAML::Key << "type" << YAML::Value << type;
+
+                out << YAML::Key << "cutOff" << YAML::Value << std::to_string(cutOff);
+                out << YAML::Key << "outerCutOff" << YAML::Value << std::to_string(outerCutOff);
+
+                out << YAML::Key << "ambient" << YAML::Value;
+                glmVec3ToYaml(out, ambient);
+                out << YAML::Key << "diffuse" << YAML::Value;
+                glmVec3ToYaml(out, diffuse);
+                out << YAML::Key << "specular" << YAML::Value;
+                glmVec3ToYaml(out, specular);
+
+                out << YAML::Key << "constant" << YAML::Value << std::to_string(constant);
+                out << YAML::Key << "linear" << YAML::Value << std::to_string(linear);
+                out << YAML::Key << "quadratic" << YAML::Value << std::to_string(quadratic);
+
+                out << YAML::EndMap;
+            }
         };
     }
 

@@ -117,8 +117,8 @@ TransformComponentWidget::~TransformComponentWidget() {
     delete scaleZInput;
 }
 
-void TransformComponentWidget::setTransform(DeepsEngine::Component::Transform* transform) {
-    transformComponent = transform;
+void TransformComponentWidget::setComponent(DeepsEngine::Component::Component* component) {
+    transformComponent = dynamic_cast<DeepsEngine::Component::Transform*>(component);
 
     if (transformComponent) {
         positionXInput->setText(QString::fromStdString(std::to_string(transformComponent->position.x)));

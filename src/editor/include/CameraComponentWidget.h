@@ -11,8 +11,9 @@
 #include <QLabel>
 #include "Entity.h"
 #include "Component.h"
+#include "ComponentWidget.h"
 
-class CameraComponentWidget: public QWidget {
+class CameraComponentWidget: public QWidget, ComponentWidget {
     Q_OBJECT;
 public:
     explicit CameraComponentWidget(QWidget *parent = nullptr);
@@ -25,7 +26,7 @@ private:
     QLineEdit* zFarInput;
 
 public slots:
-    void setCamera(DeepsEngine::Component::Camera* camera);
+    void setComponent(DeepsEngine::Component::Component* camera) override;
     void onFovInputChange();
     void onZNearInputChange();
     void onZFarInputChange();

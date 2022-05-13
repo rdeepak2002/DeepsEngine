@@ -27,8 +27,8 @@ TagComponentWidget::~TagComponentWidget() {
     delete tagInput;
 }
 
-void TagComponentWidget::setTag(DeepsEngine::Component::Tag* tag) {
-    tagComponent = tag;
+void TagComponentWidget::setComponent(DeepsEngine::Component::Component* component) {
+    tagComponent = dynamic_cast<DeepsEngine::Component::Tag*>(component);
 
     if (tagComponent) {
         tagInput->setText(QString::fromStdString(tagComponent->tag));

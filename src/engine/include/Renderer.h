@@ -23,7 +23,7 @@ public:
 
     }
     virtual unsigned int loadTexture(char const * path) {
-
+        return 0;
     }
 };
 

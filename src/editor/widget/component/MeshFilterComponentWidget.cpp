@@ -23,10 +23,10 @@ MeshFilterComponentWidget::~MeshFilterComponentWidget() {
     delete meshFilterLabel;
 }
 
-void MeshFilterComponentWidget::setMeshFilter(DeepsEngine::Component::MeshFilter* meshFilter) {
-    meshFilterComponent = meshFilter;
+void MeshFilterComponentWidget::setComponent(DeepsEngine::Component::Component* component) {
+    meshFilterComponent = dynamic_cast<DeepsEngine::Component::MeshFilter*>(component);
 
     if (meshFilterComponent) {
-        meshFilterLabel->setText(QString::fromStdString(meshFilter->mesh));
+        meshFilterLabel->setText(QString::fromStdString(meshFilterComponent->mesh));
     }
 }
