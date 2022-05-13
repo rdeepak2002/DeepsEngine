@@ -36,6 +36,10 @@ private:
     QLineEdit* diffuseGInput;
     QLineEdit* diffuseBInput;
 
+    QLineEdit* specularRInput;
+    QLineEdit* specularGInput;
+    QLineEdit* specularBInput;
+
     QLineEdit* cutOffInput;
     QLineEdit* outerCutOffInput;
 
@@ -59,6 +63,10 @@ public slots:
     void onDiffuseRInputChange();
     void onDiffuseGInputChange();
     void onDiffuseBInputChange();
+
+    void onSpecularRInputChange();
+    void onSpecularGInputChange();
+    void onSpecularBInputChange();
 };
 
 

@@ -27,39 +27,57 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
 
     // ambient r input
     ambientRInput = new QLineEdit;
-    ambientRInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    ambientRInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     ambientRInput->setPlaceholderText("r");
     connect(ambientRInput, SIGNAL(textChanged(const QString &)), this, SLOT(onAmbientRInputChange()));
 
     // ambient g input
     ambientGInput = new QLineEdit;
-    ambientGInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    ambientGInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     ambientGInput->setPlaceholderText("g");
     connect(ambientGInput, SIGNAL(textChanged(const QString &)), this, SLOT(onAmbientGInputChange()));
 
     // ambient b input
     ambientBInput = new QLineEdit;
-    ambientBInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    ambientBInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     ambientBInput->setPlaceholderText("b");
     connect(ambientBInput, SIGNAL(textChanged(const QString &)), this, SLOT(onAmbientBInputChange()));
 
     // diffuse r input
     diffuseRInput = new QLineEdit;
-    diffuseRInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseRInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     diffuseRInput->setPlaceholderText("r");
     connect(diffuseRInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseRInputChange()));
 
     // diffuse g input
     diffuseGInput = new QLineEdit;
-    diffuseGInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseGInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     diffuseGInput->setPlaceholderText("g");
     connect(diffuseGInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseGInputChange()));
 
     // diffuse b input
     diffuseBInput = new QLineEdit;
-    diffuseBInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseBInput->setValidator(new QDoubleValidator(0, 1, 3, this));
     diffuseBInput->setPlaceholderText("b");
     connect(diffuseBInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseBInputChange()));
+
+    // specular r input
+    specularRInput = new QLineEdit;
+    specularRInput->setValidator(new QDoubleValidator(0, 1, 3, this));
+    specularRInput->setPlaceholderText("r");
+    connect(specularRInput, SIGNAL(textChanged(const QString &)), this, SLOT(onSpecularRInputChange()));
+
+    // specular g input
+    specularGInput = new QLineEdit;
+    specularGInput->setValidator(new QDoubleValidator(0, 1, 3, this));
+    specularGInput->setPlaceholderText("g");
+    connect(specularGInput, SIGNAL(textChanged(const QString &)), this, SLOT(onSpecularGInputChange()));
+
+    // specular b input
+    specularBInput = new QLineEdit;
+    specularBInput->setValidator(new QDoubleValidator(0, 1, 3, this));
+    specularBInput->setPlaceholderText("b");
+    connect(specularBInput, SIGNAL(textChanged(const QString &)), this, SLOT(onSpecularBInputChange()));
 
     // cut off input
     cutOffInput = new QLineEdit;
@@ -109,6 +127,15 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     diffuseInputFieldsGroup->addWidget(new QLabel("b"));
     diffuseInputFieldsGroup->addWidget(diffuseBInput);
 
+    // input fields for specular
+    QHBoxLayout* specularInputFieldsGroup = new QHBoxLayout;
+    specularInputFieldsGroup->addWidget(new QLabel("r"));
+    specularInputFieldsGroup->addWidget(specularRInput);
+    specularInputFieldsGroup->addWidget(new QLabel("g"));
+    specularInputFieldsGroup->addWidget(specularGInput);
+    specularInputFieldsGroup->addWidget(new QLabel("b"));
+    specularInputFieldsGroup->addWidget(specularBInput);
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(new QLabel("Light"));
@@ -125,6 +152,8 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     mainLayout->addLayout(ambientInputFieldsGroup);
     mainLayout->addWidget(new QLabel("Diffuse"));
     mainLayout->addLayout(diffuseInputFieldsGroup);
+    mainLayout->addWidget(new QLabel("Specular"));
+    mainLayout->addLayout(specularInputFieldsGroup);
     setLayout(mainLayout);
 }
 
@@ -152,6 +181,10 @@ void LightComponentWidget::setComponent(DeepsEngine::Component::Component *compo
         diffuseRInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.x)));
         diffuseGInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.y)));
         diffuseBInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.z)));
+
+        specularRInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.x)));
+        specularGInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.y)));
+        specularBInput->setText(QString::fromStdString(std::to_string(lightComponent->specular.z)));
     }
 }
 
@@ -222,5 +255,17 @@ void LightComponentWidget::onDiffuseGInputChange() {
 
 void LightComponentWidget::onDiffuseBInputChange() {
     lightComponent->diffuse.z = diffuseBInput->text().toFloat();
+}
+
+void LightComponentWidget::onSpecularRInputChange() {
+    lightComponent->specular.x = specularRInput->text().toFloat();
+}
+
+void LightComponentWidget::onSpecularGInputChange() {
+    lightComponent->specular.y = specularGInput->text().toFloat();
+}
+
+void LightComponentWidget::onSpecularBInputChange() {
+    lightComponent->specular.z = specularBInput->text().toFloat();
 }
 

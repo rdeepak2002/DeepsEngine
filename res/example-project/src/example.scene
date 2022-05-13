@@ -1,48 +1,45 @@
 Scene: example-scene
 Entities:
-  - Entity: 2
+  - Entity: 3
     Tag:
-      tag: Scene Camera
+      tag: Sun
     Transform:
       position:
         x: 0.000000
         y: 0.000000
-        z: 5.000000
+        z: 0.000000
       rotation:
         x: 0.000000
-        y: -1.570796
+        y: 0.000000
         z: 0.000000
       scale:
         x: 1.000000
         y: 1.000000
         z: 1.000000
-    Camera:
-      fov: 45.000000
-      zNear: 0.100000
-      zFar: 100.000000
-    LuaScript:
-      scriptPath: src/scripts/scene-camera.lua
-  - Entity: 1
-    Tag:
-      tag: Cube
-    Transform:
-      position:
-        x: 0.000000
-        y: -1.200000
-        z: 0.000000
-      rotation:
-        x: 0.000000
-        y: 9.342997
-        z: 0.000000
-      scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-    MeshFilter:
-      mesh: cube
-    LuaScript:
-      scriptPath: src/scripts/script.lua
-  - Entity: 0
+    Light:
+      type: directional
+      direction:
+        x: -0.200000
+        y: -1.000000
+        z: -0.300000
+      cutOff: 0.000000
+      outerCutOff: 0.000000
+      ambient:
+        x: 0.050000
+        y: 0.050000
+        z: 0.050000
+      diffuse:
+        x: 0.400000
+        y: 0.400000
+        z: 0.400000
+      specular:
+        x: 0.500000
+        y: 0.500000
+        z: 0.500000
+      constant: 0.000000
+      linear: 0.000000
+      quadratic: 0.000000
+  - Entity: 2
     Tag:
       tag: Cube 2
     Transform:
@@ -64,3 +61,45 @@ Entities:
       diffuseTexturePath: src/textures/container2.png
       specularTexturePath: src/textures/container2_specular.png
       shininess: 32.000000
+  - Entity: 1
+    Tag:
+      tag: Cube
+    Transform:
+      position:
+        x: 0.000000
+        y: -1.200000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 115.199989
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    MeshFilter:
+      mesh: cube
+    LuaScript:
+      scriptPath: src/scripts/script.lua
+  - Entity: 0
+    Tag:
+      tag: Scene Camera
+    Transform:
+      position:
+        x: -0.337860
+        y: 1.040350
+        z: 3.649590
+      rotation:
+        x: -0.149994
+        y: -1.589801
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Camera:
+      fov: 45.000000
+      zNear: 0.100000
+      zFar: 100.000000
+    LuaScript:
+      scriptPath: src/scripts/scene-camera.lua
