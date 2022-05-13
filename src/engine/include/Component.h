@@ -244,6 +244,18 @@ namespace DeepsEngine::Component {
                     exit(1);
                 }
 
+                direction = glm::vec3(0,0,0);
+                cutOff = 0.0f;
+                outerCutOff = 0.0f;
+
+                ambient = glm::vec3(0,0,0);
+                diffuse = glm::vec3(0,0,0);
+                specular = glm::vec3(0,0,0);
+
+                constant = 0.0f;
+                linear = 0.0f;
+                quadratic = 0.0f;
+
                 this->type = std::move(type);
             }
 

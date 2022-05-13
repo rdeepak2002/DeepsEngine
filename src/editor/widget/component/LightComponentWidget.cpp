@@ -43,6 +43,24 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     ambientBInput->setPlaceholderText("b");
     connect(ambientBInput, SIGNAL(textChanged(const QString &)), this, SLOT(onAmbientBInputChange()));
 
+    // diffuse r input
+    diffuseRInput = new QLineEdit;
+    diffuseRInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseRInput->setPlaceholderText("r");
+    connect(diffuseRInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseRInputChange()));
+
+    // diffuse g input
+    diffuseGInput = new QLineEdit;
+    diffuseGInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseGInput->setPlaceholderText("g");
+    connect(diffuseGInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseGInputChange()));
+
+    // diffuse b input
+    diffuseBInput = new QLineEdit;
+    diffuseBInput->setValidator(new QDoubleValidator(-1, 1, 3, this));
+    diffuseBInput->setPlaceholderText("b");
+    connect(diffuseBInput, SIGNAL(textChanged(const QString &)), this, SLOT(onDiffuseBInputChange()));
+
     // cut off input
     cutOffInput = new QLineEdit;
     cutOffInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));
@@ -82,6 +100,15 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     ambientInputFieldsGroup->addWidget(new QLabel("b"));
     ambientInputFieldsGroup->addWidget(ambientBInput);
 
+    // input fields for diffuse
+    QHBoxLayout* diffuseInputFieldsGroup = new QHBoxLayout;
+    diffuseInputFieldsGroup->addWidget(new QLabel("r"));
+    diffuseInputFieldsGroup->addWidget(diffuseRInput);
+    diffuseInputFieldsGroup->addWidget(new QLabel("g"));
+    diffuseInputFieldsGroup->addWidget(diffuseGInput);
+    diffuseInputFieldsGroup->addWidget(new QLabel("b"));
+    diffuseInputFieldsGroup->addWidget(diffuseBInput);
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(new QLabel("Light"));
@@ -96,6 +123,8 @@ LightComponentWidget::LightComponentWidget(QWidget *parent) {
     mainLayout->addWidget(outerCutOffInput);
     mainLayout->addWidget(new QLabel("Ambient"));
     mainLayout->addLayout(ambientInputFieldsGroup);
+    mainLayout->addWidget(new QLabel("Diffuse"));
+    mainLayout->addLayout(diffuseInputFieldsGroup);
     setLayout(mainLayout);
 }
 
@@ -119,6 +148,10 @@ void LightComponentWidget::setComponent(DeepsEngine::Component::Component *compo
         ambientRInput->setText(QString::fromStdString(std::to_string(lightComponent->ambient.x)));
         ambientGInput->setText(QString::fromStdString(std::to_string(lightComponent->ambient.y)));
         ambientBInput->setText(QString::fromStdString(std::to_string(lightComponent->ambient.z)));
+
+        diffuseRInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.x)));
+        diffuseGInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.y)));
+        diffuseBInput->setText(QString::fromStdString(std::to_string(lightComponent->diffuse.z)));
     }
 }
 
@@ -177,5 +210,17 @@ void LightComponentWidget::onAmbientGInputChange() {
 
 void LightComponentWidget::onAmbientBInputChange() {
     lightComponent->ambient.z = ambientBInput->text().toFloat();
+}
+
+void LightComponentWidget::onDiffuseRInputChange() {
+    lightComponent->diffuse.x = diffuseRInput->text().toFloat();
+}
+
+void LightComponentWidget::onDiffuseGInputChange() {
+    lightComponent->diffuse.y = diffuseGInput->text().toFloat();
+}
+
+void LightComponentWidget::onDiffuseBInputChange() {
+    lightComponent->diffuse.z = diffuseBInput->text().toFloat();
 }
 
