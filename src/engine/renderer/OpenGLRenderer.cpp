@@ -122,7 +122,9 @@ void OpenGLRenderer::initialize() {
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
-    backpackModel = new Model(Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj"));
+    std::string modelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("link.obj");
+    std::string nanoSuitModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj");
+    backpackModel = new Model(modelPath);
 }
 
 void OpenGLRenderer::clear() {
