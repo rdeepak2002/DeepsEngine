@@ -14,7 +14,6 @@ LuaScriptComponentWidget::LuaScriptComponentWidget(QWidget *parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(new QLabel("Lua Script"));
-    mainLayout->addWidget(new QLabel("Path"));
     mainLayout->addWidget(scriptPathLabel);
     setLayout(mainLayout);
 }
