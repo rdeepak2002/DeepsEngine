@@ -122,7 +122,7 @@ void OpenGLRenderer::initialize() {
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
-    backpackModel = new Model("/Users/deepakramalingam/Desktop/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
+    backpackModel = new Model(Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj"));
 }
 
 void OpenGLRenderer::clear() {
