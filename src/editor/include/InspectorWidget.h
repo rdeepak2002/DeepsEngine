@@ -15,8 +15,9 @@
 #include "TagComponentWidget.h"
 #include "MeshFilterComponentWidget.h"
 #include "CameraComponentWidget.h"
-#include "LightComponentWidget.h"
 #include "LuaScriptComponentWidget.h"
+#include "MaterialComponentWidget.h"
+#include "LightComponentWidget.h"
 
 class InspectorWidget: public QWidget, public TagComponentChangeListener {
 Q_OBJECT;

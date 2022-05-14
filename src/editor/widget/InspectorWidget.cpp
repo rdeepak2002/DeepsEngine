@@ -29,6 +29,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     componentWidgets.append(new CameraComponentWidget(this));
     componentWidgets.append(new MeshFilterComponentWidget(this));
     componentWidgets.append(new LuaScriptComponentWidget(this));
+    componentWidgets.append(new MaterialComponentWidget(this));
     componentWidgets.append(new LightComponentWidget(this));
 
     // add widgets to main layout
