@@ -13,7 +13,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class CameraComponentWidget: public QWidget, ComponentWidget {
+class CameraComponentWidget: public ComponentWidget {
     Q_OBJECT;
 public:
     explicit CameraComponentWidget(QWidget *parent = nullptr);
@@ -30,6 +30,28 @@ public slots:
     void onFovInputChange();
     void onZNearInputChange();
     void onZFarInputChange();
+
+    std::string getName() override {
+        return "Camera";
+    }
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // add camera component
+        DeepsEngine::Component::Camera camera = {DeepsEngine::Component::Camera({45.0f, 0.1f, 100.0f})};
+        entitySelected->AddComponent<DeepsEngine::Component::Camera>(camera);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::Camera>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::Camera* cameraComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Camera>());
+            this->setComponent(cameraComponent);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 

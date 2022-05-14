@@ -15,7 +15,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class LightComponentWidget: public QWidget, ComponentWidget {
+class LightComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit LightComponentWidget(QWidget *parent = nullptr);
@@ -81,6 +81,28 @@ public slots:
     void onConstantInputChange();
     void onLinearInputChange();
     void onQuadraticInputChange();
+
+    std::string getName() override {
+        return "Light";
+    }
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // light component
+        DeepsEngine::Component::Light light = {"directional"};
+        entitySelected->AddComponent<DeepsEngine::Component::Light>(light);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::Light>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::Light* light = &(entitySelected->GetComponent<DeepsEngine::Component::Light>());
+            this->setComponent(light);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 

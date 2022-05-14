@@ -6,11 +6,28 @@
 #define DEEPSENGINE_COMPONENTWIDGET_H
 
 #include "Component.h"
+#include "Logger.h"
 
-class ComponentWidget {
+class ComponentWidget: public QWidget {
 public:
     virtual void setComponent(DeepsEngine::Component::Component* component) {
+        Logger::Error("Not implemented");
+        exit(1);
+    }
 
+    virtual std::string getName() {
+        Logger::Error("Not implemented");
+        exit(1);
+    }
+
+    virtual void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) {
+        Logger::Error("Not implemented");
+        exit(1);
+    }
+
+    virtual bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) {
+        Logger::Error("Not implemented");
+        exit(1);
     }
 };
 

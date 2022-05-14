@@ -15,24 +15,25 @@
 #include "TagComponentWidget.h"
 #include "MeshFilterComponentWidget.h"
 #include "CameraComponentWidget.h"
+#include "LuaScriptComponentWidget.h"
+#include "MaterialComponentWidget.h"
 #include "LightComponentWidget.h"
 
-class InspectorWidget: public QWidget {
+class InspectorWidget: public QWidget, public TagComponentChangeListener {
 Q_OBJECT;
 
 public:
     explicit InspectorWidget(QWidget *parent = nullptr);
     ~InspectorWidget();
+    void onTagComponentChange(std::string newText) override {
+        this->listItem->setText(QString::fromStdString(newText));
+    }
 private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QPushButton* addComponentButton;
     QPushButton* removeEntityButton;
-    TagComponentWidget* tagComponentWidget;
-    TransformComponentWidget* transformComponentWidget;
-    CameraComponentWidget* cameraComponentWidget;
-    MeshFilterComponentWidget* meshFilterComponentWidget;
-    LightComponentWidget* lightComponentWidget;
     QListWidgetItem* listItem;
+    QList<ComponentWidget*> componentWidgets;
     void hideAllComponentWidgets();
     void refresh();
 

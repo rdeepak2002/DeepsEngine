@@ -9,6 +9,16 @@
 #include <QLineEdit>
 
 TagComponentWidget::TagComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
+    // get tag component listener
+    tagComponentChangeListener = dynamic_cast<TagComponentChangeListener*>(parent);
+
+    if (!tagComponentChangeListener) {
+        Logger::Error("Error getting tag component change listener");
+        exit(1);
+    }
+
     // create sample label
     tagInput = new QLineEdit;
     // TODO: add non-empty qvalidator
@@ -39,12 +49,10 @@ void TagComponentWidget::onTagInputChange() {
     if (tagComponent) {
         tagComponent->tag = tagInput->text().toStdString();
 
-        if (listWidgetItem) {
-            this->listWidgetItem->setText(QString::fromStdString(tagComponent->tag));
+        if (tagComponentChangeListener) {
+            tagComponentChangeListener->onTagComponentChange(tagComponent->tag);
+        } else {
+            Logger::Warn("Tag component change listener not registered");
         }
     }
-}
-
-void TagComponentWidget::setListWidgetItem(QListWidgetItem* listWidgetItem) {
-    this->listWidgetItem = listWidgetItem;
 }

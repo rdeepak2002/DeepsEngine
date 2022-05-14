@@ -13,8 +13,9 @@
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
+#include "TagComponentChangeListener.h"
 
-class TagComponentWidget: public QWidget, ComponentWidget {
+class TagComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit TagComponentWidget(QWidget *parent = nullptr);
@@ -23,12 +24,34 @@ private:
     DeepsEngine::Component::Tag* tagComponent;
     // inputs
     QLineEdit* tagInput;
-    QListWidgetItem* listWidgetItem;
+    TagComponentChangeListener* tagComponentChangeListener;
 
 public slots:
-    void setComponent(DeepsEngine::Component::Component* component) override;
     void onTagInputChange();
-    void setListWidgetItem(QListWidgetItem* listWidgetItem);
+
+    void setComponent(DeepsEngine::Component::Component* component) override;
+
+    std::string getName() override {
+        return "Tag";
+    }
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // add tag component
+        DeepsEngine::Component::Tag tag = {"entity"};
+        entitySelected->AddComponent<DeepsEngine::Component::Tag>(tag);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::Tag>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
+            this->setComponent(tagComponent);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 #endif //EDITOR_TAGCOMPONENTWIDGET_H

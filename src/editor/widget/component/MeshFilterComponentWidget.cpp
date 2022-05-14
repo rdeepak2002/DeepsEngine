@@ -8,6 +8,8 @@
 #include <QLabel>
 
 MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
     // create sample label
     meshFilterLabel = new QLabel("None");
 

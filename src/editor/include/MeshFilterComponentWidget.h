@@ -14,7 +14,7 @@
 #include "Component.h"
 #include "ComponentWidget.h"
 
-class MeshFilterComponentWidget: public QWidget, ComponentWidget {
+class MeshFilterComponentWidget: public ComponentWidget {
 Q_OBJECT;
 public:
     explicit MeshFilterComponentWidget(QWidget *parent = nullptr);
@@ -25,6 +25,28 @@ private:
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
+
+    std::string getName() override {
+        return "Mesh Filter";
+    }
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // add mesh filter component
+        DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube"};
+        entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::MeshFilter>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::MeshFilter* meshFilterComponent = &(entitySelected->GetComponent<DeepsEngine::Component::MeshFilter>());
+            this->setComponent(meshFilterComponent);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 
