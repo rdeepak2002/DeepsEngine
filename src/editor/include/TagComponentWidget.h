@@ -28,10 +28,30 @@ private:
 
 public slots:
     void setComponent(DeepsEngine::Component::Component* component) override;
+
     std::string getName() override {
         return "Tag";
     }
+
     void onTagInputChange();
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // add tag component
+        DeepsEngine::Component::Tag tag = {"entity"};
+        entitySelected->AddComponent<DeepsEngine::Component::Tag>(tag);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::Tag>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
+            this->setComponent(tagComponent);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 #endif //EDITOR_TAGCOMPONENTWIDGET_H

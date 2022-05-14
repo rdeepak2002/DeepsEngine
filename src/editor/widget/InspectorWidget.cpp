@@ -86,6 +86,7 @@ void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetIt
 }
 
 void InspectorWidget::hideAllComponentWidgets() {
+    // hide all component widgets
     for (ComponentWidget* componentWidget : componentWidgets) {
         componentWidget->setVisible(false);
     }
@@ -95,32 +96,11 @@ void InspectorWidget::onAddComponentMenuClicked(QAction *action) {
     // get name of selected action from drop down menu
     std::string componentToAddName = action->text().toStdString();
 
-    if (componentToAddName == "Tag") {
-        // add tag component
-        DeepsEngine::Component::Tag tag = {"entity"};
-        entitySelected->AddComponent<DeepsEngine::Component::Tag>(tag);
-    }
-    else if(componentToAddName == "Transform") {
-        // add transform component
-        DeepsEngine::Component::Transform transform = {glm::vec3(0, 0, 0),
-                                                       glm::vec3(0, 0, 0),
-                                                       glm::vec3(1, 1, 1)};
-        entitySelected->AddComponent<DeepsEngine::Component::Transform>(transform);
-    }
-    else if(componentToAddName == "Camera") {
-        // add camera component
-        DeepsEngine::Component::Camera camera = {DeepsEngine::Component::Camera({45.0f, 0.1f, 100.0f})};
-        entitySelected->AddComponent<DeepsEngine::Component::Camera>(camera);
-    }
-    else if(componentToAddName == "Mesh Filter") {
-        // add mesh filter component
-        DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube"};
-        entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
-    }
-    else if(componentToAddName == "Light") {
-        // light component
-        DeepsEngine::Component::Light light = {"directional"};
-        entitySelected->AddComponent<DeepsEngine::Component::Light>(light);
+    // add the component
+    for (ComponentWidget* componentWidget : componentWidgets) {
+        if (componentToAddName == componentWidget->getName()) {
+            componentWidget->addComponentToEntity(entitySelected);
+        }
     }
 
     refresh();
@@ -139,54 +119,11 @@ void InspectorWidget::refresh() {
         QMenu* addComponentMenu = new QMenu;
         connect(addComponentMenu, SIGNAL(triggered(QAction*)), this, SLOT(onAddComponentMenuClicked(QAction*)));
 
-        // show tag of entity
-        if (entitySelected->HasComponent<DeepsEngine::Component::Tag>()) {
-            tagComponentWidget->setVisible(true);
-            DeepsEngine::Component::Tag* tagComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Tag>());
-            tagComponentWidget->setComponent(tagComponent);
-        }
-        else {
-            addComponentMenu->addAction(tr("Tag"));
-        }
-
-        // show transform of entity
-        if (entitySelected->HasComponent<DeepsEngine::Component::Transform>()) {
-            transformComponentWidget->setVisible(true);
-            DeepsEngine::Component::Transform* transformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
-            transformComponentWidget->setComponent(transformComponent);
-        }
-        else {
-            addComponentMenu->addAction(tr("Transform"));
-        }
-
-        // show camera of entity
-        if (entitySelected->HasComponent<DeepsEngine::Component::Camera>()) {
-            cameraComponentWidget->setVisible(true);
-            DeepsEngine::Component::Camera* cameraComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Camera>());
-            cameraComponentWidget->setComponent(cameraComponent);
-        }
-        else {
-            addComponentMenu->addAction(tr("Camera"));
-        }
-
-        // show mesh filter of entity
-        if (entitySelected->HasComponent<DeepsEngine::Component::MeshFilter>()) {
-            meshFilterComponentWidget->setVisible(true);
-            DeepsEngine::Component::MeshFilter* meshFilterComponent = &(entitySelected->GetComponent<DeepsEngine::Component::MeshFilter>());
-            meshFilterComponentWidget->setComponent(meshFilterComponent);
-        }
-        else {
-            addComponentMenu->addAction(tr("Mesh Filter"));
-        }
-
-        // show light of entity
-        if (entitySelected->HasComponent<DeepsEngine::Component::Light>()) {
-            lightComponentWidget->setVisible(true);
-            DeepsEngine::Component::Light* light = &(entitySelected->GetComponent<DeepsEngine::Component::Light>());
-            lightComponentWidget->setComponent(light);
-        }
-        else {
-            addComponentMenu->addAction(tr("Light"));
+        // allow each component widget to refer to the entity's component and if it is not found, append its name to the menu
+        for (ComponentWidget* componentWidget : componentWidgets) {
+            if (!componentWidget->getComponentFromEntity(entitySelected)) {
+                addComponentMenu->addAction(tr(componentWidget->getName().c_str()));
+            }
         }
 
         // update the menu of possible components to add

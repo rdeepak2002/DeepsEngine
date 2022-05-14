@@ -55,6 +55,26 @@ public slots:
     std::string getName() override {
         return "Transform";
     }
+
+    void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        // add transform component
+        DeepsEngine::Component::Transform transform = {glm::vec3(0, 0, 0),
+                                                       glm::vec3(0, 0, 0),
+                                                       glm::vec3(1, 1, 1)};
+        entitySelected->AddComponent<DeepsEngine::Component::Transform>(transform);
+    }
+
+    bool getComponentFromEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
+        if (entitySelected->HasComponent<DeepsEngine::Component::Transform>()) {
+            this->setVisible(true);
+            DeepsEngine::Component::Transform* transformComponent = &(entitySelected->GetComponent<DeepsEngine::Component::Transform>());
+            this->setComponent(transformComponent);
+
+            return true;
+        }
+
+        return false;
+    }
 };
 
 
