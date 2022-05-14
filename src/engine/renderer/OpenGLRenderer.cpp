@@ -16,6 +16,7 @@
 #include "Application.h"
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
+#include "Model.h"
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
@@ -269,6 +270,9 @@ void OpenGLRenderer::update() {
             glBindVertexArray(cubeVAO);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+
+        backpackModel = new Model("/Users/deepakramalingam/Desktop/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
+        backpackModel->Draw(*lightingShader);
 
         // also draw the lamp object(s)
         lightCubeShader->use();

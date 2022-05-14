@@ -29,6 +29,7 @@ rm -rf vcpkg
 export VCPKG_ROOT="$(pwd)/vcpkg"
 ./vcpkg/vcpkg install lua:wasm32-emscripten
 ./vcpkg/vcpkg install yaml-cpp:wasm32-emscripten
+./vcpkg/vcpkg install assimp:wasm32-emscripten
 
 echo "Creating web build..."
 

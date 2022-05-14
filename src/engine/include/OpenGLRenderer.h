@@ -40,6 +40,7 @@ private:
 
     Shader* lightingShader;
     Shader* lightCubeShader;
+    Model* backpackModel;
 };
 
 #endif //EXAMPLE_RENDERER_H
