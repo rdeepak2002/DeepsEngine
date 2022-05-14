@@ -9,6 +9,8 @@
 #include <QLineEdit>
 
 TagComponentWidget::TagComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
     // get tag component listener
     tagComponentChangeListener = dynamic_cast<TagComponentChangeListener*>(parent);
 

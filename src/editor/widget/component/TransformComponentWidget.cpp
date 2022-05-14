@@ -9,6 +9,8 @@
 #include <QLineEdit>
 
 TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
     // position x input
     positionXInput = new QLineEdit;
     positionXInput->setValidator(new QDoubleValidator(-999999, 999999, 3, this));

@@ -10,6 +10,8 @@
 #include <QLineEdit>
 
 CameraComponentWidget::CameraComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
     // fov input
     fovInput = new QLineEdit;
     fovInput->setValidator(new QDoubleValidator(-360, 360, 3, this));

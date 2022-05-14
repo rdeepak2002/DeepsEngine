@@ -7,6 +7,8 @@
 #include <QAction>
 
 LightComponentWidget::LightComponentWidget(QWidget *parent) {
+    this->setVisible(false);
+
     // ambient r input
     ambientRInput = new QLineEdit;
     ambientRInput->setValidator(new QDoubleValidator(0, 1, 3, this));

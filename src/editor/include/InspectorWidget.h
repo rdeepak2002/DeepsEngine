@@ -30,11 +30,6 @@ private:
     std::shared_ptr<DeepsEngine::Entity> entitySelected;
     QPushButton* addComponentButton;
     QPushButton* removeEntityButton;
-    TagComponentWidget* tagComponentWidget;
-    TransformComponentWidget* transformComponentWidget;
-    CameraComponentWidget* cameraComponentWidget;
-    MeshFilterComponentWidget* meshFilterComponentWidget;
-    LightComponentWidget* lightComponentWidget;
     QListWidgetItem* listItem;
     QList<ComponentWidget*> componentWidgets;
     void hideAllComponentWidgets();

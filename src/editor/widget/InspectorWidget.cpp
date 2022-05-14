@@ -16,26 +16,6 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
 
     // TODO: make all these component widgets extend a common class so you can just iterate through vector for this
 
-    // tag widget
-    tagComponentWidget = new TagComponentWidget(this);
-    tagComponentWidget->setVisible(false);
-
-    // transform widget
-    transformComponentWidget = new TransformComponentWidget;
-    transformComponentWidget->setVisible(false);
-
-    // camera widget
-    cameraComponentWidget = new CameraComponentWidget;
-    cameraComponentWidget->setVisible(false);
-
-    // mesh filter widget
-    meshFilterComponentWidget = new MeshFilterComponentWidget;
-    meshFilterComponentWidget->setVisible(false);
-
-    // light widget
-    lightComponentWidget = new LightComponentWidget;
-    lightComponentWidget->setVisible(false);
-
     // drop down to add components
     addComponentButton = new QPushButton("Add Component");
     addComponentButton->setVisible(false);
@@ -46,11 +26,11 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     connect(removeEntityButton, SIGNAL(clicked()), this, SLOT(onRemoveEntityButtonClicked()));
 
     // add component widgets to be iterated through
-    componentWidgets.append(tagComponentWidget);
-    componentWidgets.append(transformComponentWidget);
-    componentWidgets.append(cameraComponentWidget);
-    componentWidgets.append(meshFilterComponentWidget);
-    componentWidgets.append(lightComponentWidget);
+    componentWidgets.append(new TagComponentWidget(this));
+    componentWidgets.append(new TransformComponentWidget(this));
+    componentWidgets.append(new CameraComponentWidget(this));
+    componentWidgets.append(new MeshFilterComponentWidget(this));
+    componentWidgets.append(new LightComponentWidget(this));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
