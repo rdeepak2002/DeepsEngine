@@ -27,13 +27,13 @@ private:
     TagComponentChangeListener* tagComponentChangeListener;
 
 public slots:
+    void onTagInputChange();
+
     void setComponent(DeepsEngine::Component::Component* component) override;
 
     std::string getName() override {
         return "Tag";
     }
-
-    void onTagInputChange();
 
     void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
         // add tag component

@@ -4,10 +4,8 @@
 
 #include "InspectorWidget.h"
 #include "Entity.h"
-#include "Component.h"
 #include <iostream>
 #include <QLabel>
-#include <QLineEdit>
 #include <QMenu>
 
 InspectorWidget::InspectorWidget(QWidget *parent) {
@@ -30,6 +28,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     componentWidgets.append(new TransformComponentWidget(this));
     componentWidgets.append(new CameraComponentWidget(this));
     componentWidgets.append(new MeshFilterComponentWidget(this));
+    componentWidgets.append(new LuaScriptComponentWidget(this));
     componentWidgets.append(new LightComponentWidget(this));
 
     // add widgets to main layout
