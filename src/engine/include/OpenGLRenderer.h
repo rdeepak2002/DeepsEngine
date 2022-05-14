@@ -22,6 +22,7 @@
 #include "Shader.h"
 #include "Scene.h"
 #include "Renderer.h"
+#include "Model.h"
 
 #if defined(STANDALONE)
 class OpenGLRenderer: public Renderer {

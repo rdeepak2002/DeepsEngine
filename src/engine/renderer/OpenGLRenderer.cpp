@@ -16,7 +16,6 @@
 #include "Application.h"
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
-#include "Model.h"
 
 // set up vertex data (and buffer(s)) and configure vertex attributes
 // ------------------------------------------------------------------
@@ -122,6 +121,8 @@ void OpenGLRenderer::initialize() {
     std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
+
+    backpackModel = new Model("/Users/deepakramalingam/Desktop/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
 }
 
 void OpenGLRenderer::clear() {
@@ -271,7 +272,6 @@ void OpenGLRenderer::update() {
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        backpackModel = new Model("/Users/deepakramalingam/Desktop/LearnOpenGL-master/resources/objects/backpack/backpack.obj");
         backpackModel->Draw(*lightingShader);
 
         // also draw the lamp object(s)
