@@ -130,11 +130,11 @@ void OpenGLRenderer::initialize() {
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    ourModel = new Model(dancingModelPath);
+    ourModel = new Model(vampireModelPath);
 
     stbi_set_flip_vertically_on_load(false);
 
-    Animation* danceAnimation = new Animation(dancingModelPath, ourModel);
+    Animation* danceAnimation = new Animation(vampireModelPath, ourModel);
     animator = new Animator(danceAnimation);
 
 }
@@ -294,7 +294,8 @@ void OpenGLRenderer::update() {
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        float scale = 0.5f;
+        model = glm::scale(model, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
         lightingShader->setMat4("model", model);
 
         ourModel->Draw(*lightingShader);
