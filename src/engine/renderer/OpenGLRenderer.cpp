@@ -122,10 +122,7 @@ void OpenGLRenderer::initialize() {
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
-    std::string vampireModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("vampire").append("dancing_vampire.dae");
-    std::string nanoSuitModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj");
-    std::string dancingModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("dancing").append("dancing.dae");
-    std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("Idle.dae");
+    std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
 
     bool flipTextures = true;
 
