@@ -122,9 +122,17 @@ void OpenGLRenderer::initialize() {
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
-    std::string modelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("link.obj");
+    std::string vampireModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("vampire").append("dancing_vampire.dae");
+    std::string linkModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("LinkIdle").append("Idle.dae");
     std::string nanoSuitModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj");
-    backpackModel = new Model(modelPath);
+
+    stbi_set_flip_vertically_on_load(true);
+    ourModel = new Model(vampireModelPath);
+    stbi_set_flip_vertically_on_load(false);
+
+    Animation* danceAnimation = new Animation(vampireModelPath, ourModel);
+    animator = new Animator(danceAnimation);
+
 }
 
 void OpenGLRenderer::clear() {
@@ -138,6 +146,8 @@ void OpenGLRenderer::update() {
 //    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    animator->UpdateAnimation(Application::getInstance().deltaTime);
 
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
@@ -274,7 +284,16 @@ void OpenGLRenderer::update() {
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        backpackModel->Draw(*lightingShader);
+        auto transforms = animator->GetFinalBoneMatrices();
+        for (int i = 0; i < transforms.size(); ++i)
+            lightingShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(.5f, .5f, .5f));	// it's a bit too big for our scene, so scale it down
+        lightingShader->setMat4("model", model);
+
+        ourModel->Draw(*lightingShader);
 
         // also draw the lamp object(s)
         lightCubeShader->use();

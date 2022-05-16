@@ -1,9 +1,5 @@
-//
-// Created by Deepak Ramalingam on 5/13/22.
-//
-
-#ifndef DEEPSENGINE_MESH_H
-#define DEEPSENGINE_MESH_H
+#ifndef MESH_H
+#define MESH_H
 
 #include <glad/glad.h> // holds all OpenGL type declarations
 
@@ -99,7 +95,7 @@ public:
     }
 
 private:
-    // render data
+    // render data 
     unsigned int VBO, EBO;
 
     // initializes all the buffer objects/arrays
@@ -131,21 +127,30 @@ private:
         // vertex texture coords
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
-        // vertex tangent
-        glEnableVertexAttribArray(3);
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
-        // vertex bitangent
-        glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+//        // vertex tangent
+//        glEnableVertexAttribArray(3);
+//        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+//        // vertex bitangent
+//        glEnableVertexAttribArray(4);
+//        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+//        // ids
+//        glEnableVertexAttribArray(5);
+//        glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
+//
+//        // weights
+//        glEnableVertexAttribArray(6);
+//        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
+//        glBindVertexArray(0);
         // ids
-        glEnableVertexAttribArray(5);
-        glVertexAttribIPointer(5, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
+        glEnableVertexAttribArray(3);
+        glVertexAttribIPointer(3, 4, GL_INT, sizeof(Vertex), (void*)offsetof(Vertex, m_BoneIDs));
 
         // weights
-        glEnableVertexAttribArray(6);
-        glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, m_Weights));
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex),
+                              (void*)offsetof(Vertex, m_Weights));
+
         glBindVertexArray(0);
     }
 };
-
-#endif //DEEPSENGINE_MESH_H
+#endif

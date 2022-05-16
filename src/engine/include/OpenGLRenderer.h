@@ -22,7 +22,9 @@
 #include "Shader.h"
 #include "Scene.h"
 #include "Renderer.h"
-#include "Model.h"
+#include "AnimatedModel.h"
+#include "Animation.h"
+#include "Animator.h"
 
 #if defined(STANDALONE)
 class OpenGLRenderer: public Renderer {
@@ -41,7 +43,8 @@ private:
 
     Shader* lightingShader;
     Shader* lightCubeShader;
-    Model* backpackModel;
+    Model* ourModel;
+    Animator* animator;
 };
 
 #endif //EXAMPLE_RENDERER_H
