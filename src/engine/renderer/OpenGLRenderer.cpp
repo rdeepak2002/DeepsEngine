@@ -123,17 +123,19 @@ void OpenGLRenderer::initialize() {
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
     std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
+    std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
+    std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
 
     bool flipTextures = true;
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    ourModel = new Model(linkIdleModelPath);
+    ourModel = new Model(linkIdleModelPathFbx);
 
     stbi_set_flip_vertically_on_load(false);
 
-    Animation* idleAnimation = new Animation(linkIdleModelPath, ourModel);
-    animator = new Animator(idleAnimation);
+    Animation* dancingAnimation = new Animation(linkDancingModelPathFbx, ourModel);
+    animator = new Animator(dancingAnimation);
 }
 
 void OpenGLRenderer::clear() {
@@ -291,7 +293,7 @@ void OpenGLRenderer::update() {
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
-        float scale = 100.0f;
+        float scale = 1.0f;
         model = glm::scale(model, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
         lightingShader->setMat4("model", model);
 
