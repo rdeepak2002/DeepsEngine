@@ -125,18 +125,18 @@ void OpenGLRenderer::initialize() {
     std::string vampireModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("vampire").append("dancing_vampire.dae");
     std::string nanoSuitModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("nanosuit").append("nanosuit.obj");
     std::string dancingModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("dancing").append("dancing.dae");
+    std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("Idle.dae");
 
     bool flipTextures = true;
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    ourModel = new Model(vampireModelPath);
+    ourModel = new Model(linkIdleModelPath);
 
     stbi_set_flip_vertically_on_load(false);
 
-    Animation* danceAnimation = new Animation(vampireModelPath, ourModel);
-    animator = new Animator(danceAnimation);
-
+    Animation* idleAnimation = new Animation(linkIdleModelPath, ourModel);
+    animator = new Animator(idleAnimation);
 }
 
 void OpenGLRenderer::clear() {
@@ -294,7 +294,7 @@ void OpenGLRenderer::update() {
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
-        float scale = 0.5f;
+        float scale = 100.0f;
         model = glm::scale(model, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
         lightingShader->setMat4("model", model);
 
