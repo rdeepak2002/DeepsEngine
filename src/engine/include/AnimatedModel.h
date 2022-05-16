@@ -5,7 +5,19 @@
 #ifndef DEEPSENGINE_ANIMATEDMODEL_H
 #define DEEPSENGINE_ANIMATEDMODEL_H
 
+#if defined(STANDALONE)
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
+#include <GLFW/glfw3.h>
+#else
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#endif
+#else
+#include <QOpenGLExtraFunctions>
+#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

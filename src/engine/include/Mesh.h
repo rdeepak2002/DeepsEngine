@@ -1,7 +1,19 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include <glad/glad.h> // holds all OpenGL type declarations
+#if defined(STANDALONE)
+#ifdef EMSCRIPTEN
+#include <emscripten.h>
+#define GL_GLEXT_PROTOTYPES
+#define EGL_EGLEXT_PROTOTYPES
+#include <GLFW/glfw3.h>
+#else
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#endif
+#else
+#include <QOpenGLExtraFunctions>
+#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
