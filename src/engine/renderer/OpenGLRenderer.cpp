@@ -82,15 +82,17 @@ void OpenGLRenderer::initialize() {
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
 
-    std::string shaderFolderName = "shaders";
+    simpleMeshShader = new Shader(
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("simpleMeshShader.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.frag").c_str());
 
-    lightingShader = new Shader(
-            Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("shader.vert").c_str(),
-            Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("shader.frag").c_str());
+    animatedMeshShader = new Shader(
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.frag").c_str());
 
     lightCubeShader = new Shader(
-            Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("lightingShader.vert").c_str(),
-            Application::getInstance().getProjectPath().append("src").append(shaderFolderName).append("lightingShader.frag").c_str());
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.frag").c_str());
 
     // first, configure the cube's VAO (and VBO)
     glGenVertexArrays(1, &cubeVAO);
@@ -125,12 +127,15 @@ void OpenGLRenderer::initialize() {
     std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
     std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
     std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
+    std::string backpackModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("backpack").append("backpack.obj");
 
     bool flipTextures = true;
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    ourModel = new Model(linkIdleModelPathFbx);
+//    backpackModel = new Model(backpackModelPath);
+
+    ourModel = new AnimatedModel(linkIdleModelPathFbx);
 
     stbi_set_flip_vertically_on_load(false);
 
@@ -174,61 +179,11 @@ void OpenGLRenderer::update() {
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
         // be sure to activate shader when setting uniforms/drawing objects
-        lightingShader->use();
-        lightingShader->setVec3("viewPos", cameraPos);
-
-        auto lightEntities = Application::getInstance().scene.GetLightEntities();
-        std::vector<DeepsEngine::Entity> directionalLights = std::get<0>(lightEntities);
-        std::vector<DeepsEngine::Entity> pointLights = std::get<1>(lightEntities);
-        std::vector<DeepsEngine::Entity> spotLights = std::get<2>(lightEntities);
-
-        // define current number of point lights
-        lightingShader->setInt("numberOfDirLights", directionalLights.size());
-        lightingShader->setInt("numberOfPointLights", pointLights.size());
-        lightingShader->setInt("numberOfSpotLights", spotLights.size());
-
-        for (int i = 0; i < directionalLights.size(); i++) {
-            DeepsEngine::Entity lightEntity = directionalLights.at(i);
-            DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
-            std::string prefix = "dirLights[" + std::to_string(i) + "]";
-            lightingShader->setVec3(prefix + ".direction", lightEntity.GetComponent<DeepsEngine::Component::Transform>().rotation);   // TODO: instead of direction, use entity rotation
-            lightingShader->setVec3(prefix + ".ambient", lightComponent.ambient);
-            lightingShader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
-            lightingShader->setVec3(prefix + ".specular", lightComponent.specular);
-        }
-
-        for (int i = 0; i < pointLights.size(); i++) {
-            DeepsEngine::Entity lightEntity = pointLights.at(i);
-            DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
-            std::string prefix = "pointLights[" + std::to_string(i) + "]";
-            lightingShader->setVec3(prefix + ".position", lightEntity.GetComponent<DeepsEngine::Component::Transform>().position);
-            lightingShader->setVec3(prefix + ".ambient", lightComponent.ambient);
-            lightingShader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
-            lightingShader->setVec3(prefix + ".specular", lightComponent.specular);
-            lightingShader->setFloat(prefix + ".constant", lightComponent.constant);
-            lightingShader->setFloat(prefix + ".linear", lightComponent.linear);
-            lightingShader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
-        }
-
-        for (int i = 0; i < spotLights.size(); i++) {
-            DeepsEngine::Entity lightEntity = spotLights.at(i);
-            DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
-            std::string prefix = "spotLights[" + std::to_string(i) + "]";
-            lightingShader->setVec3(prefix + ".position", lightEntity.GetComponent<DeepsEngine::Component::Transform>().position);
-            lightingShader->setVec3(prefix + ".direction", lightEntity.GetComponent<DeepsEngine::Component::Transform>().front());  // TODO: consider changing this to .rotation
-            lightingShader->setVec3(prefix + ".ambient", lightComponent.ambient);
-            lightingShader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
-            lightingShader->setVec3(prefix + ".specular", lightComponent.specular);
-            lightingShader->setFloat(prefix + ".constant", lightComponent.constant);
-            lightingShader->setFloat(prefix + ".linear", lightComponent.linear);
-            lightingShader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
-            lightingShader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
-            lightingShader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
-        }
-
-        // pass transformation matrices to the shader
-        lightingShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
-        lightingShader->setMat4("view", view);
+        simpleMeshShader->use();
+        simpleMeshShader->setVec3("viewPos", cameraPos);
+        applyLighting(simpleMeshShader);
+        simpleMeshShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
+        simpleMeshShader->setMat4("view", view);
 
         // get all entities with meshes
         for(auto entity : Application::getInstance().scene.GetDrawableEntities()) {
@@ -258,9 +213,9 @@ void OpenGLRenderer::update() {
             glBindTexture(GL_TEXTURE_2D, specularMap);
 
             // bind texture maps
-            lightingShader->setInt("material.diffuse", 0);
-            lightingShader->setInt("material.specular", 1);
-            lightingShader->setFloat("material.shininess", materialShininess);
+            simpleMeshShader->setInt("material.diffuse", 0);
+            simpleMeshShader->setInt("material.specular", 1);
+            simpleMeshShader->setFloat("material.shininess", materialShininess);
 
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
@@ -280,24 +235,36 @@ void OpenGLRenderer::update() {
             // Scale the model
             model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
-            lightingShader->setMat4("model", model);
+            simpleMeshShader->setMat4("model", model);
 
             // render the cube
             glBindVertexArray(cubeVAO);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
+//        glm::mat4 backpackLoc = glm::mat4(1.0f);
+//        backpackLoc = glm::translate(backpackLoc, glm::vec3(0.0f, 0.0f, 0.0f));
+//        backpackLoc = glm::scale(backpackLoc, glm::vec3(1.0f, 1.0f, 1.0f));
+//        simpleMeshShader->setMat4("model", backpackLoc);
+//        backpackModel->Draw(*simpleMeshShader);
+
+        animatedMeshShader->use();
+        animatedMeshShader->setVec3("viewPos", cameraPos);
+        applyLighting(animatedMeshShader);
+        animatedMeshShader->setMat4("projection", projection);
+        animatedMeshShader->setMat4("view", view);
+        animatedMeshShader->setFloat("material.shininess", 256.0f);
+
         auto transforms = animator->GetFinalBoneMatrices();
         for (int i = 0; i < transforms.size(); ++i)
-            lightingShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+            animatedMeshShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
 
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
-        float scale = 1.0f;
-        model = glm::scale(model, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
-        lightingShader->setMat4("model", model);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        animatedMeshShader->setMat4("model", model);
 
-        ourModel->Draw(*lightingShader);
+        ourModel->Draw(*animatedMeshShader);
 
         // also draw the lamp object(s)
         lightCubeShader->use();
@@ -316,6 +283,10 @@ void OpenGLRenderer::update() {
 //            glDrawArrays(GL_TRIANGLES, 0, 36);
 //        }
         // TODO: draw gizmo for point light
+        auto lightEntities = Application::getInstance().scene.GetLightEntities();
+
+        std::vector<DeepsEngine::Entity> pointLights = std::get<1>(lightEntities);
+
         for (DeepsEngine::Entity entity : pointLights) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
@@ -336,6 +307,57 @@ void OpenGLRenderer::update() {
         // set clear color to black to indicate no camera active
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // TODO: write text there is no camera
+    }
+}
+
+void OpenGLRenderer::applyLighting(Shader* shader) {
+    auto lightEntities = Application::getInstance().scene.GetLightEntities();
+    std::vector<DeepsEngine::Entity> directionalLights = std::get<0>(lightEntities);
+    std::vector<DeepsEngine::Entity> pointLights = std::get<1>(lightEntities);
+    std::vector<DeepsEngine::Entity> spotLights = std::get<2>(lightEntities);
+
+    // define current number of point lights
+    shader->setInt("numberOfDirLights", directionalLights.size());
+    shader->setInt("numberOfPointLights", pointLights.size());
+    shader->setInt("numberOfSpotLights", spotLights.size());
+
+    for (int i = 0; i < directionalLights.size(); i++) {
+        DeepsEngine::Entity lightEntity = directionalLights.at(i);
+        DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
+        std::string prefix = "dirLights[" + std::to_string(i) + "]";
+        shader->setVec3(prefix + ".direction", lightEntity.GetComponent<DeepsEngine::Component::Transform>().rotation);   // TODO: instead of direction, use entity rotation
+        shader->setVec3(prefix + ".ambient", lightComponent.ambient);
+        shader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
+        shader->setVec3(prefix + ".specular", lightComponent.specular);
+    }
+
+    for (int i = 0; i < pointLights.size(); i++) {
+        DeepsEngine::Entity lightEntity = pointLights.at(i);
+        DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
+        std::string prefix = "pointLights[" + std::to_string(i) + "]";
+        shader->setVec3(prefix + ".position", lightEntity.GetComponent<DeepsEngine::Component::Transform>().position);
+        shader->setVec3(prefix + ".ambient", lightComponent.ambient);
+        shader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
+        shader->setVec3(prefix + ".specular", lightComponent.specular);
+        shader->setFloat(prefix + ".constant", lightComponent.constant);
+        shader->setFloat(prefix + ".linear", lightComponent.linear);
+        shader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
+    }
+
+    for (int i = 0; i < spotLights.size(); i++) {
+        DeepsEngine::Entity lightEntity = spotLights.at(i);
+        DeepsEngine::Component::Light lightComponent = lightEntity.GetComponent<DeepsEngine::Component::Light>();
+        std::string prefix = "spotLights[" + std::to_string(i) + "]";
+        shader->setVec3(prefix + ".position", lightEntity.GetComponent<DeepsEngine::Component::Transform>().position);
+        shader->setVec3(prefix + ".direction", lightEntity.GetComponent<DeepsEngine::Component::Transform>().front());  // TODO: consider changing this to .rotation
+        shader->setVec3(prefix + ".ambient", lightComponent.ambient);
+        shader->setVec3(prefix + ".diffuse", lightComponent.diffuse);
+        shader->setVec3(prefix + ".specular", lightComponent.specular);
+        shader->setFloat(prefix + ".constant", lightComponent.constant);
+        shader->setFloat(prefix + ".linear", lightComponent.linear);
+        shader->setFloat(prefix + ".quadratic", lightComponent.quadratic);
+        shader->setFloat(prefix + ".cutOff", glm::cos(glm::radians(lightComponent.cutOff)));
+        shader->setFloat(prefix + ".outerCutOff", glm::cos(glm::radians(lightComponent.outerCutOff)));
     }
 }
 

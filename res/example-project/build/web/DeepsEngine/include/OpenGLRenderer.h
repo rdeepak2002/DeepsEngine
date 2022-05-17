@@ -23,6 +23,7 @@
 #include "Scene.h"
 #include "Renderer.h"
 #include "AnimatedModel.h"
+#include "Model.h"
 #include "Animation.h"
 #include "Animator.h"
 
@@ -37,14 +38,17 @@ public:
     void clear() override;
     void update() override;
     unsigned int loadTexture(char const * path) override;
+    void applyLighting(Shader* shader);
 private:
     unsigned int VBO, cubeVAO, lightCubeVAO;
     unsigned int missingTextureDiffuse, missingTextureSpecular;
 
-    Shader* lightingShader;
+    Shader* simpleMeshShader;
+    Shader* animatedMeshShader;
     Shader* lightCubeShader;
-    Model* ourModel;
+    AnimatedModel* ourModel;
     Animator* animator;
+//    Model* backpackModel;
 };
 
 #endif //EXAMPLE_RENDERER_H
