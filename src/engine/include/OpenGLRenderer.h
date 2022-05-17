@@ -48,7 +48,7 @@ private:
     Shader* lightCubeShader;
     AnimatedModel* ourModel;
     Animator* animator;
-    Model* backpackModel;
+//    Model* backpackModel;
 };
 
 #endif //EXAMPLE_RENDERER_H

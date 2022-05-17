@@ -133,7 +133,7 @@ void OpenGLRenderer::initialize() {
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    backpackModel = new Model(backpackModelPath);
+//    backpackModel = new Model(backpackModelPath);
 
     ourModel = new AnimatedModel(linkIdleModelPathFbx);
 
@@ -242,11 +242,11 @@ void OpenGLRenderer::update() {
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        glm::mat4 backpackLoc = glm::mat4(1.0f);
-        backpackLoc = glm::translate(backpackLoc, glm::vec3(0.0f, 0.0f, 0.0f));
-        backpackLoc = glm::scale(backpackLoc, glm::vec3(1.0f, 1.0f, 1.0f));
-        simpleMeshShader->setMat4("model", backpackLoc);
-        backpackModel->Draw(*simpleMeshShader);
+//        glm::mat4 backpackLoc = glm::mat4(1.0f);
+//        backpackLoc = glm::translate(backpackLoc, glm::vec3(0.0f, 0.0f, 0.0f));
+//        backpackLoc = glm::scale(backpackLoc, glm::vec3(1.0f, 1.0f, 1.0f));
+//        simpleMeshShader->setMat4("model", backpackLoc);
+//        backpackModel->Draw(*simpleMeshShader);
 
         animatedMeshShader->use();
         animatedMeshShader->setVec3("viewPos", cameraPos);
