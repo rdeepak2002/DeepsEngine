@@ -413,6 +413,7 @@ namespace DeepsEngine::Component {
 
         std::string mesh;
         std::string meshPath;
+        Animator* animator;
         AnimatedModel *animatedModel;
         Model *model;
         unsigned int VBO, VAO;
@@ -505,6 +506,8 @@ namespace DeepsEngine::Component {
                 stbi_set_flip_vertically_on_load(true);
                 animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
                 stbi_set_flip_vertically_on_load(false);
+                Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
+                animator = new Animator(defaultAnimation);
             } else {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);
@@ -552,6 +555,12 @@ namespace DeepsEngine::Component {
                     Logger::Error("Animated mesh not initialized");
                     exit(1);
                 }
+
+                animator->UpdateAnimation(Application::getInstance().deltaTime);
+
+                auto transforms = animator->GetFinalBoneMatrices();
+                for (int i = 0; i < transforms.size(); ++i)
+                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
 
                 animatedModel->Draw(*shader);
             } else {

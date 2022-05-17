@@ -46,18 +46,6 @@ void OpenGLRenderer::initialize() {
     lightCubeShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.frag").c_str());
-
-    std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
-    std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
-    std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
-    std::string backpackModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("backpack").append("backpack.obj");
-
-    stbi_set_flip_vertically_on_load(true);
-    ourModel = new AnimatedModel(linkIdleModelPathFbx);
-    stbi_set_flip_vertically_on_load(false);
-
-    Animation* dancingAnimation = new Animation(linkDancingModelPathFbx, ourModel);
-    animator = new Animator(dancingAnimation);
 }
 
 void OpenGLRenderer::clear() {
@@ -73,7 +61,7 @@ void OpenGLRenderer::update() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // update model animation
-    animator->UpdateAnimation(Application::getInstance().deltaTime);
+//    animator->UpdateAnimation(Application::getInstance().deltaTime);
 
     // get all cameras in scene
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
@@ -128,7 +116,6 @@ void OpenGLRenderer::update() {
             simpleMeshShader->setMat4("model", model);
 
             // render the mesh
-            // TODO: pass in animated shader for animated mesh
             entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, simpleMeshShader);
         }
 
@@ -138,20 +125,30 @@ void OpenGLRenderer::update() {
         applyLighting(animatedMeshShader);
         animatedMeshShader->setMat4("projection", projection);
         animatedMeshShader->setMat4("view", view);
-        animatedMeshShader->setFloat("material.shininess", 256.0f);
 
-        auto transforms = animator->GetFinalBoneMatrices();
-        for (int i = 0; i < transforms.size(); ++i)
-            animatedMeshShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+        for (auto entity : animatedMeshEntities) {
+            // get the entity's transform
+            auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
+            auto entityPosition = entityTransform.position;
+            auto entityRotation = entityTransform.rotation;
+            auto entityScale = entityTransform.scale;
 
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        animatedMeshShader->setMat4("model", model);
+            // calculate the model matrix for each object and pass it to shader before drawing
+            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+            model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
+            model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+            model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
-        ourModel->Draw(*animatedMeshShader);
+            // update model matrix in shader
+            animatedMeshShader->setMat4("model", model);
 
-        // draw lights, TODO: turn them into gizmos
+            // render the mesh
+            entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, animatedMeshShader);
+        }
+
+        // draw lights, TODO: draw them as 2D gizmos
         lightCubeShader->use();
         lightCubeShader->setMat4("projection", projection);
         lightCubeShader->setMat4("view", view);

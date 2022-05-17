@@ -43,8 +43,6 @@ private:
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;
     Shader* lightCubeShader;
-    AnimatedModel* ourModel;
-    Animator* animator;
 };
 
 #endif //EXAMPLE_RENDERER_H
