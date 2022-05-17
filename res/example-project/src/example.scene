@@ -1,6 +1,6 @@
 Scene: example-scene
 Entities:
-  - Entity: 7
+  - Entity: 9
     Tag:
       tag: Point Light 1
     Transform:
@@ -35,7 +35,7 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 6
+  - Entity: 8
     Tag:
       tag: Point Light 2
     Transform:
@@ -70,7 +70,7 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 5
+  - Entity: 7
     Tag:
       tag: Point Light 3
     Transform:
@@ -105,7 +105,7 @@ Entities:
       constant: 1.000000
       linear: 0.090000
       quadratic: 0.032000
-  - Entity: 4
+  - Entity: 6
     Tag:
       tag: Point Light 4
     Transform:
@@ -139,13 +139,59 @@ Entities:
         z: 1.000000
       constant: 1.000000
       linear: 0.090000
-      quadratic: 0.032000
+      quadratic: 0.000000
+  - Entity: 5
+    Tag:
+      tag: Backpack
+    Transform:
+      position:
+        x: 2.000000
+        y: 1.100000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 0.200000
+        y: 0.200000
+        z: 0.200000
+    MeshFilter:
+      mesh: static-model
+      meshPath: src/models/backpack/backpack.obj
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
+  - Entity: 4
+    Tag:
+      tag: Link
+    Transform:
+      position:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    MeshFilter:
+      mesh: animated-model
+      meshPath: src/models/link_fbx/Dancing.fbx
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 256.000000
   - Entity: 3
     Tag:
       tag: Box
     Transform:
       position:
-        x: -1.000000
+        x: -1.700000
         y: 0.000000
         z: 0.000000
       rotation:
@@ -158,6 +204,7 @@ Entities:
         z: 1.000000
     MeshFilter:
       mesh: cube
+      meshPath: ""
     Material:
       diffuseTexturePath: src/textures/container2.png
       specularTexturePath: src/textures/container2_specular.png
@@ -172,7 +219,7 @@ Entities:
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 4.540003
+        y: 42.211002
         z: 0.000000
       scale:
         x: 1.000000
@@ -180,6 +227,7 @@ Entities:
         z: 1.000000
     MeshFilter:
       mesh: cube
+      meshPath: ""
     LuaScript:
       scriptPath: src/scripts/script.lua
   - Entity: 1
@@ -187,12 +235,12 @@ Entities:
       tag: Scene Camera
     Transform:
       position:
-        x: 1.076203
-        y: 2.114950
-        z: 4.788005
+        x: -0.824493
+        y: 1.347087
+        z: 3.546244
       rotation:
-        x: -0.305883
-        y: -1.751495
+        x: -0.197213
+        y: 4.937405
         z: 0.000000
       scale:
         x: 1.000000

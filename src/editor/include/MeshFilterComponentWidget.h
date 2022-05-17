@@ -21,6 +21,7 @@ public:
     ~MeshFilterComponentWidget();
 private:
     QLabel* meshFilterLabel;
+    QLabel* meshPathLabel;
     DeepsEngine::Component::MeshFilter* meshFilterComponent;
 
 public slots:

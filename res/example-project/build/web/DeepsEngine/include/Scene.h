@@ -16,7 +16,7 @@ namespace DeepsEngine {
         DeepsEngine::Entity CreateEntity(const std::string& name);
         DeepsEngine::Entity CreateEntity();
         std::vector<DeepsEngine::Entity> GetEntities();
-        std::vector<DeepsEngine::Entity> GetDrawableEntities();
+        std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> GetMeshEntities();
         std::vector<DeepsEngine::Entity> GetScriptableEntities();
         std::vector<DeepsEngine::Entity> GetCameraEntities();
         std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> GetLightEntities();

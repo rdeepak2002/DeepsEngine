@@ -12,17 +12,22 @@ MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
 
     // create sample label
     meshFilterLabel = new QLabel("None");
+    meshPathLabel = new QLabel("None");
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(new QLabel("Mesh Filter"));
+    mainLayout->addWidget(new QLabel("Type"));
     mainLayout->addWidget(meshFilterLabel);
+    mainLayout->addWidget(new QLabel("Path"));
+    mainLayout->addWidget(meshPathLabel);
     setLayout(mainLayout);
 }
 
 MeshFilterComponentWidget::~MeshFilterComponentWidget() {
     delete meshFilterLabel;
+    delete meshPathLabel;
 }
 
 void MeshFilterComponentWidget::setComponent(DeepsEngine::Component::Component* component) {
@@ -30,5 +35,6 @@ void MeshFilterComponentWidget::setComponent(DeepsEngine::Component::Component* 
 
     if (meshFilterComponent) {
         meshFilterLabel->setText(QString::fromStdString(meshFilterComponent->mesh));
+        meshPathLabel->setText(QString::fromStdString(meshFilterComponent->meshPath));
     }
 }
