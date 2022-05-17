@@ -37,11 +37,13 @@ public:
     void clear() override;
     void update() override;
     unsigned int loadTexture(char const * path) override;
+    void applyLighting(Shader* shader);
 private:
     unsigned int VBO, cubeVAO, lightCubeVAO;
     unsigned int missingTextureDiffuse, missingTextureSpecular;
 
-    Shader* lightingShader;
+    Shader* simpleMeshShader;
+    Shader* complexMeshShader;
     Shader* lightCubeShader;
     Model* ourModel;
     Animator* animator;
