@@ -17,53 +17,6 @@
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
 
-// set up vertex data (and buffer(s)) and configure vertex attributes
-// ------------------------------------------------------------------
-float cubeVertices[] = {
-        // positions          // normals           // texture coords
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  0.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f,  1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f,  0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  1.0f,  1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,  0.0f,  0.0f,
-
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f,  0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f,  0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f,  1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f,
-        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  1.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f,  0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f,  1.0f
-};
-
 void OpenGLRenderer::initialize() {
     Logger::Debug("Initializing renderer");
 
@@ -94,37 +47,13 @@ void OpenGLRenderer::initialize() {
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.frag").c_str());
 
-//    // configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
-//    glGenVertexArrays(1, &lightCubeVAO);
-//    glBindVertexArray(lightCubeVAO);
-//    glGenBuffers(1, &lightCubeVBO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, lightCubeVBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
-//
-//    // update the lamp's position attribute's stride to reflect the updated buffer data
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-//    glEnableVertexAttribArray(0);
-
-    // set unsigned texture
-//    std::string missingTextureDiffuseFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture.png");
-//    std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
-//    missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
-//    missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
-
     std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
     std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
     std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
     std::string backpackModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("backpack").append("backpack.obj");
 
-    bool flipTextures = true;
-
-    stbi_set_flip_vertically_on_load(flipTextures);
-
-//    backpackModel = new Model(backpackModelPath);
-
+    stbi_set_flip_vertically_on_load(true);
     ourModel = new AnimatedModel(linkIdleModelPathFbx);
-
     stbi_set_flip_vertically_on_load(false);
 
     Animation* dancingAnimation = new Animation(linkDancingModelPathFbx, ourModel);
@@ -194,15 +123,10 @@ void OpenGLRenderer::update() {
             // update model matrix in shader
             simpleMeshShader->setMat4("model", model);
 
-            // render the cube
+            // render the mesh
+            // TODO: pass in animated shader for animated mesh
             entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, simpleMeshShader);
         }
-
-//        glm::mat4 backpackLoc = glm::mat4(1.0f);
-//        backpackLoc = glm::translate(backpackLoc, glm::vec3(0.0f, 0.0f, 0.0f));
-//        backpackLoc = glm::scale(backpackLoc, glm::vec3(1.0f, 1.0f, 1.0f));
-//        simpleMeshShader->setMat4("model", backpackLoc);
-//        backpackModel->Draw(*simpleMeshShader);
 
         animatedMeshShader->use();
         animatedMeshShader->setVec3("viewPos", cameraPos);
