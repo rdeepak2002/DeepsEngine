@@ -1,8 +1,6 @@
 #!/bin/sh
 
-curl https://github.com/assimp/assimp/archive/refs/tags/v5.0.1.zip
-unzip assimp-5.0.1.zip
-rm -rf assimp-5.0.1.zip
+tar -xvf assimp-5.0.1.tar.gz
 
 source emsdk/emsdk_env.sh
 

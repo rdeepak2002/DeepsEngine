@@ -57,8 +57,9 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     find_package(yaml-cpp CONFIG REQUIRED)
 
     # assimp
+    include_directories("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/include")
+
     if (APPLE)
-        include_directories("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/include")
         link_libraries("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
     endif()
 endmacro()

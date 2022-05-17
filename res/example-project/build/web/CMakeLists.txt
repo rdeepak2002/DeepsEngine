@@ -12,10 +12,10 @@ include(DeepsEngineSetup)
 DEEPS_ENGINE_SETUP()
 
 # link assimp for web
-include_directories("${PROJECT_SOURCE_DIR}/assimp-5.0.1/include")
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libassimp.a")
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libIrrXML.a")
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libzlib.a")
+include_directories("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/assimp-5.0.1/include")
+link_libraries("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/assimp-5.0.1/lib/libassimp.a")
+link_libraries("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/assimp-5.0.1/lib/libIrrXML.a")
+link_libraries("/Users/deepakramalingam/Documents/Projects/DeepsEngine/res/example-project/build/web/assimp-5.0.1/lib/libzlib.a")
 
 include_directories(${PROJECT_SOURCE_DIR}/DeepsEngine/include)
 link_libraries(${PROJECT_SOURCE_DIR}/DeepsEngine/lib/web/libDeepsEngine.a)
