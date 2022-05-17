@@ -8,6 +8,8 @@ Deepak Ramalingam
 
 Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
 
+![Editor View Screenshot](doc/image/EditorView.png "Editor View")
+
 ## Get Started (Development)
 
 - It is recommended to clone this repository recursively with submodules
