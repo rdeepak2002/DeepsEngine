@@ -97,6 +97,11 @@ void OpenGLRenderer::update() {
         // view matrix
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
+        // get all entities with meshes
+        auto meshEntities = Application::getInstance().scene.GetMeshEntities();
+        auto staticMeshEntities = std::get<0>(meshEntities);
+        auto animatedMeshEntities = std::get<1>(meshEntities);
+
         // activate shader to draw simple meshes without animations
         simpleMeshShader->use();
         simpleMeshShader->setVec3("viewPos", cameraPos);
@@ -104,8 +109,7 @@ void OpenGLRenderer::update() {
         simpleMeshShader->setMat4("projection", projection); // note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
         simpleMeshShader->setMat4("view", view);
 
-        // get all entities with meshes
-        for(auto entity : Application::getInstance().scene.GetDrawableEntities()) {
+        for(auto entity : staticMeshEntities) {
             // get the entity's transform
             auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
             auto entityPosition = entityTransform.position;
@@ -128,6 +132,7 @@ void OpenGLRenderer::update() {
             entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, simpleMeshShader);
         }
 
+        // activate shader to draw meshes with animation
         animatedMeshShader->use();
         animatedMeshShader->setVec3("viewPos", cameraPos);
         applyLighting(animatedMeshShader);
@@ -146,19 +151,16 @@ void OpenGLRenderer::update() {
 
         ourModel->Draw(*animatedMeshShader);
 
-        // also draw the lamp object(s)
+        // draw lights, TODO: turn them into gizmos
         lightCubeShader->use();
         lightCubeShader->setMat4("projection", projection);
         lightCubeShader->setMat4("view", view);
-
-        // draw a cube for each point light
-        // TODO: draw gizmos for all light types
         auto lightEntities = Application::getInstance().scene.GetLightEntities();
         std::vector<DeepsEngine::Entity> pointLights = std::get<1>(lightEntities);
         for (DeepsEngine::Entity entity : pointLights) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
-            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+            model = glm::scale(model, glm::vec3(0.2f)); // smaller cube
             lightCubeShader->setMat4("model", model);
             entity.GetComponent<DeepsEngine::Component::Light>().draw();
         }

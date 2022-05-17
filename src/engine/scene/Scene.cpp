@@ -50,20 +50,22 @@ namespace DeepsEngine {
         return arr;
     }
 
-    std::vector<DeepsEngine::Entity> Scene::GetDrawableEntities() {
+    std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> Scene::GetMeshEntities() {
         // get all entities in the ecs that have a Transform component
-        auto entityHandles = registry.view<DeepsEngine::Component::MeshFilter>();
-        std::vector<DeepsEngine::Entity> arr;
+        auto entityHandles = registry.view<DeepsEngine::Component::MeshFilter, DeepsEngine::Component::Transform>();
+        std::vector<DeepsEngine::Entity> staticMeshEntities, animatedMeshEntities;
 
         for (auto entityHandle : entityHandles) {
             DeepsEngine::Entity entity = {entityHandle};
 
-            if (entity.HasComponent<DeepsEngine::Component::Transform>()) {
-                arr.push_back(entity);
+            if (entity.GetComponent<Component::MeshFilter>().mesh == "animated-model") {
+                animatedMeshEntities.push_back(entity);
+            } else {
+                staticMeshEntities.push_back(entity);
             }
         }
 
-        return arr;
+        return {staticMeshEntities, animatedMeshEntities};
     }
 
     std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> Scene::GetLightEntities() {

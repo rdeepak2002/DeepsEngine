@@ -390,25 +390,25 @@ namespace DeepsEngine::Component {
 
         MeshFilter(std::string mesh) {
             loadMissingTextures();
-            this->setMeshType(mesh);
             this->meshPath = "";
+            this->setMeshType(mesh);
         }
 
         MeshFilter(std::string mesh, std::string meshPath) {
             loadMissingTextures();
-            this->setMeshType(mesh);
             this->meshPath = meshPath;
+            this->setMeshType(mesh);
         }
 
         MeshFilter(YAML::Node yamlData) {
             loadMissingTextures();
-            this->setMeshType(yamlData["mesh"].as<std::string>());
             if (!yamlData["meshPath"]) {
                 Logger::Warn("Providing blank mesh path for mesh component");
                 this->meshPath = "";
             } else {
                 this->meshPath = yamlData["meshPath"].as<std::string>();
             }
+            this->setMeshType(yamlData["mesh"].as<std::string>());
         }
 
         std::string mesh;
@@ -497,6 +497,17 @@ namespace DeepsEngine::Component {
                 glEnableVertexAttribArray(1);
                 glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
                 glEnableVertexAttribArray(2);
+            } else if (mesh == "static-model") {
+                stbi_set_flip_vertically_on_load(true);
+                model = new Model(Application::getInstance().getProjectPath().append(meshPath));
+                stbi_set_flip_vertically_on_load(false);
+            } else if (mesh == "animated-model") {
+                stbi_set_flip_vertically_on_load(true);
+                animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
+                stbi_set_flip_vertically_on_load(false);
+            } else {
+                Logger::Error("Unknown mesh type: " + mesh);
+                exit(1);
             }
         }
 
@@ -529,6 +540,23 @@ namespace DeepsEngine::Component {
             if (mesh == "cube") {
                 glBindVertexArray(VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
+            } else if (mesh == "static-model") {
+                if (!model) {
+                    Logger::Error("Static mesh not initialized");
+                    exit(1);
+                }
+
+                model->Draw(*shader);
+            } else if (mesh == "animated-model") {
+                if (!animatedModel) {
+                    Logger::Error("Animated mesh not initialized");
+                    exit(1);
+                }
+
+                animatedModel->Draw(*shader);
+            } else {
+                Logger::Error("Unknown mesh type: " + mesh);
+                exit(1);
             }
         }
     };
