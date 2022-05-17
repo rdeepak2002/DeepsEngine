@@ -6,7 +6,7 @@ Deepak Ramalingam
 
 ## About
 
-Modern 3D game engine created with OpenGL, GLFW, GLEW, C++, and Qt 5
+- Modern 3D game engine created with OpenGL, GLFW, C++, Sol2, Assimp, Emscripten, and Qt 5
 
 ![Editor View Screenshot](doc/image/EditorView.png "Editor View")
 
