@@ -23,6 +23,7 @@
 #include "Scene.h"
 #include "Renderer.h"
 #include "AnimatedModel.h"
+#include "Model.h"
 #include "Animation.h"
 #include "Animator.h"
 
@@ -43,10 +44,11 @@ private:
     unsigned int missingTextureDiffuse, missingTextureSpecular;
 
     Shader* simpleMeshShader;
-    Shader* complexMeshShader;
+    Shader* animatedMeshShader;
     Shader* lightCubeShader;
-    Model* ourModel;
+    AnimatedModel* ourModel;
     Animator* animator;
+    Model* backpackModel;
 };
 
 #endif //EXAMPLE_RENDERER_H

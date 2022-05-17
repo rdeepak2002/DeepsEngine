@@ -26,7 +26,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <Mesh.h>
+#include <AnimatedMesh.h>
 #include <Shader.h>
 
 #include <string>
@@ -40,19 +40,19 @@
 
 using namespace std;
 
-class Model
+class AnimatedModel
 {
 public:
     // model data
-    vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
-    vector<Mesh>    meshes;
+    vector<AnimatedMeshTexture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    vector<AnimatedMesh>    meshes;
     string directory;
     bool gammaCorrection;
 
 
 
     // constructor, expects a filepath to a 3D model.
-    Model(string const &path, bool gamma = false) : gammaCorrection(gamma)
+    AnimatedModel(string const &path, bool gamma = false) : gammaCorrection(gamma)
     {
         loadModel(path);
     }
@@ -111,7 +111,7 @@ private:
 
     }
 
-    void SetVertexBoneDataToDefault(Vertex& vertex)
+    void SetVertexBoneDataToDefault(AnimatedMeshVertex& vertex)
     {
         for (int i = 0; i < MAX_BONE_INFLUENCE; i++)
         {
@@ -121,15 +121,15 @@ private:
     }
 
 
-    Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+    AnimatedMesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
-        vector<Vertex> vertices;
+        vector<AnimatedMeshVertex> vertices;
         vector<unsigned int> indices;
-        vector<Texture> textures;
+        vector<AnimatedMeshTexture> textures;
 
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
-            Vertex vertex;
+            AnimatedMeshVertex vertex;
             SetVertexBoneDataToDefault(vertex);
             vertex.Position = AssimpGLMHelpers::GetGLMVec(mesh->mVertices[i]);
             vertex.Normal = AssimpGLMHelpers::GetGLMVec(mesh->mNormals[i]);
@@ -154,21 +154,21 @@ private:
         }
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-        vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        vector<AnimatedMeshTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-        vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        vector<AnimatedMeshTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        std::vector<AnimatedMeshTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
         textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        std::vector<AnimatedMeshTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
         ExtractBoneWeightForVertices(vertices,mesh,scene);
 
-        return Mesh(vertices, indices, textures);
+        return AnimatedMesh(vertices, indices, textures);
     }
 
-    void SetVertexBoneData(Vertex& vertex, int boneID, float weight)
+    void SetVertexBoneData(AnimatedMeshVertex& vertex, int boneID, float weight)
     {
         for (int i = 0; i < MAX_BONE_INFLUENCE; ++i)
         {
@@ -182,7 +182,7 @@ private:
     }
 
 
-    void ExtractBoneWeightForVertices(std::vector<Vertex>& vertices, aiMesh* mesh, const aiScene* scene)
+    void ExtractBoneWeightForVertices(std::vector<AnimatedMeshVertex>& vertices, aiMesh* mesh, const aiScene* scene)
     {
         auto& boneInfoMap = m_BoneInfoMap;
         int& boneCount = m_BoneCounter;
@@ -261,9 +261,9 @@ private:
 
     // checks all material textures of a given type and loads the textures if they're not loaded yet.
     // the required info is returned as a Texture struct.
-    vector<Texture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
+    vector<AnimatedMeshTexture> loadMaterialTextures(aiMaterial *mat, aiTextureType type, string typeName)
     {
-        vector<Texture> textures;
+        vector<AnimatedMeshTexture> textures;
         for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
         {
             aiString str;
@@ -281,7 +281,7 @@ private:
             }
             if(!skip)
             {   // if texture hasn't been loaded already, load it
-                Texture texture;
+                AnimatedMeshTexture texture;
                 texture.id = TextureFromFile(str.C_Str(), this->directory);
                 texture.type = typeName;
                 texture.path = str.C_Str();

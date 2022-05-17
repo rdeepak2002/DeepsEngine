@@ -1,3 +1,7 @@
+//
+// Created by Deepak Ramalingam on 5/17/22.
+//
+
 #ifndef MESH_H
 #define MESH_H
 
@@ -14,6 +18,7 @@
 #else
 #include <QOpenGLExtraFunctions>
 #endif
+
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -107,7 +112,7 @@ public:
     }
 
 private:
-    // render data 
+    // render data
     unsigned int VBO, EBO;
 
     // initializes all the buffer objects/arrays

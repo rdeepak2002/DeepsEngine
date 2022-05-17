@@ -86,7 +86,7 @@ void OpenGLRenderer::initialize() {
             Application::getInstance().getProjectPath().append("src").append("shaders").append("simpleMeshShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.frag").c_str());
 
-    complexMeshShader = new Shader(
+    animatedMeshShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("shader.frag").c_str());
 
@@ -127,12 +127,15 @@ void OpenGLRenderer::initialize() {
     std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
     std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
     std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
+    std::string backpackModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("backpack").append("backpack.obj");
 
     bool flipTextures = true;
 
     stbi_set_flip_vertically_on_load(flipTextures);
 
-    ourModel = new Model(linkIdleModelPathFbx);
+    backpackModel = new Model(backpackModelPath);
+
+    ourModel = new AnimatedModel(linkIdleModelPathFbx);
 
     stbi_set_flip_vertically_on_load(false);
 
@@ -239,23 +242,29 @@ void OpenGLRenderer::update() {
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
-        complexMeshShader->use();
-        complexMeshShader->setVec3("viewPos", cameraPos);
-        applyLighting(complexMeshShader);
-        complexMeshShader->setMat4("projection", projection);
-        complexMeshShader->setMat4("view", view);
-        complexMeshShader->setFloat("material.shininess", 256.0f);
+        glm::mat4 backpackLoc = glm::mat4(1.0f);
+        backpackLoc = glm::translate(backpackLoc, glm::vec3(0.0f, 0.0f, 0.0f));
+        backpackLoc = glm::scale(backpackLoc, glm::vec3(1.0f, 1.0f, 1.0f));
+        simpleMeshShader->setMat4("model", backpackLoc);
+        backpackModel->Draw(*simpleMeshShader);
+
+        animatedMeshShader->use();
+        animatedMeshShader->setVec3("viewPos", cameraPos);
+        applyLighting(animatedMeshShader);
+        animatedMeshShader->setMat4("projection", projection);
+        animatedMeshShader->setMat4("view", view);
+        animatedMeshShader->setFloat("material.shininess", 256.0f);
 
         auto transforms = animator->GetFinalBoneMatrices();
         for (int i = 0; i < transforms.size(); ++i)
-            complexMeshShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+            animatedMeshShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
 
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
         model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        complexMeshShader->setMat4("model", model);
+        animatedMeshShader->setMat4("model", model);
 
-        ourModel->Draw(*complexMeshShader);
+        ourModel->Draw(*animatedMeshShader);
 
         // also draw the lamp object(s)
         lightCubeShader->use();
