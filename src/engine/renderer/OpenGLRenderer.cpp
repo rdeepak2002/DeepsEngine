@@ -94,35 +94,23 @@ void OpenGLRenderer::initialize() {
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.frag").c_str());
 
-    // first, configure the cube's VAO (and VBO)
-    glGenVertexArrays(1, &cubeVAO);
-    glGenBuffers(1, &VBO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
-
-    glBindVertexArray(cubeVAO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-
-    // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
-    glGenVertexArrays(1, &lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    // note that we update the lamp's position attribute's stride to reflect the updated buffer data
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+//    // configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
+//    glGenVertexArrays(1, &lightCubeVAO);
+//    glBindVertexArray(lightCubeVAO);
+//    glGenBuffers(1, &lightCubeVBO);
+//
+//    glBindBuffer(GL_ARRAY_BUFFER, lightCubeVBO);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+//
+//    // update the lamp's position attribute's stride to reflect the updated buffer data
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+//    glEnableVertexAttribArray(0);
 
     // set unsigned texture
-    std::string missingTextureDiffuseFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture.png");
-    std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
-    missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
-    missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
+//    std::string missingTextureDiffuseFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture.png");
+//    std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
+//    missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
+//    missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
 
     std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
     std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
@@ -151,34 +139,36 @@ void OpenGLRenderer::update() {
     // TODO: figure out why we need this here for QT renderer
     glEnable(GL_DEPTH_TEST);
 
-//    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    // clear screen
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    // update model animation
     animator->UpdateAnimation(Application::getInstance().deltaTime);
 
+    // get all cameras in scene
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
     if (!cameraEntities.empty()) {
-        // get main camera entity and its components
+        // get main camera
         std::unique_ptr<DeepsEngine::Entity> mainCameraEntity = std::make_unique<DeepsEngine::Entity>(cameraEntities.front());
         DeepsEngine::Component::Camera mainCameraComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Camera>();
         DeepsEngine::Component::Transform mainCameraTransformComponent = mainCameraEntity->GetComponent<DeepsEngine::Component::Transform>();
 
-        // get camera vectors
+        // main camera vectors
         glm::vec3 cameraFront = mainCameraTransformComponent.front();
         glm::vec3 cameraUp = mainCameraTransformComponent.up();
         glm::vec3 cameraPos = mainCameraTransformComponent.position;
 
-        // calculate projection matrix
+        // projection matrix
         glm::mat4 view          = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         glm::mat4 projection    = glm::mat4(1.0f);
         projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
 
-        // calculate view matrix
+        // view matrix
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-        // be sure to activate shader when setting uniforms/drawing objects
+        // activate shader to draw simple meshes without animations
         simpleMeshShader->use();
         simpleMeshShader->setVec3("viewPos", cameraPos);
         applyLighting(simpleMeshShader);
@@ -193,53 +183,19 @@ void OpenGLRenderer::update() {
             auto entityRotation = entityTransform.rotation;
             auto entityScale = entityTransform.scale;
 
-            // get diffuse and specular map from entity material
-            unsigned int diffuseMap = missingTextureDiffuse;
-            unsigned int specularMap = missingTextureSpecular;
-            float materialShininess = 32.0f;
-
-            if (entity.HasComponent<DeepsEngine::Component::Material>()) {
-                diffuseMap = entity.GetComponent<DeepsEngine::Component::Material>().diffuse;
-                specularMap = entity.GetComponent<DeepsEngine::Component::Material>().specular;
-                materialShininess = entity.GetComponent<DeepsEngine::Component::Material>().shininess;
-            }
-
-            // bind diffuse map
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D, diffuseMap);
-
-            // bind specular map
-            glActiveTexture(GL_TEXTURE1);
-            glBindTexture(GL_TEXTURE_2D, specularMap);
-
-            // bind texture maps
-            simpleMeshShader->setInt("material.diffuse", 0);
-            simpleMeshShader->setInt("material.specular", 1);
-            simpleMeshShader->setFloat("material.shininess", materialShininess);
-
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-
-            // translate the model
             model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
-
-            // rotate x
             model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-
-            // rotate y
             model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-
-            // rotate z
             model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-
-            // Scale the model
             model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
 
+            // update model matrix in shader
             simpleMeshShader->setMat4("model", model);
 
             // render the cube
-            glBindVertexArray(cubeVAO);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, simpleMeshShader);
         }
 
 //        glm::mat4 backpackLoc = glm::mat4(1.0f);
@@ -271,37 +227,17 @@ void OpenGLRenderer::update() {
         lightCubeShader->setMat4("projection", projection);
         lightCubeShader->setMat4("view", view);
 
-        // we now draw as many light bulbs as we have point lights.
-        glBindVertexArray(lightCubeVAO);
-        // don't render directional light due to how it behaves
-        // TODO: draw gizmo for directional light
-//        for (DeepsEngine::Entity entity : directionalLights) {
-//            glm::mat4 model = glm::mat4(1.0f);
-//            model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
-//            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-//            lightCubeShader->setMat4("model", model);
-//            glDrawArrays(GL_TRIANGLES, 0, 36);
-//        }
-        // TODO: draw gizmo for point light
+        // draw a cube for each point light
+        // TODO: draw gizmos for all light types
         auto lightEntities = Application::getInstance().scene.GetLightEntities();
-
         std::vector<DeepsEngine::Entity> pointLights = std::get<1>(lightEntities);
-
         for (DeepsEngine::Entity entity : pointLights) {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
             model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
             lightCubeShader->setMat4("model", model);
-            glDrawArrays(GL_TRIANGLES, 0, 36);
+            entity.GetComponent<DeepsEngine::Component::Light>().draw();
         }
-        // TODO: draw gizmo for spot light
-//        for (DeepsEngine::Entity entity : spotLights) {
-//            glm::mat4 model = glm::mat4(1.0f);
-//            model = glm::translate(model, entity.GetComponent<DeepsEngine::Component::Transform>().position);
-//            model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-//            lightCubeShader->setMat4("model", model);
-//            glDrawArrays(GL_TRIANGLES, 0, 36);
-//        }
     }
     else {
         // set clear color to black to indicate no camera active
@@ -363,9 +299,8 @@ void OpenGLRenderer::applyLighting(Shader* shader) {
 
 void OpenGLRenderer::deinit() {
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
-    glDeleteVertexArrays(1, &cubeVAO);
-    glDeleteVertexArrays(1, &lightCubeVAO);
-    glDeleteBuffers(1, &VBO);
+//    glDeleteVertexArrays(1, &VAO);
+//    glDeleteBuffers(1, &VBO);
 #endif
 }
 

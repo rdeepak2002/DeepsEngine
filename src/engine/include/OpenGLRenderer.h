@@ -40,15 +40,11 @@ public:
     unsigned int loadTexture(char const * path) override;
     void applyLighting(Shader* shader);
 private:
-    unsigned int VBO, cubeVAO, lightCubeVAO;
-    unsigned int missingTextureDiffuse, missingTextureSpecular;
-
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;
     Shader* lightCubeShader;
     AnimatedModel* ourModel;
     Animator* animator;
-//    Model* backpackModel;
 };
 
 #endif //EXAMPLE_RENDERER_H
