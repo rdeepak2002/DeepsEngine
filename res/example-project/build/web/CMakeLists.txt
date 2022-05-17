@@ -11,13 +11,18 @@ include(DeepsEngineSetup)
 # load third party libraries
 DEEPS_ENGINE_SETUP()
 
+# link assimp for web
+include_directories("${PROJECT_SOURCE_DIR}/assimp-5.0.1/include")
+link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libassimp.a")
+link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libIrrXML.a")
+link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libzlib.a")
+
 include_directories(${PROJECT_SOURCE_DIR}/DeepsEngine/include)
 link_libraries(${PROJECT_SOURCE_DIR}/DeepsEngine/lib/web/libDeepsEngine.a)
 add_executable(${PROJECT_NAME} main.cpp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \
         --use-preload-plugins \
-        -I${PROJECT_SOURCE_DIR}/assimp-5.0.1/include/include \
         -L${PROJECT_SOURCE_DIR}/assimp-5.0.1/build/code \
         -s LLD_REPORT_UNDEFINED \
         -s EXPORTED_FUNCTIONS=['_main','_onResizeWindow'] \
@@ -26,7 +31,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS " \
         -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 \
         -s FULL_ES3=1 \
         -s USE_GLFW=3 \
-        -s USE_ZLIB=1 \
         --preload-file assets")
 
 DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET()

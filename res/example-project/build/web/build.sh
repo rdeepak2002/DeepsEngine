@@ -23,6 +23,16 @@ fi
 ./download-emscripten.sh
 source emsdk/emsdk_env.sh
 
+# download assimp for web
+if [ -d "assimp-5.0.1" ]; then
+  echo "Assimp already built..."
+else
+  echo "Building Assimp..."
+  ./download-assimp.sh
+fi
+
+source emsdk/emsdk_env.sh
+
 # install vcpkg stuff
 rm -rf vcpkg
 ./download-vcpkg.sh
