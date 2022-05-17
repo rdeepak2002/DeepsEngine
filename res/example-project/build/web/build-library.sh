@@ -3,6 +3,10 @@
 # allow modification of this folder
 sudo chmod -R 777 ./
 
+rm -rf emsdk
+rm -rf vcpkg
+rm -rf web-library
+
 # download emscripten
 ./download-emscripten.sh
 source emsdk/emsdk_env.sh
@@ -12,6 +16,15 @@ source emsdk/emsdk_env.sh
 export VCPKG_ROOT="$(pwd)/vcpkg"
 ./vcpkg/vcpkg install lua:wasm32-emscripten
 ./vcpkg/vcpkg install yaml-cpp:wasm32-emscripten
+#./vcpkg/vcpkg install assimp:wasm32-emscripten
+
+# download assimp for web
+if [ -d "assimp-5.0.1" ]; then
+  echo "Assimp already built..."
+else
+  echo "Building Assimp..."
+  ./download-assimp.sh
+fi
 
 echo "Creating web library..."
 
@@ -35,4 +48,4 @@ echo "Cleaning up..."
 
 rm -rf emsdk
 rm -rf vcpkg
-rm -rf build
+rm -rf web-library

@@ -6,6 +6,7 @@
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <excludeRoots>
+      <file path="$PROJECT_DIR$/res/example-project/build/web/assimp-5.0.1" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/build" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/emsdk" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/vcpkg" />

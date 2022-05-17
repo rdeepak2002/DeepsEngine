@@ -55,6 +55,13 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
 
     # find yaml parsing library
     find_package(yaml-cpp CONFIG REQUIRED)
+
+    # assimp
+    include_directories("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/include")
+
+    if (APPLE)
+        link_libraries("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+    endif()
 endmacro()
 
 macro(DEEPS_ENGINE_EXPORT_ASSETS_FOLDER)

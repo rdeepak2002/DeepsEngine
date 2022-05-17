@@ -48,6 +48,11 @@ brew install pkg-config
 brew install texinfo
 brew install yasm
 
+brew remove assimp
+brew tap-new $USER/local-assimp
+brew extract --version=5.0.1 assimp $USER/local-assimp
+brew install assimp@5.0.1
+
 # download vcpkg (if not already installed) for installing libraries in a cross platform manner
 if [ -d "vcpkg" ]; then
   echo "vcpkg already downloaded..."
@@ -65,3 +70,5 @@ echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install glfw3
 ./vcpkg/vcpkg install yaml-cpp
 ./vcpkg/vcpkg install qt5
+
+./vcpkg/vcpkg install assimp

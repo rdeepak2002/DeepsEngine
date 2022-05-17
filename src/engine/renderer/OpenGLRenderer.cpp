@@ -121,6 +121,21 @@ void OpenGLRenderer::initialize() {
     std::string missingTextureSpecularFilePath = Application::getInstance().getProjectPath().append("src").append("textures").append("missing_texture_specular.png");
     missingTextureDiffuse = loadTexture(missingTextureDiffuseFilePath.c_str());
     missingTextureSpecular = loadTexture(missingTextureSpecularFilePath.c_str());
+
+    std::string linkIdleModelPath = Application::getInstance().getProjectPath().append("src").append("models").append("link").append("animations").append("idle").append("Idle.dae");
+    std::string linkIdleModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Idle.fbx");
+    std::string linkDancingModelPathFbx = Application::getInstance().getProjectPath().append("src").append("models").append("link_fbx").append("Dancing.fbx");
+
+    bool flipTextures = true;
+
+    stbi_set_flip_vertically_on_load(flipTextures);
+
+    ourModel = new Model(linkIdleModelPathFbx);
+
+    stbi_set_flip_vertically_on_load(false);
+
+    Animation* dancingAnimation = new Animation(linkDancingModelPathFbx, ourModel);
+    animator = new Animator(dancingAnimation);
 }
 
 void OpenGLRenderer::clear() {
@@ -134,6 +149,8 @@ void OpenGLRenderer::update() {
 //    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    animator->UpdateAnimation(Application::getInstance().deltaTime);
 
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
@@ -269,6 +286,18 @@ void OpenGLRenderer::update() {
             glBindVertexArray(cubeVAO);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
+
+        auto transforms = animator->GetFinalBoneMatrices();
+        for (int i = 0; i < transforms.size(); ++i)
+            lightingShader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, -0.4f, 0.0f)); // translate it down so it's at the center of the scene
+        float scale = 1.0f;
+        model = glm::scale(model, glm::vec3(scale, scale, scale));	// it's a bit too big for our scene, so scale it down
+        lightingShader->setMat4("model", model);
+
+        ourModel->Draw(*lightingShader);
 
         // also draw the lamp object(s)
         lightCubeShader->use();

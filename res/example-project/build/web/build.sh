@@ -23,12 +23,23 @@ fi
 ./download-emscripten.sh
 source emsdk/emsdk_env.sh
 
+# download assimp for web
+if [ -d "assimp-5.0.1" ]; then
+  echo "Assimp already built..."
+else
+  echo "Building Assimp..."
+  ./download-assimp.sh
+fi
+
+source emsdk/emsdk_env.sh
+
 # install vcpkg stuff
 rm -rf vcpkg
 ./download-vcpkg.sh
 export VCPKG_ROOT="$(pwd)/vcpkg"
 ./vcpkg/vcpkg install lua:wasm32-emscripten
 ./vcpkg/vcpkg install yaml-cpp:wasm32-emscripten
+#./vcpkg/vcpkg install assimp:wasm32-emscripten
 
 echo "Creating web build..."
 
