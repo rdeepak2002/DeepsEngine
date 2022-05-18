@@ -5,7 +5,6 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QGridLayout>
-#include <QListWidget>
 #include "SceneViewWidget.h"
 #include "Component.h"
 #include "Entity.h"
@@ -61,7 +60,6 @@ void SceneViewWidget::timerEvent(QTimerEvent *event) {
 }
 
 void SceneViewWidget::refreshSceneViewItems() {
-//    sceneViewList->clear();
     treeWidget->clear();
     entities = Application::getInstance().scene.GetEntities();
 
@@ -78,30 +76,26 @@ void SceneViewWidget::refreshSceneViewItems() {
         treeItem->setText(0, QString::fromStdString(entityTag.tag));
         entityItemMap->insert(treeItem, std::make_shared<DeepsEngine::Entity>(entity));
 
-        // TODO: call this recursively
-        if (entity.HasComponent<DeepsEngine::Component::HierarchyComponent>()) {
-            for (std::string childEntityGuid : entity.GetComponent<DeepsEngine::Component::HierarchyComponent>().childrenGuids) {
-//                DeepsEngine::Entity* childEntity = Application::getInstance().scene.findEntityByGuid(childEntityGuid);
-                std::shared_ptr<DeepsEngine::Entity> childEntity = std::make_shared<DeepsEngine::Entity>(*Application::getInstance().scene.findEntityByGuid(childEntityGuid));
+        // add children entities
+        addChildTreeItems(std::make_shared<DeepsEngine::Entity>(entity), treeItem);
+    }
+}
 
-                if (childEntity) {
-                    QTreeWidgetItem* treeItemChild = new QTreeWidgetItem();
-                    DeepsEngine::Component::Tag entityTag = childEntity->GetComponent<DeepsEngine::Component::Tag>();
-                    treeItemChild->setText(0, QString::fromStdString(entityTag.tag));
-                    treeItem->addChild(treeItemChild);
-                    entityItemMap->insert(treeItemChild, childEntity);
-                }
+void SceneViewWidget::addChildTreeItems(std::shared_ptr<DeepsEngine::Entity> entity, QTreeWidgetItem* treeItem) {
+    if (entity->HasComponent<DeepsEngine::Component::HierarchyComponent>()) {
+        for (std::string childEntityGuid : entity->GetComponent<DeepsEngine::Component::HierarchyComponent>().childrenGuids) {
+            std::shared_ptr<DeepsEngine::Entity> childEntity = std::make_shared<DeepsEngine::Entity>(*Application::getInstance().scene.findEntityByGuid(childEntityGuid));
+
+            if (childEntity) {
+                auto* treeItemChild = new QTreeWidgetItem();
+                DeepsEngine::Component::Tag entityTag = childEntity->GetComponent<DeepsEngine::Component::Tag>();
+                treeItemChild->setText(0, QString::fromStdString(entityTag.tag));
+                treeItem->addChild(treeItemChild);
+                entityItemMap->insert(treeItemChild, childEntity);
+
+                addChildTreeItems(childEntity, treeItemChild);
             }
         }
-
-//        sceneViewList->addItem(item);
-        // TODO: how to deal with subchildren:
-//        item->setSizeHint(QSize(0,65));
-//        QListWidget *childrenList = new QListWidget;
-//        childrenList->addItem("child 1");
-//        childrenList->addItem("child 2");
-//        childrenList->addItem("child 3");
-//        sceneViewList->setItemWidget(item, childrenList);
     }
 }
 

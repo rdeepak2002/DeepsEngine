@@ -23,6 +23,7 @@ public:
 
 public slots:
     void onListItemPressed(QTreeWidgetItem* item, int column);
+    void addChildTreeItems(std::shared_ptr<DeepsEngine::Entity> entity, QTreeWidgetItem* treeItem);
     void onAddButtonPressed();
     void setEntitySelectListener(EntitySelectListenerInterface *entitySelectListenerInterface);
 
