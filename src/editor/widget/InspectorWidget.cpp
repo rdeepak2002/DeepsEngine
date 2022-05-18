@@ -50,13 +50,15 @@ InspectorWidget::~InspectorWidget() {
     }
 }
 
-void InspectorWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
+void InspectorWidget::onEntitySelected(QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap, QTreeWidgetItem* listItem) {
     // reference to list view object
     this->listItem = listItem;
 
     // define the entity selected pointer
     entitySelected.reset();
-    entitySelected = std::make_shared<DeepsEngine::Entity>(entity);
+//    entitySelected = std::make_shared<DeepsEngine::Entity>(entity);
+//    entitySelected = entityItemMap[listItem];
+    entitySelected = entityItemMap->value(listItem);
 
     // make all widgets invisible again
     hideAllComponentWidgets();

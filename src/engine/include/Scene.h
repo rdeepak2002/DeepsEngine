@@ -24,7 +24,6 @@ namespace DeepsEngine {
         void DestroyEntity(DeepsEngine::Entity entity);
         void DestroyAllEntities();
         Entity* findEntityByGuid(std::string guid);
-        std::map<std::string, entt::entity> entitiesMap;
     };
 }
 

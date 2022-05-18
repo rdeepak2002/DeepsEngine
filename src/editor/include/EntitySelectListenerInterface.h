@@ -16,12 +16,14 @@
 
 #include <iostream>
 #include <QListWidgetItem>
+#include <QHash>
+#include <QTreeWidgetItem>
 #include "Entity.h"
 
 class EntitySelectListenerInterface
 {
 public:
-    virtual void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
+    virtual void onEntitySelected(QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap, QTreeWidgetItem* listItem) {
         std::cout << "onEntitySelected() not implemented" << std::endl;
         exit(1);
     }

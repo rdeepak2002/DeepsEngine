@@ -104,8 +104,8 @@ ProjectWidget::~ProjectWidget() {
 
 }
 
-void ProjectWidget::onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) {
-    inspectorWidget->onEntitySelected(entity, listItem);
+void ProjectWidget::onEntitySelected(QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap, QTreeWidgetItem* listItem) {
+    inspectorWidget->onEntitySelected(entityItemMap, listItem);
 }
 
 void ProjectWidget::closeEvent(QCloseEvent *event) {

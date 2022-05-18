@@ -24,9 +24,6 @@ namespace DeepsEngine {
         // add id component
         entity.AddComponent<DeepsEngine::Component::Id>(guid);
 
-        // update the map of entities to be used in hierarchy component
-        Application::getInstance().scene.entitiesMap.insert(std::make_pair(guid, entity));
-
         // make entity child of root by default
         entity.AddComponent<DeepsEngine::Component::HierarchyComponent>(entity);
 

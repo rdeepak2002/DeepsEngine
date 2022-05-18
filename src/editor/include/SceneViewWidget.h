@@ -8,7 +8,9 @@
 
 #include <QOpenGLWidget>
 #include <QLineEdit>
+#include <QHash>
 #include <QTextEdit>
+#include <QTreeWidgetItem>
 #include "Entity.h"
 #include "EntitySelectListenerInterface.h"
 
@@ -20,16 +22,18 @@ public:
     ~SceneViewWidget();
 
 public slots:
-    void onListItemPressed(QListWidgetItem* item);
+    void onListItemPressed(QTreeWidgetItem* item, int column);
     void onAddButtonPressed();
     void setEntitySelectListener(EntitySelectListenerInterface *entitySelectListenerInterface);
 
 private:
     int timerId;
-    QListWidget *sceneViewList;
+//    QListWidget *sceneViewList;
+    QTreeWidget *treeWidget;
     QPushButton *addButton;
     std::vector<DeepsEngine::Entity> entities;
     EntitySelectListenerInterface *entitySelectListenerInterface;
+    QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap;
     void refreshSceneViewItems();
 
 protected:

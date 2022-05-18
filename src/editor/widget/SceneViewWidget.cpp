@@ -22,11 +22,18 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // title for this panel
     QLabel* panelTitle = new QLabel("Scene");
 
+    // scene view tree
+    treeWidget = new QTreeWidget;
+    connect(treeWidget, &QTreeWidget::itemClicked, this, &SceneViewWidget::onListItemPressed);
+
+    // map of items to entities
+    entityItemMap = new QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>>;
+
     // scene view list
-    sceneViewList = new QListWidget;
-    sceneViewList->setStyleSheet(sceneViewList->styleSheet().append("background-color: transparent;"));
-    connect(sceneViewList, SIGNAL(itemClicked(QListWidgetItem*)),
-            this, SLOT(onListItemPressed(QListWidgetItem * )));
+//    sceneViewList = new QListWidget;
+//    sceneViewList->setStyleSheet(sceneViewList->styleSheet().append("background-color: transparent;"));
+//    connect(sceneViewList, SIGNAL(itemClicked(QListWidgetItem*)),
+//            this, SLOT(onListItemPressed(QListWidgetItem * )));
 
     // add entity button
     addButton = new QPushButton("Add", this);
@@ -35,7 +42,8 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->addWidget(panelTitle);
-    mainLayout->addWidget(sceneViewList);
+//    mainLayout->addWidget(sceneViewList);
+    mainLayout->addWidget(treeWidget);
     mainLayout->addWidget(addButton);
     setLayout(mainLayout);
 }
@@ -53,13 +61,40 @@ void SceneViewWidget::timerEvent(QTimerEvent *event) {
 }
 
 void SceneViewWidget::refreshSceneViewItems() {
-    sceneViewList->clear();
+//    sceneViewList->clear();
+    treeWidget->clear();
     entities = Application::getInstance().scene.GetEntities();
 
     for(auto entity : entities) {
+        // only show list items that are the root
+        if (entity.HasComponent<DeepsEngine::Component::HierarchyComponent>()) {
+            if (entity.GetComponent<DeepsEngine::Component::HierarchyComponent>().parentGuid != "root") {
+                continue;
+            }
+        }
+
         DeepsEngine::Component::Tag entityTag = entity.GetComponent<DeepsEngine::Component::Tag>();
-        QListWidgetItem* item = new QListWidgetItem(QString::fromStdString(entityTag.tag));
-        sceneViewList->addItem(item);
+        QTreeWidgetItem* treeItem = new QTreeWidgetItem(treeWidget);
+        treeItem->setText(0, QString::fromStdString(entityTag.tag));
+        entityItemMap->insert(treeItem, std::make_shared<DeepsEngine::Entity>(entity));
+
+        // TODO: call this recursively
+        if (entity.HasComponent<DeepsEngine::Component::HierarchyComponent>()) {
+            for (std::string childEntityGuid : entity.GetComponent<DeepsEngine::Component::HierarchyComponent>().childrenGuids) {
+//                DeepsEngine::Entity* childEntity = Application::getInstance().scene.findEntityByGuid(childEntityGuid);
+                std::shared_ptr<DeepsEngine::Entity> childEntity = std::make_shared<DeepsEngine::Entity>(*Application::getInstance().scene.findEntityByGuid(childEntityGuid));
+
+                if (childEntity) {
+                    QTreeWidgetItem* treeItemChild = new QTreeWidgetItem();
+                    DeepsEngine::Component::Tag entityTag = childEntity->GetComponent<DeepsEngine::Component::Tag>();
+                    treeItemChild->setText(0, QString::fromStdString(entityTag.tag));
+                    treeItem->addChild(treeItemChild);
+                    entityItemMap->insert(treeItemChild, childEntity);
+                }
+            }
+        }
+
+//        sceneViewList->addItem(item);
         // TODO: how to deal with subchildren:
 //        item->setSizeHint(QSize(0,65));
 //        QListWidget *childrenList = new QListWidget;
@@ -70,23 +105,12 @@ void SceneViewWidget::refreshSceneViewItems() {
     }
 }
 
-void SceneViewWidget::onListItemPressed(QListWidgetItem* item) {
+void SceneViewWidget::onListItemPressed(QTreeWidgetItem* item, int column) {
     if (entitySelectListenerInterface) {
-        int rowIndex = sceneViewList->row(item);
-        entitySelectListenerInterface->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
+        entitySelectListenerInterface->onEntitySelected(entityItemMap, treeWidget->currentItem());
     } else {
         Logger::Error("Entity select listener not defined in SceneViewWidget");
     }
-//    // reference to main window
-//    auto *mainWindow = dynamic_cast<MainWindow *> (this->parentWidget()->parentWidget());
-//
-//    if (mainWindow) {
-//        int rowIndex = sceneViewList->row(item);
-//        mainWindow->onEntitySelected(entities.at(rowIndex), sceneViewList->currentItem());
-//    }
-//    else {
-//        Logger::Debug("Error sending message from scene view to main window");
-//    }
 }
 
 void SceneViewWidget::onAddButtonPressed() {
