@@ -41,15 +41,15 @@ namespace DeepsEngine::Component {
     struct Id : public Component {
         Id() = default;
 
-        Id(uint32_t id) {
+        Id(std::string id) {
             this->id = id;
         }
 
         Id(YAML::Node yamlData) {
-            this->id = yamlData["id"].as<uint32_t>();
+            this->id = yamlData["id"].as<std::string>();
         }
 
-        uint32_t id;
+        std::string id;
     };
 
     struct Tag : public Component {
@@ -73,9 +73,44 @@ namespace DeepsEngine::Component {
         }
     };
 
-    struct Transform : public Component {
-        Transform() = default;
+    struct HierarchyComponent : public Component {
+        HierarchyComponent(Entity &thisEntity) {
+            this->entityGuid = thisEntity.GetComponent<DeepsEngine::Component::Id>().id;
+            parentGuid = "root";
+        }
 
+        HierarchyComponent(Entity &thisEntity, Entity &parent) {
+            this->entityGuid = thisEntity.GetComponent<DeepsEngine::Component::Id>().id;
+            parent.GetComponent<HierarchyComponent>().addChild(thisEntity);
+        }
+
+        HierarchyComponent(YAML::Node yamlData, std::string entityGuid) {
+            this->entityGuid = entityGuid;
+            this->parentGuid = yamlData["parentGuid"].as<std::string>();
+            this->childrenGuids = yamlData["childrenGuids"].as<std::vector<std::string>>();
+        }
+
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "Hierarchy";
+            out << YAML::BeginMap;
+
+            out << YAML::Key << "parentGuid" << YAML::Value << parentGuid;
+            out << YAML::Key << "childrenGuids" << YAML::Value << childrenGuids;
+
+            out << YAML::EndMap;
+        }
+
+        void addChild(Entity &childEntity) {
+            childEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().parentGuid = entityGuid;
+            childrenGuids.push_back(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+        }
+
+        std::string entityGuid;
+        std::string parentGuid;
+        std::vector<std::string> childrenGuids;
+    };
+
+    struct Transform : public Component {
         Transform(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
             this->position = position;
             this->rotation = rotation;
@@ -86,6 +121,28 @@ namespace DeepsEngine::Component {
             this->position = yamlToGlmVec3(yamlData["position"]);
             this->rotation = yamlToGlmVec3(yamlData["rotation"]);
             this->scale = yamlToGlmVec3(yamlData["scale"]);
+        }
+
+        glm::mat4 getModelMatrix(Entity &entity) {
+            glm::mat4 parentModelMatrix = glm::mat4(1.0f);
+
+            if (entity.HasComponent<HierarchyComponent>() && entity.GetComponent<HierarchyComponent>().parentGuid != "root") {
+                Entity* parentEntity = Application::getInstance().scene.findEntityByGuid(entity.GetComponent<HierarchyComponent>().parentGuid);
+
+                if (parentEntity && parentEntity->HasComponent<Transform>()) {
+                    parentModelMatrix = parentEntity->GetComponent<Transform>().getModelMatrix(*parentEntity);
+                }
+            }
+
+            // calculate the model matrix for each object and pass it to shader before drawing
+            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+            model = glm::translate(model, glm::vec3(position.x, position.y, position.z));
+            model = glm::rotate(model, rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+            model = glm::rotate(model, rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+            model = glm::rotate(model, rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+            model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z));
+
+            return parentModelMatrix * model;
         }
 
         glm::vec3 front() {
@@ -113,6 +170,7 @@ namespace DeepsEngine::Component {
         glm::vec3 position;
         glm::vec3 rotation;
         glm::vec3 scale;
+        std::string entityGuid;
 
         virtual void Serialize(YAML::Emitter &out) override {
             out << YAML::Key << "Transform";

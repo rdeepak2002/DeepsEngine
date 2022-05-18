@@ -16,7 +16,7 @@ namespace DeepsEngine {
 
     void Entity::Serialize(YAML::Emitter &out) const {
         out << YAML::BeginMap;
-        out << YAML::Key << "Entity" << YAML::Value << std::to_string(GetComponent<DeepsEngine::Component::Id>().id);
+        out << YAML::Key << "Entity" << YAML::Value << GetComponent<DeepsEngine::Component::Id>().id;
 
         if (HasComponent<Component::Tag>()) {
             GetComponent<Component::Tag>().Serialize(out);
@@ -46,18 +46,20 @@ namespace DeepsEngine {
             GetComponent<Component::Light>().Serialize(out);
         }
 
+        if (HasComponent<Component::HierarchyComponent>()) {
+            GetComponent<Component::HierarchyComponent>().Serialize(out);
+        }
+
         out << YAML::EndMap;
     }
 
     void Entity::Deserialize(YAML::Node entityYaml) {
-        if(entityYaml["Entity"]) {
-            std::string entityId = entityYaml["Entity"].as<std::string>();
-            // TODO: proper id component in future
-        }
+        std::string entityId;
 
-        if(entityYaml["Id"]) {
+        if(entityYaml["Entity"]) {
+            entityId = entityYaml["Entity"].as<std::string>();
             RemoveComponent<Component::Id>();
-            AddComponent<Component::Id>(entityYaml["Id"]);
+            AddComponent<Component::Id>(entityId);
         }
 
         if(entityYaml["Tag"]) {
@@ -93,6 +95,11 @@ namespace DeepsEngine {
         if(entityYaml["Light"]) {
             RemoveComponent<Component::Light>();
             AddComponent<Component::Light>(entityYaml["Light"]);
+        }
+
+        if(entityYaml["Hierarchy"]) {
+            RemoveComponent<Component::HierarchyComponent>();
+            AddComponent<Component::HierarchyComponent>(entityYaml["Hierarchy"], entityId);
         }
     }
 }

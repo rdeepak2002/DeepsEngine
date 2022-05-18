@@ -3,11 +3,11 @@
 //
 
 #include "Scene.h"
-#include "Entity.h"
 #include "Component.h"
+#include "Uuid.h"
 
 namespace DeepsEngine {
-    DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {
+    DeepsEngine::Entity Scene::CreateEntity(const std::string& name, const std::string& guid) {
         // create entity
         DeepsEngine::Entity entity = {this};
 
@@ -22,15 +22,23 @@ namespace DeepsEngine {
         entity.AddComponent<DeepsEngine::Component::Tag>(tag);
 
         // add id component
-        Component::Id id = {entity.GetId()};
-        entity.AddComponent<DeepsEngine::Component::Id>(id);
+        entity.AddComponent<DeepsEngine::Component::Id>(guid);
+
+        // update the map of entities to be used in hierarchy component
+        Application::getInstance().scene.entitiesMap.insert(std::make_pair(guid, entity));
+
+        // make entity child of root by default
+        entity.AddComponent<DeepsEngine::Component::HierarchyComponent>(entity);
 
         return entity;
     }
 
+    DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {
+        return CreateEntity(name, uuid::generate_uuid_v4());
+    }
+
     DeepsEngine::Entity Scene::CreateEntity() {
-        // TODO: call function callback
-        return CreateEntity("");
+        return CreateEntity("", uuid::generate_uuid_v4());
     }
 
     void Scene::DestroyEntity(Entity entity) {
@@ -122,5 +130,20 @@ namespace DeepsEngine {
         registry.each([&](entt::entity entity) {
             registry.destroy(entity);
         });
+    }
+
+    Entity* Scene::findEntityByGuid(std::string guid) {
+        // TODO: make this faster by looking up in map of entity guids
+        Entity* returnEntity = nullptr;
+
+        registry.each([&](entt::entity entityHandle) {
+            auto* entity = new Entity(entityHandle);
+
+            if (entity->HasComponent<Component::Id>() && entity->GetComponent<Component::Id>().id == guid) {
+                returnEntity = entity;
+            }
+        });
+
+        return returnEntity;
     }
 }

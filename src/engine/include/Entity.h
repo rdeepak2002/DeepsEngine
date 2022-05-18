@@ -5,6 +5,8 @@
 #ifndef EDITOR_ENTITY_H
 #define EDITOR_ENTITY_H
 
+#pragma once
+
 #include <yaml-cpp/emitter.h>
 #include "Scene.h"
 #include "OpenGLRenderer.h"
