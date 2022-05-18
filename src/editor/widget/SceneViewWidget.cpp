@@ -24,6 +24,7 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // scene view tree
     treeWidget = new QTreeWidget;
     connect(treeWidget, &QTreeWidget::itemClicked, this, &SceneViewWidget::onListItemPressed);
+    connect(treeWidget->selectionModel(), SIGNAL( selectionChanged( const QItemSelection &, const QItemSelection & )), this, SLOT( selectionChanged( const QItemSelection &, const QItemSelection & ) ));
 
     // map of items to entities
     entityItemMap = new QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>>;
@@ -108,9 +109,24 @@ void SceneViewWidget::onListItemPressed(QTreeWidgetItem* item, int column) {
 }
 
 void SceneViewWidget::onAddButtonPressed() {
-    Application::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
+    DeepsEngine::Entity newEntity = Application::getInstance().scene.CreateEntity("Entity " + std::to_string(entities.size() + 1));
+
+    // check if entity is selected, then make this new entity a child of the selected one
+    QTreeWidgetItem* currentlySelectedItem = treeWidget->currentItem();
+
+    if (currentlySelectedItem) {
+        std::shared_ptr<DeepsEngine::Entity> selectedEntity = entityItemMap->value(currentlySelectedItem);
+        selectedEntity->GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(newEntity);
+    }
 }
 
 void SceneViewWidget::setEntitySelectListener(EntitySelectListenerInterface *entitySelectListenerInterface) {
     this->entitySelectListenerInterface = entitySelectListenerInterface;
+}
+
+void SceneViewWidget::keyReleaseEvent(QKeyEvent *event) {
+    if (event->key() == 16777216 || event->key() == Qt::Key::Key_Escape) {
+        treeWidget->clearSelection();
+        treeWidget->setCurrentItem(nullptr);
+    }
 }

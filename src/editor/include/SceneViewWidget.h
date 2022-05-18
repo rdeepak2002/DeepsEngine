@@ -11,6 +11,8 @@
 #include <QHash>
 #include <QTextEdit>
 #include <QTreeWidgetItem>
+#include <QKeyEvent>
+#include <QMouseEvent>
 #include "Entity.h"
 #include "EntitySelectListenerInterface.h"
 
@@ -39,6 +41,7 @@ private:
 
 protected:
     void timerEvent(QTimerEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 };
 
 
