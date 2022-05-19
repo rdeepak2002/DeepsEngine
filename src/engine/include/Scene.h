@@ -13,8 +13,8 @@ namespace DeepsEngine {
     class Scene {
     public:
         entt::registry registry;
-        DeepsEngine::Entity CreateEntity(const std::string& name, const std::string& guid);
-        DeepsEngine::Entity CreateEntity(const std::string& name);
+        DeepsEngine::Entity CreateEntity(std::string name, std::string guid);
+        DeepsEngine::Entity CreateEntity(std::string name);
         DeepsEngine::Entity CreateEntity();
         std::vector<DeepsEngine::Entity> GetEntities();
         std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> GetMeshEntities();

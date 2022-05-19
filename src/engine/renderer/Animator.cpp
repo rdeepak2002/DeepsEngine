@@ -32,35 +32,35 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
         glm::vec4 perspective;
         glm::decompose(globalTransformation, scale, rotation, translation, skew, perspective);
 
+        std::string boneEntityGuid = entityGuid + "-node-" + nodeName;
+
         if (bonesList.find(nodeName) == bonesList.end()) {
             // bone is not in set
             bonesList.insert(nodeName);
 
-            // TODO: only do Create Entity if you cannot find entity
-            DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName);
-            // TODO: set guid to parent id with node name appended
+            if (Application::getInstance().scene.entityExists(boneEntityGuid)) {
+                // use existing bone entity
+                DeepsEngine::Entity boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
 
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
 
-            boneEntityMap.insert(std::make_pair(nodeName, boneEntity.entity));
+                DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
+                thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
+            } else {
+                // remove existing bone entity
+                DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName, boneEntityGuid);
 
-            DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
-            thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
 
-            // TODO: remove this hardcoded part where we attach the box entity to the head
-            DeepsEngine::Entity boxEntity = Application::getInstance().scene.findEntityByGuid("d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0eq");
-            std::string headBone = "mixamorig::Head";
-            std::string leftHandBone = "mixamorig:LeftHandMiddle2_$AssimpFbx$_Rotation";
-            std::string rightHandBone = "mixamorig:RightHandMiddle2_$AssimpFbx$_Rotation";
-
-            if (nodeName == rightHandBone) {
-                boneEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boxEntity);
+                DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
+                thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
             }
         } else {
-            entt::entity boneEntityHandle = boneEntityMap[nodeName];
-            auto boneEntity = DeepsEngine::Entity(boneEntityHandle);
+            auto boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
 
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);

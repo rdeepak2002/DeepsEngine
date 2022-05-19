@@ -61,7 +61,6 @@ private:
     float m_CurrentTime;
     float m_DeltaTime;
     std::unordered_set<std::string> bonesList;
-    std::map<std::string, entt::entity> boneEntityMap;
     std::string entityGuid;
 };
 

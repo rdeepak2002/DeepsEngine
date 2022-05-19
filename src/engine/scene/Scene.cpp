@@ -7,7 +7,7 @@
 #include "Uuid.h"
 
 namespace DeepsEngine {
-    DeepsEngine::Entity Scene::CreateEntity(const std::string& name, const std::string& guid) {
+    DeepsEngine::Entity Scene::CreateEntity(std::string name, std::string guid) {
         // create entity
         DeepsEngine::Entity entity = {this};
 
@@ -30,7 +30,7 @@ namespace DeepsEngine {
         return entity;
     }
 
-    DeepsEngine::Entity Scene::CreateEntity(const std::string& name) {
+    DeepsEngine::Entity Scene::CreateEntity(std::string name) {
         return CreateEntity(name, uuid::generate_uuid_v4());
     }
 
@@ -150,15 +150,19 @@ namespace DeepsEngine {
     }
 
     bool Scene::entityExists(std::string guid) {
+        bool result = false;
+
         // TODO: make this faster by looking up in map of entity guids
         registry.each([&](entt::entity entityHandle) {
             DeepsEngine::Entity entity = {entityHandle};
 
+//            Logger::Debug("Found entity with id: " + entity.GetComponent<Component::Id>().id);
+
             if (entity.HasComponent<Component::Id>() && entity.GetComponent<Component::Id>().id == guid) {
-                return true;
+                result = true;
             }
         });
 
-        return false;
+        return result;
     }
 }
