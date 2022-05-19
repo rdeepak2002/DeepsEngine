@@ -61,14 +61,6 @@ if(WITH_EDITOR)
             ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.app/Contents/MacOS/assets/res)
 else()
     if (AS_LIBRARY)
-#        # assimp for web
-#        if (EMSCRIPTEN)
-#            include_directories("${PROJECT_SOURCE_DIR}/res/example-project/build/web/assimp-5.0.1/include")
-#            link_libraries("${PROJECT_SOURCE_DIR}/res/example-project/build/web/assimp-5.0.1/lib/libassimp.a")
-#            link_libraries("${PROJECT_SOURCE_DIR}/res/example-project/build/web/assimp-5.0.1/lib/libIrrXML.a")
-#            link_libraries("${PROJECT_SOURCE_DIR}/res/example-project/build/web/assimp-5.0.1/lib/libzlib.a")
-#        endif()
-
         # create shared library
         add_library(${PROJECT_NAME} SHARED ${ENGINE_SOURCE_FILES})
         set_target_properties(${PROJECT_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/src/engine/lib)
