@@ -134,10 +134,6 @@ namespace DeepsEngine::Component {
                 }
             }
 
-            if (isBone) {
-                return overrideModelMatrix;
-            }
-
             // calculate the model matrix for each object and pass it to shader before drawing
             glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
             model = glm::translate(model, glm::vec3(position.x, position.y, position.z));
@@ -175,8 +171,6 @@ namespace DeepsEngine::Component {
         glm::vec3 rotation;
         glm::vec3 scale;
         std::string entityGuid;
-        bool isBone = false;
-        glm::mat4 overrideModelMatrix;
 
         virtual void Serialize(YAML::Emitter &out) override {
             out << YAML::Key << "Transform";
