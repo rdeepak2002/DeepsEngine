@@ -13,9 +13,9 @@ Entities:
         y: 0.0
         z: 0.000000
       scale:
-        x: 0.10000
-        y: 0.10000
-        z: 0.10000
+        x: 0.40000
+        y: 0.40000
+        z: 0.40000
     MeshFilter:
       mesh: cube
       meshPath: ""

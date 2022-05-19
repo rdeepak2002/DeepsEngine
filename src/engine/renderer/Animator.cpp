@@ -31,7 +31,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
 
             DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName);
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().isBone = true;
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = nodeTransform;
+            boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = parentTransform * nodeTransform;
 
             boneEntityMap.insert(std::make_pair(nodeName, boneEntity.entity));
 
@@ -48,7 +48,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
         } else {
             entt::entity boneEntityHandle = boneEntityMap[nodeName];
             auto boneEntity = DeepsEngine::Entity(boneEntityHandle);
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = nodeTransform;
+            boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = parentTransform * nodeTransform;
         }
 
 //        if (boneMap.count(nodeName) <= 0) {
