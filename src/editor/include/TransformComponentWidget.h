@@ -22,6 +22,12 @@ private:
     // reference to the transform being displayed
     DeepsEngine::Component::Transform* transformComponent;
 
+    // component title
+    QLabel* componentTitle;
+
+    // group all widget
+    QWidget* group;
+
     // position inputs
     QLineEdit* positionXInput;
     QLineEdit* positionYInput;

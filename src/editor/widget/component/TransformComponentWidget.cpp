@@ -92,16 +92,24 @@ TransformComponentWidget::TransformComponentWidget(QWidget *parent) {
     scaleInputFieldsGroup->addWidget(new QLabel("z"));
     scaleInputFieldsGroup->addWidget(scaleZInput);
 
+    // group all widgets together
+    group = new QWidget;
+    QVBoxLayout* groupLayout = new QVBoxLayout;
+    groupLayout->addWidget(new QLabel("Position"));
+    groupLayout->addLayout(positionInputFieldsGroup);
+    groupLayout->addWidget(new QLabel("Rotation"));
+    groupLayout->addLayout(rotationInputFieldsGroup);
+    groupLayout->addWidget(new QLabel("Scale"));
+    groupLayout->addLayout(scaleInputFieldsGroup);
+    group->setLayout(groupLayout);
+
+    componentTitle = new QLabel("Transform");
+
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
-    mainLayout->addWidget(new QLabel("Transform"));
-    mainLayout->addWidget(new QLabel("Position"));
-    mainLayout->addLayout(positionInputFieldsGroup);
-    mainLayout->addWidget(new QLabel("Rotation"));
-    mainLayout->addLayout(rotationInputFieldsGroup);
-    mainLayout->addWidget(new QLabel("Scale"));
-    mainLayout->addLayout(scaleInputFieldsGroup);
+    mainLayout->addWidget(componentTitle);
+    mainLayout->addWidget(group);
     setLayout(mainLayout);
 }
 
@@ -123,6 +131,14 @@ void TransformComponentWidget::setComponent(DeepsEngine::Component::Component* c
     transformComponent = dynamic_cast<DeepsEngine::Component::Transform*>(component);
 
     if (transformComponent) {
+        if (transformComponent->overrideModelMatrix) {
+            componentTitle->setText("Transform (Overridden)");
+            group->hide();
+        } else {
+            componentTitle->setText("Transform");
+            group->show();
+        }
+
         positionXInput->setText(QString::fromStdString(std::to_string(transformComponent->position.x)));
         positionYInput->setText(QString::fromStdString(std::to_string(transformComponent->position.y)));
         positionZInput->setText(QString::fromStdString(std::to_string(transformComponent->position.z)));

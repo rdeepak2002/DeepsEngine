@@ -1,5 +1,75 @@
 Scene: example-scene
 Entities:
+  - Entity: 0896942a-72c1-4294-b450-3e5b8e23458e
+    Tag:
+      tag: Master Sword Two
+    Transform:
+      position:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 1.577000
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    MeshFilter:
+      mesh: static-model
+      meshPath: src/models/master_sword/MasterSword.obj
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
+    Hierarchy:
+      parentGuid: 5a2d3603-0a99-4055-9fb8-a0195271a611
+      childrenGuids:
+        []
+  - Entity: 5a2d3603-0a99-4055-9fb8-a0195271a611
+    Tag:
+      tag: Right Hand Grip
+    Transform:
+      position:
+        x: 0.060000
+        y: 0.100000
+        z: 0.020000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
+      childrenGuids:
+        - 0896942a-72c1-4294-b450-3e5b8e23458e
+  - Entity: 4590ebc6-68d2-49ed-a58b-25bc4483b4d6
+    Tag:
+      tag: Right Hand Cube
+    Transform:
+      position:
+        x: 0.000000
+        y: 0.100000
+        z: 0.020000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 0.050000
+        y: 0.050000
+        z: 0.050000
+    MeshFilter:
+      mesh: cube
+      meshPath: ""
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
+      childrenGuids:
+        []
   - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0eq
     Tag:
       tag: Tiny Box
@@ -379,7 +449,7 @@ Entities:
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 82.773994
+        y: 88.672997
         z: 0.000000
       scale:
         x: 1.000000
@@ -399,12 +469,12 @@ Entities:
       tag: Scene Camera
     Transform:
       position:
-        x: -0.135175
-        y: 1.468099
-        z: 1.615828
+        x: -1.779332
+        y: 1.462999
+        z: 0.147884
       rotation:
-        x: -0.370534
-        y: 4.648140
+        x: -0.399569
+        y: 6.376899
         z: 0.000000
       scale:
         x: 1.000000
@@ -1040,7 +1110,7 @@ Entities:
         []
   - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
     Tag:
-      tag: mixamorig:RightHand_$AssimpFbx$_Rotation
+      tag: Right Hand
     Transform:
       position:
         x: -0.323700
@@ -1058,6 +1128,8 @@ Entities:
       parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
       childrenGuids:
         - 917502bd-4d04-49c5-a93f-f7fb968c3958
+        - 4590ebc6-68d2-49ed-a58b-25bc4483b4d6
+        - 5a2d3603-0a99-4055-9fb8-a0195271a611
   - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb1_$AssimpFbx$_Rotation
     Tag:
       tag: mixamorig:RightHandThumb1_$AssimpFbx$_Rotation
