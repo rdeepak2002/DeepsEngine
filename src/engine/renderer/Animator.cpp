@@ -25,13 +25,6 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
 
         glm::mat4 globalTransformation = parentTransform * nodeTransform;
 
-        glm::vec3 scale;
-        glm::quat rotation;
-        glm::vec3 translation;
-        glm::vec3 skew;
-        glm::vec4 perspective;
-        glm::decompose(globalTransformation, scale, rotation, translation, skew, perspective);
-
         std::string boneEntityGuid = entityGuid + "-node-" + nodeName;
 
         if (bonesList.find(nodeName) == bonesList.end()) {
@@ -41,30 +34,25 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
             if (Application::getInstance().scene.entityExists(boneEntityGuid)) {
                 // use existing bone entity
                 DeepsEngine::Entity boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
-
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = true;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().modelMatrixOverride = globalTransformation;
 
                 DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
                 thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
             } else {
-                // remove existing bone entity
+                // add new bone entity
                 DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName, boneEntityGuid);
-
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = true;
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().modelMatrixOverride = globalTransformation;
 
                 DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
                 thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
             }
         } else {
+            // bone entity already present in scene
             auto boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
-
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
+            boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = true;
+            boneEntity.GetComponent<DeepsEngine::Component::Transform>().modelMatrixOverride = globalTransformation;
         }
     }
 
