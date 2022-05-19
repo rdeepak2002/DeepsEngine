@@ -43,7 +43,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
                 DeepsEngine::Entity boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
 
                 boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::degrees(glm::eulerAngles(rotation).x), glm::degrees(glm::eulerAngles(rotation).y), glm::degrees(glm::eulerAngles(rotation).z));
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
                 boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
 
                 DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
@@ -53,7 +53,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
                 DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName, boneEntityGuid);
 
                 boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
+                boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
                 boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
 
                 DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
@@ -63,7 +63,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
             auto boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
 
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
-            boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
+            boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::vec3(glm::radians(glm::eulerAngles(rotation).x), glm::radians(glm::eulerAngles(rotation).y), glm::radians(glm::eulerAngles(rotation).z));
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
         }
     }
