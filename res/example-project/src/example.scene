@@ -1,21 +1,1197 @@
 Scene: example-scene
 Entities:
-  - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0eq
+  - Entity: 917502bd-4d04-49c5-a93f-f7fb968c3958
     Tag:
-      tag: Tiny Box
+      tag: Master Sword
     Transform:
       position:
-        x: 0.0
+        x: 0.000000
+        y: -0.100000
+        z: 0.100000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 1.570000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    MeshFilter:
+      mesh: static-model
+      meshPath: src/models/master_sword/MasterSword.obj
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightToeBase_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightToeBase_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.199508
+        y: 0.004086
+        z: -0.221269
+      rotation:
+        x: 0.029937
+        y: 0.021981
+        z: -0.052572
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightFoot_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightFoot_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.047177
+        y: 0.117312
+        z: -0.274694
+      rotation:
+        x: 0.015680
+        y: 0.021243
+        z: 0.053705
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightLeg_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightLeg_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.142019
+        y: 0.411061
+        z: -0.132419
+      rotation:
+        x: -0.018398
+        y: 0.018649
+        z: 0.042904
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightUpLeg_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightUpLeg_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.074435
+        y: 0.791855
+        z: -0.067324
+      rotation:
+        x: -0.005279
+        y: 0.017100
+        z: 0.047340
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftToeBase_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftToeBase_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.023819
+        y: 0.004550
+        z: 0.364370
+      rotation:
+        x: 0.027667
+        y: 0.014487
+        z: 0.054423
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftFoot_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftFoot_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.091294
+        y: 0.117468
+        z: 0.251667
+      rotation:
+        x: 0.017154
+        y: 0.014161
+        z: -0.054264
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftLeg_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftLeg_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.025848
+        y: 0.450975
+        z: 0.256088
+      rotation:
+        x: -0.000321
+        y: 0.013706
+        z: -0.051676
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftUpLeg_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftUpLeg_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.074796
+        y: 0.792478
+        z: 0.069591
+      rotation:
+        x: 0.010183
+        y: 0.009236
+        z: -0.051702
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandPinky3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.302409
+        y: 0.689463
+        z: -0.150304
+      rotation:
+        x: 0.033025
+        y: -0.020989
+        z: 0.039676
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandPinky2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.321231
+        y: 0.700381
+        z: -0.158195
+      rotation:
+        x: 0.033025
+        y: -0.020989
+        z: 0.039676
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandPinky1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.328000
+        y: 0.726574
+        z: -0.163564
+      rotation:
+        x: 0.017213
+        y: -0.023285
+        z: 0.042258
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandRing3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.301892
+        y: 0.681969
+        z: -0.124003
+      rotation:
+        x: 0.032319
+        y: -0.021298
+        z: 0.039358
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandRing2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.325714
+        y: 0.697868
+        z: -0.133993
+      rotation:
+        x: 0.032319
+        y: -0.021298
+        z: 0.039358
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandRing1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.333485
+        y: 0.728194
+        z: -0.142062
+      rotation:
+        x: 0.019509
+        y: -0.022516
+        z: 0.039979
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandMiddle3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.315968
+        y: 0.677976
+        z: -0.091691
+      rotation:
+        x: 0.028409
+        y: -0.020268
+        z: 0.038488
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandMiddle2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.337176
+        y: 0.703335
+        z: -0.106026
+      rotation:
+        x: 0.028409
+        y: -0.020268
+        z: 0.038488
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandMiddle1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.338318
+        y: 0.738186
+        z: -0.117035
+      rotation:
+        x: 0.017147
+        y: -0.020967
+        z: 0.038829
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandIndex3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.342740
+        y: 0.682846
+        z: -0.075276
+      rotation:
+        x: 0.019723
+        y: -0.020800
+        z: 0.038778
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandIndex2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.347931
+        y: 0.711172
+        z: -0.085497
+      rotation:
+        x: 0.019723
+        y: -0.020800
+        z: 0.038778
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandIndex1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.344002
+        y: 0.741805
+        z: -0.094981
+      rotation:
+        x: 0.015077
+        y: -0.020494
+        z: 0.038226
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandThumb3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.305669
+        y: 0.752538
+        z: -0.064770
+      rotation:
+        x: 0.025595
+        y: -0.015522
+        z: 0.033255
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandThumb2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.312977
+        y: 0.785275
+        z: -0.082017
+      rotation:
+        x: 0.024931
+        y: -0.019868
+        z: 0.034041
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHandThumb1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.317309
+        y: 0.809718
+        z: -0.109756
+      rotation:
+        x: 0.025739
+        y: -0.014829
+        z: 0.032977
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightHand_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.317618
+        y: 0.836251
+        z: -0.147980
+      rotation:
+        x: 0.010674
+        y: -0.021962
+        z: 0.041545
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        - 917502bd-4d04-49c5-a93f-f7fb968c3958
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightForeArm_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightForeArm_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.214214
+        y: 1.104015
+        z: -0.163340
+      rotation:
+        x: 0.002206
+        y: -0.019775
+        z: 0.046399
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightArm_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightArm_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.183223
+        y: 1.275987
+        z: -0.020062
+      rotation:
+        x: -0.018109
+        y: -0.012972
+        z: -0.043046
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightShoulder_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:RightShoulder_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.064945
+        y: 1.318136
+        z: 0.025547
+      rotation:
+        x: -0.038467
+        y: -0.019783
+        z: -0.036971
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandPinky3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.316556
+        y: 0.726663
+        z: 0.317065
+      rotation:
+        x: -0.048771
+        y: 0.012337
+        z: -0.006460
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandPinky2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.328246
+        y: 0.743766
+        z: 0.322641
+      rotation:
+        x: -0.048771
+        y: 0.012337
+        z: -0.006460
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandPinky1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.329390
+        y: 0.769421
+        z: 0.317275
+      rotation:
+        x: 0.049994
+        y: 0.012687
+        z: -0.004038
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandRing3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.296911
+        y: 0.719367
+        z: 0.336387
+      rotation:
+        x: -0.052094
+        y: 0.011838
+        z: -0.006660
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandRing2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.311019
+        y: 0.746720
+        z: 0.340266
+      rotation:
+        x: -0.052040
+        y: 0.011828
+        z: -0.006574
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandRing1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.312796
+        y: 0.778325
+        z: 0.330695
+      rotation:
+        x: 0.048177
+        y: 0.012012
+        z: -0.005289
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandMiddle3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.284151
+        y: 0.723827
+        z: 0.372008
+      rotation:
+        x: 0.050836
+        y: 0.010338
+        z: -0.007608
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandMiddle2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.294502
+        y: 0.757286
+        z: 0.365456
+      rotation:
+        x: 0.050950
+        y: 0.010385
+        z: -0.007404
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandMiddle1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.291755
+        y: 0.788519
+        z: 0.345530
+      rotation:
+        x: 0.042380
+        y: 0.010716
+        z: -0.006502
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandIndex3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.268647
+        y: 0.748983
+        z: 0.401101
+      rotation:
+        x: 0.042956
+        y: 0.007363
+        z: -0.009735
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandIndex2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.274704
+        y: 0.773428
+        z: 0.383359
+      rotation:
+        x: 0.042913
+        y: 0.007286
+        z: -0.009840
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandIndex1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.274985
+        y: 0.793660
+        z: 0.359006
+      rotation:
+        x: 0.037455
+        y: 0.007178
+        z: -0.009883
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb3_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandThumb3_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.218316
+        y: 0.778011
+        z: 0.336322
+      rotation:
+        x: 0.045871
+        y: 0.000824
+        z: -0.011507
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb2_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandThumb2_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.234954
+        y: 0.806214
+        z: 0.318183
+      rotation:
+        x: 0.045941
+        y: 0.001198
+        z: -0.010481
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb1_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHandThumb1_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.252045
+        y: 0.834984
+        z: 0.300236
+      rotation:
+        x: 0.046371
+        y: 0.002256
+        z: -0.008579
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHand_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftHand_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.276256
+        y: 0.856095
+        z: 0.265291
+      rotation:
+        x: 0.037428
+        y: 0.010896
+        z: -0.006946
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftForeArm_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftForeArm_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.272550
+        y: 1.072615
+        z: 0.076262
+      rotation:
+        x: 0.036737
+        y: 0.012240
+        z: -0.014169
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftArm_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftArm_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.185048
+        y: 1.280225
+        z: 0.093621
+      rotation:
+        x: -0.049845
+        y: 0.022597
+        z: 0.011769
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftShoulder_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:LeftShoulder_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.058639
+        y: 1.315927
+        z: 0.069275
+      rotation:
+        x: 0.047586
+        y: 0.019232
+        z: 0.016073
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Head
+    Tag:
+      tag: mixamorig:Head
+    Transform:
+      position:
+        x: -0.007206
+        y: 1.400007
+        z: 0.063553
+      rotation:
+        x: 0.004017
+        y: -0.000384
+        z: 0.001346
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Neck_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:Neck_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: -0.004794
+        y: 1.330745
+        z: 0.052740
+      rotation:
+        x: 0.006396
+        y: -0.006350
+        z: -0.000430
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine2
+    Tag:
+      tag: mixamorig:Spine2
+    Transform:
+      position:
+        x: 0.009338
+        y: 1.190720
+        z: 0.005659
+      rotation:
+        x: 0.005997
+        y: -0.005988
+        z: -0.000335
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine1
+    Tag:
+      tag: mixamorig:Spine1
+    Transform:
+      position:
+        x: 0.014997
+        y: 1.060311
+        z: -0.013387
+      rotation:
+        x: 0.002895
+        y: -0.008836
+        z: -0.000656
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine_$AssimpFbx$_Rotation
+    Tag:
+      tag: mixamorig:Spine_$AssimpFbx$_Rotation
+    Transform:
+      position:
+        x: 0.010501
+        y: 0.945003
+        z: -0.010792
+      rotation:
+        x: -0.000500
+        y: -0.011689
+        z: -0.000370
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Hips
+    Tag:
+      tag: mixamorig:Hips
+    Transform:
+      position:
+        x: 0.001710
+        y: 0.846967
+        z: -0.000799
+      rotation:
+        x: -0.001562
+        y: -0.013042
+        z: 0.000083
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Hierarchy:
+      parentGuid: 52e57bab-334a-46ac-a26a-69362743323a
+      childrenGuids:
+        []
+  - Entity: a518b8e3-e5d8-4fcc-b0bc-461334c21894
+    Tag:
+      tag: Directional Light (Sun)
+    Transform:
+      position:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      rotation:
+        x: -0.200000
+        y: -1.000000
+        z: -0.300000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Light:
+      type: directional
+      cutOff: 0.000000
+      outerCutOff: 0.000000
+      ambient:
+        x: 0.050000
+        y: 0.050000
+        z: 0.050000
+      diffuse:
+        x: 0.400000
+        y: 0.400000
+        z: 0.400000
+      specular:
+        x: 0.500000
+        y: 0.500000
+        z: 0.500000
+      constant: 0.000000
+      linear: 0.000000
+      quadratic: 0.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: 043a875e-9bf2-4bd5-8cdc-b28921b57a23
+    Tag:
+      tag: Scene Camera
+    Transform:
+      position:
+        x: -1.764170
+        y: 1.468099
+        z: 2.265968
+      rotation:
+        x: -0.128706
+        y: 5.384716
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Camera:
+      fov: 45.000000
+      zNear: 0.100000
+      zFar: 100.000000
+    LuaScript:
+      scriptPath: src/scripts/scene-camera.lua
+    Light:
+      type: spotlight
+      cutOff: 12.500000
+      outerCutOff: 15.000000
+      ambient:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      diffuse:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+      specular:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+      constant: 1.000000
+      linear: 0.090000
+      quadratic: 0.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce1
+    Tag:
+      tag: Spinning Cube
+    Transform:
+      position:
+        x: 0.000000
+        y: -1.200000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 163.717010
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    MeshFilter:
+      mesh: cube
+      meshPath: ""
+    LuaScript:
+      scriptPath: src/scripts/script.lua
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0e0
+    Tag:
+      tag: Box
+    Transform:
+      position:
+        x: -1.700000
         y: 0.000000
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 0.0
+        y: 0.000000
         z: 0.000000
       scale:
-        x: 0.40000
-        y: 0.40000
-        z: 0.40000
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
     MeshFilter:
       mesh: cube
       meshPath: ""
@@ -26,14 +1202,14 @@ Entities:
     Hierarchy:
       parentGuid: root
       childrenGuids:
-        []
-  - Entity: a883625d-4dcf-4a01-993e-edd76502837z
+        - a883625d-4dcf-4a01-993e-edd76502837a
+  - Entity: 52e57bab-334a-46ac-a26a-69362743323a
     Tag:
-      tag: Child Cube 2
+      tag: Link
     Transform:
       position:
-        x: -1.000000
-        y: 1.000000
+        x: 0.000000
+        y: 0.000000
         z: 0.000000
       rotation:
         x: 0.000000
@@ -44,51 +1220,141 @@ Entities:
         y: 1.000000
         z: 1.000000
     MeshFilter:
-      mesh: cube
-      meshPath: ""
+      mesh: animated-model
+      meshPath: src/models/link_fbx/Idle.fbx
     Material:
       diffuseTexturePath: src/textures/container2.png
       specularTexturePath: src/textures/container2_specular.png
-      shininess: 32.000000
+      shininess: 256.000000
     Hierarchy:
-      parentGuid: a883625d-4dcf-4a01-993e-edd76502837a
+      parentGuid: root
       childrenGuids:
-        []
-  - Entity: a883625d-4dcf-4a01-993e-edd76502837a
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Hips
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine1
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Spine2
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Neck_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:Head
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftShoulder_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftArm_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftForeArm_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHand_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandThumb3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandIndex3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandMiddle3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandRing3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftHandPinky3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightShoulder_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightArm_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightForeArm_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHand_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandThumb3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandIndex3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandMiddle3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandRing3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky1_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky2_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightHandPinky3_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftUpLeg_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftLeg_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftFoot_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:LeftToeBase_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightUpLeg_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightLeg_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightFoot_$AssimpFbx$_Rotation
+        - 52e57bab-334a-46ac-a26a-69362743323a-node-mixamorig:RightToeBase_$AssimpFbx$_Rotation
+  - Entity: 131ccb3d-9f00-4158-928c-36627625bac5
     Tag:
-      tag: Child Cube
+      tag: Backpack
     Transform:
       position:
-        x: -1.000000
-        y: 1.000000
+        x: 2.000000
+        y: 1.100000
         z: 0.000000
       rotation:
         x: 0.000000
         y: 0.000000
         z: 0.000000
       scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-    MeshFilter:
-      mesh: cube
-      meshPath: ""
-    Material:
-      diffuseTexturePath: src/textures/container2.png
-      specularTexturePath: src/textures/container2_specular.png
-      shininess: 32.000000
-    Hierarchy:
-      parentGuid: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0e0
-      childrenGuids:
-        - a883625d-4dcf-4a01-993e-edd76502837z
-  - Entity: 38baf720-ce9d-4732-b9cc-97d34e531264
-    Tag:
-      tag: Point Light 1
-    Transform:
-      position:
-        x: 0.700000
+        x: 0.200000
         y: 0.200000
-        z: 2.000000
+        z: 0.200000
+    MeshFilter:
+      mesh: static-model
+      meshPath: src/models/backpack/backpack.obj
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: fbb64a7b-a6bc-448d-98f1-899ab329bde1
+    Tag:
+      tag: Point Light 4
+    Transform:
+      position:
+        x: 0.000000
+        y: 0.000000
+        z: -3.000000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Light:
+      type: point
+      cutOff: 0.000000
+      outerCutOff: 0.000000
+      ambient:
+        x: 0.050000
+        y: 0.050000
+        z: 0.050000
+      diffuse:
+        x: 0.800000
+        y: 0.800000
+        z: 0.800000
+      specular:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+      constant: 1.000000
+      linear: 0.090000
+      quadratic: 0.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: 44a1c0fb-e958-4a0a-875b-b2f5f39672e1
+    Tag:
+      tag: Point Light 3
+    Transform:
+      position:
+        x: -4.000000
+        y: 2.000000
+        z: -12.000000
       rotation:
         x: 0.000000
         y: 0.000000
@@ -159,14 +1425,14 @@ Entities:
       parentGuid: root
       childrenGuids:
         []
-  - Entity: 44a1c0fb-e958-4a0a-875b-b2f5f39672e1
+  - Entity: 38baf720-ce9d-4732-b9cc-97d34e531264
     Tag:
-      tag: Point Light 3
+      tag: Point Light 1
     Transform:
       position:
-        x: -4.000000
-        y: 2.000000
-        z: -12.000000
+        x: 0.700000
+        y: 0.200000
+        z: 2.000000
       rotation:
         x: 0.000000
         y: 0.000000
@@ -198,110 +1464,17 @@ Entities:
       parentGuid: root
       childrenGuids:
         []
-  - Entity: fbb64a7b-a6bc-448d-98f1-899ab329bde1
+  - Entity: a883625d-4dcf-4a01-993e-edd76502837a
     Tag:
-      tag: Point Light 4
+      tag: Child Cube
     Transform:
       position:
-        x: 0.000000
-        y: 0.000000
-        z: -3.000000
-      rotation:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
-      scale:
-        x: 1.000000
+        x: -1.000000
         y: 1.000000
-        z: 1.000000
-    Light:
-      type: point
-      cutOff: 0.000000
-      outerCutOff: 0.000000
-      ambient:
-        x: 0.050000
-        y: 0.050000
-        z: 0.050000
-      diffuse:
-        x: 0.800000
-        y: 0.800000
-        z: 0.800000
-      specular:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-      constant: 1.000000
-      linear: 0.090000
-      quadratic: 0.000000
-    Hierarchy:
-      parentGuid: root
-      childrenGuids:
-        []
-  - Entity: 131ccb3d-9f00-4158-928c-36627625bac5
-    Tag:
-      tag: Backpack
-    Transform:
-      position:
-        x: 2.000000
-        y: 1.100000
         z: 0.000000
       rotation:
         x: 0.000000
         y: 0.000000
-        z: 0.000000
-      scale:
-        x: 0.200000
-        y: 0.200000
-        z: 0.200000
-    MeshFilter:
-      mesh: static-model
-      meshPath: src/models/backpack/backpack.obj
-    Material:
-      diffuseTexturePath: src/textures/container2.png
-      specularTexturePath: src/textures/container2_specular.png
-      shininess: 32.000000
-    Hierarchy:
-      parentGuid: root
-      childrenGuids:
-        []
-  - Entity: 52e57bab-334a-46ac-a26a-69362743323a
-    Tag:
-      tag: Link
-    Transform:
-      position:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
-      rotation:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
-      scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-    MeshFilter:
-      mesh: animated-model
-      meshPath: src/models/link_fbx/Dancing.fbx
-    Material:
-      diffuseTexturePath: src/textures/container2.png
-      specularTexturePath: src/textures/container2_specular.png
-      shininess: 256.000000
-    Hierarchy:
-      parentGuid: root
-      childrenGuids:
-        []
-  - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0e0
-    Tag:
-      tag: Box
-    Transform:
-      position:
-        x: -1.700000
-        y: 0.000000
-        z: 0.000000
-      rotation:
-        x: 0.000000
-        y: -1.000000
         z: 0.000000
       scale:
         x: 1.000000
@@ -315,20 +1488,20 @@ Entities:
       specularTexturePath: src/textures/container2_specular.png
       shininess: 32.000000
     Hierarchy:
-      parentGuid: root
+      parentGuid: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0e0
       childrenGuids:
-        - a883625d-4dcf-4a01-993e-edd76502837a
-  - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce1
+        - a883625d-4dcf-4a01-993e-edd76502837z
+  - Entity: a883625d-4dcf-4a01-993e-edd76502837z
     Tag:
-      tag: Spinning Cube
+      tag: Child Cube 2
     Transform:
       position:
-        x: 0.000000
-        y: -1.200000
+        x: -1.000000
+        y: 1.000000
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 15.404000
+        y: 0.000000
         z: 0.000000
       scale:
         x: 1.000000
@@ -337,92 +1510,37 @@ Entities:
     MeshFilter:
       mesh: cube
       meshPath: ""
-    LuaScript:
-      scriptPath: src/scripts/script.lua
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
     Hierarchy:
-      parentGuid: root
+      parentGuid: a883625d-4dcf-4a01-993e-edd76502837a
       childrenGuids:
         []
-  - Entity: 043a875e-9bf2-4bd5-8cdc-b28921b57a23
+  - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0eq
     Tag:
-      tag: Scene Camera
-    Transform:
-      position:
-        x: -0.564907
-        y: 1.997625
-        z: 4.554185
-      rotation:
-        x: -0.197213
-        y: 4.937405
-        z: 0.000000
-      scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-    Camera:
-      fov: 45.000000
-      zNear: 0.100000
-      zFar: 100.000000
-    LuaScript:
-      scriptPath: src/scripts/scene-camera.lua
-    Light:
-      type: spotlight
-      cutOff: 12.500000
-      outerCutOff: 15.000000
-      ambient:
-        x: 0.000000
-        y: 0.000000
-        z: 0.000000
-      diffuse:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-      specular:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-      constant: 1.000000
-      linear: 0.090000
-      quadratic: 0.000000
-    Hierarchy:
-      parentGuid: root
-      childrenGuids:
-        []
-  - Entity: a518b8e3-e5d8-4fcc-b0bc-461334c21894
-    Tag:
-      tag: Directional Light (Sun)
+      tag: Tiny Box
     Transform:
       position:
         x: 0.000000
         y: 0.000000
         z: 0.000000
       rotation:
-        x: -0.200000
-        y: -1.000000
-        z: -0.300000
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
       scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
-    Light:
-      type: directional
-      cutOff: 0.000000
-      outerCutOff: 0.000000
-      ambient:
-        x: 0.050000
-        y: 0.050000
-        z: 0.050000
-      diffuse:
         x: 0.400000
         y: 0.400000
         z: 0.400000
-      specular:
-        x: 0.500000
-        y: 0.500000
-        z: 0.500000
-      constant: 0.000000
-      linear: 0.000000
-      quadratic: 0.000000
+    MeshFilter:
+      mesh: cube
+      meshPath: ""
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
     Hierarchy:
       parentGuid: root
       childrenGuids:
