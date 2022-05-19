@@ -148,4 +148,17 @@ namespace DeepsEngine {
 
         return *returnEntity;
     }
+
+    bool Scene::entityExists(std::string guid) {
+        // TODO: make this faster by looking up in map of entity guids
+        registry.each([&](entt::entity entityHandle) {
+            DeepsEngine::Entity entity = {entityHandle};
+
+            if (entity.HasComponent<Component::Id>() && entity.GetComponent<Component::Id>().id == guid) {
+                return true;
+            }
+        });
+
+        return false;
+    }
 }

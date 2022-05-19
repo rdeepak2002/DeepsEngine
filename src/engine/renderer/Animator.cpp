@@ -36,7 +36,9 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
             // bone is not in set
             bonesList.insert(nodeName);
 
+            // TODO: only do Create Entity if you cannot find entity
             DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName);
+            // TODO: set guid to parent id with node name appended
 
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().position = translation;
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
@@ -50,9 +52,11 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
 
             linkEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
 
-            if (nodeName == "mixamorig:Head") {
-                Logger::Error("Attaching box here");
-                Logger::Warn(glm::to_string(Bone->GetLocalTransform()));
+            std::string headBone = "mixamorig::Head";
+            std::string leftHandBone = "mixamorig:LeftHandMiddle2_$AssimpFbx$_Rotation";
+            std::string rightHandBone = "mixamorig:RightHandMiddle2_$AssimpFbx$_Rotation";
+
+            if (nodeName == rightHandBone) {
                 boneEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boxEntity);
             }
         } else {
@@ -63,25 +67,6 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().rotation = glm::eulerAngles(rotation);
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().scale = scale;
         }
-
-//        if (boneMap.count(nodeName) <= 0) {
-//            DeepsEngine::Entity boxEntity = Application::getInstance().scene.findEntityByGuid("d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0e0");
-//            DeepsEngine::Entity linkEntity = Application::getInstance().scene.findEntityByGuid("52e57bab-334a-46ac-a26a-69362743323a");
-//
-//            boneMap.insert(std::make_pair(nodeName, Bone));
-//            DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName);
-//            Bone->entity = &(boneEntity);
-//            Bone->entity->GetComponent<DeepsEngine::Component::Transform>().isBone = true;
-//            Bone->entity->GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = nodeTransform;
-//
-//            linkEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(*(Bone->entity));
-//
-//            if (nodeName == "mixamorig:RightHand_$AssimpFbx$_Rotation") {
-//                Logger::Error("Attaching box here");
-//                Logger::Warn(glm::to_string(Bone->GetLocalTransform()));
-//                Bone->entity->GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boxEntity);
-//            }
-//        }
     }
 
     glm::mat4 globalTransformation = parentTransform * nodeTransform;
