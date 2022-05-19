@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 #include "Component.h"
+#include <algorithm>
 
 namespace DeepsEngine {
     Entity::Entity(Scene* scene) {
@@ -101,5 +102,49 @@ namespace DeepsEngine {
             RemoveComponent<Component::HierarchyComponent>();
             AddComponent<Component::HierarchyComponent>(entityYaml["Hierarchy"], entityId);
         }
+    }
+
+    void Entity::Destroy() {
+        if (HasComponent<Component::HierarchyComponent>()) {
+            // delete children
+            for (std::string childEntityGuid : GetComponent<Component::HierarchyComponent>().childrenGuids) {
+                if (Application::getInstance().scene.entityExists(childEntityGuid)) {
+                    Entity childEntity = Application::getInstance().scene.findEntityByGuid(childEntityGuid);
+                    childEntity.Destroy();
+                    Logger::Debug("Removed child entity: " + childEntityGuid);
+                } else {
+                    Logger::Warn("Could not find child entity: " + childEntityGuid);
+                }
+            }
+
+            this->GetComponent<Component::HierarchyComponent>().childrenGuids.clear();
+
+            // tell parent this entity is no longer a child
+            std::string parentGuid = this->GetComponent<Component::HierarchyComponent>().parentGuid;
+            std::string thisEntityGuid = GetComponent<Component::Id>().id;
+
+            if (parentGuid != "root") {
+                if (Application::getInstance().scene.entityExists(parentGuid)) {
+                    Entity parentEntity = Application::getInstance().scene.findEntityByGuid(parentGuid);
+
+                    if (parentEntity.HasComponent<Component::HierarchyComponent>()) {
+                        std::vector<std::string> childrenGuids = parentEntity.GetComponent<Component::HierarchyComponent>().childrenGuids;
+
+                        auto position = std::find(childrenGuids.begin(), childrenGuids.end(), thisEntityGuid);
+                        if (position != childrenGuids.end()) {
+                            childrenGuids.erase(position);
+                        }
+
+                        parentEntity.GetComponent<Component::HierarchyComponent>().childrenGuids = childrenGuids;
+                    }
+                } else {
+                    Logger::Warn("Could not find parent entity: " + parentGuid);
+                }
+            }
+
+            this->GetComponent<Component::HierarchyComponent>().parentGuid = "root";
+        }
+
+        Application::getInstance().scene.registry.destroy(entity);
     }
 }

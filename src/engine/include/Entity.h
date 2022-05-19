@@ -35,9 +35,7 @@ namespace DeepsEngine {
             return Application::getInstance().scene.registry.get<T>(entity);
         }
 
-        void Destroy() {
-            Application::getInstance().scene.registry.destroy(entity);
-        }
+        void Destroy();
 
         template<typename T>
         bool HasComponent() const {
