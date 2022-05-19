@@ -124,7 +124,6 @@ private:
     AnimatedMesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
         std::string meshName = mesh->mName.C_Str();
-        Logger::Debug("Animated mesh name: " + meshName);
 
         vector<AnimatedMeshVertex> vertices;
         vector<unsigned int> indices;

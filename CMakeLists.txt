@@ -19,7 +19,6 @@ include_directories(${PROJECT_SOURCE_DIR}/src/engine/include)
 FILE(GLOB ENGINE_SOURCE_FILES
         src/main.cpp
         src/engine/renderer/glad.c
-        src/engine/include/yaml/Yaml.cpp
         src/engine/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
