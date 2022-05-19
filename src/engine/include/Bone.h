@@ -16,6 +16,8 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 #include <Assimp_glm_helpers.h>
+#include "Logger.h"
+#include "glm/gtx/string_cast.hpp"
 
 struct KeyPosition
 {
@@ -89,8 +91,6 @@ public:
     glm::mat4 GetLocalTransform() { return m_LocalTransform; }
     std::string GetBoneName() const { return m_Name; }
     int GetBoneID() { return m_ID; }
-
-
 
     int GetPositionIndex(float animationTime)
     {

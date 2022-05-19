@@ -24,7 +24,6 @@ SceneViewWidget::SceneViewWidget(QWidget *parent) {
     // scene view tree
     treeWidget = new QTreeWidget;
     connect(treeWidget, &QTreeWidget::itemClicked, this, &SceneViewWidget::onListItemPressed);
-    connect(treeWidget->selectionModel(), SIGNAL( selectionChanged( const QItemSelection &, const QItemSelection & )), this, SLOT( selectionChanged( const QItemSelection &, const QItemSelection & ) ));
 
     // map of items to entities
     entityItemMap = new QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>>;
@@ -85,7 +84,7 @@ void SceneViewWidget::refreshSceneViewItems() {
 void SceneViewWidget::addChildTreeItems(std::shared_ptr<DeepsEngine::Entity> entity, QTreeWidgetItem* treeItem) {
     if (entity->HasComponent<DeepsEngine::Component::HierarchyComponent>()) {
         for (std::string childEntityGuid : entity->GetComponent<DeepsEngine::Component::HierarchyComponent>().childrenGuids) {
-            std::shared_ptr<DeepsEngine::Entity> childEntity = std::make_shared<DeepsEngine::Entity>(*Application::getInstance().scene.findEntityByGuid(childEntityGuid));
+            std::shared_ptr<DeepsEngine::Entity> childEntity = std::make_shared<DeepsEngine::Entity>(Application::getInstance().scene.findEntityByGuid(childEntityGuid));
 
             if (childEntity) {
                 auto* treeItemChild = new QTreeWidgetItem();

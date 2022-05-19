@@ -127,11 +127,15 @@ namespace DeepsEngine::Component {
             glm::mat4 parentModelMatrix = glm::mat4(1.0f);
 
             if (entity.HasComponent<HierarchyComponent>() && entity.GetComponent<HierarchyComponent>().parentGuid != "root") {
-                Entity* parentEntity = Application::getInstance().scene.findEntityByGuid(entity.GetComponent<HierarchyComponent>().parentGuid);
+                Entity parentEntity = Application::getInstance().scene.findEntityByGuid(entity.GetComponent<HierarchyComponent>().parentGuid);
 
-                if (parentEntity && parentEntity->HasComponent<Transform>()) {
-                    parentModelMatrix = parentEntity->GetComponent<Transform>().getModelMatrix(*parentEntity);
+                if (parentEntity && parentEntity.HasComponent<Transform>()) {
+                    parentModelMatrix = parentEntity.GetComponent<Transform>().getModelMatrix(parentEntity);
                 }
+            }
+
+            if (isBone) {
+                return overrideModelMatrix;
             }
 
             // calculate the model matrix for each object and pass it to shader before drawing
@@ -171,6 +175,8 @@ namespace DeepsEngine::Component {
         glm::vec3 rotation;
         glm::vec3 scale;
         std::string entityGuid;
+        bool isBone = false;
+        glm::mat4 overrideModelMatrix;
 
         virtual void Serialize(YAML::Emitter &out) override {
             out << YAML::Key << "Transform";

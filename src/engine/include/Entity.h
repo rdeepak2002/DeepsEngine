@@ -90,7 +90,7 @@ namespace DeepsEngine {
             Serialize(out);
             return out.c_str();
         }
-    private:
+    public:
         entt::entity entity{entt::null};
     };
 

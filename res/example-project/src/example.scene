@@ -1,5 +1,32 @@
 Scene: example-scene
 Entities:
+  - Entity: d8f6b582-f8d0-4c25-a1a4-7ddcf79ca0eq
+    Tag:
+      tag: Tiny Box
+    Transform:
+      position:
+        x: 0.0
+        y: 0.000000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 0.0
+        z: 0.000000
+      scale:
+        x: 0.10000
+        y: 0.10000
+        z: 0.10000
+    MeshFilter:
+      mesh: cube
+      meshPath: ""
+    Material:
+      diffuseTexturePath: src/textures/container2.png
+      specularTexturePath: src/textures/container2_specular.png
+      shininess: 32.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
   - Entity: a883625d-4dcf-4a01-993e-edd76502837z
     Tag:
       tag: Child Cube 2

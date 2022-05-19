@@ -129,7 +129,7 @@ namespace DeepsEngine {
         });
     }
 
-    Entity* Scene::findEntityByGuid(std::string guid) {
+    Entity& Scene::findEntityByGuid(std::string guid) {
         // TODO: make this faster by looking up in map of entity guids
         Entity* returnEntity = nullptr;
 
@@ -141,6 +141,11 @@ namespace DeepsEngine {
             }
         });
 
-        return returnEntity;
+        if (!returnEntity) {
+            Logger::Error("Entity not found for id " + guid);
+            exit(1);
+        }
+
+        return *returnEntity;
     }
 }
