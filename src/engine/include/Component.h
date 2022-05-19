@@ -444,21 +444,24 @@ namespace DeepsEngine::Component {
     };
 
     struct MeshFilter : public Component {
-        MeshFilter() = default;
-
-        MeshFilter(std::string mesh) {
+        MeshFilter(std::string mesh, std::string entityGuid) {
+            this->entityGuid = entityGuid;
             loadMissingTextures();
             this->meshPath = "";
             this->setMeshType(mesh);
+
         }
 
-        MeshFilter(std::string mesh, std::string meshPath) {
+        MeshFilter(std::string mesh, std::string meshPath, std::string entityGuid) {
+            this->entityGuid = entityGuid;
             loadMissingTextures();
             this->meshPath = meshPath;
             this->setMeshType(mesh);
+
         }
 
-        MeshFilter(YAML::Node yamlData) {
+        MeshFilter(YAML::Node yamlData, std::string entityGuid) {
+            this->entityGuid = entityGuid;
             loadMissingTextures();
             if (!yamlData["meshPath"]) {
                 Logger::Warn("Providing blank mesh path for mesh component");
@@ -469,6 +472,7 @@ namespace DeepsEngine::Component {
             this->setMeshType(yamlData["mesh"].as<std::string>());
         }
 
+        std::string entityGuid;
         std::string mesh;
         std::string meshPath;
         Animator* animator;
@@ -565,7 +569,7 @@ namespace DeepsEngine::Component {
                 animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
                 stbi_set_flip_vertically_on_load(false);
                 Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
-                animator = new Animator(defaultAnimation);
+                animator = new Animator(defaultAnimation, entityGuid);
             } else {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);

@@ -19,8 +19,9 @@
 class Animator
 {
 public:
-    Animator(Animation* animation)
+    Animator(Animation* animation, std::string entityGuid)
     {
+        this->entityGuid = entityGuid;
         m_CurrentTime = 0.0;
         m_CurrentAnimation = animation;
 
@@ -61,6 +62,7 @@ private:
     float m_DeltaTime;
     std::unordered_set<std::string> bonesList;
     std::map<std::string, entt::entity> boneEntityMap;
+    std::string entityGuid;
 };
 
 #endif //DEEPSENGINE_ANIMATOR_H

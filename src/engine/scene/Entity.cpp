@@ -74,7 +74,7 @@ namespace DeepsEngine {
 
         if(entityYaml["MeshFilter"]) {
             RemoveComponent<Component::MeshFilter>();
-            AddComponent<Component::MeshFilter>(entityYaml["MeshFilter"]);
+            AddComponent<Component::MeshFilter>(entityYaml["MeshFilter"], entityId);
         }
 
         if(entityYaml["Camera"]) {

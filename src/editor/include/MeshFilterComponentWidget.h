@@ -33,7 +33,7 @@ public slots:
 
     void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
         // add mesh filter component
-        DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube"};
+        DeepsEngine::Component::MeshFilter cubeMeshFilter = {"cube", entitySelected->GetComponent<DeepsEngine::Component::Id>().id};
         entitySelected->AddComponent<DeepsEngine::Component::MeshFilter>(cubeMeshFilter);
     }
 

@@ -98,14 +98,14 @@ void Application::createSampleEntities() {
     // add a single cube entity
     Entity entity = Application::getInstance().scene.CreateEntity("Cube");
     (&entity.GetComponent<Component::Transform>())->position.y = -1.2;
-    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
+    entity.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube", entity.GetComponent<Component::Id>().id});
     std::string cameraScript = std::filesystem::path("src").append("scripts").append("script.lua");
     entity.AddComponent<Component::LuaScript>(Component::LuaScript({cameraScript}));
 
     // add a single cube entity
     Entity entity2 = Application::getInstance().scene.CreateEntity("Cube 2");
     (&entity2.GetComponent<Component::Transform>())->position.x = -1.0;
-    entity2.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube"});
+    entity2.AddComponent<Component::MeshFilter>(Component::MeshFilter{"cube", entity.GetComponent<Component::Id>().id});
 }
 
 void Application::clearRenderer() {
