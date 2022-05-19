@@ -102,7 +102,9 @@ namespace DeepsEngine::Component {
 
         void addChild(Entity &childEntity) {
             childEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().parentGuid = entityGuid;
-            childrenGuids.push_back(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+            if (!std::count(childrenGuids.begin(), childrenGuids.end(), childEntity.GetComponent<DeepsEngine::Component::Id>().id)) {
+                childrenGuids.push_back(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+            }
         }
 
         std::string entityGuid;
