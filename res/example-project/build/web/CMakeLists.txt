@@ -11,11 +11,6 @@ include(DeepsEngineSetup)
 # load third party libraries
 DEEPS_ENGINE_SETUP()
 
-# link assimp for web
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libassimp.a")
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libIrrXML.a")
-link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libzlib.a")
-
 include_directories(${PROJECT_SOURCE_DIR}/DeepsEngine/include)
 link_libraries(${PROJECT_SOURCE_DIR}/DeepsEngine/lib/web/libDeepsEngine.a)
 add_executable(${PROJECT_NAME} main.cpp)
