@@ -72,6 +72,9 @@ void OpenGLWidget::paintGL() {
         } else {
             setMouseTracking(false);
         }
+    } else {
+        showCursor();
+        setMouseTracking(false);
     }
 
     // clear screen
