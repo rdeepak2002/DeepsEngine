@@ -10,7 +10,8 @@
 MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     this->setVisible(false);
 
-    fileSelectWidget = new FileSelectWidget(this, "All files (*.*);;obj (*.obj);;fbx (*.fbx)"); // All files (*.*);;
+//    fileSelectWidget = new FileSelectWidget(this, "All files (*.*);;obj (*.obj);;fbx (*.fbx)");
+    fileSelectWidget = new FileSelectWidget(this, "3D Model (*.obj *.fbx *.dae)");
     connect(fileSelectWidget, SIGNAL(fileSelected(std::string, std::string)), this, SLOT(onFileSelected(std::string, std::string)));
 
     // create sample label
