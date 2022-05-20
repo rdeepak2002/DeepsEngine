@@ -71,8 +71,6 @@ void LuaScriptComponentWidget::onChangeFileButtonPressed() {
         if (!scriptRelativeFilePath.isEmpty()) {
             std::string scriptRelativePathString = scriptRelativeFilePath.toStdString();
 
-            Logger::Debug(scriptRelativePathString);
-
             luaScriptComponent->changeScript(scriptRelativePathString);
             scriptPathLabel->setText(QString::fromStdString(scriptRelativePathString));
 

@@ -251,11 +251,13 @@ namespace DeepsEngine::Component {
         }
 
         void changeScript(std::string newScriptPath) {
-            scriptPath = newScriptPath;
+            self.abandon();
             hooks.init.abandon();
             hooks.update.abandon();
             shouldInit = true;
             shouldUpdate = true;
+
+            scriptPath = newScriptPath;
         }
 
         std::string scriptPath;
