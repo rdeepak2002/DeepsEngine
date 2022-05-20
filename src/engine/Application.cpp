@@ -150,7 +150,7 @@ void Application::setProjectPath(std::string projectPath) {
 void Application::loadProject() {
     scene.DestroyAllEntities();
 
-    std::string loadScenePath = std::filesystem::path(Application::getProjectPath()).append("src").append("example.scene");
+    std::string loadScenePath = std::filesystem::path(Application::getProjectPath()).append("src").append("main.scene");
 
     YAML::Node doc = YAML::LoadFile(loadScenePath);
     std::string sceneName = doc["Scene"].as<std::string>();
@@ -163,7 +163,7 @@ void Application::loadProject() {
 }
 
 void Application::saveProject() {
-    std::string savePath = std::filesystem::path(Application::getProjectPath()).append("src").append("example.scene");
+    std::string savePath = std::filesystem::path(Application::getProjectPath()).append("src").append("main.scene");
 
     YAML::Emitter out;
     out << YAML::BeginMap;

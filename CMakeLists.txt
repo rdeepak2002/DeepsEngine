@@ -39,6 +39,7 @@ if(WITH_EDITOR)
     FILE(GLOB EDITOR_SOURCE_FILES
             src/editor/*.cpp
             src/editor/widget/*.cpp
+            src/editor/widget/common/*.cpp
             src/editor/widget/component/*.cpp
             src/editor/include/*.h)
 

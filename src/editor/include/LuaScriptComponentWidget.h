@@ -5,6 +5,7 @@
 #ifndef DEEPSENGINE_LUASCRIPTCOMPONENTWIDGET_H
 #define DEEPSENGINE_LUASCRIPTCOMPONENTWIDGET_H
 
+#include "FileSelectWidget.h"
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
@@ -24,11 +25,10 @@ public:
     ~LuaScriptComponentWidget();
 private:
     DeepsEngine::Component::LuaScript* luaScriptComponent;
-    QLabel* scriptPathLabel;
-    QPushButton* changeFileButton;
+    FileSelectWidget* fileSelectWidget;
 
 public slots:
-    void onChangeFileButtonPressed();
+    void onFileSelected(std::string);
 
     void setComponent(DeepsEngine::Component::Component* component) override;
 
