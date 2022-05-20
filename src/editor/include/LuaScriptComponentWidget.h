@@ -28,7 +28,8 @@ private:
     FileSelectWidget* fileSelectWidget;
 
 public slots:
-    void onFileSelected(std::string);
+    void onFileSelected(std::string relativeFilePath, std::string absoluteFilePath);
+    void openFile(std::string relativeFilePath, std::string absoluteFilePath);
 
     void setComponent(DeepsEngine::Component::Component* component) override;
 

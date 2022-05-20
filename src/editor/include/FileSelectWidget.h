@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
+#include "ClickableLabel.h"
 #include <QLineEdit>
 #include <QPushButton>
 #include <QFileDialog>
@@ -26,13 +27,16 @@ public:
     ~FileSelectWidget();
     void setFilePath(std::string filePath);
     std::string relativeFilePath;
+    std::string absoluteFilePath;
 public slots:
     void onChangeFileButtonPressed();
+    void onLabelClicked();
 private:
     QLabel* filePathLabel;
     QPushButton* fileSelectButton;
 signals:
-    void fileSelected(std::string);
+    void fileSelected(std::string relativePath, std::string absolutePath);
+    void clicked(std::string relativePath, std::string absolutePath);
 };
 
 

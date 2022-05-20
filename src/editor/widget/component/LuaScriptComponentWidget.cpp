@@ -8,23 +8,10 @@
 LuaScriptComponentWidget::LuaScriptComponentWidget(QWidget *parent) {
     this->setVisible(false);
 
-//    // create sample label
-//    scriptPathLabel = new QLabel("no script");
-//
-//    // button to change file
-//    changeFileButton = new QPushButton("Change");
-//
-//    connect(changeFileButton, SIGNAL(clicked()), this, SLOT(onChangeFileButtonPressed()));
 
     fileSelectWidget = new FileSelectWidget;
-
-    connect(fileSelectWidget, SIGNAL(fileSelected(std::string)), this, SLOT(onFileSelected(std::string)));
-
-    // file change component
-//    QHBoxLayout *fileChangeInputLayout = new QHBoxLayout;
-//    fileChangeInputLayout->addWidget(scriptPathLabel);
-//    fileChangeInputLayout->addWidget(changeFileButton);
-//    fileChangeWidget->setLayout(fileChangeInputLayout);
+    connect(fileSelectWidget, SIGNAL(fileSelected(std::string, std::string)), this, SLOT(onFileSelected(std::string, std::string)));
+    connect(fileSelectWidget, SIGNAL(clicked(std::string, std::string)), this, SLOT(openFile(std::string, std::string)));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -46,6 +33,27 @@ void LuaScriptComponentWidget::setComponent(DeepsEngine::Component::Component *c
     }
 }
 
-void LuaScriptComponentWidget::onFileSelected(std::string relativeFilePath) {
+void LuaScriptComponentWidget::onFileSelected(std::string relativeFilePath, std::string absoluteFilePath) {
     luaScriptComponent->changeScript(relativeFilePath);
+}
+
+void LuaScriptComponentWidget::openFile(std::string relativeFilePath, std::string absoluteFilePath) {
+    // open lua script file
+    std::string terminalCommand = "/Applications/Visual\\ Studio\\ Code.app/Contents/Resources/app/bin/code -r " + absoluteFilePath;
+    Logger::Debug("running terminal command: " + terminalCommand);
+
+    FILE *fp;
+    char path[1035];
+
+    fp = popen(terminalCommand.c_str(), "r");
+    if (fp == NULL) {
+        Logger::Error("Failed to open lua script file using VS Code");
+    } else {
+        while (fgets(path, sizeof(path), fp) != NULL) {
+            printf("%s", path);
+//            Logger::Debug("File opened: " + std::string(path));
+        }
+
+        pclose(fp);
+    }
 }

@@ -6,9 +6,10 @@
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) {
     // label and button
-    filePathLabel = new QLabel("no file");
+    filePathLabel = new ClickableLabel("no file");
     fileSelectButton = new QPushButton("Change");
     connect(fileSelectButton, SIGNAL(clicked()), this, SLOT(onChangeFileButtonPressed()));
+    connect(filePathLabel , SIGNAL(clicked()), this, SLOT(onLabelClicked()));
 
     QHBoxLayout *fileChangeInputLayout = new QHBoxLayout;
     fileChangeInputLayout->addWidget(filePathLabel);
@@ -50,8 +51,9 @@ void FileSelectWidget::onChangeFileButtonPressed() {
             std::string scriptRelativePathString = scriptRelativeFilePath.toStdString();
 
             this->relativeFilePath = scriptRelativePathString;
+            this->absoluteFilePath = fileName.toStdString();
 
-            emit fileSelected(this->relativeFilePath);
+            emit fileSelected(this->relativeFilePath, this->absoluteFilePath);
 
             OpenGLWidget::stopMouseTracking = false;
         }
@@ -61,4 +63,9 @@ void FileSelectWidget::onChangeFileButtonPressed() {
 void FileSelectWidget::setFilePath(std::string filePath) {
     this->relativeFilePath = filePath;
     filePathLabel->setText(QString::fromStdString(filePath));
+    this->absoluteFilePath = Application::getInstance().getProjectPath().append(filePath);
+}
+
+void FileSelectWidget::onLabelClicked() {
+    emit clicked(this->relativeFilePath, this->absoluteFilePath);
 }
