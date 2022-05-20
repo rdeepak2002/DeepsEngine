@@ -13,6 +13,7 @@
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
+#include "FileSelectWidget.h"
 
 class MeshFilterComponentWidget: public ComponentWidget {
 Q_OBJECT;
@@ -23,8 +24,10 @@ private:
     QLabel* meshFilterLabel;
     QLabel* meshPathLabel;
     DeepsEngine::Component::MeshFilter* meshFilterComponent;
+    FileSelectWidget* fileSelectWidget;
 
 public slots:
+    void onFileSelected(std::string relativeFilePath, std::string absoluteFilePath);
     void setComponent(DeepsEngine::Component::Component* component) override;
 
     std::string getName() override {

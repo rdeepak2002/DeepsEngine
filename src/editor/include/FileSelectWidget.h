@@ -23,11 +23,12 @@
 class FileSelectWidget: public QWidget {
 Q_OBJECT;
 public:
-    explicit FileSelectWidget(QWidget *parent = nullptr);
+    explicit FileSelectWidget(QWidget *parent, std::string fileFilter);
     ~FileSelectWidget();
     void setFilePath(std::string filePath);
     std::string relativeFilePath;
     std::string absoluteFilePath;
+    std::string fileFilter;
 public slots:
     void onChangeFileButtonPressed();
     void onLabelClicked();

@@ -8,8 +8,7 @@
 LuaScriptComponentWidget::LuaScriptComponentWidget(QWidget *parent) {
     this->setVisible(false);
 
-
-    fileSelectWidget = new FileSelectWidget;
+    fileSelectWidget = new FileSelectWidget(this, "lua (*.lua)");
     connect(fileSelectWidget, SIGNAL(fileSelected(std::string, std::string)), this, SLOT(onFileSelected(std::string, std::string)));
     connect(fileSelectWidget, SIGNAL(clicked(std::string, std::string)), this, SLOT(openFile(std::string, std::string)));
 

@@ -4,7 +4,8 @@
 
 #include "FileSelectWidget.h"
 
-FileSelectWidget::FileSelectWidget(QWidget *parent) {
+FileSelectWidget::FileSelectWidget(QWidget *parent, std::string fileFilter) {
+    this->fileFilter = fileFilter;
     // label and button
     filePathLabel = new ClickableLabel("no file");
     fileSelectButton = new QPushButton("Change");
@@ -27,7 +28,6 @@ void FileSelectWidget::onChangeFileButtonPressed() {
     QWidget::setFocus();
 
     std::string caption = "Select file";
-    std::string fileFilter = "lua (*.lua)";
 
     QFileDialog::Options options;
 //    options |= QFileDialog::DontUseNativeDialog;
@@ -53,6 +53,8 @@ void FileSelectWidget::onChangeFileButtonPressed() {
             this->relativeFilePath = scriptRelativePathString;
             this->absoluteFilePath = fileName.toStdString();
 
+            filePathLabel->setText(QString::fromStdString(this->relativeFilePath));
+
             emit fileSelected(this->relativeFilePath, this->absoluteFilePath);
 
             OpenGLWidget::stopMouseTracking = false;
@@ -62,8 +64,9 @@ void FileSelectWidget::onChangeFileButtonPressed() {
 
 void FileSelectWidget::setFilePath(std::string filePath) {
     this->relativeFilePath = filePath;
-    filePathLabel->setText(QString::fromStdString(filePath));
     this->absoluteFilePath = Application::getInstance().getProjectPath().append(filePath);
+
+    filePathLabel->setText(QString::fromStdString(filePath));
 }
 
 void FileSelectWidget::onLabelClicked() {
