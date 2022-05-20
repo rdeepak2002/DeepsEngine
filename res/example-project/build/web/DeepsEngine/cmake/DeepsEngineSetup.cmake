@@ -57,10 +57,25 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     find_package(yaml-cpp CONFIG REQUIRED)
 
     # assimp
-    include_directories("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/include")
-
     if (APPLE)
-        link_libraries("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+        if(EXISTS "/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+            # arm64 mac
+            message(STATUS "Using arm64 Assimp")
+            link_libraries("/opt/homebrew/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+        elseif(EXISTS "/usr/local/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+            # intel mac
+            message(STATUS "Using x86 Assimp")
+            link_libraries("/usr/local/Cellar/assimp@5.0.1/5.0.1/lib/libassimp.dylib")
+        else()
+            message(FATAL_ERROR "Assimp version 5.0.1 not installed by Homebrew")
+        endif()
+    elseif (EMSCRIPTEN)
+        # link assimp for web
+        link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libassimp.a")
+        link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libIrrXML.a")
+        link_libraries("${PROJECT_SOURCE_DIR}/assimp-5.0.1/lib/libzlib.a")
+    else()
+        message(FATAL_ERROR "Assimp linking not supported for your Operating System")
     endif()
 endmacro()
 

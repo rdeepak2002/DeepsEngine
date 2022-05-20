@@ -5,11 +5,15 @@
 #ifndef DEEPSENGINE_LUASCRIPTCOMPONENTWIDGET_H
 #define DEEPSENGINE_LUASCRIPTCOMPONENTWIDGET_H
 
+#include "FileSelectWidget.h"
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QDir>
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
@@ -21,9 +25,12 @@ public:
     ~LuaScriptComponentWidget();
 private:
     DeepsEngine::Component::LuaScript* luaScriptComponent;
-    QLabel* scriptPathLabel;
+    FileSelectWidget* fileSelectWidget;
 
 public slots:
+    void onFileSelected(std::string relativeFilePath, std::string absoluteFilePath);
+    void openFile(std::string relativeFilePath, std::string absoluteFilePath);
+
     void setComponent(DeepsEngine::Component::Component* component) override;
 
     std::string getName() override {
@@ -32,7 +39,7 @@ public slots:
 
     void addComponentToEntity(std::shared_ptr<DeepsEngine::Entity> entitySelected) override {
         // add tag component
-        DeepsEngine::Component::LuaScript luaScript = {"src/scripts/script.lua"};
+        DeepsEngine::Component::LuaScript luaScript = {""};
         entitySelected->AddComponent<DeepsEngine::Component::LuaScript>(luaScript);
     }
 

@@ -81,20 +81,26 @@ void LuaScriptComponentSystem::init() {
     lua.new_usertype<DeepsEngine::Entity>("Entity",
                                           "new", sol::no_constructor,
                                           "GetId", &DeepsEngine::Entity::GetId,
-                                          "GetTransform", &DeepsEngine::Entity::GetComponent<DeepsEngine::Component::Transform>
+                                          "GetTransform", &DeepsEngine::Entity::GetComponent<DeepsEngine::Component::Transform>,
+                                          "GetMeshFilter", &DeepsEngine::Entity::GetComponent<DeepsEngine::Component::MeshFilter>
     );
 
     lua.new_usertype<DeepsEngine::Component::Transform>("Transform",
                                                         "position", &DeepsEngine::Component::Transform::position,
                                                         "rotation", &DeepsEngine::Component::Transform::rotation,
                                                         "scale", &DeepsEngine::Component::Transform::scale,
-                                                        "front", &DeepsEngine::Component::Transform::front,
-                                                        "right", &DeepsEngine::Component::Transform::right);
+                                                        "front", sol::as_function(&DeepsEngine::Component::Transform::front),
+                                                        "right", sol::as_function(&DeepsEngine::Component::Transform::right));
+
+    lua.new_usertype<DeepsEngine::Component::MeshFilter>("MeshFilter",
+                                                        "mesh", &DeepsEngine::Component::MeshFilter::mesh,
+                                                        "meshPath", &DeepsEngine::Component::MeshFilter::meshPath,
+                                                        "setMeshPath", sol::as_function(&DeepsEngine::Component::MeshFilter::setMeshPath));
 
     lua.new_usertype<Logger>("Logger",
-                             "Debug", &Logger::Debug,
-                             "Warn", &Logger::Warn,
-                             "Error", &Logger::Error
+                             "Debug", sol::as_function(&Logger::Debug),
+                             "Warn", sol::as_function(&Logger::Warn),
+                             "Error", sol::as_function(&Logger::Error)
     );
 
     lua.new_usertype<Input>("Input",
@@ -114,7 +120,14 @@ void LuaScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
+
+        // ignore empty script paths
+        if (luaScriptComponent.scriptPath.empty()) {
+            continue;
+        }
+
         std::string scriptPath = Application::getInstance().getProjectPath().append(luaScriptComponent.scriptPath);
+
         lua.script_file(scriptPath);
 
         if (entity.IsValid() && luaScriptComponent.shouldInit) {

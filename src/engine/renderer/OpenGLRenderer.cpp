@@ -98,22 +98,8 @@ void OpenGLRenderer::update() {
         simpleMeshShader->setMat4("view", view);
 
         for(auto entity : staticMeshEntities) {
-            // get the entity's transform
-            auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
-            auto entityPosition = entityTransform.position;
-            auto entityRotation = entityTransform.rotation;
-            auto entityScale = entityTransform.scale;
-
-            // calculate the model matrix for each object and pass it to shader before drawing
-            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-            model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
-            model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
-
             // update model matrix in shader
-            simpleMeshShader->setMat4("model", model);
+            simpleMeshShader->setMat4("model", entity.GetComponent<DeepsEngine::Component::Transform>().getModelMatrix(entity));
 
             // render the mesh
             entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, simpleMeshShader);
@@ -127,22 +113,8 @@ void OpenGLRenderer::update() {
         animatedMeshShader->setMat4("view", view);
 
         for (auto entity : animatedMeshEntities) {
-            // get the entity's transform
-            auto entityTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
-            auto entityPosition = entityTransform.position;
-            auto entityRotation = entityTransform.rotation;
-            auto entityScale = entityTransform.scale;
-
-            // calculate the model matrix for each object and pass it to shader before drawing
-            glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-            model = glm::translate(model, glm::vec3(entityPosition.x, entityPosition.y, entityPosition.z));
-            model = glm::rotate(model, entityRotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-            model = glm::rotate(model, entityRotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::rotate(model, entityRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-            model = glm::scale(model, glm::vec3(entityScale.x, entityScale.y, entityScale.z));
-
             // update model matrix in shader
-            animatedMeshShader->setMat4("model", model);
+            animatedMeshShader->setMat4("model", entity.GetComponent<DeepsEngine::Component::Transform>().getModelMatrix(entity));
 
             // render the mesh
             entity.GetComponent<DeepsEngine::Component::MeshFilter>().draw(entity, animatedMeshShader);

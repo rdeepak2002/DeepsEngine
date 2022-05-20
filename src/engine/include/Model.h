@@ -140,6 +140,7 @@ private:
 
     Mesh processMesh(aiMesh *mesh, const aiScene *scene)
     {
+        std::string meshName = mesh->mName.C_Str();
         // data to fill
         vector<Vertex> vertices;
         vector<unsigned int> indices;

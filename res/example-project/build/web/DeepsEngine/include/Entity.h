@@ -5,6 +5,8 @@
 #ifndef EDITOR_ENTITY_H
 #define EDITOR_ENTITY_H
 
+#pragma once
+
 #include <yaml-cpp/emitter.h>
 #include "Scene.h"
 #include "OpenGLRenderer.h"
@@ -33,9 +35,7 @@ namespace DeepsEngine {
             return Application::getInstance().scene.registry.get<T>(entity);
         }
 
-        void Destroy() {
-            Application::getInstance().scene.registry.destroy(entity);
-        }
+        void Destroy();
 
         template<typename T>
         bool HasComponent() const {
@@ -88,7 +88,7 @@ namespace DeepsEngine {
             Serialize(out);
             return out.c_str();
         }
-    private:
+    public:
         entt::entity entity{entt::null};
     };
 

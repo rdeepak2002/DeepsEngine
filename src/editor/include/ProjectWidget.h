@@ -7,7 +7,9 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QHash>
 #include <QListWidgetItem>
+#include <QTreeWidgetItem>
 #include <QLabel>
 #include <QPushButton>
 #include <iostream>
@@ -31,7 +33,7 @@ private:
 signals:
     void showProjectsWindow();
 public slots:
-    void onEntitySelected(DeepsEngine::Entity entity, QListWidgetItem* listItem) override;
+    void onEntitySelected(QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap, QTreeWidgetItem* listItem) override;
     void saveProject();
 };
 

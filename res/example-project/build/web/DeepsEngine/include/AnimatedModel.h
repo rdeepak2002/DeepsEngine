@@ -123,6 +123,8 @@ private:
 
     AnimatedMesh processMesh(aiMesh* mesh, const aiScene* scene)
     {
+        std::string meshName = mesh->mName.C_Str();
+
         vector<AnimatedMeshVertex> vertices;
         vector<unsigned int> indices;
         vector<AnimatedMeshTexture> textures;

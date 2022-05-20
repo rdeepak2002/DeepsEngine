@@ -1,0 +1,24 @@
+# Blender MTL File: 'MasterSword.blend'
+# Material Count: 2
+
+newmtl Mt_Sword_070
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd weapon_sword_070_alb.png
+
+newmtl Mt_Sword_070_Blade_001
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd weapon_sword_070_alb.png
