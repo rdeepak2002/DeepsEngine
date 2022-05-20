@@ -114,7 +114,14 @@ void LuaScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
+
+        // ignore empty script paths
+        if (luaScriptComponent.scriptPath.empty()) {
+            continue;
+        }
+
         std::string scriptPath = Application::getInstance().getProjectPath().append(luaScriptComponent.scriptPath);
+
         lua.script_file(scriptPath);
 
         if (entity.IsValid() && luaScriptComponent.shouldInit) {

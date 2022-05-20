@@ -15,6 +15,8 @@
 using std::filesystem::current_path;
 
 OpenGLWidget::OpenGLWidget(QWidget *parent) : QOpenGLWidget(parent) {
+    OpenGLWidget::stopMouseTracking = false;
+
     setMinimumSize(320, 320);
     setAttribute(Qt::WA_AlwaysStackOnTop, true);
     cursorLock = false;
@@ -60,14 +62,16 @@ void OpenGLWidget::paintGL() {
     QPainter painter;
     painter.begin(this);
 
-    if (cursorLock) {
-        setMouseTracking(true);
+    if (!OpenGLWidget::stopMouseTracking) {
+        if (cursorLock) {
+            setMouseTracking(true);
 
-        if (!underMouse()) {
-            moveMouseToCenter();
+            if (!underMouse()) {
+                moveMouseToCenter();
+            }
+        } else {
+            setMouseTracking(false);
         }
-    } else {
-        setMouseTracking(false);
     }
 
     // clear screen
@@ -89,59 +93,77 @@ void OpenGLWidget::paintGL() {
 }
 
 void OpenGLWidget::mousePressEvent(QMouseEvent *event) {
-    // focus on window on mouse click
-    QWidget::setFocus();
-    cursorLock = true;
-    hideCursor();
-    std::cout << "mouse pressed x: " << event->x() << std::endl;
-    std::cout << "mouse pressed y: " << event->y() << std::endl;
+    QWidget::mousePressEvent(event);
 
-    if (cursorLock) {
-        // TODO: send this to engine
+    if (!OpenGLWidget::stopMouseTracking) {
+        // focus on window on mouse click
+        QWidget::setFocus();
+        cursorLock = true;
+        hideCursor();
+        std::cout << "mouse pressed x: " << event->x() << std::endl;
+        std::cout << "mouse pressed y: " << event->y() << std::endl;
 
+        if (cursorLock) {
+            // TODO: send this to engine
+
+        }
     }
 }
 
 void OpenGLWidget::mouseReleaseEvent(QMouseEvent *event) {
-    std::cout << "mouse released x: " << event->x() << std::endl;
-    std::cout << "mouse released y: " << event->y() << std::endl;
+    QWidget::mouseReleaseEvent(event);
 
-    if (cursorLock) {
-        // TODO: send this to engine
+    if (!OpenGLWidget::stopMouseTracking) {
+        std::cout << "mouse released x: " << event->x() << std::endl;
+        std::cout << "mouse released y: " << event->y() << std::endl;
 
+        if (cursorLock) {
+            // TODO: send this to engine
+
+        }
     }
 }
 
 void OpenGLWidget::mouseMoveEvent(QMouseEvent *event) {
-    std::cout << "mouse moved x: " << event->x() << std::endl;
-    std::cout << "mouse moved y: " << event->y() << std::endl;
+    QWidget::mouseMoveEvent(event);
 
-    if (cursorLock) {
-        // TODO: send this to engine
+    if (!OpenGLWidget::stopMouseTracking) {
+        std::cout << "mouse moved x: " << event->x() << std::endl;
+        std::cout << "mouse moved y: " << event->y() << std::endl;
 
-        moveMouseToCenter();
+        if (cursorLock) {
+            // TODO: send this to engine
+
+            moveMouseToCenter();
+        }
     }
 }
 
 void OpenGLWidget::wheelEvent(QWheelEvent *event) {
-    QPoint numPixels = event->pixelDelta();
-    QPoint numDegrees = event->angleDelta() / 8;
+    QWidget::wheelEvent(event);
 
-    int dx, dy;
+    if (!OpenGLWidget::stopMouseTracking) {
+        QPoint numPixels = event->pixelDelta();
+        QPoint numDegrees = event->angleDelta() / 8;
 
-    if (!numPixels.isNull()) {
-        dx = numPixels.x();
-        dy = numPixels.y();
-    } else if (!numDegrees.isNull()) {
-        QPoint numSteps = numDegrees / 15;
-        dx = numSteps.x();
-        dy = numSteps.y();
+        int dx, dy;
+
+        if (!numPixels.isNull()) {
+            dx = numPixels.x();
+            dy = numPixels.y();
+        } else if (!numDegrees.isNull()) {
+            QPoint numSteps = numDegrees / 15;
+            dx = numSteps.x();
+            dy = numSteps.y();
+        }
+
+        // TODO: handle wheel event by sending to application
     }
-
-    // TODO: handle wheel event by sending to application
 };
 
 void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
+    QWidget::keyPressEvent(event);
+
     if (specialKeysMap.count(event->key()) > 0 && specialKeysMap[event->key()] == DeepsEngine::Key::Escape) {
         cursorLock = false;
         showCursor();
@@ -159,6 +181,8 @@ void OpenGLWidget::keyPressEvent(QKeyEvent *event) {
 }
 
 void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
+    QWidget::keyReleaseEvent(event);
+
     bool newKeyStateValue = false;
 
     if (cursorLock) {
@@ -171,23 +195,33 @@ void OpenGLWidget::keyReleaseEvent(QKeyEvent *event) {
 }
 
 void OpenGLWidget::leaveEvent(QEvent *event) {
-    if (cursorLock) {
-        hideCursor();
-        moveMouseToCenter();
+    QWidget::leaveEvent(event);
+
+    if (!OpenGLWidget::stopMouseTracking) {
+        if (cursorLock) {
+            hideCursor();
+            moveMouseToCenter();
+        }
     }
 }
 
 void OpenGLWidget::moveMouseToCenter() {
-    QPoint glob = mapToGlobal(QPoint(width()/2,height()/2));
-    QCursor::setPos(glob);
+    if (!OpenGLWidget::stopMouseTracking) {
+        QPoint glob = mapToGlobal(QPoint(width()/2,height()/2));
+        QCursor::setPos(glob);
+    }
 }
 
 void OpenGLWidget::hideCursor() {
-    setCursor(Qt::BlankCursor);
-    QApplication::setOverrideCursor(Qt::BlankCursor);
+    if (!OpenGLWidget::stopMouseTracking) {
+        setCursor(Qt::BlankCursor);
+        QApplication::setOverrideCursor(Qt::BlankCursor);
+    }
 }
 
 void OpenGLWidget::showCursor() {
-    unsetCursor();
-    QApplication::restoreOverrideCursor();
+    if (!OpenGLWidget::stopMouseTracking) {
+        unsetCursor();
+        QApplication::restoreOverrideCursor();
+    }
 }

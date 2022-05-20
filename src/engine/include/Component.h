@@ -250,6 +250,14 @@ namespace DeepsEngine::Component {
             hooks.update.abandon();
         }
 
+        void changeScript(std::string newScriptPath) {
+            scriptPath = newScriptPath;
+            hooks.init.abandon();
+            hooks.update.abandon();
+            shouldInit = true;
+            shouldUpdate = true;
+        }
+
         std::string scriptPath;
         sol::table self;
         struct {

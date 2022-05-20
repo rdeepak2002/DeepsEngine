@@ -31,6 +31,7 @@ Q_OBJECT;
 public:
     explicit OpenGLWidget(QWidget *parent = nullptr);
     ~OpenGLWidget();
+    inline static bool stopMouseTracking = false;
 
 protected:
     void initializeGL() override;
@@ -54,6 +55,5 @@ private:
     bool cursorLock;
     std::unordered_map<int, DeepsEngine::KeyCode> specialKeysMap;
 };
-
 
 #endif //EXAMPLE_OPENGLCUBEWIDGET_H
