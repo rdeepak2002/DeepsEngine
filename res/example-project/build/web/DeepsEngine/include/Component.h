@@ -250,6 +250,16 @@ namespace DeepsEngine::Component {
             hooks.update.abandon();
         }
 
+        void changeScript(std::string newScriptPath) {
+            self.abandon();
+            hooks.init.abandon();
+            hooks.update.abandon();
+            shouldInit = true;
+            shouldUpdate = true;
+
+            scriptPath = newScriptPath;
+        }
+
         std::string scriptPath;
         sol::table self;
         struct {
@@ -570,19 +580,29 @@ namespace DeepsEngine::Component {
                 glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
                 glEnableVertexAttribArray(2);
             } else if (mesh == "static-model") {
-                stbi_set_flip_vertically_on_load(true);
-                model = new Model(Application::getInstance().getProjectPath().append(meshPath));
-                stbi_set_flip_vertically_on_load(false);
+                if (!meshPath.empty()) {
+                    stbi_set_flip_vertically_on_load(true);
+                    model = new Model(Application::getInstance().getProjectPath().append(meshPath));
+                    stbi_set_flip_vertically_on_load(false);
+                }
             } else if (mesh == "animated-model") {
-                stbi_set_flip_vertically_on_load(true);
-                animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
-                stbi_set_flip_vertically_on_load(false);
-                Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
-                animator = new Animator(defaultAnimation, entityGuid);
+                if (!meshPath.empty()) {
+                    stbi_set_flip_vertically_on_load(true);
+                    animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
+                    stbi_set_flip_vertically_on_load(false);
+                    Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
+                    animator = new Animator(defaultAnimation, entityGuid);
+                }
             } else {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);
             }
+        }
+
+        void setMeshPath(std::string newMeshPath) {
+            Logger::Warn("Setting new mesh path: " + newMeshPath);
+            meshPath = newMeshPath;
+            setMeshType(mesh);
         }
 
         void draw(Entity &entity, Shader *shader) {

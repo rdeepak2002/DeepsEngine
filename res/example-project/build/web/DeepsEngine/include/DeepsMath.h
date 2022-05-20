@@ -13,7 +13,7 @@ public:
     static glm::vec3 normalizeVec3(glm::vec3 vec);
     static float degreesToRadians(float degrees);
 private:
-    DeepsMath() {}
+    DeepsMath() = default;
 public:
     DeepsMath(DeepsMath const&) = delete;
     void operator=(DeepsMath const&) = delete;
