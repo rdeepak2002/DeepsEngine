@@ -600,6 +600,7 @@ namespace DeepsEngine::Component {
         }
 
         void setMeshPath(std::string newMeshPath) {
+            Logger::Warn("Setting new mesh path: " + newMeshPath);
             meshPath = newMeshPath;
             setMeshType(mesh);
         }
