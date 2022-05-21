@@ -5,31 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
     <title>Deeps Engine</title>
     <style>
+        html {
+            background: black;
+        }
+        body {
+            overflow: hidden;
+            margin: 0;
+        }
         .fullwindow {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            margin: 0px;
+            top: 0;
+            left: 0;
+            margin: 0;
             border: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             overflow: hidden;
-            display: block;
+            display: flex;
+            flex-direction: column;
+        }
+        .window {
+            flex-grow: 1;
+        }
+        .console {
+            height: 300px;
+            color: white;
+            background: black;
+            border-color: black;
+            resize: none;
         }
     </style>
 </head>
-<body style="background-color: #FFFFFF;">
-<canvas class="fullwindow" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+<body style="background-color: black;">
+<div class="fullwindow">
+    <canvas class="window" id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+    <textarea class="console" id="output" rows="8" placeholder="Downloading..." disabled></textarea>
+</div>
 <script type="text/javascript">
-    var canvasElement = document.getElementById('canvas');
+    var canvas = document.getElementById('canvas');
+    var element = document.getElementById('output');
+    if (element) element.value = "";
+
     var Module = {
+        canvas: (function() {
+            canvas.addEventListener("webglcontextlost", function(e) { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+
+            return canvas;
+        })(),
+        print: (function() {
+            return function(text) {
+                if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                // These replacements are necessary if you render to raw HTML
+                //text = text.replace(/&/g, "&amp;");
+                //text = text.replace(/</g, "&lt;");
+                //text = text.replace(/>/g, "&gt;");
+                //text = text.replace('\n', '<br>', 'g');
+                console.log(text);
+                if (element) {
+                    element.value += text + "\n";
+                    element.scrollTop = element.scrollHeight; // focus on bottom
+                }
+            };
+        })(),
+        getPreloadedPackage: function(remotePackageName, remotePackageSize) {
+            console.log("remote package name", remotePackageName);
+            console.log("remote pacakge size", remotePackageSize);
+        },
         onRuntimeInitialized: function() {
+            console.log("Runtime initialized");
+
             var onResizeGraphicsWindow = Module.cwrap('onResizeWindow', null, ['number', 'number']);
 
             var windowResizeListener = (event) => {
                 if (onResizeGraphicsWindow !== undefined) {
-                    var canvasWidth = canvasElement.clientWidth;
-                    var canvasHeight = canvasElement.clientHeight;
+                    var canvasWidth = canvas.clientWidth;
+                    var canvasHeight = canvas.clientHeight;
 
                     if (canvasWidth !== undefined && canvasHeight !== undefined) {
                         onResizeGraphicsWindow(parseInt(canvasWidth), parseInt(canvasHeight));
@@ -46,19 +95,78 @@
             window.addEventListener("resize", windowResizeListener);
 
             window.addEventListener("click", function() {
-                var el = document.documentElement
-                    , rfs =
-                        el.requestFullScreen
-                        || el.webkitRequestFullScreen
-                        || el.mozRequestFullScreen
-                ;
-                rfs.call(el);
+                // make fullscreen
+                // var el = document.documentElement
+                //     , rfs =
+                //         el.requestFullScreen
+                //         || el.webkitRequestFullScreen
+                //         || el.mozRequestFullScreen
+                // ;
+                // rfs.call(el);
             });
         },
+        totalDependencies: 0,
+        monitorRunDependencies: function(left) {
+            this.totalDependencies = Math.max(this.totalDependencies, left);
+            dependencyDownloadStatus = left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.';
+            if (element) element.value += dependencyDownloadStatus + "\n";
+            if (element) element.scrollTop = element.scrollHeight; // focus on bottom
+            console.log(dependencyDownloadStatus);
+        }
     };
 
-    Module.canvas = canvasElement;
+    function download(url) {
+        return new Promise(function(resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'arraybuffer';
+            xhr.onload = function() { resolve(xhr.response); };
+            xhr.onerror = function(e) { reject(e); };
+            xhr.send(null);
+        });
+    }
+
+    function addScriptToDom(scriptCode) {
+        return new Promise(function(resolve, reject) {
+            var script = document.createElement('script');
+            var blob = new Blob([scriptCode], { type: 'application/javascript' });
+            var objectUrl = URL.createObjectURL(blob);
+            script.src = objectUrl;
+            script.onload = function() {
+                console.log('added js script to dom');
+                script.onload = script.onerror = null; // Remove these onload and onerror handlers, because these capture the inputs to the Promise and the input function, which would leak a lot of memory!
+                URL.revokeObjectURL(objectUrl); // Free up the blob. Note that for debugging purposes, this can be useful to comment out to be able to read the sources in debugger.
+                resolve();
+            }
+            script.onerror = function(e) {
+                script.onload = script.onerror = null; // Remove these onload and onerror handlers, because these capture the inputs to the Promise and the input function, which would leak a lot of memory!
+                URL.revokeObjectURL(objectUrl);
+                console.error('script failed to add to dom: ' + e);
+                reject(e.message || "(out of memory?)");
+                alert("Error loading script. Dom might have run out of memory.");
+            }
+            document.body.appendChild(script);
+        });
+    }
+
+    if (element) element.value += "Downloading data file...\n";
+
+    var dataDownload = download('/DeepsEngine.data').then(function(data) {
+        if (element) element.value += "Downloaded data file\n";
+        if (element) element.scrollTop = element.scrollHeight; // focus on bottom
+
+        Module['downloadedData'] = data;
+
+        if (element) element.value += "Downloading js file...\n";
+        var jsDownload = download('/DeepsEngine.js').then(function(data) {
+            if (element) element.value += "Downloaded js file\n";
+            if (element) element.scrollTop = element.scrollHeight; // focus on bottom
+
+            Module['mainScriptUrlOrBlob'] = new Blob([data]);
+            addScriptToDom(data);
+        });
+    });
 </script>
-<script async type="text/javascript" src="./DeepsEngine.js"></script>
+<!-- <script async type="text/javascript" src="./DeepsEngine.js"></script> -->
 </body>
 </html>
