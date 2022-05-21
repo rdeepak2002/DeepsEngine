@@ -49,6 +49,7 @@ rm -rf build
 # create new folder for source code
 mkdir -p build/assets/project/src
 cp app.html build/app.html
+cp firebase.json build/firebase.json
 cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/project
 
 # build source code
