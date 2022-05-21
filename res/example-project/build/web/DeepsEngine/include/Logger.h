@@ -28,19 +28,31 @@ public:
     static void Debug(std::string text) {
         std::string formattedText = "DEBUG: " + text;
         SendLogToEditor(formattedText);
+#if defined(EMSCRIPTEN)
+        printf("%s\n", formattedText.c_str());
+#else
         printf("%s%s%s\n", KBLU, formattedText.c_str(), KNRM);
+#endif
     }
 
     static void Error(std::string text) {
         std::string formattedText = "ERROR: " + text;
         SendLogToEditor(formattedText);
+#if defined(EMSCRIPTEN)
+        printf("%s\n", formattedText.c_str());
+#else
         printf("%s%s%s\n", KRED, formattedText.c_str(), KNRM);
+#endif
     }
 
     static void Warn(std::string text) {
         std::string formattedText = "WARNING: " + text;
         SendLogToEditor(formattedText);
+#if defined(EMSCRIPTEN)
+        printf("%s\n", formattedText.c_str());
+#else
         printf("%s%s%s\n", KYEL, formattedText.c_str(), KNRM);
+#endif
     }
 
     static int SendLogToEditor(std::string text) {
