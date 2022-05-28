@@ -17,6 +17,51 @@
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
 
+float skyboxVertices[] = {
+        // positions
+        -1.0f,  1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+
+        -1.0f, -1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f,
+        -1.0f, -1.0f,  1.0f,
+
+        -1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f, -1.0f,
+        1.0f,  1.0f,  1.0f,
+        1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f,  1.0f,
+        -1.0f,  1.0f, -1.0f,
+
+        -1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f, -1.0f,
+        1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f,  1.0f,
+        1.0f, -1.0f,  1.0f
+};
+
 void OpenGLRenderer::initialize() {
     Logger::Debug("Initializing renderer");
 
@@ -46,6 +91,37 @@ void OpenGLRenderer::initialize() {
     lightCubeShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("lightingShader.frag").c_str());
+
+    skyboxShader = new Shader(
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.frag").c_str());
+
+    // skybox VAO
+    glGenVertexArrays(1, &skyboxVAO);
+    glGenBuffers(1, &skyboxVBO);
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+    // load textures
+    // -------------
+    std::vector<std::string> faces
+            {
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.jpg"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.jpg"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.jpg"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.jpg"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.jpg"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.jpg")
+            };
+    cubemapTexture = loadCubemap(faces);
+
+    // shader configuration
+    // --------------------
+    skyboxShader->use();
+    skyboxShader->setInt("skybox", 0);
 }
 
 void OpenGLRenderer::clear() {
@@ -133,6 +209,23 @@ void OpenGLRenderer::update() {
             lightCubeShader->setMat4("model", model);
             entity.GetComponent<DeepsEngine::Component::Light>().draw();
         }
+        // draw skybox as last
+        // projection matrix
+        view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+        view = glm::mat4(glm::mat3(view));
+        projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
+
+        glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
+        skyboxShader->use();
+        skyboxShader->setMat4("view", view);
+        skyboxShader->setMat4("projection", projection);
+        // skybox cube
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS); // set depth function back to default
     }
     else {
         // set clear color to black to indicate no camera active
@@ -231,6 +324,45 @@ unsigned int OpenGLRenderer::loadTexture(char const * path) {
         Logger::Error("Texture failed to load at path: " + std::string(path));
         stbi_image_free(data);
     }
+
+    return textureID;
+}
+
+// loads a cubemap texture from 6 individual texture faces
+// order:
+// +X (right)
+// -X (left)
+// +Y (top)
+// -Y (bottom)
+// +Z (front)
+// -Z (back)
+// -------------------------------------------------------
+unsigned int OpenGLRenderer::loadCubemap(vector<std::string> faces)
+{
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    int width, height, nrChannels;
+    for (unsigned int i = 0; i < faces.size(); i++)
+    {
+        unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            stbi_image_free(data);
+        }
+        else
+        {
+            std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+            stbi_image_free(data);
+        }
+    }
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
     return textureID;
 }
