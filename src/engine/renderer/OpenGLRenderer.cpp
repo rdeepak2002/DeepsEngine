@@ -109,12 +109,12 @@ void OpenGLRenderer::initialize() {
     // -------------
     std::vector<std::string> faces
             {
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.jpg"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.jpg"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.jpg"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.jpg"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.jpg"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.jpg")
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.tga"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.tga"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.tga"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.tga"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.tga"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.tga")
             };
     cubemapTexture = loadCubemap(faces);
 
