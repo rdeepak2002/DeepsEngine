@@ -39,10 +39,13 @@ public:
     void update() override;
     unsigned int loadTexture(char const * path) override;
     void applyLighting(Shader* shader);
+    unsigned int loadCubemap(vector<std::string> faces);
 private:
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;
     Shader* lightCubeShader;
+    Shader* skyboxShader;
+    unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
 };
 
 #endif //EXAMPLE_RENDERER_H
