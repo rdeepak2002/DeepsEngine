@@ -10,6 +10,9 @@ extern "C" {
 }
 #endif
 
+#include <dlfcn.h>
+#include <stdio.h>
+
 #if defined(STANDALONE)
 void mainLoop() {
     Application::getInstance().update();
@@ -28,6 +31,31 @@ void startUpdateLoop() {
 }
 
 int main() {
+    void *handle;
+    void (*func_print_name)(const char*);
+
+    handle = dlopen("/Users/deepakramalingam/Desktop/native/cmake-build-debug/libnative.dylib", RTLD_LAZY);
+
+    if (!handle) {
+        /* fail to load the library */
+        fprintf(stderr, "Error: %s\n", dlerror());
+        return EXIT_FAILURE;
+    }
+
+    *(void**)(&func_print_name) = dlsym(handle, "print_name");
+
+    if (!func_print_name) {
+        /* no such symbol */
+        fprintf(stderr, "Error: %s\n", dlerror());
+        dlclose(handle);
+        return EXIT_FAILURE;
+    }
+
+    func_print_name("test");
+    dlclose(handle);
+
+    return EXIT_SUCCESS;
+
     Application::getInstance().initialize();
 #ifdef EMSCRIPTEN
     // create sample entities for web build
