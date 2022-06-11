@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "library.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -31,28 +32,43 @@ void startUpdateLoop() {
 }
 
 int main() {
-    void *handle;
-    void (*func_print_name)(const char*);
-
-    handle = dlopen("/Users/deepakramalingam/Desktop/native/cmake-build-debug/libnative.dylib", RTLD_LAZY);
-
-    if (!handle) {
-        /* fail to load the library */
-        fprintf(stderr, "Error: %s\n", dlerror());
-        return EXIT_FAILURE;
+    // load the triangle library
+    void* triangle = dlopen("/Users/deepakramalingam/Desktop/native/cmake-build-debug/libnative.dylib", RTLD_LAZY);
+    if (!triangle) {
+        cerr << "Cannot load library: " << dlerror() << '\n';
+        return 1;
     }
 
-    *(void**)(&func_print_name) = dlsym(handle, "print_name");
+    // reset errors
+    dlerror();
 
-    if (!func_print_name) {
-        /* no such symbol */
-        fprintf(stderr, "Error: %s\n", dlerror());
-        dlclose(handle);
-        return EXIT_FAILURE;
+    // load the symbols
+    create_t* create_triangle = (create_t*) dlsym(triangle, "create");
+    const char* dlsym_error = dlerror();
+    if (dlsym_error) {
+        cerr << "Cannot load symbol create: " << dlsym_error << '\n';
+        return 1;
     }
 
-    func_print_name("test");
-    dlclose(handle);
+    destroy_t* destroy_triangle = (destroy_t*) dlsym(triangle, "destroy");
+    dlsym_error = dlerror();
+    if (dlsym_error) {
+        cerr << "Cannot load symbol destroy: " << dlsym_error << '\n';
+        return 1;
+    }
+
+    // create an instance of the class
+    polygon* poly = create_triangle();
+
+    // use the class
+    poly->set_side_length(7);
+    cout << "The area is: " << poly->area() << '\n';
+
+    // destroy the class
+    destroy_triangle(poly);
+
+    // unload the triangle library
+    dlclose(triangle);
 
     return EXIT_SUCCESS;
 
