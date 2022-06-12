@@ -60,13 +60,13 @@ void Application::initialize() {
     // initialize renderer
     renderer->initialize();
 
+    // load the project and deserialize all entities
+    loadProject();
+
     // initialize component systems
     for (auto& componentSystem : componentSystems) {
         componentSystem->init();
     }
-
-    // load the project and deserialize all entities
-    loadProject();
 }
 
 void Application::close() {

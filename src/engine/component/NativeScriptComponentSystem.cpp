@@ -5,13 +5,20 @@
 #include "NativeScriptComponentSystem.h"
 #include "NativeScriptComponent.h"
 #include "Logger.h"
+#include "Application.h"
 
 #include <dlfcn.h>
 
 void NativeScriptComponentSystem::init() {
     ComponentSystem::init();
 
-    void* nativeScriptComponentLibrary = dlopen("/Users/deepakramalingam/Desktop/native/cmake-build-debug/libnative.dylib", RTLD_LAZY);
+    std::string libraryFolder = "osx";
+    std::string libraryFileName = "libnative.dylib";
+//    std::string libraryFileName = "libnative.so";
+
+    std::string libraryPath = Application::getInstance().getProjectPath().append("src").append("scripts")
+            .append("native").append(libraryFolder).append(libraryFileName);
+    void* nativeScriptComponentLibrary = dlopen(libraryPath.c_str(), RTLD_LAZY);
     if (!nativeScriptComponentLibrary) {
         Logger::Error("Cannot load library: " + std::string(dlerror()));
         exit(1);
