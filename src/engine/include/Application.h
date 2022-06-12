@@ -7,6 +7,7 @@
 
 #include "Scene.h"
 #include "LuaScriptComponentSystem.h"
+#include "NativeScriptComponentSystem.h"
 #include "OpenGLRenderer.h"
 #include "GLFWWindow.h"
 #include "Window.h"

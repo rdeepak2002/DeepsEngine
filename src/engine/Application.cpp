@@ -52,6 +52,7 @@ void Application::initialize() {
     // add component systems
     componentSystems.clear();
     componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
+    componentSystems.push_back(std::make_unique<NativeScriptComponentSystem>());
 
     // create window
     window->createWindow();
