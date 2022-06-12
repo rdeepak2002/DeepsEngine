@@ -12,9 +12,15 @@
 void NativeScriptComponentSystem::init() {
     ComponentSystem::init();
 
+    Logger::Warn("Initializing native script component system");
+
+#if defined(EMSCRIPTEN)
+    std::string libraryFolder = "web";
+    std::string libraryFileName = "libnative.so";
+#else
     std::string libraryFolder = "osx";
     std::string libraryFileName = "libnative.dylib";
-//    std::string libraryFileName = "libnative.so";
+#endif
 
     std::string libraryPath = Application::getInstance().getProjectPath().append("src").append("scripts")
             .append("native").append(libraryFolder).append(libraryFileName);

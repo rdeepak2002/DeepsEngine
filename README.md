@@ -49,3 +49,5 @@ sudo chmod 777 setup.sh
 rm -rf vcpkg
 ./setup.sh
 ```
+
+If you are having issues loading the web export, make sure to delete all files cached (chrome://settings/clearBrowserData)
