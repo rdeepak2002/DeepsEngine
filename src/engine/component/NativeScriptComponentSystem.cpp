@@ -12,7 +12,10 @@
 void NativeScriptComponentSystem::init() {
     ComponentSystem::init();
 
-    Logger::Warn("Initializing native script component system");
+#if defined(EMSCRIPTEN)
+    Logger::Warn("Native scripting not supported on web");
+    return;
+#endif
 
 #if defined(EMSCRIPTEN)
     std::string libraryFolder = "web";

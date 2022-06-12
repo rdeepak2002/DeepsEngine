@@ -24,7 +24,7 @@ class EntitySelectListenerInterface
 {
 public:
     virtual void onEntitySelected(QHash<QTreeWidgetItem*, std::shared_ptr<DeepsEngine::Entity>> *entityItemMap, QTreeWidgetItem* listItem) {
-        std::cout << "onEntitySelected() not implemented" << std::endl;
+        Logger::Error("onEntitySelected() not implemented");
         exit(1);
     }
 };
