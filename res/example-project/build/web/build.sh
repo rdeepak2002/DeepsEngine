@@ -6,7 +6,8 @@ sudo chmod -R 777 ./
 echo ${DEEPS_ENGINE_RESOURCE_DIRECTORY}
 
 if [[ -z "${DEEPS_ENGINE_RESOURCE_DIRECTORY}" ]]; then
-  echo "Error: DEEPS_ENGINE_RESOURCE_DIRECTORY env variable not provided!"
+  # quick solution: export DEEPS_ENGINE_RESOURCE_DIRECTORY=/Users/deepakramalingam/Desktop/example-project/src
+  echo "Error: DEEPS_ENGINE_RESOURCE_DIRECTORY env variable not provided! This is the directory of the project src folder."
   exit 1
 else
   echo "Resource directory set to ${DEEPS_ENGINE_RESOURCE_DIRECTORY}"
@@ -33,6 +34,14 @@ fi
 
 source emsdk/emsdk_env.sh
 
+# download and build lua
+./download-lua.sh
+
+source emsdk/emsdk_env.sh
+
+# download and build yaml-cpp
+./download-yaml-cpp.sh
+
 echo "Creating web build..."
 
 # remove current source code
@@ -42,7 +51,8 @@ rm -rf build
 mkdir -p build/assets/project/src
 cp app.html build/app.html
 cp firebase.json build/firebase.json
-cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/project
+cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/project   # allow access to dylib for native scripting
+cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} assets/project         # fix preloading issues
 
 # build source code
 echo "Creating web assembly code (this will take a long time)"
