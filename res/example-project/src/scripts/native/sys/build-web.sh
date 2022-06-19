@@ -1,3 +1,7 @@
+#!/bin/sh
+
+cd ..
+
 rm -rf web
 mkdir web
 
