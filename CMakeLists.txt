@@ -17,7 +17,6 @@ include_directories(${PROJECT_SOURCE_DIR}/src/engine/include)
 
 # source files for engine code
 FILE(GLOB ENGINE_SOURCE_FILES
-        src/main.cpp
         src/engine/renderer/glad.c
         src/engine/*.cpp
         src/engine/component/*.cpp
@@ -49,7 +48,7 @@ if(WITH_EDITOR)
 
     source_group("UI Files" FILES ${UI_FILES})
 
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} src/main.cpp ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
@@ -72,7 +71,7 @@ else()
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/cmake)
     else()
         # create executable application
-        add_executable(${PROJECT_NAME} ${ENGINE_SOURCE_FILES})
+        add_executable(${PROJECT_NAME} src/main.cpp ${ENGINE_SOURCE_FILES})
     endif()
 
     if(NOT EMSCRIPTEN)

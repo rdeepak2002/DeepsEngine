@@ -9,13 +9,25 @@
 
 #include <dlfcn.h>
 
+#if defined(EMSCRIPTEN)
+
+#include <emscripten.h>
+
+EM_JS(void, doLoadLibrary, (), {
+Asyncify.handleAsync(async() => {
+try {
+await loadDynamicLibrary('assets/project/src/scripts/native/web/libnative.wasm', { loadAsync: true, global: true, nodelete: true, fs: FS });
+}
+catch (error) {
+console.log(error);
+}
+});
+});
+
+#endif
+
 void NativeScriptComponentSystem::init() {
     ComponentSystem::init();
-
-#if defined(EMSCRIPTEN)
-    Logger::Warn("Native scripting not supported on web");
-    return;
-#endif
 
 #if defined(EMSCRIPTEN)
     std::string libraryFolder = "web";
@@ -25,6 +37,9 @@ void NativeScriptComponentSystem::init() {
     std::string libraryFileName = "libnative.dylib";
 #endif
 
+#if defined(EMSCRIPTEN)
+    doLoadLibrary();
+#else
     std::string libraryPath = Application::getInstance().getProjectPath().append("src").append("scripts")
             .append("native").append(libraryFolder).append(libraryFileName);
     void* nativeScriptComponentLibrary = dlopen(libraryPath.c_str(), RTLD_LAZY);
@@ -32,17 +47,18 @@ void NativeScriptComponentSystem::init() {
         Logger::Error("Cannot load library: " + std::string(dlerror()));
         exit(1);
     }
-
+#endif
     dlerror();
 
-    create_t* createNativeScriptComponent = (create_t*) dlsym(nativeScriptComponentLibrary, "create_SpinningEntity");
+    // TODO: don't use RTLD_DEFAULT for non-emscripten build. instead pass in the nativeScriptComponentLibrary variable
+    create_t* createNativeScriptComponent = (create_t*) dlsym(RTLD_DEFAULT, "create_SpinningEntity");
     const char* dlsym_error = dlerror();
     if (dlsym_error) {
         Logger::Error("Cannot load symbol create: " + std::string(dlsym_error));
         exit(1);
     }
 
-    destroy_t* destroyNativeScriptComponent = (destroy_t*) dlsym(nativeScriptComponentLibrary, "destroy_SpinningEntity");
+    destroy_t* destroyNativeScriptComponent = (destroy_t*) dlsym(RTLD_DEFAULT, "destroy_SpinningEntity");
     dlsym_error = dlerror();
     if (dlsym_error) {
         Logger::Error("Cannot load symbol destroy: " + std::string(dlsym_error));
@@ -52,7 +68,10 @@ void NativeScriptComponentSystem::init() {
     NativeScriptComponent* nativeScriptComponentInstance = createNativeScriptComponent();
     nativeScriptComponentInstance->init();
     destroyNativeScriptComponent(nativeScriptComponentInstance);
+
+#if !defined(EMSCRIPTEN)
     dlclose(nativeScriptComponentLibrary);
+#endif
 }
 
 void NativeScriptComponentSystem::destroy() {

@@ -33,14 +33,6 @@ fi
 
 source emsdk/emsdk_env.sh
 
-# install vcpkg stuff
-rm -rf vcpkg
-./download-vcpkg.sh
-export VCPKG_ROOT="$(pwd)/vcpkg"
-./vcpkg/vcpkg install lua:wasm32-emscripten
-./vcpkg/vcpkg install yaml-cpp:wasm32-emscripten
-#./vcpkg/vcpkg install assimp:wasm32-emscripten
-
 echo "Creating web build..."
 
 # remove current source code
@@ -53,9 +45,8 @@ cp firebase.json build/firebase.json
 cp -R ${DEEPS_ENGINE_RESOURCE_DIRECTORY} build/assets/project
 
 # build source code
-cmake -S ./ -B build "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
-cmake --build build
-
+echo "Creating web assembly code (this will take a long time)"
+emcc --use-preload-plugins -IDeepsEngine/include -Ilua-5.4.4/src -Iyaml-cpp/include -Lyaml-cpp/src -Lassimp-5.0.1/build/code -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s ASYNCIFY -s "ASYNCIFY_IMPORTS=['doLoadLibrary']" -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -Os
 echo "Build complete and present in $(pwd)/build/"
 
 # serve content

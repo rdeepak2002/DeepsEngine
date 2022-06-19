@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "NativeScriptComponent.h"
+#include "NativeScriptComponent.hpp"
 
 #define CLASS_NAME SpinningEntity
 

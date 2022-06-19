@@ -2,4 +2,5 @@ vcpkg/
 emsdk/
 build/
 assimp-5.0.1/
-assimp-5.0.1.zip
+yaml-cpp/
+lua-5.4.4/
