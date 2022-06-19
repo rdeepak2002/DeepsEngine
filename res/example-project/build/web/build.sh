@@ -35,12 +35,22 @@ fi
 source emsdk/emsdk_env.sh
 
 # download and build lua
-./download-lua.sh
+if [ -d "lua-5.4.4" ]; then
+  echo "Lua already built..."
+else
+  echo "Building Lua..."
+  ./download-lua.sh
+fi
 
 source emsdk/emsdk_env.sh
 
 # download and build yaml-cpp
-./download-yaml-cpp.sh
+if [ -d "yaml-cpp" ]; then
+  echo "YAML-CPP already built..."
+else
+  echo "Building YAML-CPP..."
+  ./download-yaml-cpp.sh
+fi
 
 echo "Creating web build..."
 
