@@ -12,7 +12,7 @@ class CLASS_NAME : public NativeScriptComponent {
 public:
     void init() {
         NativeScriptComponent::init();
-        std::cout << "test " << std::endl;
+        std::cout << "test 2.0" << std::endl;
     }
     void update(double dt) {
         NativeScriptComponent::update(dt);
