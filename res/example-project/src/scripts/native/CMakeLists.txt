@@ -3,8 +3,10 @@ project(native)
 
 set(CMAKE_CXX_STANDARD 17)
 
-if (EMSCRIPTEN)
-    add_executable(native NativeScriptComponent.hpp SpinningEntity.cpp)
-else()
-    add_library(native SHARED NativeScriptComponent.hpp SpinningEntity.cpp)
-endif()
+include_directories(${PROJECT_SOURCE_DIR}/src/include)
+include_directories(${PROJECT_SOURCE_DIR}/sys/include)
+
+FILE(GLOB PROJECT_SOURCE_FILES
+        src/*.cpp)
+
+add_library(native SHARED ${PROJECT_SOURCE_FILES})
