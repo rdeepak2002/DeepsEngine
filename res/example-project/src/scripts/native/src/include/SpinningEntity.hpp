@@ -8,7 +8,7 @@
 #define NATIVE_SPINNINGENTITY_HPP
 
 #include <iostream>
-#include "NativeScript.hpp"
+#include "NativeScript.h"
 
 #define CLASS_NAME SpinningEntity
 
