@@ -18,7 +18,6 @@ public:
     void update(double dt) override;
 };
 
-
 extern "C" NativeScript* CREATE_FUNC(CLASS_NAME)() {
     return new CLASS_NAME;
 }

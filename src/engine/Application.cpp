@@ -132,7 +132,7 @@ std::filesystem::path Application::getProjectPath() {
     }
 #else
     if (projectPath.empty()) {
-        Logger::Warn("Falling back to development project path");
+        Logger::Debug("Using default project path");
         projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
 //        Application::getInstance().createSampleEntities();
     }

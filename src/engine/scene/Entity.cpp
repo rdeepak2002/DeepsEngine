@@ -51,6 +51,10 @@ namespace DeepsEngine {
             GetComponent<Component::HierarchyComponent>().Serialize(out);
         }
 
+        if (HasComponent<Component::NativeScriptComponent>()) {
+            GetComponent<Component::NativeScriptComponent>().Serialize(out);
+        }
+
         out << YAML::EndMap;
     }
 
@@ -101,6 +105,11 @@ namespace DeepsEngine {
         if(entityYaml["Hierarchy"]) {
             RemoveComponent<Component::HierarchyComponent>();
             AddComponent<Component::HierarchyComponent>(entityYaml["Hierarchy"], entityId);
+        }
+
+        if(entityYaml["NativeScriptComponent"]) {
+            RemoveComponent<Component::NativeScriptComponent>();
+            AddComponent<Component::NativeScriptComponent>(entityYaml["NativeScriptComponent"]);
         }
     }
 

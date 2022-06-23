@@ -16,6 +16,7 @@
 #include <yaml-cpp/yaml.h>
 #include <glm/gtx/string_cast.hpp>
 #include "Entity.h"
+#include "NativeScript.h"
 
 using std::filesystem::exists;
 
@@ -658,6 +659,40 @@ namespace DeepsEngine::Component {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);
             }
+        }
+    };
+
+    struct NativeScriptComponent : Component {
+        NativeScriptComponent() = default;
+
+        NativeScriptComponent(std::string className) {
+            this->className = className;
+            shouldInit = true;
+            shouldUpdate = true;
+        }
+
+        NativeScriptComponent(YAML::Node yamlData) {
+            this->className = yamlData["className"].as<std::string>();
+            shouldInit = true;
+            shouldUpdate = true;
+        }
+
+        ~NativeScriptComponent() {
+
+        }
+
+        std::shared_ptr<NativeScript> nativeScript;
+        std::string className;
+        bool shouldInit;
+        bool shouldUpdate;
+
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "NativeScriptComponent";
+            out << YAML::BeginMap;
+
+            out << YAML::Key << "className" << YAML::Value << className;
+
+            out << YAML::EndMap;
         }
     };
 }

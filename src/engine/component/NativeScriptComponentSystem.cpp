@@ -6,6 +6,7 @@
 #include "NativeScript.h"
 #include "Logger.h"
 #include "Application.h"
+#include "Component.h"
 
 #include <dlfcn.h>
 
@@ -49,25 +50,6 @@ void NativeScriptComponentSystem::init() {
     }
 #endif
     dlerror();
-
-    create_t* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, "create_SpinningEntity");
-    const char* dlsym_error = dlerror();
-    if (dlsym_error) {
-        Logger::Error("Cannot load symbol create: " + std::string(dlsym_error));
-        exit(1);
-    }
-
-    destroy_t* destroyNativeScript = (destroy_t*) dlsym(RTLD_DEFAULT, "destroy_SpinningEntity");
-    dlsym_error = dlerror();
-    if (dlsym_error) {
-        Logger::Error("Cannot load symbol destroy: " + std::string(dlsym_error));
-        exit(1);
-    }
-
-    NativeScript* nativeScriptComponentInstance = createNativeScript();
-    nativeScriptComponentInstance->init();
-    nativeScriptComponentInstance->update(1.0);
-    destroyNativeScript(nativeScriptComponentInstance);
 }
 
 void NativeScriptComponentSystem::destroy() {
@@ -77,4 +59,25 @@ void NativeScriptComponentSystem::destroy() {
 
 void NativeScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
+
+    auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::NativeScriptComponent>();
+    for (auto entityHandle : entityHandles) {
+        DeepsEngine::Entity entity = {entityHandle};
+        auto &nativeScriptComponent = entity.GetComponent<DeepsEngine::Component::NativeScriptComponent>();
+        if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
+            nativeScriptComponent.nativeScript->update(1.0);
+        } else if (nativeScriptComponent.shouldInit) {
+            std::string createMethodName = "create_" + nativeScriptComponent.className;
+            auto* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, createMethodName.c_str());
+            const char* dlsym_error = dlerror();
+            if (dlsym_error) {
+                Logger::Error("Cannot load symbol create: " + std::string(dlsym_error));
+                exit(1);
+            }
+            NativeScript* nativeScriptComponentInstance = createNativeScript();
+            nativeScriptComponent.nativeScript.reset(nativeScriptComponentInstance);
+            nativeScriptComponent.nativeScript->init();
+            nativeScriptComponent.shouldInit = false;
+        }
+    }
 }
