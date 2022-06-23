@@ -2,34 +2,28 @@
 // Created by Deepak Ramalingam on 6/20/22.
 //
 
+#pragma once
+
 #ifndef NATIVE_SPINNINGENTITY_HPP
 #define NATIVE_SPINNINGENTITY_HPP
 
 #include <iostream>
-#include "NativeScriptComponent.hpp"
+#include "NativeScript.hpp"
 
 #define CLASS_NAME SpinningEntity
 
-#include "NativeScriptComponent.hpp"
-
-extern "C" {
-class SpinningEntity : public NativeScriptComponent {
+extern "C" class CLASS_NAME : public NativeScript {
 public:
-    void init() {
-        NativeScriptComponent::init();
-        std::cout << "test 3.0" << std::endl;
-    }
-    void update(double dt) {
-        NativeScriptComponent::update(dt);
-    }
+    void init() override;
+    void update(double dt) override;
 };
-}
 
-extern "C" NativeScriptComponent* CREATE_FUNC(CLASS_NAME)() {
+
+extern "C" NativeScript* CREATE_FUNC(CLASS_NAME)() {
     return new CLASS_NAME;
 }
 
-extern "C" void DESTROY_FUNC(CLASS_NAME)(NativeScriptComponent* p) {
+extern "C" void DESTROY_FUNC(CLASS_NAME)(NativeScript* p) {
     delete p;
 }
 

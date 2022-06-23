@@ -3,7 +3,7 @@
 //
 
 #include "NativeScriptComponentSystem.h"
-#include "NativeScriptComponent.h"
+#include "NativeScript.h"
 #include "Logger.h"
 #include "Application.h"
 
@@ -65,17 +65,15 @@ void NativeScriptComponentSystem::init() {
         exit(1);
     }
 
-    NativeScriptComponent* nativeScriptComponentInstance = createNativeScriptComponent();
+    NativeScript* nativeScriptComponentInstance = createNativeScriptComponent();
     nativeScriptComponentInstance->init();
+    nativeScriptComponentInstance->update(1.0);
     destroyNativeScriptComponent(nativeScriptComponentInstance);
-
-#if !defined(EMSCRIPTEN)
-    dlclose(nativeScriptComponentLibrary);
-#endif
 }
 
 void NativeScriptComponentSystem::destroy() {
     ComponentSystem::destroy();
+    dlclose(RTLD_DEFAULT);
 }
 
 void NativeScriptComponentSystem::update(float deltaTime) {

@@ -12,11 +12,11 @@
 #define DESTROY_FUNC(name) DESTROY_FUNC_(name)
 
 extern "C" {
-class NativeScriptComponent {
+class NativeScript {
 public:
-    NativeScriptComponent() = default;
+    NativeScript() = default;
 
-    virtual ~NativeScriptComponent() = default;
+    virtual ~NativeScript() = default;
 
 
     virtual void init() {
@@ -29,8 +29,8 @@ public:
 };
 
 // the types of the class factories
-typedef NativeScriptComponent* create_t();
-typedef void destroy_t(NativeScriptComponent*);
+typedef NativeScript* create_t();
+typedef void destroy_t(NativeScript*);
 }
 
 #endif //DEEPSENGINE_NATIVESCRIPTCOMPONENT_H

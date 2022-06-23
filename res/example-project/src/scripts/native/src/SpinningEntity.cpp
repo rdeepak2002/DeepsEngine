@@ -3,3 +3,13 @@
 //
 
 #include "SpinningEntity.hpp"
+
+void SpinningEntity::init() {
+    NativeScript::init();
+    std::cout << "test init" << std::endl;
+}
+
+void SpinningEntity::update(double dt) {
+    NativeScript::update(dt);
+    std::cout << "test update" << std::endl;
+}
