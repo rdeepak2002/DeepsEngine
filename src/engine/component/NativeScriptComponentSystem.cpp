@@ -50,25 +50,24 @@ void NativeScriptComponentSystem::init() {
 #endif
     dlerror();
 
-    // TODO: don't use RTLD_DEFAULT for non-emscripten build. instead pass in the nativeScriptComponentLibrary variable
-    create_t* createNativeScriptComponent = (create_t*) dlsym(RTLD_DEFAULT, "create_SpinningEntity");
+    create_t* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, "create_SpinningEntity");
     const char* dlsym_error = dlerror();
     if (dlsym_error) {
         Logger::Error("Cannot load symbol create: " + std::string(dlsym_error));
         exit(1);
     }
 
-    destroy_t* destroyNativeScriptComponent = (destroy_t*) dlsym(RTLD_DEFAULT, "destroy_SpinningEntity");
+    destroy_t* destroyNativeScript = (destroy_t*) dlsym(RTLD_DEFAULT, "destroy_SpinningEntity");
     dlsym_error = dlerror();
     if (dlsym_error) {
         Logger::Error("Cannot load symbol destroy: " + std::string(dlsym_error));
         exit(1);
     }
 
-    NativeScript* nativeScriptComponentInstance = createNativeScriptComponent();
+    NativeScript* nativeScriptComponentInstance = createNativeScript();
     nativeScriptComponentInstance->init();
     nativeScriptComponentInstance->update(1.0);
-    destroyNativeScriptComponent(nativeScriptComponentInstance);
+    destroyNativeScript(nativeScriptComponentInstance);
 }
 
 void NativeScriptComponentSystem::destroy() {
