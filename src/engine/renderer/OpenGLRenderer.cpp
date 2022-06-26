@@ -354,7 +354,7 @@ unsigned int OpenGLRenderer::loadCubemap(vector<std::string> faces)
         }
         else
         {
-            std::cout << "Cubemap texture failed to load at path: " << faces[i] << std::endl;
+            Logger::Error("Cubemap texture failed to load at path: " + faces[i]);
             stbi_image_free(data);
         }
     }

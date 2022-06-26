@@ -52,6 +52,7 @@ void Application::initialize() {
     // add component systems
     componentSystems.clear();
     componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
+    componentSystems.push_back(std::make_unique<NativeScriptComponentSystem>());
 
     // create window
     window->createWindow();
@@ -59,13 +60,13 @@ void Application::initialize() {
     // initialize renderer
     renderer->initialize();
 
+    // load the project and deserialize all entities
+    loadProject();
+
     // initialize component systems
     for (auto& componentSystem : componentSystems) {
         componentSystem->init();
     }
-
-    // load the project and deserialize all entities
-    loadProject();
 }
 
 void Application::close() {
@@ -131,7 +132,7 @@ std::filesystem::path Application::getProjectPath() {
     }
 #else
     if (projectPath.empty()) {
-        Logger::Warn("Falling back to development project path");
+        Logger::Debug("Using default project path");
         projectPath = std::filesystem::current_path().append("assets").append("res").append("example-project");
 //        Application::getInstance().createSampleEntities();
     }

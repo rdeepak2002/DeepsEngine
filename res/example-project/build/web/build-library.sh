@@ -33,7 +33,7 @@ rm -rf web-library
 
 # build source code
 export AS_LIBRARY=""
-cmake -S ../../../.. -B web-library "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten"
+cmake -S ../../../.. -B web-library "-DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=$(pwd)/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" "-DCMAKE_TOOLCHAIN_FILE=$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake" "-DVCPKG_TARGET_TRIPLET=wasm32-emscripten" -DCMAKE_POSITION_INDEPENDENT_CODE=ON
 cmake --build web-library
 
 # copy compiled library to engine lib folder
