@@ -30,15 +30,7 @@ sudo chmod 777 setup.sh
   - Enable autoreload for CMake changes
 - Run the CMake application in either Editor or Release mode (if you encounter errors, you might have to reload the CMake profiles)
 
-If you want to run the engine in editor mode without CLion, you must assign any value to an environment variable called "WITH_EDITOR". Then, build the CMake project using the CMakeLists.txt file. 
-
-### Run the Web Release of the Engine
-
-```shell
-sudo chmod -R 777 web_build
-cd web_build
-./build.sh
-```
+If you want to run the engine in editor mode without CLion, you must assign any value to an environment variable called "WITH_EDITOR". Then, build the CMake project using the CMakeLists.txt
 
 ## Troubleshooting (Development)
 
