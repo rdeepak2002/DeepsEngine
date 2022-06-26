@@ -1,6 +1,10 @@
 vcpkg/
 emsdk/
-build/
+#build/
 assimp-5.0.1/
 yaml-cpp/
 lua-5.4.4/
+
+build/assets
+build/DeepsEngine.data
+build/tmp

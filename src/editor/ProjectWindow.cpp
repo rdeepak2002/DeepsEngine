@@ -95,7 +95,8 @@ void ProjectWindow::buildWeb() {
 
 void ProjectWindow::updateBuilds() {
     std::string projectDirectory = Application::getInstance().getProjectPath();
-    std::string terminalCommand = "cd " + projectDirectory + " && ./update-builds.sh";
+//    std::string terminalCommand = "cd " + projectDirectory + " && ./update-builds.sh";
+    std::string terminalCommand = "cd " + projectDirectory;
 
     FILE *fp;
     char path[1035];
