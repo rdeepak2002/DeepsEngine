@@ -15,7 +15,7 @@
 extern "C" class CLASS_NAME : public NativeScript {
 public:
     void init() override;
-    void update(double dt) override;
+    void update(DeepsEngine::Entity& entity, double dt) override;
 };
 
 extern "C" NativeScript* CREATE_FUNC(CLASS_NAME)() {

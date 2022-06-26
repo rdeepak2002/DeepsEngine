@@ -5,5 +5,16 @@
     <sourceRoots>
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/sys/include/KHR" />
+      <file path="$PROJECT_DIR$/sys/include/assimp" />
+      <file path="$PROJECT_DIR$/sys/include/entt" />
+      <file path="$PROJECT_DIR$/sys/include/glad" />
+      <file path="$PROJECT_DIR$/sys/include/glm" />
+      <file path="$PROJECT_DIR$/sys/include/sol" />
+      <file path="$PROJECT_DIR$/sys/include/stb" />
+      <file path="$PROJECT_DIR$/sys/include/yaml-cpp" />
+      <file path="$PROJECT_DIR$/sys/lua-5.4.4" />
+    </excludeRoots>
   </component>
 </project>

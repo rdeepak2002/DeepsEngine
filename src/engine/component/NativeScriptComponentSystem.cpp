@@ -65,7 +65,7 @@ void NativeScriptComponentSystem::update(float deltaTime) {
         DeepsEngine::Entity entity = {entityHandle};
         auto &nativeScriptComponent = entity.GetComponent<DeepsEngine::Component::NativeScriptComponent>();
         if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
-            nativeScriptComponent.nativeScript->update(1.0);
+            nativeScriptComponent.nativeScript->update(entity, 1.0);
         } else if (nativeScriptComponent.shouldInit) {
             std::string createMethodName = "create_" + nativeScriptComponent.className;
             auto* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, createMethodName.c_str());

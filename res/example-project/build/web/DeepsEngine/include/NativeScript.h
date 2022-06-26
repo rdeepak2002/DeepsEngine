@@ -5,6 +5,8 @@
 #ifndef DEEPSENGINE_NATIVESCRIPTCOMPONENT_H
 #define DEEPSENGINE_NATIVESCRIPTCOMPONENT_H
 
+#include "Entity.h"
+
 #define CREATE_FUNC_(name) create_ ## name
 #define CREATE_FUNC(name) CREATE_FUNC_(name)
 
@@ -23,7 +25,7 @@ public:
 
     }
 
-    virtual void update(double dt) {
+    virtual void update(DeepsEngine::Entity& entity, double dt) {
 
     }
 };
