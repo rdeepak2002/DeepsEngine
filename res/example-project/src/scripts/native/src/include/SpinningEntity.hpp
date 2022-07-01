@@ -14,12 +14,15 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 public:
+    SpinningEntity(DeepsEngine::Entity &entity) : NativeScript(entity) {
+
+    }
     void init() override;
-    void update(DeepsEngine::Entity& entity, double dt) override;
+    void update(double dt) override;
 };
 
-extern "C" NativeScript* CREATE_FUNC(CLASS_NAME)() {
-    return new CLASS_NAME;
+extern "C" NativeScript* CREATE_FUNC(CLASS_NAME)(DeepsEngine::Entity& entity) {
+    return new CLASS_NAME(entity);
 }
 
 extern "C" void DESTROY_FUNC(CLASS_NAME)(NativeScript* p) {

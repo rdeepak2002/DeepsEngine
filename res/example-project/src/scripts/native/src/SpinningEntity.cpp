@@ -7,11 +7,10 @@
 
 void SpinningEntity::init() {
     NativeScript::init();
-    std::cout << "test init" << std::endl;
+    Logger::Debug("Init spinning entity");
+    self.GetComponent<DeepsEngine::Component::Transform>().position.y = 10;
 }
 
-void SpinningEntity::update(DeepsEngine::Entity& entity, double dt) {
-    NativeScript::update(entity, dt);
-//    std::cout << "test update entity " << entity.GetId() << std::endl;
-    entity.GetComponent<DeepsEngine::Component::Transform>().rotation.y += 0.01 * dt;
+void SpinningEntity::update(double dt) {
+    self.GetComponent<DeepsEngine::Component::Transform>().rotation.y += 0.1 * dt;
 }

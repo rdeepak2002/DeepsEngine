@@ -16,22 +16,25 @@
 extern "C" {
 class NativeScript {
 public:
-    NativeScript() = default;
+    NativeScript(DeepsEngine::Entity& entity) {
+        self = entity;
+    }
 
     virtual ~NativeScript() = default;
 
+    DeepsEngine::Entity self;
 
     virtual void init() {
 
     }
 
-    virtual void update(DeepsEngine::Entity& entity, double dt) {
+    virtual void update(double dt) {
 
     }
 };
 
 // the types of the class factories
-typedef NativeScript* create_t();
+typedef NativeScript* create_t(DeepsEngine::Entity&);
 typedef void destroy_t(NativeScript*);
 }
 

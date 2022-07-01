@@ -65,6 +65,7 @@ Entities:
         z: 1.000000
     NativeScriptComponent:
       className: SpinningEntity
+      filePath: src/scripts/native/src/SpinningEntity.cpp
     MeshFilter:
       mesh: cube
       meshPath: ""

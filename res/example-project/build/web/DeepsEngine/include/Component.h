@@ -665,14 +665,16 @@ namespace DeepsEngine::Component {
     struct NativeScriptComponent : Component {
         NativeScriptComponent() = default;
 
-        NativeScriptComponent(std::string className) {
+        NativeScriptComponent(std::string className, std::string filePath) {
             this->className = className;
+            this->filePath = filePath;
             shouldInit = true;
             shouldUpdate = true;
         }
 
         NativeScriptComponent(YAML::Node yamlData) {
             this->className = yamlData["className"].as<std::string>();
+            this->filePath = yamlData["filePath"].as<std::string>();
             shouldInit = true;
             shouldUpdate = true;
         }
@@ -683,14 +685,31 @@ namespace DeepsEngine::Component {
 
         std::shared_ptr<NativeScript> nativeScript;
         std::string className;
+        std::string filePath;
         bool shouldInit;
         bool shouldUpdate;
+
+        void changeScript(std::string relativeFilePath) {
+            shouldInit = true;
+            shouldUpdate = true;
+
+            string::size_type slashLoc = relativeFilePath.find_last_of('/');
+            string::size_type extensionLoc = relativeFilePath.find_last_of('.');
+
+            if (slashLoc == string::npos) {
+                slashLoc = 0;
+            }
+
+            this->filePath = relativeFilePath;
+            this->className = relativeFilePath.substr(slashLoc + 1, extensionLoc - slashLoc - 1);
+        }
 
         virtual void Serialize(YAML::Emitter &out) override {
             out << YAML::Key << "NativeScriptComponent";
             out << YAML::BeginMap;
 
             out << YAML::Key << "className" << YAML::Value << className;
+            out << YAML::Key << "filePath" << YAML::Value << className;
 
             out << YAML::EndMap;
         }
