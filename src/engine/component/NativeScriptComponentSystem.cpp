@@ -69,9 +69,7 @@ void NativeScriptComponentSystem::update(float deltaTime) {
             continue;
         }
 
-        if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
-            nativeScriptComponent.nativeScript->update(deltaTime);
-        } else if (nativeScriptComponent.shouldInit) {
+        if (nativeScriptComponent.shouldInit) {
             std::string createMethodName = "create_" + nativeScriptComponent.className;
             auto* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, createMethodName.c_str());
             const char* dlsym_error = dlerror();
@@ -83,6 +81,8 @@ void NativeScriptComponentSystem::update(float deltaTime) {
             nativeScriptComponent.nativeScript.reset(nativeScriptComponentInstance);
             nativeScriptComponent.nativeScript->init();
             nativeScriptComponent.shouldInit = false;
+        } else if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
+            nativeScriptComponent.nativeScript->update(deltaTime);
         }
     }
 }

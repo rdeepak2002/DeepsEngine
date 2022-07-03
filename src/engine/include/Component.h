@@ -663,7 +663,10 @@ namespace DeepsEngine::Component {
     };
 
     struct NativeScriptComponent : Component {
-        NativeScriptComponent() = default;
+        NativeScriptComponent() {
+            shouldInit = true;
+            shouldUpdate = true;
+        }
 
         NativeScriptComponent(std::string className, std::string filePath) {
             this->className = className;
@@ -695,6 +698,10 @@ namespace DeepsEngine::Component {
 
             string::size_type slashLoc = relativeFilePath.find_last_of('/');
             string::size_type extensionLoc = relativeFilePath.find_last_of('.');
+
+            if (slashLoc == string::npos) {
+                slashLoc = relativeFilePath.find_last_of('\\');
+            }
 
             if (slashLoc == string::npos) {
                 slashLoc = 0;
