@@ -13,6 +13,8 @@
 #define CLASS_NAME PlayerController
 
 extern "C" class CLASS_NAME : public NativeScript {
+private:
+    float speed;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 
