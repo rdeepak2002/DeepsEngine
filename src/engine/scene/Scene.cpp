@@ -117,6 +117,17 @@ namespace DeepsEngine {
 
         for (auto entityHandle : entityHandles) {
             DeepsEngine::Entity entity = {entityHandle};
+
+            // TODO: make this conditional on whether the game is in play mode or not
+#ifndef WITH_EDITOR
+            if (entity.HasComponent<Component::SceneCameraComponent>()) {
+                continue;
+            }
+#else
+            if (!entity.HasComponent<Component::SceneCameraComponent>()) {
+                continue;
+            }
+#endif
             arr.push_back(entity);
         }
 

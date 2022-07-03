@@ -672,6 +672,18 @@ namespace DeepsEngine::Component {
         }
     };
 
+    struct SceneCameraComponent : Component {
+        SceneCameraComponent() {
+            sceneCamera = true;
+        }
+
+        SceneCameraComponent(YAML::Node yamlData) {
+            this->sceneCamera = yamlData["sceneCamera"].as<bool>();
+        }
+
+        bool sceneCamera;
+    };
+
     struct NativeScriptComponent : Component {
         NativeScriptComponent() {
             shouldInit = true;

@@ -1134,7 +1134,7 @@ Entities:
         z: -5.000000
       rotation:
         x: 0.000000
-        y: 31.313990
+        y: 31.275002
         z: 0.000000
       scale:
         x: 1.000000
@@ -1517,7 +1517,7 @@ Entities:
         z: 0.000000
       rotation:
         x: 0.000000
-        y: 64.777023
+        y: 72.403236
         z: 0.000000
       scale:
         x: 1.000000
@@ -2266,3 +2266,30 @@ Entities:
       parentGuid: 131ccb3d-9f00-4158-928c-36627625bac5
       childrenGuids:
         []
+  - Entity: 2ed04760-7063-466f-91b1-f2b696ba23c4
+    Tag:
+      tag: Main Camera
+    Transform:
+      position:
+        x: 0.000000
+        y: 1.000000
+        z: 0.000000
+      rotation:
+        x: 0.000000
+        y: 0.000000
+        z: 0.000000
+      scale:
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
+    Camera:
+      fov: 45.000000
+      zNear: 0.100000
+      zFar: 100.000000
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+    NativeScriptComponent:
+      className: MainCameraController
+      filePath: MainCameraController
