@@ -10,9 +10,18 @@
 MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     this->setVisible(false);
 
-//    fileSelectWidget = new FileSelectWidget(this, "All files (*.*);;obj (*.obj);;fbx (*.fbx)");
+    // file select widget
     fileSelectWidget = new FileSelectWidget(this, "3D Model (*.obj *.fbx *.dae)");
     connect(fileSelectWidget, SIGNAL(fileSelected(std::string, std::string)), this, SLOT(onFileSelected(std::string, std::string)));
+
+    // dropdown to select type of mesh filter
+    QMenu* meshFilterTypeMenu = new QMenu;
+    meshFilterTypeMenu->addAction("cube");
+    meshFilterTypeMenu->addAction("static-model");
+    meshFilterTypeMenu->addAction("animated-model");
+    connect(meshFilterTypeMenu, SIGNAL(triggered(QAction*)), this, SLOT(onMeshFilterTypeMenuClicked(QAction*)));
+    meshFilterBtn = new QPushButton("Mesh Filter Type");
+    meshFilterBtn->setMenu(meshFilterTypeMenu);
 
     // create sample label
     meshFilterLabel = new QLabel("None");
@@ -24,8 +33,7 @@ MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     QVBoxLayout *mainLayout = new QVBoxLayout;
     mainLayout->setAlignment(Qt::AlignTop);
     mainLayout->addWidget(new QLabel("Mesh Filter"));
-    mainLayout->addWidget(new QLabel("Type"));
-    mainLayout->addWidget(meshFilterLabel);
+    mainLayout->addWidget(meshFilterBtn);
     mainLayout->addWidget(flipTexturesCheckbox);
     mainLayout->addWidget(fileSelectWidget);
     setLayout(mainLayout);
@@ -50,6 +58,7 @@ void MeshFilterComponentWidget::setComponent(DeepsEngine::Component::Component* 
         }
         flipTexturesCheckbox->setCheckState(meshFilterComponent->flipTextures ? Qt::CheckState::Checked : Qt::CheckState::Unchecked);
         fileSelectWidget->setFilePath(meshFilterComponent->meshPath);
+        meshFilterBtn->setText(QString::fromStdString(meshFilterComponent->mesh));
     }
 }
 
@@ -61,4 +70,11 @@ void MeshFilterComponentWidget::onFlipTexturesCheckboxSelected(bool checked) {
     meshFilterComponent->flipTextures = checked;
     // force refresh the mesh
     meshFilterComponent->setMeshType(meshFilterComponent->mesh);
+}
+
+void MeshFilterComponentWidget::onMeshFilterTypeMenuClicked(QAction *action) {
+    // get name of selected action from drop down menu
+    std::string meshFilterTypeName = action->text().toStdString();
+    meshFilterComponent->setMeshType(meshFilterTypeName);
+    meshFilterBtn->setText(QString::fromStdString(meshFilterComponent->mesh));
 }

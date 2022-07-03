@@ -11,6 +11,7 @@
 #include <QListWidgetItem>
 #include <QLabel>
 #include <QCheckBox>
+#include <QMenu>
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
@@ -23,6 +24,7 @@ public:
     ~MeshFilterComponentWidget();
 private:
     QLabel* meshFilterLabel;
+    QPushButton* meshFilterBtn;
     QLabel* meshPathLabel;
     QCheckBox* flipTexturesCheckbox;
     DeepsEngine::Component::MeshFilter* meshFilterComponent;
@@ -30,6 +32,7 @@ private:
 
 public slots:
     void onFlipTexturesCheckboxSelected(bool checked);
+    void onMeshFilterTypeMenuClicked(QAction* action);
     void onFileSelected(std::string relativeFilePath, std::string absoluteFilePath);
     void setComponent(DeepsEngine::Component::Component* component) override;
 

@@ -469,7 +469,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = "";
             this->setMeshType(mesh);
-
+            this->flipTextures = false;
         }
 
         MeshFilter(std::string mesh, std::string meshPath, std::string entityGuid) {
@@ -477,21 +477,30 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = meshPath;
             this->setMeshType(mesh);
-
+            this->flipTextures = false;
         }
 
         MeshFilter(YAML::Node yamlData, std::string entityGuid) {
             this->entityGuid = entityGuid;
             loadMissingTextures();
+
             if (!yamlData["meshPath"]) {
                 Logger::Warn("Providing blank mesh path for mesh component");
                 this->meshPath = "";
             } else {
                 this->meshPath = yamlData["meshPath"].as<std::string>();
             }
+
+            if (yamlData["flipTextures"]) {
+                this->flipTextures = yamlData["flipTextures"].as<bool>();
+            } else {
+                this->flipTextures = false;
+            }
+
             this->setMeshType(yamlData["mesh"].as<std::string>());
         }
 
+        bool flipTextures;
         std::string entityGuid;
         std::string mesh;
         std::string meshPath;
@@ -514,6 +523,7 @@ namespace DeepsEngine::Component {
 
             out << YAML::Key << "mesh" << YAML::Value << mesh;
             out << YAML::Key << "meshPath" << YAML::Value << meshPath;
+            out << YAML::Key << "flipTextures" << YAML::Value << flipTextures;
 
             out << YAML::EndMap;
         }
@@ -582,13 +592,13 @@ namespace DeepsEngine::Component {
                 glEnableVertexAttribArray(2);
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
-                    stbi_set_flip_vertically_on_load(true);
+                    stbi_set_flip_vertically_on_load(flipTextures);
                     model = new Model(Application::getInstance().getProjectPath().append(meshPath));
                     stbi_set_flip_vertically_on_load(false);
                 }
             } else if (mesh == "animated-model") {
                 if (!meshPath.empty()) {
-                    stbi_set_flip_vertically_on_load(true);
+                    stbi_set_flip_vertically_on_load(flipTextures);
                     animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
                     stbi_set_flip_vertically_on_load(false);
                     Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
@@ -663,7 +673,10 @@ namespace DeepsEngine::Component {
     };
 
     struct NativeScriptComponent : Component {
-        NativeScriptComponent() = default;
+        NativeScriptComponent() {
+            shouldInit = true;
+            shouldUpdate = true;
+        }
 
         NativeScriptComponent(std::string className, std::string filePath) {
             this->className = className;
@@ -695,6 +708,10 @@ namespace DeepsEngine::Component {
 
             string::size_type slashLoc = relativeFilePath.find_last_of('/');
             string::size_type extensionLoc = relativeFilePath.find_last_of('.');
+
+            if (slashLoc == string::npos) {
+                slashLoc = relativeFilePath.find_last_of('\\');
+            }
 
             if (slashLoc == string::npos) {
                 slashLoc = 0;
