@@ -46,4 +46,5 @@ void PlayerController::update(double dt) {
     velocity.y = 0.0f;
 
     self.GetComponent<DeepsEngine::Component::Transform>().position += velocity;
+//    self.GetComponent<DeepsEngine::Component::Transform>().rotation.y = mainCameraTransformComponent.rotation.y + 90;
 }

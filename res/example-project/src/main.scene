@@ -1082,6 +1082,8 @@ Entities:
   - Entity: 043a875e-9bf2-4bd5-8cdc-b28921b57a23
     Tag:
       tag: Scene Camera
+    SceneCamera:
+      sceneCamera: true
     Transform:
       position:
         x: -0.794379

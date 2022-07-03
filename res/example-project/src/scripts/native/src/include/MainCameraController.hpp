@@ -14,7 +14,9 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 private:
-    float speed;
+    float radius;
+    float angle;
+    float angleVel;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 
