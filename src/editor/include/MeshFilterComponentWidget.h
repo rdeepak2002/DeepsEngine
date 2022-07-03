@@ -10,6 +10,7 @@
 #include <QVBoxLayout>
 #include <QListWidgetItem>
 #include <QLabel>
+#include <QCheckBox>
 #include "Entity.h"
 #include "Component.h"
 #include "ComponentWidget.h"
@@ -23,10 +24,12 @@ public:
 private:
     QLabel* meshFilterLabel;
     QLabel* meshPathLabel;
+    QCheckBox* flipTexturesCheckbox;
     DeepsEngine::Component::MeshFilter* meshFilterComponent;
     FileSelectWidget* fileSelectWidget;
 
 public slots:
+    void onFlipTexturesCheckboxSelected(bool checked);
     void onFileSelected(std::string relativeFilePath, std::string absoluteFilePath);
     void setComponent(DeepsEngine::Component::Component* component) override;
 

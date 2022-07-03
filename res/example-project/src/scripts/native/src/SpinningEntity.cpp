@@ -8,7 +8,6 @@
 void SpinningEntity::init() {
     NativeScript::init();
     Logger::Debug("Init spinning entity");
-    self.GetComponent<DeepsEngine::Component::Transform>().position.y = 10;
 }
 
 void SpinningEntity::update(double dt) {

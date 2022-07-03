@@ -17,6 +17,8 @@ MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     // create sample label
     meshFilterLabel = new QLabel("None");
     meshPathLabel = new QLabel("None");
+    flipTexturesCheckbox = new QCheckBox("Flip Textures");
+    QObject::connect(flipTexturesCheckbox, SIGNAL(clicked(bool)), this, SLOT(onFlipTexturesCheckboxSelected(bool)));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -24,7 +26,7 @@ MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     mainLayout->addWidget(new QLabel("Mesh Filter"));
     mainLayout->addWidget(new QLabel("Type"));
     mainLayout->addWidget(meshFilterLabel);
-    mainLayout->addWidget(new QLabel("Path"));
+    mainLayout->addWidget(flipTexturesCheckbox);
     mainLayout->addWidget(fileSelectWidget);
     setLayout(mainLayout);
 }
@@ -40,11 +42,23 @@ void MeshFilterComponentWidget::setComponent(DeepsEngine::Component::Component* 
     if (meshFilterComponent) {
         meshFilterLabel->setText(QString::fromStdString(meshFilterComponent->mesh));
         meshPathLabel->setText(QString::fromStdString(meshFilterComponent->meshPath));
-
+        // TODO: generalize this by associating material component to model
+        if (meshFilterComponent->mesh == "cube") {
+            flipTexturesCheckbox->setVisible(false);
+        } else {
+            flipTexturesCheckbox->setVisible(true);
+        }
+        flipTexturesCheckbox->setCheckState(meshFilterComponent->flipTextures ? Qt::CheckState::Checked : Qt::CheckState::Unchecked);
         fileSelectWidget->setFilePath(meshFilterComponent->meshPath);
     }
 }
 
 void MeshFilterComponentWidget::onFileSelected(std::string relativeFilePath, std::string absoluteFilePath) {
     meshFilterComponent->setMeshPath(relativeFilePath);
+}
+
+void MeshFilterComponentWidget::onFlipTexturesCheckboxSelected(bool checked) {
+    meshFilterComponent->flipTextures = checked;
+    // force refresh the mesh
+    meshFilterComponent->setMeshType(meshFilterComponent->mesh);
 }
