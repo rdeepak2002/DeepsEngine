@@ -14,7 +14,7 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 public:
-    SpinningEntity(DeepsEngine::Entity &entity) : NativeScript(entity) {
+    CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 
     }
     void init() override;

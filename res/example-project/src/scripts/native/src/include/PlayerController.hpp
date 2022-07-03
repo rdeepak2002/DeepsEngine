@@ -10,7 +10,7 @@
 #include <iostream>
 #include "NativeScript.h"
 
-#define CLASS_NAME SpinningEntity2
+#define CLASS_NAME PlayerController
 
 extern "C" class CLASS_NAME : public NativeScript {
 public:
