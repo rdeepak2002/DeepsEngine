@@ -14,6 +14,7 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 private:
+    float rotateSpeed;
     float radius;
     float angle;
     float angleVel;
