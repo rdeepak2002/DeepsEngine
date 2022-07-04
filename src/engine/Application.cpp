@@ -54,6 +54,9 @@ void Application::initialize() {
 #if defined(WITH_EDITOR)
     // start timer for qt to keep track of delta time
     timer.start();
+    playing = false;
+#else
+    playing = true;
 #endif
 
     // add component systems

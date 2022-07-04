@@ -41,6 +41,7 @@ public:
     void setProjectPath(std::string projectPath);
     float getCurrentTime();
     std::unique_ptr<Renderer> renderer;
+    bool playing;
 private:
     Application() {
         renderer = std::make_unique<OpenGLRenderer>();

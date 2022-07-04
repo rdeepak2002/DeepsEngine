@@ -118,7 +118,12 @@ void LuaScriptComponentSystem::init() {
 
 void LuaScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
+
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
+        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+            continue;
+        }
+
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
 
         // ignore empty script paths

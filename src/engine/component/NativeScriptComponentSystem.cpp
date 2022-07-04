@@ -63,6 +63,11 @@ void NativeScriptComponentSystem::update(float deltaTime) {
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::NativeScriptComponent>();
     for (auto entityHandle : entityHandles) {
         DeepsEngine::Entity entity = {entityHandle};
+
+        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+            continue;
+        }
+
         auto &nativeScriptComponent = entity.GetComponent<DeepsEngine::Component::NativeScriptComponent>();
 
         if (nativeScriptComponent.className.empty() || nativeScriptComponent.filePath.empty()) {

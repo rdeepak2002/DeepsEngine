@@ -24,8 +24,6 @@ void PlayerController::update(double dt) {
         if (entity.HasComponent<DeepsEngine::Component::Tag>()) {
             if (entity.GetComponent<DeepsEngine::Component::Tag>().tag == "Main Camera") {
                 // get camera entity front vector
-//                std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
-//                std::unique_ptr<DeepsEngine::Entity> mainCameraEntity = std::make_unique<DeepsEngine::Entity>(cameraEntities.front());
                 DeepsEngine::Component::Transform mainCameraTransformComponent = entity.GetComponent<DeepsEngine::Component::Transform>();
                 glm::vec3 cameraFront = mainCameraTransformComponent.front();
                 glm::vec3 cameraRight = mainCameraTransformComponent.right();
@@ -50,22 +48,6 @@ void PlayerController::update(double dt) {
                 if (Input::GetButtonDown(DeepsEngine::Key::A)) {
                     velocityDirection -= cameraRight;
                 }
-
-//                if (Input::GetButtonDown(DeepsEngine::Key::W)) {
-//                    velocityDirection += transform.front();
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::S)) {
-//                    velocityDirection -= transform.front();
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::D)) {
-//                    velocityDirection += transform.right();
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::A)) {
-//                    velocityDirection -= transform.right();
-//                }
 
                 velocityDirection.y = 0.0f;
 
