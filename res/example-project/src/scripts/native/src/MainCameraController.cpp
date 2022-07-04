@@ -17,9 +17,9 @@ void MainCameraController::init() {
     phi = 0.0f;
     phiSpeed = 1.0f;
 
-    theta = -M_PI / 2;
-    minTheta = 0.99 * -M_PI;
-    maxTheta = 0.01f;
+    theta = -M_PI / 4;
+    minTheta = -0.99 * M_PI;
+    maxTheta = -0.01f;
     thetaSpeed = 1.0f;
 }
 
@@ -37,9 +37,8 @@ void MainCameraController::update(double dt) {
                 auto& transform = self.GetComponent<DeepsEngine::Component::Transform>();
 
                 // calculate angle to look at player wrt y-axis
-                glm::vec3 vectorToPlayer = glm::normalize(playerTransform.position - transform.position);
-                float angleToPlayer = glm::dot(glm::vec3(vectorToPlayer.x, 0.0f, vectorToPlayer.z), glm::vec3(transform.right().x, 0.0f, transform.right().z));
-                transform.rotation.y += angleToPlayer;
+                transform.rotation.y = phi;
+                transform.rotation.x = abs(theta) - M_PI / 2;
 
                 // move camera around player in spherical manner
                 glm::vec3 offsetPosition = glm::vec3(radius * sin(theta) * cos(phi), radius * cos(theta), radius * sin(theta) * sin(phi));
