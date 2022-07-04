@@ -14,10 +14,14 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 private:
-    float rotateSpeed;
+
     float radius;
-    float angle;
-    float angleVel;
+    float phi;
+    float phiSpeed;
+    float theta;
+    float minTheta;
+    float maxTheta;
+    float thetaSpeed;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 
