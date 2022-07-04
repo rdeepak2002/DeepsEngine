@@ -13,6 +13,13 @@
 #include "Window.h"
 #include "Renderer.h"
 #include <fstream>
+#include <chrono>
+#include <ctime>
+
+using namespace std::chrono_literals;
+
+// we use a fixed timestep of 1 / (60 fps) = 16 milliseconds
+constexpr std::chrono::nanoseconds timestep(16ms);
 
 class Application {
 public:
@@ -33,9 +40,6 @@ public:
     std::filesystem::path getProjectPath();
     void setProjectPath(std::string projectPath);
     float getCurrentTime();
-    // timing
-    float deltaTime = 0.0f;	// time between current frame and last frame
-    float lastFrame = 0.0f;
     std::unique_ptr<Renderer> renderer;
 private:
     Application() {
@@ -45,6 +49,8 @@ private:
     std::unique_ptr<Window> window;
     std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
     std::string projectPath;
+    std::chrono::nanoseconds lag;
+    std::chrono::time_point<std::chrono::high_resolution_clock> time_start;
 #if defined(WITH_EDITOR)
     QElapsedTimer timer;
 #endif

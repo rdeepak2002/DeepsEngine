@@ -35,10 +35,8 @@ void MainCameraController::update(double dt) {
                 auto& playerTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
                 auto& transform = self.GetComponent<DeepsEngine::Component::Transform>();
 
-//                transform.position = playerTransform.position + glm::vec3(-5.0, 1.0, 0.0);
-
                 // calculate angle to look at player
-                glm::vec3 vectorToPlayer = glm::normalize(playerTransform.position + glm::vec3(0, 1, 0) - transform.position);
+                glm::vec3 vectorToPlayer = glm::normalize(playerTransform.position - transform.position);
                 vectorToPlayer.y = 0;
                 glm::vec3 firstVec = transform.right();
                 firstVec.y = 0;
@@ -46,7 +44,7 @@ void MainCameraController::update(double dt) {
                 transform.rotation.y += angleToPlayer;
 
                 // offset of camera from player
-                glm::vec3 offsetPosition = glm::vec3(sin(angle) * radius, 0.0f, cos(angle) * radius);
+                glm::vec3 offsetPosition = glm::vec3(sin(angle) * radius, 1.0f, cos(angle) * radius);
                 glm::vec3 targetPosition = playerTransform.position + offsetPosition;
 
                 transform.position = targetPosition;

@@ -658,7 +658,7 @@ namespace DeepsEngine::Component {
                     exit(1);
                 }
 
-                animator->UpdateAnimation(Application::getInstance().deltaTime);
+                animator->UpdateAnimation(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
 
                 auto transforms = animator->GetFinalBoneMatrices();
                 for (int i = 0; i < transforms.size(); ++i)
