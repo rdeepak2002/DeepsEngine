@@ -18,7 +18,6 @@ endif()
 
 
 include_directories(${OPENGL_INCLUDE_DIRS})
-link_libraries(${OPENGL_LIBRARIES})
 
 include_directories(${PROJECT_SOURCE_DIR}/src/include)
 include_directories(${PROJECT_SOURCE_DIR}/sys/include)

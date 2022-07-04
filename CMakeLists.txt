@@ -76,7 +76,7 @@ else()
 
     if(NOT EMSCRIPTEN)
         # standalone build
-        target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
+        target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
     endif()
 
     DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET()

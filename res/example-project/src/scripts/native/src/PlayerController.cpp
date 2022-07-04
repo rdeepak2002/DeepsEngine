@@ -11,6 +11,7 @@ void PlayerController::init() {
     NativeScript::init();
 
     this->speed = 5.0f;
+    this->currentState = "Idle";
 }
 
 void PlayerController::update(double dt) {
@@ -54,6 +55,12 @@ void PlayerController::update(double dt) {
                 if (glm::length2(velocityDirection) > 0.0f) {
                     glm::vec3 velocity = glm::normalize(velocityDirection) * this->speed;
                     transform.position += velocity * float(dt);
+                }
+
+                if (currentState != "Running") {
+                    // TODO: uncomment this
+//                    self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/link_fbx/Dancing.fbx");
+                    currentState = "Running";
                 }
             }
         }
