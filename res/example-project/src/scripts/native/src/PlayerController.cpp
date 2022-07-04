@@ -57,10 +57,16 @@ void PlayerController::update(double dt) {
                     transform.position += velocity * float(dt);
                 }
 
-                if (currentState != "Running") {
-                    // TODO: uncomment this
-                    self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/running/Running.dae");
-                    currentState = "Running";
+                if (glm::length2(velocityDirection) != 0) {
+                    if (currentState != "Running") {
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/running/Running.dae");
+                        currentState = "Running";
+                    }
+                } else {
+                    if (currentState != "Idle") {
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/idle/Idle.dae");
+                        currentState = "Idle";
+                    }
                 }
             }
         }
