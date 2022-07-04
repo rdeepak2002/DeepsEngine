@@ -38,19 +38,14 @@ void MainCameraController::update(double dt) {
 
                 // calculate angle to look at player wrt y-axis
                 glm::vec3 vectorToPlayer = glm::normalize(playerTransform.position - transform.position);
-                vectorToPlayer.y = 0;
-                glm::vec3 firstVec = transform.right();
-                firstVec.y = 0;
-                float angleToPlayer = glm::dot(firstVec, vectorToPlayer);
+                float angleToPlayer = glm::dot(glm::vec3(vectorToPlayer.x, 0.0f, vectorToPlayer.z), glm::vec3(transform.right().x, 0.0f, transform.right().z));
                 transform.rotation.y += angleToPlayer;
 
-                // offset of camera from player
+                // move camera around player in spherical manner
                 glm::vec3 offsetPosition = glm::vec3(radius * sin(theta) * cos(phi), radius * cos(theta), radius * sin(theta) * sin(phi));
-                glm::vec3 targetPosition = playerTransform.position + offsetPosition;
+                transform.position = playerTransform.position + offsetPosition;
 
-                transform.position = targetPosition;
-
-                // turn camera around player
+                // update camera position variables based off user input
                 if (Input::GetButtonDown(DeepsEngine::Key::Left)) {
                     phi += phiSpeed * float(dt);
                 }
