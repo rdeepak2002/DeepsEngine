@@ -40,8 +40,6 @@ public:
     std::filesystem::path getProjectPath();
     void setProjectPath(std::string projectPath);
     float getCurrentTime();
-    // timing
-    float dt;
     std::unique_ptr<Renderer> renderer;
 private:
     Application() {

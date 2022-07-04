@@ -22,8 +22,6 @@ void Application::update(bool clearScreen) {
     auto delta_time = clock::now() - time_start;
     time_start = clock::now();
     lag += std::chrono::duration_cast<std::chrono::nanoseconds>(delta_time);
-    dt = std::chrono::duration_cast<std::chrono::milliseconds>(delta_time).count() * 0.001;
-    Logger::Debug(std::to_string(dt));
 
     window->processInput();
 
@@ -31,10 +29,8 @@ void Application::update(bool clearScreen) {
     while(lag >= timestep) {
         lag -= timestep;
 
-//        previous_state = current_state;
-//        update(&current_state); // update at a fixed rate each time
         for (auto& componentSystem : componentSystems) {
-            componentSystem->update(0.016f);
+            componentSystem->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
         }
     }
 

@@ -49,7 +49,7 @@ void MainCameraController::update(double dt) {
                 glm::vec3 offsetPosition = glm::vec3(sin(angle) * radius, 0.0f, cos(angle) * radius);
                 glm::vec3 targetPosition = playerTransform.position + offsetPosition;
 
-//                transform.position = targetPosition;
+                transform.position = targetPosition;
 
                 // turn camera around player
                 if (Input::GetButtonDown(DeepsEngine::Key::Right)) {
