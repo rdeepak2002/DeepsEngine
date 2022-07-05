@@ -55,17 +55,24 @@ void PlayerController::update(double dt) {
                 if (glm::length2(velocityDirection) > 0.0f) {
                     glm::vec3 velocity = glm::normalize(velocityDirection) * this->speed;
                     transform.position += velocity * float(dt);
+
+                    // rotate character in direction of movement
+//                    transform.rotation.y += 0.1f * float(dt);
+//                    Logger::Debug(std::to_string(transform.rotation.y));
                 }
 
-                if (glm::length2(velocityDirection) != 0) {
-                    if (currentState != "Running") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/running/Running.dae");
-                        currentState = "Running";
-                    }
-                } else {
+                // set animation based off state
+                bool moving = glm::length2(velocityDirection) == 0;
+
+                if (moving) {
                     if (currentState != "Idle") {
                         self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/idle/Idle.dae");
                         currentState = "Idle";
+                    }
+                } else {
+                    if (currentState != "Running") {
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/running/Running.dae");
+                        currentState = "Running";
                     }
                 }
             }
