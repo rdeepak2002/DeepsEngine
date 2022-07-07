@@ -63,7 +63,6 @@ void PlayerController::update(double dt) {
                     glm::quat q = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
                     glm::vec3 vec = glm::eulerAngles(q);
                     transform.rotation = vec;
-                    Logger::Debug(glm::to_string(vec));
                 }
 
                 // set animation based off state
