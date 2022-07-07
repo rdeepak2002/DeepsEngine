@@ -6,41 +6,13 @@
 #include "Component.h"
 #include "Input.h"
 #include "KeyCodes.h"
-#include <glm/ext.hpp>
-#include <glm/gtx/vector_angle.hpp>
-#include <glm/gtx/matrix_decompose.hpp>
+#include "DeepsMath.h"
 
 void PlayerController::init() {
     NativeScript::init();
 
     this->speed = 5.0f;
     this->currentState = "Idle";
-}
-
-glm::quat safeQuatLookAt(
-        glm::vec3 const& lookFrom,
-        glm::vec3 const& lookTo,
-        glm::vec3 const& up,
-        glm::vec3 const& alternativeUp)
-{
-    glm::vec3  direction       = lookTo - lookFrom;
-    float      directionLength = glm::length(direction);
-
-    // Check if the direction is valid; Also deals with NaN
-    if(!(directionLength > 0.0001))
-        return glm::quat(1, 0, 0, 0); // Just return identity
-
-    // Normalize direction
-    direction /= directionLength;
-
-    // Is the normal up (nearly) parallel to direction?
-    if(glm::abs(glm::dot(direction, up)) > .9999f) {
-        // Use alternative up
-        return glm::quatLookAt(direction, alternativeUp);
-    }
-    else {
-        return glm::quatLookAt(direction, up);
-    }
 }
 
 void PlayerController::update(double dt) {
@@ -86,7 +58,9 @@ void PlayerController::update(double dt) {
                     transform.position += velocity * float(dt);
 
                     // rotate character in direction of movement
-                    glm::quat q = safeQuatLookAt(transform.position, transform.position - velocityDirection, glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+                    glm::vec3 startPos = glm::vec3(transform.position.x, 0.0f, transform.position.z);
+                    glm::vec3 lookAtPos = glm::vec3(velocityDirection.x, 0.0f, velocityDirection.z);
+                    glm::quat q = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
                     glm::vec3 vec = glm::eulerAngles(q);
                     transform.rotation = vec;
                     Logger::Debug(glm::to_string(vec));
