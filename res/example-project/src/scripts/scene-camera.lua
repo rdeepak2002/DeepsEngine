@@ -36,23 +36,26 @@ function updateRotation(entity, dt)
         dRotation = dRotation - vec3.new(0.0,-1.0,0.0)
     end
 
-    -- normalize dRotation vector before multiplying by speed and change in time
-    dRotation = DeepsMath.normalizeVec3(dRotation) * self.rotationSpeed * dt
-    newRotation = entity:GetTransform().rotation + dRotation
-
-    -- keep pitch within boundaries to prevent weird camera behavior
-    if (newRotation.x > self.maxPitch)
+    if(DeepsMath.lengthVec3(dRotation) > 0.0001)
     then
-        newRotation.x = self.maxPitch
-    end
+        -- normalize dRotation vector before multiplying by speed and change in time
+        dRotation = DeepsMath.normalizeVec3(dRotation) * self.rotationSpeed * dt
+        newRotation = entity:GetTransform().rotation + dRotation
 
-    if (newRotation.x < self.minPitch)
-    then
-        newRotation.x = self.minPitch
-    end
+        -- keep pitch within boundaries to prevent weird camera behavior
+        if (newRotation.x > self.maxPitch)
+        then
+            newRotation.x = self.maxPitch
+        end
 
-    -- update rotation of entity
-    entity:GetTransform().rotation = newRotation
+        if (newRotation.x < self.minPitch)
+        then
+            newRotation.x = self.minPitch
+        end
+
+        -- update rotation of entity
+        entity:GetTransform().rotation = newRotation
+    end
 end
 
 function updateTranslation(entity, dt)
@@ -102,10 +105,14 @@ function updateTranslation(entity, dt)
         dPosition.y = dPosition.y + 1.0
     end
 
-    -- normalize dPosition vector before multiplying by speed and change in time
-    dPosition = DeepsMath.normalizeVec3(dPosition) * self.translationSpeed * dt
 
-    -- update position of entity
-    newPosition = entityPosition + dPosition
-    entity:GetTransform().position = newPosition
+    if(DeepsMath.lengthVec3(dPosition) > 0.0001)
+    then
+        -- normalize dPosition vector before multiplying by speed and change in time
+        dPosition = DeepsMath.normalizeVec3(dPosition) * self.translationSpeed * dt
+
+        -- update position of entity
+        newPosition = entityPosition + dPosition
+        entity:GetTransform().position = newPosition
+    end
 end

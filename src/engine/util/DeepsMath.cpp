@@ -10,7 +10,7 @@
 
 glm::vec3 DeepsMath::normalizeVec3(glm::vec3 vec) {
     if (glm::length(vec) == 0) {
-        Logger::Error("Unable to normalize vector with magnitude zero");
+        Logger::Warn("Unable to normalize vector with magnitude zero");
         return {};
     }
     return glm::normalize(vec);
@@ -30,6 +30,7 @@ glm::quat DeepsMath::safeQuatLookAt(
 
     // Check if the direction is valid; Also deals with NaN
     if (!(directionLength > 0.0001)) {
+        Logger::Warn("Invalid direction for safe look at");
         return glm::quat(1, 0, 0, 0); // Just return identity
     }
 
@@ -44,4 +45,8 @@ glm::quat DeepsMath::safeQuatLookAt(
     else {
         return glm::quatLookAt(direction, up);
     }
+}
+
+float DeepsMath::lengthVec3(glm::vec3 vec) {
+    return glm::length(vec);
 }
