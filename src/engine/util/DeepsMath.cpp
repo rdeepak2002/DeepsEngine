@@ -2,6 +2,7 @@
 // Created by Deepak Ramalingam on 5/5/22.
 //
 
+#include "Logger.h"
 #include "DeepsMath.h"
 #include <glm/trigonometric.hpp>
 #include <glm/glm.hpp>
@@ -9,6 +10,7 @@
 
 glm::vec3 DeepsMath::normalizeVec3(glm::vec3 vec) {
     if (glm::length(vec) == 0) {
+        Logger::Error("Unable to normalize vector with magnitude zero");
         return {};
     }
     return glm::normalize(vec);
