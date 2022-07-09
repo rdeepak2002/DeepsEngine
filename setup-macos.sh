@@ -48,7 +48,6 @@ brew install pkg-config
 brew install texinfo
 brew install yasm
 brew install openal-soft
-brew install libsndfile
 
 brew remove assimp
 brew tap-new $USER/local-assimp
