@@ -20,6 +20,8 @@ public:
 private:
     Input() {}
     std::unordered_map<int, bool> keyDownMap;
+    double mouseMoveX, mouseMoveY;
+    double mouseX, mouseY;
 public:
     Input(Input const&) = delete;
     void operator=(Input const&) = delete;
