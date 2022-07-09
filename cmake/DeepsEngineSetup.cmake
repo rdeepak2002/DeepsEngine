@@ -33,6 +33,12 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
         endif()
 
         find_package(glfw3 CONFIG REQUIRED)
+
+        find_package(OpenAL REQUIRED)
+
+        if(NOT OPENAL_FOUND)
+            message(FATAL_ERROR "OpenAL not found")
+        endif()
     endif()
 
     # get OPENGL include path and libraries
@@ -40,6 +46,10 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     include_directories(${OPENGL_INCLUDE_DIRS})
     message(STATUS "OPENGL_LIBRARIES = ${OPENGL_LIBRARIES}")
     link_libraries(${OPENGL_LIBRARIES})
+
+
+    message(STATUS "OPENAL_LIBRARY = ${OPENAL_LIBRARY}")
+    link_libraries(${OPENAL_LIBRARY})
 
     find_package(Lua REQUIRED)
 

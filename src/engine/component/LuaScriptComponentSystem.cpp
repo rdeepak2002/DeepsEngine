@@ -110,7 +110,8 @@ void LuaScriptComponentSystem::init() {
 
     lua.new_usertype<DeepsMath>("DeepsMath",
                              "normalizeVec3", &DeepsMath::normalizeVec3,
-                             "degreesToRadians", &DeepsMath::degreesToRadians
+                             "degreesToRadians", &DeepsMath::degreesToRadians,
+                             "lengthVec3", &DeepsMath::lengthVec3
     );
 
     lua.end();
@@ -118,7 +119,12 @@ void LuaScriptComponentSystem::init() {
 
 void LuaScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
+
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
+        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+            continue;
+        }
+
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
 
         // ignore empty script paths

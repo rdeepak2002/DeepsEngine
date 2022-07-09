@@ -469,7 +469,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = "";
             this->setMeshType(mesh);
-
+            this->flipTextures = false;
         }
 
         MeshFilter(std::string mesh, std::string meshPath, std::string entityGuid) {
@@ -477,21 +477,30 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = meshPath;
             this->setMeshType(mesh);
-
+            this->flipTextures = false;
         }
 
         MeshFilter(YAML::Node yamlData, std::string entityGuid) {
             this->entityGuid = entityGuid;
             loadMissingTextures();
+
             if (!yamlData["meshPath"]) {
                 Logger::Warn("Providing blank mesh path for mesh component");
                 this->meshPath = "";
             } else {
                 this->meshPath = yamlData["meshPath"].as<std::string>();
             }
+
+            if (yamlData["flipTextures"]) {
+                this->flipTextures = yamlData["flipTextures"].as<bool>();
+            } else {
+                this->flipTextures = false;
+            }
+
             this->setMeshType(yamlData["mesh"].as<std::string>());
         }
 
+        bool flipTextures;
         std::string entityGuid;
         std::string mesh;
         std::string meshPath;
@@ -514,6 +523,7 @@ namespace DeepsEngine::Component {
 
             out << YAML::Key << "mesh" << YAML::Value << mesh;
             out << YAML::Key << "meshPath" << YAML::Value << meshPath;
+            out << YAML::Key << "flipTextures" << YAML::Value << flipTextures;
 
             out << YAML::EndMap;
         }
@@ -582,13 +592,13 @@ namespace DeepsEngine::Component {
                 glEnableVertexAttribArray(2);
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
-                    stbi_set_flip_vertically_on_load(true);
+                    stbi_set_flip_vertically_on_load(flipTextures);
                     model = new Model(Application::getInstance().getProjectPath().append(meshPath));
                     stbi_set_flip_vertically_on_load(false);
                 }
             } else if (mesh == "animated-model") {
                 if (!meshPath.empty()) {
-                    stbi_set_flip_vertically_on_load(true);
+                    stbi_set_flip_vertically_on_load(flipTextures);
                     animatedModel = new AnimatedModel(Application::getInstance().getProjectPath().append(meshPath));
                     stbi_set_flip_vertically_on_load(false);
                     Animation* defaultAnimation = new Animation(Application::getInstance().getProjectPath().append(meshPath), animatedModel);
@@ -601,7 +611,6 @@ namespace DeepsEngine::Component {
         }
 
         void setMeshPath(std::string newMeshPath) {
-            Logger::Warn("Setting new mesh path: " + newMeshPath);
             meshPath = newMeshPath;
             setMeshType(mesh);
         }
@@ -648,7 +657,7 @@ namespace DeepsEngine::Component {
                     exit(1);
                 }
 
-                animator->UpdateAnimation(Application::getInstance().deltaTime);
+                animator->UpdateAnimation(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
 
                 auto transforms = animator->GetFinalBoneMatrices();
                 for (int i = 0; i < transforms.size(); ++i)
@@ -662,17 +671,34 @@ namespace DeepsEngine::Component {
         }
     };
 
-    struct NativeScriptComponent : Component {
-        NativeScriptComponent() = default;
+    struct SceneCameraComponent : Component {
+        SceneCameraComponent() {
+            sceneCamera = true;
+        }
 
-        NativeScriptComponent(std::string className) {
+        SceneCameraComponent(YAML::Node yamlData) {
+            this->sceneCamera = yamlData["sceneCamera"].as<bool>();
+        }
+
+        bool sceneCamera;
+    };
+
+    struct NativeScriptComponent : Component {
+        NativeScriptComponent() {
+            shouldInit = true;
+            shouldUpdate = true;
+        }
+
+        NativeScriptComponent(std::string className, std::string filePath) {
             this->className = className;
+            this->filePath = filePath;
             shouldInit = true;
             shouldUpdate = true;
         }
 
         NativeScriptComponent(YAML::Node yamlData) {
             this->className = yamlData["className"].as<std::string>();
+            this->filePath = yamlData["filePath"].as<std::string>();
             shouldInit = true;
             shouldUpdate = true;
         }
@@ -683,14 +709,35 @@ namespace DeepsEngine::Component {
 
         std::shared_ptr<NativeScript> nativeScript;
         std::string className;
+        std::string filePath;
         bool shouldInit;
         bool shouldUpdate;
+
+        void changeScript(std::string relativeFilePath) {
+            shouldInit = true;
+            shouldUpdate = true;
+
+            string::size_type slashLoc = relativeFilePath.find_last_of('/');
+            string::size_type extensionLoc = relativeFilePath.find_last_of('.');
+
+            if (slashLoc == string::npos) {
+                slashLoc = relativeFilePath.find_last_of('\\');
+            }
+
+            if (slashLoc == string::npos) {
+                slashLoc = 0;
+            }
+
+            this->filePath = relativeFilePath;
+            this->className = relativeFilePath.substr(slashLoc + 1, extensionLoc - slashLoc - 1);
+        }
 
         virtual void Serialize(YAML::Emitter &out) override {
             out << YAML::Key << "NativeScriptComponent";
             out << YAML::BeginMap;
 
             out << YAML::Key << "className" << YAML::Value << className;
+            out << YAML::Key << "filePath" << YAML::Value << className;
 
             out << YAML::EndMap;
         }

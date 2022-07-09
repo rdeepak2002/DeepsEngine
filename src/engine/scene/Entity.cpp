@@ -111,6 +111,11 @@ namespace DeepsEngine {
             RemoveComponent<Component::NativeScriptComponent>();
             AddComponent<Component::NativeScriptComponent>(entityYaml["NativeScriptComponent"]);
         }
+
+        if(entityYaml["SceneCamera"]) {
+            RemoveComponent<Component::SceneCameraComponent>();
+            AddComponent<Component::SceneCameraComponent>(entityYaml["SceneCamera"]);
+        }
     }
 
     void Entity::Destroy() {

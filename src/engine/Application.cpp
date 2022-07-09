@@ -17,26 +17,33 @@ using std::filesystem::current_path;
 using std::filesystem::exists;
 
 void Application::update(bool clearScreen) {
-    // calculate delta time
-    float currentFrame = getCurrentTime();
-    deltaTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+    using clock = std::chrono::high_resolution_clock;
 
-    // update renderer
+    auto delta_time = clock::now() - time_start;
+    time_start = clock::now();
+    lag += std::chrono::duration_cast<std::chrono::nanoseconds>(delta_time);
+
     window->processInput();
 
+    // update game logic as lag permits
+    while(lag >= timestep) {
+        lag -= timestep;
+
+        for (auto& componentSystem : componentSystems) {
+            componentSystem->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
+        }
+    }
+
+    // used for interpolated state
+    float alpha = (float) lag.count() / timestep.count();
+
+    // calculate how close or far we are from the next timestep
     if (clearScreen) {
         renderer->clear();
     }
-
     renderer->update();
     window->swapBuffers();
     window->pollEvents();
-
-    // update lua component systems
-    for (auto& componentSystem : componentSystems) {
-        componentSystem->update(deltaTime);
-    }
 }
 
 void Application::initialize() {
@@ -47,6 +54,9 @@ void Application::initialize() {
 #if defined(WITH_EDITOR)
     // start timer for qt to keep track of delta time
     timer.start();
+    playing = false;
+#else
+    playing = true;
 #endif
 
     // add component systems
@@ -67,6 +77,10 @@ void Application::initialize() {
     for (auto& componentSystem : componentSystems) {
         componentSystem->init();
     }
+
+    using clock = std::chrono::high_resolution_clock;
+    lag = 0ns;
+    time_start = clock::now();
 }
 
 void Application::close() {

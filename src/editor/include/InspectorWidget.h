@@ -20,6 +20,7 @@
 #include "LuaScriptComponentWidget.h"
 #include "MaterialComponentWidget.h"
 #include "LightComponentWidget.h"
+#include "NativeScriptComponentWidget.h"
 
 class InspectorWidget: public QWidget, public TagComponentChangeListener {
 Q_OBJECT;

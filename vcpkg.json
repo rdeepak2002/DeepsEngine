@@ -1,0 +1,23 @@
+{
+  "name": "deeps-engine",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "name": "lua",
+      "version=": "5.4.4"
+    },
+    {
+      "name": "glfw3",
+      "version=": "3.3.7"
+    },
+    {
+      "name": "yaml-cpp",
+      "version=": "0.7.0"
+    },
+    {
+      "name": "qt5",
+      "version=": "5.15.4"
+    }
+  ],
+  "builtin-baseline": "2c5774bb7163a2937af24cd399ab634166734c3f"
+}

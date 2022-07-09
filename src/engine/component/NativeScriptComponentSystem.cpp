@@ -63,10 +63,18 @@ void NativeScriptComponentSystem::update(float deltaTime) {
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::NativeScriptComponent>();
     for (auto entityHandle : entityHandles) {
         DeepsEngine::Entity entity = {entityHandle};
+
+        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+            continue;
+        }
+
         auto &nativeScriptComponent = entity.GetComponent<DeepsEngine::Component::NativeScriptComponent>();
-        if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
-            nativeScriptComponent.nativeScript->update(entity, 1.0);
-        } else if (nativeScriptComponent.shouldInit) {
+
+        if (nativeScriptComponent.className.empty() || nativeScriptComponent.filePath.empty()) {
+            continue;
+        }
+
+        if (nativeScriptComponent.shouldInit) {
             std::string createMethodName = "create_" + nativeScriptComponent.className;
             auto* createNativeScript = (create_t*) dlsym(RTLD_DEFAULT, createMethodName.c_str());
             const char* dlsym_error = dlerror();
@@ -74,10 +82,12 @@ void NativeScriptComponentSystem::update(float deltaTime) {
                 Logger::Error("Cannot load symbol create: " + std::string(dlsym_error));
                 exit(1);
             }
-            NativeScript* nativeScriptComponentInstance = createNativeScript();
+            NativeScript* nativeScriptComponentInstance = createNativeScript(entity);
             nativeScriptComponent.nativeScript.reset(nativeScriptComponentInstance);
             nativeScriptComponent.nativeScript->init();
             nativeScriptComponent.shouldInit = false;
+        } else if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
+            nativeScriptComponent.nativeScript->update(deltaTime);
         }
     }
 }

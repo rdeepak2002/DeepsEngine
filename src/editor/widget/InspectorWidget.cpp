@@ -31,6 +31,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) {
     componentWidgets.append(new LuaScriptComponentWidget(this));
     componentWidgets.append(new MaterialComponentWidget(this));
     componentWidgets.append(new LightComponentWidget(this));
+    componentWidgets.append(new NativeScriptComponentWidget(this));
 
     // add widgets to main layout
     QVBoxLayout *mainLayout = new QVBoxLayout;
