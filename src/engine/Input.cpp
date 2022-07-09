@@ -15,3 +15,12 @@ bool Input::GetButtonDown(int keyCode) {
 void Input::SetButtonDown(int keyCode, bool state) {
     Input::getInstance().keyDownMap[keyCode] = state;
 }
+
+glm::vec2 Input::GetMousePosition() {
+    return {float(Input::getInstance().mouseX), float(Input::getInstance().mouseY)};
+}
+
+void Input::SetMousePosition(double x, double y) {
+    Input::getInstance().mouseX = x;
+    Input::getInstance().mouseY = y;
+}

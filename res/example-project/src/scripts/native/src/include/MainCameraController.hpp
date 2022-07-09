@@ -14,7 +14,6 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 private:
-
     float radius;
     float phi;
     float phiSpeed;
@@ -22,6 +21,7 @@ private:
     float minTheta;
     float maxTheta;
     float thetaSpeed;
+    glm::vec2 mousePos;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 

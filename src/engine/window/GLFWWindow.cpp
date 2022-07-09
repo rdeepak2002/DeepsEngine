@@ -25,10 +25,15 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     }
 }
 
+void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
+{
+    Input::SetMousePosition(xpos, ypos);
+}
+
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
 {
 
-};
+}
 #endif
 
 void GLFWWindow::createWindow() {
@@ -54,6 +59,7 @@ void GLFWWindow::createWindow() {
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
     glfwSetKeyCallback(window, keyCallback);
+    glfwSetCursorPosCallback(window, cursorPosCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif

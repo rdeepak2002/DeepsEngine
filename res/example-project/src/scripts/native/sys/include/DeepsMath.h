@@ -10,6 +10,7 @@
 
 class DeepsMath {
 public:
+    static float lengthVec3(glm::vec3);
     static glm::vec3 normalizeVec3(glm::vec3 vec);
     static float degreesToRadians(float degrees);
     static glm::quat safeQuatLookAt(
