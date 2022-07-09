@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(VCPKG_FEATURE_FLAGS "versions")
+
 # Add folder where are supportive functions
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -23,7 +25,8 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/engine/renderer/*.cpp
         src/engine/window/*.cpp
         src/engine/scene/*.cpp
-        src/engine/util/*.cpp)
+        src/engine/util/*.cpp
+        src/engine/audio/*.cpp)
 
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 

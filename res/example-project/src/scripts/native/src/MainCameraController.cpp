@@ -21,6 +21,8 @@ void MainCameraController::init() {
     minTheta = -0.99 * M_PI;
     maxTheta = -0.01f;
     thetaSpeed = 1.0f;
+
+    Logger::Debug("Init main camera controller");
 }
 
 void MainCameraController::update(double dt) {

@@ -8,7 +8,12 @@ rm -rf vcpkg
 rm -rf web-library
 
 # download emscripten
-./download-emscripten.sh
+if [ -d "emsdk" ]; then
+  echo "emsdk already downloaded..."
+else
+  echo "Downloading emsdk..."
+  ./download-emscripten.sh
+fi
 source emsdk/emsdk_env.sh
 
 # install vcpkg stuff
@@ -46,6 +51,6 @@ echo "Done building emscripten version of DeepsEngine library in web-library fol
 
 echo "Cleaning up..."
 
-rm -rf emsdk
+#rm -rf emsdk
 rm -rf vcpkg
 rm -rf web-library

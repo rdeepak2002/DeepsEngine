@@ -13,6 +13,8 @@ void PlayerController::init() {
 
     this->speed = 5.0f;
     this->currentState = "Idle";
+
+    Logger::Debug("Init player controller");
 }
 
 void PlayerController::update(double dt) {
