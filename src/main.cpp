@@ -1,8 +1,8 @@
 #include "Application.h"
-#include "Input.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
+#include "Input.h"
 
 extern "C" {
     void onResizeWindow(int width, int height) {
