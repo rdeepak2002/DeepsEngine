@@ -52,8 +52,7 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     link_libraries(${OPENAL_LIBRARY})
 
     if (EMSCRIPTEN)
-        # TODO: this will cause errors when this library is not present...
-        include_directories(${PROJECT_SOURCE_DIR}/res/example-project/build/web/lua-5.4.4/src)
+        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/lua-5.4.4)
     else()
         find_package(Lua REQUIRED)
 
