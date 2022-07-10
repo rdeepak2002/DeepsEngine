@@ -69,10 +69,7 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     link_libraries(${LUA_LIBRARIES})
 
     # find yaml parsing library
-    if (EMSCRIPTEN)
-        # TODO: this will cause errors when this library is not present...
-#        include_directories(${PROJECT_SOURCE_DIR}/res/example-project/build/web/yaml-cpp/include)
-    else()
+    if (NOT EMSCRIPTEN)
         find_package(yaml-cpp CONFIG REQUIRED)
     endif()
 
