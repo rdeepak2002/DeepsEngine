@@ -70,6 +70,7 @@ else()
 
         # copy build files to web build folder
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/include ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/include)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/external ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/external)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/engine/lib ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/lib)
         add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/cmake ${PROJECT_SOURCE_DIR}/res/example-project/build/web/DeepsEngine/cmake)
     else()

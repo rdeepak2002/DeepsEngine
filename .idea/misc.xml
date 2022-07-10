@@ -6,6 +6,8 @@
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <excludeRoots>
+      <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine" />
+      <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine/external" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine/include" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/assets" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/assimp-5.0.1" />
