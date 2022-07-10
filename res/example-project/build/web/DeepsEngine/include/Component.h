@@ -645,25 +645,29 @@ namespace DeepsEngine::Component {
                 glBindVertexArray(VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
             } else if (mesh == "static-model") {
-                if (!model) {
-                    Logger::Error("Static mesh not initialized");
-                    exit(1);
-                }
+                if (!meshPath.empty()) {
+                    if (!model) {
+                        Logger::Error("Static mesh not initialized");
+                        exit(1);
+                    }
 
-                model->Draw(*shader);
+                    model->Draw(*shader);
+                }
             } else if (mesh == "animated-model") {
-                if (!animatedModel) {
-                    Logger::Error("Animated mesh not initialized");
-                    exit(1);
+                if (!meshPath.empty()) {
+                    if (!animatedModel) {
+                        Logger::Error("Animated mesh not initialized");
+                        exit(1);
+                    }
+
+                    animator->UpdateAnimation(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
+
+                    auto transforms = animator->GetFinalBoneMatrices();
+                    for (int i = 0; i < transforms.size(); ++i)
+                        shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+
+                    animatedModel->Draw(*shader);
                 }
-
-                animator->UpdateAnimation(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
-
-                auto transforms = animator->GetFinalBoneMatrices();
-                for (int i = 0; i < transforms.size(); ++i)
-                    shader->setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
-
-                animatedModel->Draw(*shader);
             } else {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);

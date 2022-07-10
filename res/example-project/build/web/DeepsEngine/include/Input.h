@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <glm/glm.hpp>
 
 class Input {
 public:
@@ -17,9 +18,12 @@ public:
     }
     static bool GetButtonDown(int keyCode);
     static void SetButtonDown(int keyCode, bool state);
+    static glm::vec2 GetMousePosition();
+    static void SetMousePosition(double x, double y);
 private:
     Input() {}
     std::unordered_map<int, bool> keyDownMap;
+    double mouseX, mouseY;
 public:
     Input(Input const&) = delete;
     void operator=(Input const&) = delete;

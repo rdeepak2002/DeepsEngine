@@ -18,8 +18,8 @@ void MainCameraController::init() {
     phiSpeed = 0.1f;
 
     theta = -M_PI / 4;
-    minTheta = -0.99 * M_PI;
-    maxTheta = -0.01f;
+    minTheta = -0.95 * M_PI;
+    maxTheta = -0.05f;
     thetaSpeed = 0.1f;
 
     mousePos = glm::vec2(0.0f, 0.0f);
@@ -52,16 +52,16 @@ void MainCameraController::update(double dt) {
                 glm::vec3 offsetPosition = glm::vec3(radius * sin(theta) * cos(phi), radius * cos(theta), radius * sin(theta) * sin(phi));
                 transform.position = playerTransform.position + offsetPosition;
 
-//                // update camera position variables based off user input
-//                if (Input::GetButtonDown(DeepsEngine::Key::Left)) {
-//                    phi += phiSpeed * float(dt);
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::Right)) {
-//                    phi -= phiSpeed * float(dt);
-//                }
+                // update camera position variables based off user input
+                if (Input::GetButtonDown(DeepsEngine::Key::Left)) {
+                    phi += phiSpeed * float(dt);
+                }
 
-                phi += phiSpeed * float(dt) * dMousePos.x;
+                if (Input::GetButtonDown(DeepsEngine::Key::Right)) {
+                    phi -= phiSpeed * float(dt);
+                }
+
+//                phi += phiSpeed * float(dt) * dMousePos.x;
 
                 if (phi > 2 * M_PI) {
                     phi -= 2 * M_PI;
@@ -71,14 +71,15 @@ void MainCameraController::update(double dt) {
                     phi += 2 * M_PI;
                 }
 
-//                if (Input::GetButtonDown(DeepsEngine::Key::Up)) {
-//                    theta += thetaSpeed * float(dt);
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::Down)) {
-//                    theta -= thetaSpeed * float(dt);
-//                }
-                theta += thetaSpeed * float(dt) * dMousePos.y;
+                if (Input::GetButtonDown(DeepsEngine::Key::Up)) {
+                    theta += thetaSpeed * float(dt);
+                }
+
+                if (Input::GetButtonDown(DeepsEngine::Key::Down)) {
+                    theta -= thetaSpeed * float(dt);
+                }
+
+//                theta += thetaSpeed * float(dt) * dMousePos.y;
 
                 theta = max(theta, minTheta);
                 theta = min(theta, maxTheta);
