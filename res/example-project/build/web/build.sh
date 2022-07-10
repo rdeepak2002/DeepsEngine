@@ -63,8 +63,7 @@ source emsdk/emsdk_env.sh
 echo "Creating web build..."
 
 # remove current source code
-#rm -rf build
-rm -rf build/assets
+rm -rf build
 
 # create new folder for source code
 mkdir -p build/assets/project/src
@@ -83,15 +82,10 @@ rm -rf assets/project/src/scripts/native/src
 rm -rf assets/project/src/scripts/native/sys
 
 # build source code
-rm -rf build/DeepsEngine.data
-
 echo "Generating build for both engine and project (this will take a long time)"
 
-rm -rf build/DeepsEngine.html
-rm -rf build/DeepsEngine.js
-rm -rf build/DeepsEngine.wasm
-
-emcc -g --use-preload-plugins -lopenal -IDeepsEngine/include -IDeepsEngine/external/lua-5.4.4 -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
+emcc -g --use-preload-plugins -lopenal -I../../sys/DeepsEngine/include -I../../sys/DeepsEngine/external/lua-5.4.4 -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" ../../sys/DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
+#emcc -g --use-preload-plugins -lopenal -IDeepsEngine/include -IDeepsEngine/external/lua-5.4.4 -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
 
 echo "Build complete and present in $(pwd)/build/"
 
