@@ -27,7 +27,9 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
 {
-    Input::SetMousePosition(xpos, ypos);
+    if (!isnan(xpos) && !isnan(ypos)) {
+        Input::SetMousePosition(xpos, ypos);
+    }
 }
 
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)

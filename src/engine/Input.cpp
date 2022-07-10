@@ -17,10 +17,17 @@ void Input::SetButtonDown(int keyCode, bool state) {
 }
 
 glm::vec2 Input::GetMousePosition() {
-    return {float(Input::getInstance().mouseX), float(Input::getInstance().mouseY)};
+    return Input::getInstance().mousePosition;
 }
 
 void Input::SetMousePosition(double x, double y) {
-    Input::getInstance().mouseX = x;
-    Input::getInstance().mouseY = y;
+    Input::getInstance().mousePosition = {x, y};
+}
+
+glm::vec2 Input::GetMouseMovement() {
+    return Input::getInstance().mouseMovement;
+}
+
+void Input::SetMouseMovement(double x, double y) {
+    Input::getInstance().mouseMovement = {x, y};
 }

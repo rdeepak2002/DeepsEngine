@@ -8,6 +8,7 @@
 #include <iostream>
 #include <glm/ext.hpp>
 #include <yaml-cpp/yaml.h>
+#include "Input.h"
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
@@ -215,4 +216,3 @@ float Application::getCurrentTime() {
     return static_cast<float>(glfwGetTime());
 #endif
 }
-

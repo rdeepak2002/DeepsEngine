@@ -51,10 +51,15 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     message(STATUS "OPENAL_LIBRARY = ${OPENAL_LIBRARY}")
     link_libraries(${OPENAL_LIBRARY})
 
-    find_package(Lua REQUIRED)
+    if (EMSCRIPTEN)
+        # TODO: this will cause errors when this library is not present...
+        include_directories(${PROJECT_SOURCE_DIR}/res/example-project/build/web/lua-5.4.4/src)
+    else()
+        find_package(Lua REQUIRED)
 
-    if (NOT LUA_FOUND)
-        message(FATAL_ERROR "LUA not found. Please refer to https://github.com/rdeepak2002/DeepsEngine/blob/main/README.md")
+        if (NOT LUA_FOUND)
+            message(FATAL_ERROR "LUA not found. Please refer to https://github.com/rdeepak2002/DeepsEngine/blob/main/README.md")
+        endif()
     endif()
 
     # get LUA path use macro to get around differing versions
@@ -64,7 +69,12 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
     link_libraries(${LUA_LIBRARIES})
 
     # find yaml parsing library
-    find_package(yaml-cpp CONFIG REQUIRED)
+    if (EMSCRIPTEN)
+        # TODO: this will cause errors when this library is not present...
+        include_directories(${PROJECT_SOURCE_DIR}/res/example-project/build/web/yaml-cpp/include)
+    else()
+        find_package(yaml-cpp CONFIG REQUIRED)
+    endif()
 
     # assimp
     if (APPLE)

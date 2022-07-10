@@ -21,7 +21,9 @@ private:
     float minTheta;
     float maxTheta;
     float thetaSpeed;
-    glm::vec2 mousePos;
+
+    glm::vec2 oldMousePosition;
+    bool firstMouse;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 

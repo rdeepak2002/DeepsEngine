@@ -74,6 +74,7 @@
             console.log("Runtime initialized");
 
             var onResizeGraphicsWindow = Module.cwrap('onResizeWindow', null, ['number', 'number']);
+            var onMouseMovement = Module.cwrap('onMouseMovement', null, ['number', 'number']);
 
             var windowResizeListener = (event) => {
                 if (onResizeGraphicsWindow !== undefined) {

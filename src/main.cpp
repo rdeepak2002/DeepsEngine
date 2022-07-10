@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Input.h"
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -6,6 +7,9 @@
 extern "C" {
     void onResizeWindow(int width, int height) {
         Application::getInstance().resizeWindow(width, height);
+    }
+    void onMouseMovement(double movementX, double movementY) {
+        Input::SetMouseMovement(movementX, movementY);
     }
 }
 #endif

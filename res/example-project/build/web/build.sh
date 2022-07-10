@@ -58,6 +58,8 @@ else
   ./download-yaml-cpp.sh
 fi
 
+source emsdk/emsdk_env.sh
+
 echo "Creating web build..."
 
 # remove current source code
@@ -113,5 +115,7 @@ if [[ "${DEEPS_ENGINE_WEB_SERVE_CONTENT}" == true ]]; then
   echo "Serving content attached from /build/app.html"
   http-server -o "/build/app.html" --silent
 fi
+
+say 'Web build complete.'
 
 exit 0
