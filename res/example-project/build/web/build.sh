@@ -8,6 +8,7 @@ echo ${DEEPS_ENGINE_RESOURCE_DIRECTORY}
 if [[ -z "${DEEPS_ENGINE_RESOURCE_DIRECTORY}" ]]; then
   # quick solution: export DEEPS_ENGINE_RESOURCE_DIRECTORY=/Users/deepakramalingam/Desktop/example-project/src
   echo "Error: DEEPS_ENGINE_RESOURCE_DIRECTORY env variable not provided! This is the directory of the project src folder."
+  echo "Quick solution: export DEEPS_ENGINE_RESOURCE_DIRECTORY=/Users/deepakramalingam/Desktop/example-project/src"
   exit 1
 else
   echo "Resource directory set to ${DEEPS_ENGINE_RESOURCE_DIRECTORY}"
@@ -57,11 +58,12 @@ else
   ./download-yaml-cpp.sh
 fi
 
+source emsdk/emsdk_env.sh
+
 echo "Creating web build..."
 
 # remove current source code
-#rm -rf build
-rm -rf build/assets
+rm -rf build
 
 # create new folder for source code
 mkdir -p build/assets/project/src
@@ -80,23 +82,10 @@ rm -rf assets/project/src/scripts/native/src
 rm -rf assets/project/src/scripts/native/sys
 
 # build source code
-rm -rf build/DeepsEngine.data
+echo "Generating build for both engine and project (this will take a long time)"
 
-if [ -f "build/DeepsEngine.js" ]; then
-  echo "Generating quick build"
-  mkdir build/tmp
-  emcc --use-preload-plugins -lopenal -IDeepsEngine/include -Ilua-5.4.4/src -Iyaml-cpp/include -Lyaml-cpp/src -Lassimp-5.0.1/build/code -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s ASYNCIFY -s "ASYNCIFY_IMPORTS=['doLoadLibrary']" -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/tmp/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON
-  mv build/tmp/DeepsEngine.data build/DeepsEngine.data
-  rm -rf build/tmp
-else
-  echo "Generating build for both engine and project (this will take a long time)"
-
-  rm -rf build/DeepsEngine.html
-  rm -rf build/DeepsEngine.js
-  rm -rf build/DeepsEngine.wasm
-
-  emcc --use-preload-plugins -lopenal -IDeepsEngine/include -Ilua-5.4.4/src -Iyaml-cpp/include -Lyaml-cpp/src -Lassimp-5.0.1/build/code -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s ASYNCIFY -s "ASYNCIFY_IMPORTS=['doLoadLibrary']" -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -Os
-fi
+emcc -g --use-preload-plugins -lopenal -I../../sys/DeepsEngine/include -I../../sys/DeepsEngine/external/lua-5.4.4 -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" ../../sys/DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
+#emcc -g --use-preload-plugins -lopenal -IDeepsEngine/include -IDeepsEngine/external/lua-5.4.4 -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
 
 echo "Build complete and present in $(pwd)/build/"
 
@@ -112,5 +101,7 @@ if [[ "${DEEPS_ENGINE_WEB_SERVE_CONTENT}" == true ]]; then
   echo "Serving content attached from /build/app.html"
   http-server -o "/build/app.html" --silent
 fi
+
+say 'Web build complete.'
 
 exit 0

@@ -12,18 +12,29 @@
 
 #if defined(EMSCRIPTEN)
 
+//#include <emscripten.h>
+//
+//EM_JS(void, doLoadLibrary, (), {
+//Asyncify.handleAsync(async() => {
+//try {
+//await loadDynamicLibrary('assets/project/src/scripts/native/web/libnative.wasm', { loadAsync: true, global: true, nodelete: true, fs: FS });
+//}
+//catch (error) {
+//console.log(error);
+//}
+//});
+//});
+
 #include <emscripten.h>
 
-EM_JS(void, doLoadLibrary, (), {
-Asyncify.handleAsync(async() => {
-try {
-await loadDynamicLibrary('assets/project/src/scripts/native/web/libnative.wasm', { loadAsync: true, global: true, nodelete: true, fs: FS });
+void loadLibs() {
+    EM_ASM({
+        loadDynamicLibrary('assets/project/src/scripts/native/web/libnative.wasm', {loadAsync: true, global: true, nodelete: true}).then(
+            () => {
+                Module.modulePromiseResolve()
+            });
+    });
 }
-catch (error) {
-console.log(error);
-}
-});
-});
 
 #endif
 
@@ -32,14 +43,16 @@ void NativeScriptComponentSystem::init() {
 
 #if defined(EMSCRIPTEN)
     std::string libraryFolder = "web";
-    std::string libraryFileName = "libnative.so";
+    std::string libraryFileName = "libnative.wasm";
 #else
     std::string libraryFolder = "osx";
     std::string libraryFileName = "libnative.dylib";
 #endif
 
 #if defined(EMSCRIPTEN)
-    doLoadLibrary();
+//    doLoadLibrary();
+
+    loadLibs();
 #else
     std::string libraryPath = Application::getInstance().getProjectPath().append("src").append("scripts")
             .append("native").append(libraryFolder).append(libraryFileName);

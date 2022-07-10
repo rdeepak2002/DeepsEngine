@@ -8,6 +8,7 @@
 #include <iostream>
 #include <glm/ext.hpp>
 #include <yaml-cpp/yaml.h>
+#include "Input.h"
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
@@ -20,10 +21,22 @@ void Application::update(bool clearScreen) {
     using clock = std::chrono::high_resolution_clock;
 
     auto delta_time = clock::now() - time_start;
+    deltaTime = std::chrono::duration_cast<std::chrono::milliseconds>(delta_time).count() * 0.001;
     time_start = clock::now();
     lag += std::chrono::duration_cast<std::chrono::nanoseconds>(delta_time);
 
     window->processInput();
+
+#ifndef EMSCRIPTEN
+    if (firstMouse) {
+        oldMousePosition = Input::GetMousePosition();
+        firstMouse = false;
+    } else {
+        glm::vec2 dVec = Input::GetMousePosition() - oldMousePosition;
+        Input::SetMouseMovement(dVec.x, dVec.y);
+        oldMousePosition = Input::GetMousePosition();
+    }
+#endif
 
     // update game logic as lag permits
     while(lag >= timestep) {
@@ -44,6 +57,8 @@ void Application::update(bool clearScreen) {
     renderer->update();
     window->swapBuffers();
     window->pollEvents();
+
+    Input::SetMouseMovement(0, 0);
 }
 
 void Application::initialize() {
@@ -215,4 +230,3 @@ float Application::getCurrentTime() {
     return static_cast<float>(glfwGetTime());
 #endif
 }
-

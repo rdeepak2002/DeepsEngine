@@ -6,6 +6,8 @@
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <excludeRoots>
+      <file path="$PROJECT_DIR$/sys/external/lua-5.4.4" />
+      <file path="$PROJECT_DIR$/sys/include/AL" />
       <file path="$PROJECT_DIR$/sys/include/GLFW" />
       <file path="$PROJECT_DIR$/sys/include/KHR" />
       <file path="$PROJECT_DIR$/sys/include/assimp" />
