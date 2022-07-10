@@ -91,9 +91,16 @@
                 }
             };
 
+            var updatePosition = (event) => {
+                if (event && event.movementX && event.movementY) {
+                    onMouseMovement(event.movementX, event.movementY);
+                }
+            }
+
             windowResizeListener(undefined);
 
             window.addEventListener("resize", windowResizeListener);
+            window.addEventListener("mousemove", updatePosition, false);
 
             window.addEventListener("click", function() {
                 // make fullscreen

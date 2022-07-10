@@ -32,15 +32,16 @@ void MainCameraController::init() {
 void MainCameraController::update(double dt) {
     NativeScript::init();
 
-    glm::vec2 dMousePos = {0.0f, 0.0f};
-
-    if (firstMouse) {
-        oldMousePosition = Input::GetMousePosition();
-        firstMouse = false;
-    } else {
-        dMousePos = Input::GetMousePosition() - oldMousePosition;
-        oldMousePosition = Input::GetMousePosition();
-    }
+    glm::vec2 dMousePos = Input::GetMouseMovement();
+//    glm::vec2 dMousePos = {0.0f, 0.0f};
+//
+//    if (firstMouse) {
+//        oldMousePosition = Input::GetMousePosition();
+//        firstMouse = false;
+//    } else {
+//        dMousePos = Input::GetMousePosition() - oldMousePosition;
+//        oldMousePosition = Input::GetMousePosition();
+//    }
 
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::Transform>();
 
