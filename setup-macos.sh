@@ -65,11 +65,16 @@ else
   export VCPKG_ROOT="$(pwd)/vcpkg"
 fi
 
+# build physics library
+echo "Building bullet physics library"
+./download-bullet.sh
+
 # install c++ libraries via vcpkg
 echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install lua
 ./vcpkg/vcpkg install glfw3
 ./vcpkg/vcpkg install yaml-cpp
+./vcpkg/vcpkg install bullet3
 ./vcpkg/vcpkg install qt5
 
 ./vcpkg/vcpkg install assimp

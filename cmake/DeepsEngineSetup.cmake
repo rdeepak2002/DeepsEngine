@@ -61,6 +61,19 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
         endif()
     endif()
 
+    if (NOT EMSCRIPTEN)
+        find_package(Bullet CONFIG REQUIRED)
+
+        message(STATUS BULLET_INCLUDE_DIRS=${BULLET_INCLUDE_DIRS})
+        message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
+
+        include_directories(${BULLET_INCLUDE_DIRS})
+#        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet-2.82/src)
+        link_libraries(${BULLET_LIBRARIES})
+    else()
+        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet-2.82/src)
+    endif()
+
     # get LUA path use macro to get around differing versions
     message(STATUS "LUA_INCLUDE_DIR ${LUA_INCLUDE_DIR}")
     include_directories(${LUA_INCLUDE_DIR})
@@ -125,4 +138,5 @@ endmacro()
 
 macro(DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET)
     target_link_libraries(${PROJECT_NAME} PRIVATE yaml-cpp)
+#    target_link_libraries(${PROJECT_NAME} PRIVATE LinearMath Bullet3Common BulletDynamics BulletSoftBody)
 endmacro()

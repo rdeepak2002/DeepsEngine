@@ -6,6 +6,7 @@
       <file path="$PROJECT_DIR$/src" />
     </sourceRoots>
     <excludeRoots>
+      <file path="$PROJECT_DIR$/bullet3-3.24" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine/external" />
       <file path="$PROJECT_DIR$/res/example-project/build/web/DeepsEngine/include" />
@@ -21,6 +22,8 @@
       <file path="$PROJECT_DIR$/res/example-project/src/scripts/native/cmake-build-debug" />
       <file path="$PROJECT_DIR$/res/example-project/src/scripts/native/osx/CMakeFiles" />
       <file path="$PROJECT_DIR$/res/example-project/sys/DeepsEngine" />
+      <file path="$PROJECT_DIR$/src/engine/external/bullet-2.82" />
+      <file path="$PROJECT_DIR$/src/engine/external/bullet3" />
       <file path="$PROJECT_DIR$/src/engine/external/lua-5.4.4" />
       <file path="$PROJECT_DIR$/src/engine/include/AL" />
       <file path="$PROJECT_DIR$/src/engine/include/GLFW" />
