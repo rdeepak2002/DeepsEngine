@@ -8,7 +8,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include(DeepsEngineSetup)
 
 # Basic information about project
-set(DEEPS_ENGINE_VERSION "0.1")
+set(DEEPS_ENGINE_VERSION "2022.0.1")
 project(DeepsEngine VERSION ${DEEPS_ENGINE_VERSION})
 
 # find the libraries for running deeps engine
