@@ -65,10 +65,6 @@ else
   export VCPKG_ROOT="$(pwd)/vcpkg"
 fi
 
-# build physics library
-echo "Building bullet physics library"
-./download-bullet.sh
-
 # install c++ libraries via vcpkg
 echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install lua
@@ -77,4 +73,5 @@ echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install bullet3
 ./vcpkg/vcpkg install qt5
 
-./vcpkg/vcpkg install assimp
+# TODO: enable this on windows and linux
+#./vcpkg/vcpkg install assimp (version 5.0.1)

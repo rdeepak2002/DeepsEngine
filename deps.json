@@ -15,6 +15,10 @@
       "version=": "0.7.0"
     },
     {
+      "name": "bullet3",
+      "version=": "3.22"
+    },
+    {
       "name": "qt5",
       "version=": "5.15.4"
     }
