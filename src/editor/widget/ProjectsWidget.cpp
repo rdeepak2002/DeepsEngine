@@ -57,12 +57,34 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
     QWidget* leftWidget = new QWidget(this);
     leftWidget->setFixedWidth(215);
     leftWidget->setObjectName("leftPanel");
+
+    auto hLayoutLogo = new QHBoxLayout;
+
+    QPixmap logo(qApp->applicationDirPath().append(QDir::separator())
+                         .append("assets").append(QDir::separator())
+                         .append("res").append(QDir::separator())
+                         .append("logo").append(QDir::separator())
+                         .append("logo_30.png"));
+    QLabel* logoLabel = new QLabel;
+    logoLabel->setPixmap(logo);
+    hLayoutLogo->addWidget(logoLabel);
+    hLayoutLogo->setAlignment(Qt::AlignLeft);
+
+    vLayoutLeft->addLayout(hLayoutLogo);
+
+    auto vLayoutNameAndVersion = new QVBoxLayout;
+    vLayoutNameAndVersion->setAlignment(Qt::AlignTop);
+    vLayoutNameAndVersion->setSpacing(0);
+
     QLabel* programNameLabel = new QLabel("DeepsEngine");
     programNameLabel->setObjectName("programNameLabel");
-    vLayoutLeft->addWidget(programNameLabel);
+    vLayoutNameAndVersion->addWidget(programNameLabel);
+
     QLabel* programVersionLabel = new QLabel(QString::fromStdString(static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION))));
     programVersionLabel->setObjectName("programVersionLabel");
-    vLayoutLeft->addWidget(programVersionLabel);
+    vLayoutNameAndVersion->addWidget(programVersionLabel);
+
+    hLayoutLogo->addLayout(vLayoutNameAndVersion);
 
     vLayoutLeft->setAlignment(Qt::AlignTop);
     leftWidget->setLayout(vLayoutLeft);
