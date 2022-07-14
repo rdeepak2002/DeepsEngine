@@ -60,16 +60,15 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
 
     auto hLayoutLogo = new QHBoxLayout;
 
-    QPixmap logo(qApp->applicationDirPath().append(QDir::separator())
-                         .append("assets").append(QDir::separator())
-                         .append("res").append(QDir::separator())
-                         .append("logo").append(QDir::separator())
-                         .append("logo_30.png"));
-    QLabel* logoLabel = new QLabel;
-    logoLabel->setPixmap(logo);
-    hLayoutLogo->addWidget(logoLabel);
+    QSvgWidget* logoWidget = new QSvgWidget(qApp->applicationDirPath().append(QDir::separator())
+                                                    .append("assets").append(QDir::separator())
+                                                    .append("res").append(QDir::separator())
+                                                    .append("logo").append(QDir::separator())
+                                                    .append("logo.svg"));
+    double scale = 0.3;
+    logoWidget->setFixedSize(169.85991 * scale, 113.07558 * scale);
+    hLayoutLogo->addWidget(logoWidget);
     hLayoutLogo->setAlignment(Qt::AlignLeft);
-
     vLayoutLeft->addLayout(hLayoutLogo);
 
     auto vLayoutNameAndVersion = new QVBoxLayout;

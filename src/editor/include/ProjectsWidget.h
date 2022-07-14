@@ -18,6 +18,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFile>
+#include <QSvgWidget>
 #include "ProjectWindow.h"
 
 #define XSTR(x) STR(x)
