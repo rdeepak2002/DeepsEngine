@@ -4,6 +4,10 @@
 
 #include "ProjectsWidget.h"
 
+#ifdef __APPLE__
+extern "C" void changeTitleBarColor(WId winId, double red, double green, double blue);
+#endif
+
 QString readStyleSheet(QString styleSheetName) {
     QFile file(qApp->applicationDirPath().append(QDir::separator())
         .append("assets").append(QDir::separator())
@@ -16,6 +20,9 @@ QString readStyleSheet(QString styleSheetName) {
 }
 
 ProjectsWidget::ProjectsWidget(QWidget *parent) {
+#ifdef __APPLE__
+    changeTitleBarColor(winId(), 59.0/255.0, 64.0/255.0, 65.0/255.0);
+#endif
     this->setStyleSheet(readStyleSheet("ProjectWindow.qss"));
 
     // reference to project window to modify menu bar
