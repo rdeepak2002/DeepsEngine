@@ -3,6 +3,7 @@
 //
 
 #include "ProjectsWidget.h"
+#include "ProjectListWidgetItem.h"
 
 #ifdef __APPLE__
 extern "C" void changeTitleBarColor(WId winId, double red, double green, double blue);
@@ -125,7 +126,9 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
         QString filePrefix = QDir::separator();
         QFileInfo projectDirectoryInfo = QFileInfo(filePrefix + projectFilePath);
         if (projectDirectoryInfo.exists() && projectDirectoryInfo.isDir()) {
-            qListWidget->addItem(projectFilePath);
+            ProjectListWidgetItem* projectListWidgetItem = new ProjectListWidgetItem(this, projectDirectoryInfo.absoluteFilePath());
+            qListWidget->addItem(projectListWidgetItem->getItem());
+            qListWidget->setItemWidget(projectListWidgetItem->getItem(), projectListWidgetItem);
         } else {
             Logger::Warn("Removing non existent file path: " + projectFilePath.toStdString());
             settings.remove(projectFilePath);

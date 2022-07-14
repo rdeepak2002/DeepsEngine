@@ -2,12 +2,35 @@ ProjectsWidget {
     background-color : #313335;
 }
 
+QListWidget::item {
+    color : transparent;
+    margin-top: 10px;
+}
+
+QListWidget::item:hover {
+    background-color : #454a4d;
+}
+
+QLabel#imagePreviewLabel {
+    border-radius: 100px;
+}
+
+QLabel#projectNameLabel {
+    font-size: 13px;
+    color : #b9b8b9;
+}
+
+QLabel#projectFilePathLabel {
+    font-size: 11px;
+    color : #777778;
+}
+
 QLabel#programNameLabel {
-    color: #b0b1b2;
+    color : #b0b1b2;
 }
 
 QLabel#programVersionLabel {
-    color: #808080;
+    color : #808080;
 }
 
 QListWidget {
