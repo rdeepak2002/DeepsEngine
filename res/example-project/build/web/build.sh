@@ -84,7 +84,7 @@ rm -rf assets/project/src/scripts/native/sys
 # build source code
 echo "Generating build for both engine and project (this will take a long time)"
 
-emcc -g --use-preload-plugins -lopenal -I../../sys/DeepsEngine/include -I../../sys/DeepsEngine/external/lua-5.4.4 -I../../sys/DeepsEngine/external/bullet-2.82/src -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s USE_BULLET=1 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" ../../sys/DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
+emcc -g --use-preload-plugins -lopenal -I../../sys/DeepsEngine/include -I../../sys/DeepsEngine/external/lua-5.4.4 -I../../sys/DeepsEngine/external/bullet-2.82/src -std=c++1z -sASSERTIONS -s LLD_REPORT_UNDEFINED -s ALLOW_MEMORY_GROWTH=1 -s USE_WEBGL2=1 -s MIN_WEBGL_VERSION=2 -s MAX_WEBGL_VERSION=2 -s FULL_ES3=1 -s USE_GLFW=3 -s USE_BULLET=1 -s USE_VORBIS=1 -s USE_OGG=1 -s USE_SDL_MIXER=2 -s USE_SDL_NET=2 -s MAIN_MODULE=1 -s FORCE_FILESYSTEM=1 -s "EXTRA_EXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']" ../../sys/DeepsEngine/lib/web/libDeepsEngine.a yaml-cpp/src/libyaml-cpp.a lua-5.4.4/src/liblua.a assimp-5.0.1/lib/libassimp.a assimp-5.0.1/lib/libIrrXML.a assimp-5.0.1/lib/libzlib.a main.cpp -fPIC -o build/DeepsEngine.html --preload-file assets -DSTANDALONE=TRUE -DCMAKE_POSITION_INDEPENDENT_CODE=ON -O0
 
 echo "Build complete and present in $(pwd)/build/"
 

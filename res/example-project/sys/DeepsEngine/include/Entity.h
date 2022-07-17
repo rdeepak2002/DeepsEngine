@@ -88,6 +88,12 @@ namespace DeepsEngine {
             Serialize(out);
             return out.c_str();
         }
+
+        // overload the operator<
+        bool operator<(const Entity &r) const;
+
+        // overload the operator> (if required)
+        bool operator>(const Entity &r) const;
     public:
         entt::entity entity{entt::null};
     };

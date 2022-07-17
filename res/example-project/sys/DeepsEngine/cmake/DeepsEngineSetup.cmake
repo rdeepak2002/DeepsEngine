@@ -68,7 +68,6 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
         message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
 
         include_directories(${BULLET_INCLUDE_DIRS})
-#        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet-2.82/src)
         link_libraries(${BULLET_LIBRARIES})
     else()
         include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet-2.82/src)

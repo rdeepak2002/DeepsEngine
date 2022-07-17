@@ -684,6 +684,13 @@ namespace DeepsEngine::Component {
             this->sceneCamera = yamlData["sceneCamera"].as<bool>();
         }
 
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "SceneCamera";
+            out << YAML::BeginMap;
+            out << YAML::Key << "sceneCamera" << YAML::Value << sceneCamera;
+            out << YAML::EndMap;
+        }
+
         bool sceneCamera;
     };
 

@@ -8,6 +8,8 @@
 #include <iostream>
 #include <glm/ext.hpp>
 #include <yaml-cpp/yaml.h>
+#include <vector>
+#include <algorithm>
 #include "Input.h"
 
 #define XSTR(x) STR(x)
@@ -202,6 +204,8 @@ void Application::saveProject() {
 
     out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 
+    std::vector<Entity> entities;
+
     scene.registry.each([&](auto entityId) {
         Entity entity = { entityId };
 
@@ -209,8 +213,14 @@ void Application::saveProject() {
             return;
         }
 
-        entity.Serialize(out);
+        entities.push_back(entity);
     });
+
+    std::sort( entities.begin( ), entities.end( ));
+
+    for (DeepsEngine::Entity entity : entities) {
+        entity.Serialize(out);
+    }
 
     out << YAML::EndSeq;
     out << YAML::EndMap;
