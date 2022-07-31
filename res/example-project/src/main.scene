@@ -1130,6 +1130,7 @@ Entities:
     Tag:
       tag: Spinning Cube
     PhysicsComponent:
+      friction: 5.000000
       mass: 40
       boxCollider:
         x: 1.0
@@ -1162,6 +1163,7 @@ Entities:
     Tag:
       tag: Floor
     PhysicsComponent:
+      friction: 5.000000
       mass: 0
       boxCollider:
         x: 20.0
@@ -1301,6 +1303,7 @@ Entities:
     Tag:
       tag: Fox
     PhysicsComponent:
+      friction: 1.000000
       mass: 40
       boxCollider:
         x: 1.0

@@ -760,7 +760,7 @@ namespace DeepsEngine::Component {
             this->mass = 0;
             this->collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
             this->rigidBody = nullptr;
-            this->velocity = btVector3(0, 0, 0);
+            this->friction = 0.0f;
         }
 
         PhysicsComponent(YAML::Node yamlData) {
@@ -773,8 +773,13 @@ namespace DeepsEngine::Component {
                 collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
             }
 
+            if (yamlData["friction"]) {
+                this->friction = yamlData["friction"].as<float>();
+            } else {
+                this->friction = 0.0f;
+            }
+
             this->rigidBody = nullptr;
-            this->velocity = btVector3(0, 0, 0);
         }
 
         ~PhysicsComponent() {
@@ -786,14 +791,16 @@ namespace DeepsEngine::Component {
             out << YAML::BeginMap;
 
             out << YAML::Key << "mass" << YAML::Value << mass;
+            out << YAML::Key << "friction" << YAML::Value << friction;
+            // TODO: add collision shape serialization here
 
             out << YAML::EndMap;
         }
 
         btCollisionShape* collisionShape;
         btRigidBody *rigidBody;
-        btVector3 velocity;
         float mass;
+        float friction;
     };
 }
 

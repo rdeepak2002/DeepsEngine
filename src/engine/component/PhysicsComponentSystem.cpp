@@ -204,10 +204,10 @@ void PhysicsComponentSystem::update(float deltaTime) {
 
         if (physicsComponent.rigidBody) {
             btTransform trans;
-            if (physicsComponent.rigidBody && physicsComponent.rigidBody->getMotionState())
-            {
+            if (physicsComponent.rigidBody && physicsComponent.rigidBody->getMotionState()) {
                 physicsComponent.rigidBody->getMotionState()->getWorldTransform(trans);
                 transformComponent.position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+                // TODO: uncomment this
 //                transformComponent.rotation = glm::eulerAngles(glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ()));
             }
         } else {
@@ -224,7 +224,8 @@ void PhysicsComponentSystem::update(float deltaTime) {
                     physicsComponent.collisionShape
             );
 
-            rigidBodyCI.m_friction = 0.0f;
+
+            rigidBodyCI.m_friction = physicsComponent.friction;
             rigidBodyCI.m_restitution = 0.0f;
             rigidBodyCI.m_linearDamping = 0.0f;
 

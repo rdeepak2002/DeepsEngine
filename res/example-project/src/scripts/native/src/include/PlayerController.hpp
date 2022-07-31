@@ -15,6 +15,7 @@
 extern "C" class CLASS_NAME : public NativeScript {
 private:
     float speed;
+    float rotationSpeed;
     std::string currentState;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {

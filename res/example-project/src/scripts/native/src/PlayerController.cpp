@@ -7,12 +7,12 @@
 #include "Input.h"
 #include "KeyCodes.h"
 #include "DeepsMath.h"
-#include "btBulletDynamicsCommon.h"
 
 void PlayerController::init() {
     NativeScript::init();
 
     this->speed = 5.0f;
+    this->rotationSpeed = 5.0f;
     this->currentState = "Idle";
 
     Logger::Debug("Init player controller");
@@ -65,9 +65,19 @@ void PlayerController::update(double dt) {
                     // rotate character in direction of movement
                     glm::vec3 startPos = glm::vec3(transform.position.x, 0.0f, transform.position.z);
                     glm::vec3 lookAtPos = glm::vec3(velocityDirection.x, 0.0f, velocityDirection.z);
-                    glm::quat q = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
-                    glm::vec3 vec = glm::eulerAngles(q);
-                    transform.rotation = vec;
+                    glm::quat targetRotationQuat = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
+                    glm::vec3 targetRotationEulerAngles = glm::eulerAngles(targetRotationQuat);
+                    transform.rotation = targetRotationEulerAngles;
+//                    btVector3 currentAngularVelocityBtVec = physicsComponent.rigidBody->getAngularVelocity();
+//                    glm::vec3 currentRotationEulerAngles = glm::vec3(currentAngularVelocityBtVec.getX(), currentAngularVelocityBtVec.getY(), currentAngularVelocityBtVec.getZ());
+
+//                    if (abs(currentRotationEulerAngles.y - targetRotationEulerAngles.y) > glm::radians(5.0f)) {
+//                        if (currentRotationEulerAngles.y < targetRotationEulerAngles.y) {
+//                            physicsComponent.rigidBody->setAngularVelocity(btVector3(0, rotationSpeed, 0));
+//                        } else {
+//                            physicsComponent.rigidBody->setAngularVelocity(btVector3(0, -rotationSpeed, 0));
+//                        }
+//                    }
                 }
 
                 // set animation based off state
