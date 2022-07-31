@@ -6,12 +6,11 @@
 #define EDITOR_APPLICATION_H
 
 #include "Scene.h"
-#include "LuaScriptComponentSystem.h"
-#include "NativeScriptComponentSystem.h"
 #include "OpenGLRenderer.h"
 #include "GLFWWindow.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "ComponentSystem.h"
 #include <fstream>
 #include <chrono>
 #include <ctime>

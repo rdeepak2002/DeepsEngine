@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "KeyCodes.h"
 #include "DeepsMath.h"
+#include "btBulletDynamicsCommon.h"
 
 void PlayerController::init() {
     NativeScript::init();
@@ -19,6 +20,17 @@ void PlayerController::init() {
 
 void PlayerController::update(double dt) {
     NativeScript::update(dt);
+
+    auto& physicsComponent = self.GetComponent<DeepsEngine::Component::PhysicsComponent>();
+
+    if (physicsComponent.rigidBody) {
+        physicsComponent.rigidBody->activate();
+        physicsComponent.rigidBody->setActivationState(DISABLE_DEACTIVATION);
+        physicsComponent.rigidBody->setLinearVelocity(btVector3(10, 10, 10));
+        Logger::Debug("Updated physics component for fox 2");
+    } else {
+        Logger::Warn("No rigid body for Fox");
+    }
 
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::Transform>();
 
@@ -57,14 +69,21 @@ void PlayerController::update(double dt) {
 
                 if (glm::length2(velocityDirection) > 0.0f) {
                     glm::vec3 velocity = glm::normalize(velocityDirection) * this->speed;
-                    transform.position += velocity * float(dt);
+
+//                    physicsComponent.velocity = btVector3(10, 10, 10);
+
+                    physicsComponent.rigidBody->setLinearVelocity(btVector3(10, 10, 10));
+
+//                    physicsComponent.rigidBody->setActivationState(DISABLE_DEACTIVATION);
+//                    physicsComponent.rigidBody->setLinearVelocity(btVector3(velocity.x, velocity.y, velocity.z));
+//                    transform.position += velocity * float(dt);
 
                     // rotate character in direction of movement
                     glm::vec3 startPos = glm::vec3(transform.position.x, 0.0f, transform.position.z);
                     glm::vec3 lookAtPos = glm::vec3(velocityDirection.x, 0.0f, velocityDirection.z);
                     glm::quat q = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
                     glm::vec3 vec = glm::eulerAngles(q);
-                    transform.rotation = vec;
+//                    transform.rotation = vec;
                 }
 
                 // set animation based off state

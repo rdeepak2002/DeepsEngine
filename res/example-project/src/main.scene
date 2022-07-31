@@ -1100,7 +1100,7 @@ Entities:
     Camera:
       fov: 45.000000
       zNear: 0.100000
-      zFar: 100.000000
+      zFar: 1000.000000
     LuaScript:
       scriptPath: src/scripts/scene-camera.lua
     Light:
@@ -1126,9 +1126,15 @@ Entities:
       parentGuid: root
       childrenGuids:
         []
-  - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce1
+  - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce2
     Tag:
       tag: Spinning Cube
+    PhysicsComponent:
+      mass: 40
+      boxCollider:
+        x: 1.0
+        y: 1.0
+        z: 1.0
     Transform:
       position:
         x: 5.000000
@@ -1148,6 +1154,36 @@ Entities:
       flipTextures: false
     LuaScript:
       scriptPath: src/scripts/script.lua
+    Hierarchy:
+      parentGuid: root
+      childrenGuids:
+        []
+  - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce4
+    Tag:
+      tag: Floor
+    PhysicsComponent:
+      mass: 0
+      boxCollider:
+        x: 20.0
+        y: 1.0
+        z: 20.0
+    Transform:
+      position:
+        x: 5.000000
+        y: -2.500000
+        z: -5.000000
+      rotation:
+        x: 0.000000
+        y: 31.275002
+        z: 0.000000
+      scale:
+        x: 20.000000
+        y: 1.000000
+        z: 20.000000
+    MeshFilter:
+      mesh: cube
+      meshPath: ""
+      flipTextures: false
     Hierarchy:
       parentGuid: root
       childrenGuids:
@@ -1264,6 +1300,12 @@ Entities:
   - Entity: 131ccb3d-9f00-4158-928c-36627625bac5
     Tag:
       tag: Fox
+    PhysicsComponent:
+      mass: 40
+      boxCollider:
+        x: 1.0
+        y: 0.8
+        z: 1.0
     Transform:
       position:
         x: 2.000000
@@ -1274,9 +1316,9 @@ Entities:
         y: 0.000000
         z: 0.000000
       scale:
-        x: 10.000000
-        y: 10.000000
-        z: 10.000000
+        x: 20.000000
+        y: 20.000000
+        z: 20.000000
     MeshFilter:
       mesh: animated-model
       meshPath: src/models/fox/animation/idle/Idle.dae
@@ -2287,7 +2329,7 @@ Entities:
     Camera:
       fov: 45.000000
       zNear: 0.100000
-      zFar: 100.000000
+      zFar: 1000.000000
     Hierarchy:
       parentGuid: root
       childrenGuids:

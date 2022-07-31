@@ -6,6 +6,7 @@
 #define DEEPSENGINE_PHYSICSCOMPONENTSYSTEM_H
 
 #include "ComponentSystem.h"
+#include "btBulletDynamicsCommon.h"
 
 class PhysicsComponentSystem : public ComponentSystem {
 public:
@@ -13,6 +14,12 @@ public:
     void init() override;
     void destroy() override;
     void update(float deltaTime) override;
+private:
+    btBroadphaseInterface* broadphase;
+    btDefaultCollisionConfiguration* collisionConfiguration;
+    btCollisionDispatcher* dispatcher;
+    btSequentialImpulseConstraintSolver* solver;
+    btDiscreteDynamicsWorld* dynamicsWorld;
 };
 
 #endif //DEEPSENGINE_PHYSICSCOMPONENTSYSTEM_H

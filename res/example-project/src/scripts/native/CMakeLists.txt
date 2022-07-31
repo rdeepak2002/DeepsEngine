@@ -11,6 +11,7 @@ include_directories(${PROJECT_SOURCE_DIR}/src/include)
 #include_directories(${PROJECT_SOURCE_DIR}/sys/external/lua-5.4.4)
 include_directories(../../../sys/DeepsEngine/include)
 include_directories(../../../sys/DeepsEngine/external/lua-5.4.4)
+include_directories(../../../sys/DeepsEngine/external/bullet-2.82/src)
 
 FILE(GLOB PROJECT_SOURCE_FILES
         src/*.cpp)

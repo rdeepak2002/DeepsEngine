@@ -6,11 +6,13 @@
 #include "Entity.h"
 #include "Component.h"
 #include <iostream>
-#include <glm/ext.hpp>
 #include <yaml-cpp/yaml.h>
 #include <vector>
 #include <algorithm>
 #include "Input.h"
+#include "LuaScriptComponentSystem.h"
+#include "NativeScriptComponentSystem.h"
+#include "PhysicsComponentSystem.h"
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
@@ -78,8 +80,9 @@ void Application::initialize() {
 
     // add component systems
     componentSystems.clear();
-    componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
     componentSystems.push_back(std::make_unique<NativeScriptComponentSystem>());
+//    componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
+    componentSystems.push_back(std::make_unique<PhysicsComponentSystem>());
 
     // create window
     window->createWindow();

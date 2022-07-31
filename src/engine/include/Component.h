@@ -17,6 +17,7 @@
 #include <glm/gtx/string_cast.hpp>
 #include "Entity.h"
 #include "NativeScript.h"
+#include "btBulletDynamicsCommon.h"
 
 using std::filesystem::exists;
 
@@ -752,6 +753,47 @@ namespace DeepsEngine::Component {
 
             out << YAML::EndMap;
         }
+    };
+
+    struct PhysicsComponent : Component {
+        PhysicsComponent() {
+            this->mass = 0;
+            this->collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
+            this->rigidBody = nullptr;
+            this->velocity = btVector3(0, 0, 0);
+        }
+
+        PhysicsComponent(YAML::Node yamlData) {
+            this->mass = yamlData["mass"].as<float>();
+
+            if (yamlData["boxCollider"]) {
+                glm::vec3 boxColliderShape = yamlToGlmVec3(yamlData["boxCollider"]);
+                collisionShape = new btBoxShape(btVector3(boxColliderShape.x / 2, boxColliderShape.y / 2, boxColliderShape.z / 2));
+            } else {
+                collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
+            }
+
+            this->rigidBody = nullptr;
+            this->velocity = btVector3(0, 0, 0);
+        }
+
+        ~PhysicsComponent() {
+
+        }
+
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "PhysicsComponent";
+            out << YAML::BeginMap;
+
+            out << YAML::Key << "mass" << YAML::Value << mass;
+
+            out << YAML::EndMap;
+        }
+
+        btCollisionShape* collisionShape;
+        btRigidBody *rigidBody;
+        btVector3 velocity;
+        float mass;
     };
 }
 
