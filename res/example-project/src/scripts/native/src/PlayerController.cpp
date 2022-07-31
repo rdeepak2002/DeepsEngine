@@ -67,17 +67,7 @@ void PlayerController::update(double dt) {
                     glm::vec3 lookAtPos = glm::vec3(velocityDirection.x, 0.0f, velocityDirection.z);
                     glm::quat targetRotationQuat = DeepsMath::safeQuatLookAt(startPos, startPos - lookAtPos, transform.up(), transform.up());
                     glm::vec3 targetRotationEulerAngles = glm::eulerAngles(targetRotationQuat);
-                    transform.rotation = targetRotationEulerAngles;
-//                    btVector3 currentAngularVelocityBtVec = physicsComponent.rigidBody->getAngularVelocity();
-//                    glm::vec3 currentRotationEulerAngles = glm::vec3(currentAngularVelocityBtVec.getX(), currentAngularVelocityBtVec.getY(), currentAngularVelocityBtVec.getZ());
-
-//                    if (abs(currentRotationEulerAngles.y - targetRotationEulerAngles.y) > glm::radians(5.0f)) {
-//                        if (currentRotationEulerAngles.y < targetRotationEulerAngles.y) {
-//                            physicsComponent.rigidBody->setAngularVelocity(btVector3(0, rotationSpeed, 0));
-//                        } else {
-//                            physicsComponent.rigidBody->setAngularVelocity(btVector3(0, -rotationSpeed, 0));
-//                        }
-//                    }
+                    physicsComponent.rigidBody->getWorldTransform().setRotation(btQuaternion(targetRotationQuat.x, targetRotationQuat.y, targetRotationQuat.z, targetRotationQuat.w));
                 }
 
                 // set animation based off state

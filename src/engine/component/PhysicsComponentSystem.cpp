@@ -207,8 +207,7 @@ void PhysicsComponentSystem::update(float deltaTime) {
             if (physicsComponent.rigidBody && physicsComponent.rigidBody->getMotionState()) {
                 physicsComponent.rigidBody->getMotionState()->getWorldTransform(trans);
                 transformComponent.position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-                // TODO: uncomment this
-//                transformComponent.rotation = glm::eulerAngles(glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ()));
+                transformComponent.rotation = glm::eulerAngles(glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ()));
             }
         } else {
             auto quaternion = glm::quat(transformComponent.rotation);
