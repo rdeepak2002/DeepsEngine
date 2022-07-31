@@ -67,10 +67,11 @@ macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
         message(STATUS BULLET_INCLUDE_DIRS=${BULLET_INCLUDE_DIRS})
         message(STATUS BULLET_LIBRARIES=${BULLET_LIBRARIES})
 
-        include_directories(${BULLET_INCLUDE_DIRS})
+#        include_directories(${BULLET_INCLUDE_DIRS})
+        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet3-3.22b/src)
         link_libraries(${BULLET_LIBRARIES})
     else()
-        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet-2.82/src)
+        include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/bullet3-3.22b/src)
     endif()
 
     # get LUA path use macro to get around differing versions

@@ -206,33 +206,21 @@ void PhysicsComponentSystem::update(float deltaTime) {
             btTransform trans;
             if (physicsComponent.rigidBody && physicsComponent.rigidBody->getMotionState())
             {
-//                physicsComponent.rigidBody->activate();
-
-//                physicsComponent.velocity = btVector3(10, 10, 10);
-
-//                physicsComponent.rigidBody->setLinearVelocity(physicsComponent.velocity);
-
                 physicsComponent.rigidBody->getMotionState()->getWorldTransform(trans);
-
-                btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
-
-                Logger::Debug(entity.GetComponent<DeepsEngine::Component::Tag>().tag);
-                Logger::Debug(std::to_string(currentLinVel.getX()) + ", " + std::to_string(currentLinVel.getY()) + ", " + std::to_string(currentLinVel.getZ()));
-
                 transformComponent.position = glm::vec3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-                transformComponent.rotation = glm::eulerAngles(glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ()));
+//                transformComponent.rotation = glm::eulerAngles(glm::quat(trans.getRotation().getW(), trans.getRotation().getX(), trans.getRotation().getY(), trans.getRotation().getZ()));
             }
         } else {
             auto quaternion = glm::quat(transformComponent.rotation);
 
-            auto* motionstate = new btDefaultMotionState(btTransform(
+            auto* motionState = new btDefaultMotionState(btTransform(
                     btQuaternion(quaternion.x, quaternion.y, quaternion.z, quaternion.w).normalized(),
                     btVector3(transformComponent.position.x, transformComponent.position.y, transformComponent.position.z)
             ));
 
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
                     physicsComponent.mass,
-                    motionstate,
+                    motionState,
                     physicsComponent.collisionShape
             );
 
@@ -250,13 +238,6 @@ void PhysicsComponentSystem::update(float deltaTime) {
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
             dynamicsWorld->addRigidBody(rigidBody);
             physicsComponent.rigidBody = rigidBody;
-
-//            rigidBody->setLinearVelocity(btVector3(0, 10, 0));
-
-
-//            btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[0];
-//            btRigidBody* body = btRigidBody::upcast(obj);
-//            body->setLinearVelocity(btVector3(0.0, 20.0, 0.0));
         }
     }
 
