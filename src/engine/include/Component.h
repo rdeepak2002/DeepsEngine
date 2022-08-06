@@ -731,8 +731,6 @@ namespace DeepsEngine::Component {
         PhysicsComponent() {
             this->mass = 0;
             this->compoundShape = new btCompoundShape();
-            this->centerOfMassTransform = btVector3();
-//            this->collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
             this->rigidBody = nullptr;
             this->friction = 0.0f;
         }
@@ -741,29 +739,38 @@ namespace DeepsEngine::Component {
             this->mass = yamlData["mass"].as<float>();
             this->compoundShape = new btCompoundShape();
 
-            // TODO: implement array of collision objects that can be serialized so complex collision shapes can be created
+            if (yamlData["collisionShapes"]) {
+                std::vector<YAML::Node> collidersYaml = yamlData["collisionShapes"].as<std::vector<YAML::Node>>();
+                for (YAML::Node colliderYaml : collidersYaml) {
+                    btTransform t;
+                    t.setIdentity();
 
-            if (yamlData["centerOfMassTransform"]) {
-                glm::vec3 centerOfMassTransformGlmVec = yamlToGlmVec3(yamlData["centerOfMassTransform"]);
-                centerOfMassTransform = btVector3(centerOfMassTransformGlmVec.x, centerOfMassTransformGlmVec.y, centerOfMassTransformGlmVec.z);
-            } else {
-                centerOfMassTransform = btVector3(0, 0, 0);
-            }
+                    if (colliderYaml["transform"]) {
+                        YAML::Node colliderTransform = colliderYaml["transform"];
 
-            btTransform t;
-            t.setIdentity();
-            t.setOrigin(btVector3(centerOfMassTransform.getX(), centerOfMassTransform.getY(), centerOfMassTransform.getZ()));
+                        if (colliderTransform["position"]) {
+                            glm::vec3 transformPosition = yamlToGlmVec3(colliderTransform["position"]);
+                            t.setOrigin(btVector3(transformPosition.x, transformPosition.y, transformPosition.z));
+                        }
 
-            if (yamlData["boxCollider"]) {
-                glm::vec3 boxColliderShape = yamlToGlmVec3(yamlData["boxCollider"]);
-//                Logger::Debug("x: " + std::to_string(boxColliderShape.x));
-//                Logger::Debug("y: " + std::to_string(boxColliderShape.y));
-//                Logger::Debug("z: " + std::to_string(boxColliderShape.z));
-                btCollisionShape* collisionShape = new btBoxShape(btVector3(boxColliderShape.x / 2, boxColliderShape.y / 2, boxColliderShape.z / 2));
-                compoundShape->addChildShape(t, collisionShape);
-            } else {
-                btCollisionShape* collisionShape = new btBoxShape(btVector3(0.0f, 0.0f, 0.0f));
-                compoundShape->addChildShape(t, collisionShape);
+                        if (colliderTransform["rotation"]) {
+                            glm::vec3 transformRotation = yamlToGlmVec3(colliderTransform["rotation"]);
+                            auto transformQuaternion = glm::quat(transformRotation);
+                            t.setRotation(btQuaternion(transformQuaternion.x, transformQuaternion.y, transformQuaternion.z, transformQuaternion.w));
+                        }
+                    }
+
+                    if (colliderYaml["collider"] && colliderYaml["collider"]["type"]) {
+                        auto colliderType = colliderYaml["collider"]["type"].as<std::string>();
+                        if (colliderType == "box") {
+                            glm::vec3 boxColliderShape = yamlToGlmVec3(colliderYaml["collider"]);
+                            btCollisionShape* collisionShape = new btBoxShape(btVector3(boxColliderShape.x / 2, boxColliderShape.y / 2, boxColliderShape.z / 2));
+                            compoundShape->addChildShape(t, collisionShape);
+                        } else {
+                            Logger::Error("Unknown collider type: " + colliderType);
+                        }
+                    }
+                }
             }
 
             if (yamlData["friction"]) {
@@ -785,17 +792,13 @@ namespace DeepsEngine::Component {
 
             out << YAML::Key << "mass" << YAML::Value << mass;
             out << YAML::Key << "friction" << YAML::Value << friction;
-            // TODO: serialize compound shape
-            // TODO: add collision shape serialization here
-            // TODO: add center of mass serialization here
+            // TODO: serialize compound shape and its transform
 
             out << YAML::EndMap;
         }
 
-//        btCollisionShape* collisionShape;
         btCompoundShape* compoundShape;
         btRigidBody *rigidBody;
-        btVector3 centerOfMassTransform;
         float mass;
         float friction;
     };

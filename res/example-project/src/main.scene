@@ -1132,10 +1132,25 @@ Entities:
     PhysicsComponent:
       friction: 5.000000
       mass: 40
-      boxCollider:
-        x: 1.0
-        y: 1.0
-        z: 1.0
+      collisionShapes:
+        - collider:
+            type: box
+            x: 1.0
+            y: 1.0
+            z: 1.0
+          transform:
+            position:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            rotation:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            scale:
+              x: 1.0
+              y: 1.0
+              z: 1.0
     Transform:
       position:
         x: 5.000000
@@ -1163,10 +1178,21 @@ Entities:
     PhysicsComponent:
       friction: 5.000000
       mass: 0
-      boxCollider:
-        x: 20.0
-        y: 1.0
-        z: 20.0
+      collisionShapes:
+        - collider:
+            type: box
+            x: 20.0
+            y: 1.0
+            z: 20.0
+          transform:
+            position:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            rotation:
+              x: 0.0
+              y: 0.0
+              z: 0.0
     Transform:
       position:
         x: 5.000000
@@ -1303,14 +1329,25 @@ Entities:
     PhysicsComponent:
       friction: 1.000000
       mass: 40
-      boxCollider:
-        x: 1.0
-        y: 1.0
-        z: 1.0
-      centerOfMassTransform:
-        x: 0.0
-        y: 0.5
-        z: 0.0
+      collisionShapes:
+        - collider:
+            type: box
+            x: 1.0
+            y: 1.0
+            z: 1.0
+          transform:
+            position:
+              x: 0.0
+              y: 0.5
+              z: 0.0
+            rotation:
+              x: 0.0
+              y: 0.0
+              z: 0.0
+            scale:
+              x: 1.0
+              y: 1.0
+              z: 1.0
     Transform:
       position:
         x: 2.000000
