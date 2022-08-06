@@ -510,7 +510,7 @@ namespace DeepsEngine::Component {
         Animator* animator;
         AnimatedModel *animatedModel;
         Model *model;
-        unsigned int VBO, VAO;
+        unsigned int VBO, VAO, numIndices;
         unsigned int missingTextureDiffuse, missingTextureSpecular;
 
         void loadMissingTextures() {
@@ -535,12 +535,14 @@ namespace DeepsEngine::Component {
             this->mesh = meshType;
 
             if (mesh == "cube") {
-//                CubeMesh cubeMesh = {};
-//                VAO = cubeMesh.VAO;
-//                VBO = cubeMesh.VBO;
+                CubeMesh cubeMesh = {};
+                VAO = cubeMesh.VAO;
+                VBO = cubeMesh.VBO;
+            } else if (mesh == "sphere") {
                 SphereMesh sphereMesh = {};
                 VAO = sphereMesh.VAO;
                 VBO = sphereMesh.VBO;
+                numIndices = sphereMesh.numIndices;
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
                     stbi_set_flip_vertically_on_load(flipTextures);
@@ -611,6 +613,10 @@ namespace DeepsEngine::Component {
             if (mesh == "cube") {
                 glBindVertexArray(VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
+            } else if (mesh == "sphere") {
+                glBindVertexArray(VAO);
+                glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+                glBindVertexArray(0);
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
                     if (!model) {

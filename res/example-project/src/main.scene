@@ -1150,7 +1150,7 @@ Entities:
         y: 1.000000
         z: 1.000000
     MeshFilter:
-      mesh: cube
+      mesh: sphere
       meshPath: ""
       flipTextures: false
     LuaScript:
