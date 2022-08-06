@@ -15,7 +15,9 @@ void PlayerController::init() {
     this->rotationSpeed = 5.0f;
     this->currentState = "Idle";
 
-    Logger::Debug("Init player controller");
+    auto& meshFilter = self.GetComponent<DeepsEngine::Component::MeshFilter>();
+    runningAnimation = meshFilter.getAnimation("src/models/fox/animation/running/Running.dae");
+    idleAnimation = meshFilter.getAnimation("src/models/fox/animation/idle/Idle.dae");
 }
 
 void PlayerController::update(double dt) {
@@ -75,12 +77,12 @@ void PlayerController::update(double dt) {
 
                 if (moving) {
                     if (currentState != "Running") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/running/Running.dae");
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(runningAnimation);
                         currentState = "Running";
                     }
                 } else {
                     if (currentState != "Idle") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().setMeshPath("src/models/fox/animation/idle/Idle.dae");
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(idleAnimation);
                         currentState = "Idle";
                     }
                 }

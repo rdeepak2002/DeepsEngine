@@ -17,6 +17,8 @@ private:
     float speed;
     float rotationSpeed;
     std::string currentState;
+    Animation* idleAnimation;
+    Animation* runningAnimation;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 

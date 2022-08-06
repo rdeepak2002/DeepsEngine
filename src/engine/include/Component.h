@@ -611,6 +611,22 @@ namespace DeepsEngine::Component {
             }
         }
 
+        void playAnimation(Animation* animation) {
+            if (animator) {
+                if (animatedModel) {
+                    animator->PlayAnimation(animation);
+                } else {
+                    Logger::Error("No animated model to change animation");
+                }
+            } else {
+                Logger::Error("No animator to change animation");
+            }
+        }
+
+        Animation* getAnimation(std::string animationPath) {
+            return new Animation(Application::getInstance().getProjectPath().append(animationPath), animatedModel);
+        }
+
         void setMeshPath(std::string newMeshPath) {
             meshPath = newMeshPath;
             setMeshType(mesh);
