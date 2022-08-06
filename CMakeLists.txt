@@ -23,6 +23,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/engine/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
+        src/engine/renderer/primitive/*.cpp
         src/engine/window/*.cpp
         src/engine/scene/*.cpp
         src/engine/util/*.cpp
