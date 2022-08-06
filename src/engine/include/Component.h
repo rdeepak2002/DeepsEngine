@@ -542,7 +542,7 @@ namespace DeepsEngine::Component {
                 SphereMesh sphereMesh = {};
                 VAO = sphereMesh.VAO;
                 VBO = sphereMesh.VBO;
-                numIndices = sphereMesh.numIndices;
+                numIndices = sphereMesh.Indices.size();
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
                     stbi_set_flip_vertically_on_load(flipTextures);

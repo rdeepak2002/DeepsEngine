@@ -39,10 +39,6 @@ DeepsEngine::SphereMesh::SphereMesh() {
         }
     }
 
-//    Logger::Error(std::to_string(Positions.size()));
-    Logger::Error(std::to_string(Indices.size()));
-    numIndices = Indices.size();
-
     Finalize();
 }
 
