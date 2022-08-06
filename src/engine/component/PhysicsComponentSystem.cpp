@@ -194,7 +194,9 @@ void PhysicsComponentSystem::destroy() {
 void PhysicsComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
 
-//    dynamicsWorld->stepSimulation(deltaTime, 10);
+    if (!Application::getInstance().playing) {
+        return;
+    }
 
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::PhysicsComponent>();
     for (auto entityHandle : entityHandles) {
@@ -220,7 +222,7 @@ void PhysicsComponentSystem::update(float deltaTime) {
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
                     physicsComponent.mass,
                     motionState,
-                    physicsComponent.collisionShape
+                    physicsComponent.compoundShape
             );
 
 

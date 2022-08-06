@@ -1128,7 +1128,7 @@ Entities:
         []
   - Entity: 98a3bd06-2cdc-449f-aa5b-41264c67dce2
     Tag:
-      tag: Spinning Cube
+      tag: Sphere
     PhysicsComponent:
       friction: 5.000000
       mass: 40
@@ -1146,15 +1146,13 @@ Entities:
         y: 31.275002
         z: 0.000000
       scale:
-        x: 1.000000
-        y: 1.000000
-        z: 1.000000
+        x: 0.5
+        y: 0.5
+        z: 0.5
     MeshFilter:
       mesh: sphere
       meshPath: ""
       flipTextures: false
-    LuaScript:
-      scriptPath: src/scripts/script.lua
     Hierarchy:
       parentGuid: root
       childrenGuids:
@@ -1307,8 +1305,12 @@ Entities:
       mass: 40
       boxCollider:
         x: 1.0
-        y: 0.8
+        y: 1.0
         z: 1.0
+      centerOfMassTransform:
+        x: 0.0
+        y: 0.5
+        z: 0.0
     Transform:
       position:
         x: 2.000000

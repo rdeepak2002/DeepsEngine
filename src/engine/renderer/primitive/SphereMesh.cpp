@@ -198,43 +198,5 @@ void DeepsEngine::SphereMesh::Finalize() {
 //        }
     }
     glBindVertexArray(0);
-
-    ////
-
-//    vector<float> sphereVertices;
-//
-//    for (int i = 0; i < Positions.size(); i ++) {
-//        glm::vec3 position = Positions.at(i);
-//        glm::vec3 normal = Normals.at(i);
-//        glm::vec2 uv = UV.at(i);
-//
-//        sphereVertices.push_back(position.x);
-//        sphereVertices.push_back(position.y);
-//        sphereVertices.push_back(position.z);
-//
-//        sphereVertices.push_back(normal.x);
-//        sphereVertices.push_back(normal.y);
-//        sphereVertices.push_back(normal.z);
-//
-//        sphereVertices.push_back(uv.x);
-//        sphereVertices.push_back(uv.y);
-//    }
-//
-//    float vertices[sphereVertices.size()];
-//    std::copy(sphereVertices.begin(), sphereVertices.end(), vertices);
-//
-//    glGenVertexArrays(1, &VAO);
-//    glGenBuffers(1, &VBO);
-//
-//    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-//
-//    glBindVertexArray(VAO);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) 0);
-//    glEnableVertexAttribArray(0);
-//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
-//    glEnableVertexAttribArray(1);
-//    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
-//    glEnableVertexAttribArray(2);
 }
 
