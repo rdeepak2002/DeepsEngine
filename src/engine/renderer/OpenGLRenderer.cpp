@@ -96,6 +96,10 @@ void OpenGLRenderer::initialize() {
             Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.frag").c_str());
 
+    physicsDebugShader = new Shader(
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("physics.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("physics.frag").c_str());
+
     // skybox VAO
     glGenVertexArrays(1, &skyboxVAO);
     glGenBuffers(1, &skyboxVBO);
@@ -161,6 +165,14 @@ void OpenGLRenderer::update() {
         // view matrix
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
+        // draw physics debug
+        if (!Application::getInstance().playing) {
+            physicsDebugShader->use();
+            glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+            glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+            Application::getInstance().dynamicsWorld->debugDrawWorld();
+        }
+
         // get all entities with meshes
         auto meshEntities = Application::getInstance().scene.GetMeshEntities();
         auto staticMeshEntities = std::get<0>(meshEntities);
@@ -215,6 +227,7 @@ void OpenGLRenderer::update() {
         view = glm::mat4(glm::mat3(view));
         projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
 
+        // draw skybox
         glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
         skyboxShader->use();
         skyboxShader->setMat4("view", view);

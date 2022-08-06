@@ -77,9 +77,9 @@ void NativeScriptComponentSystem::update(float deltaTime) {
     for (auto entityHandle : entityHandles) {
         DeepsEngine::Entity entity = {entityHandle};
 
-        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
-            continue;
-        }
+//        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+//            continue;
+//        }
 
         auto &nativeScriptComponent = entity.GetComponent<DeepsEngine::Component::NativeScriptComponent>();
 
@@ -100,7 +100,9 @@ void NativeScriptComponentSystem::update(float deltaTime) {
             nativeScriptComponent.nativeScript->init();
             nativeScriptComponent.shouldInit = false;
         } else if (nativeScriptComponent.nativeScript && nativeScriptComponent.shouldUpdate) {
-            nativeScriptComponent.nativeScript->update(deltaTime);
+            if (Application::getInstance().playing || (!Application::getInstance().playing && entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>())) {
+                nativeScriptComponent.nativeScript->update(deltaTime);
+            }
         }
     }
 }

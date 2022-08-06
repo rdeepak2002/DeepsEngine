@@ -7,6 +7,7 @@
 
 #include "ComponentSystem.h"
 #include "btBulletDynamicsCommon.h"
+#include "BulletDebugDrawer_OpenGL.h"
 
 class PhysicsComponentSystem : public ComponentSystem {
 public:
@@ -19,7 +20,7 @@ private:
     btDefaultCollisionConfiguration* collisionConfiguration;
     btCollisionDispatcher* dispatcher;
     btSequentialImpulseConstraintSolver* solver;
-    btDiscreteDynamicsWorld* dynamicsWorld;
+//    btDiscreteDynamicsWorld* dynamicsWorld;
 };
 
 #endif //DEEPSENGINE_PHYSICSCOMPONENTSYSTEM_H

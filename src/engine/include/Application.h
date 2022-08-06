@@ -14,6 +14,7 @@
 #include <fstream>
 #include <chrono>
 #include <ctime>
+#include "BulletDebugDrawer_OpenGL.h"
 
 using namespace std::chrono_literals;
 
@@ -42,6 +43,8 @@ public:
     std::unique_ptr<Renderer> renderer;
     bool playing;
     float deltaTime;
+    BulletDebugDrawer_OpenGL mydebugdrawer;
+    btDiscreteDynamicsWorld* dynamicsWorld;
 private:
     Application() {
         renderer = std::make_unique<OpenGLRenderer>();
