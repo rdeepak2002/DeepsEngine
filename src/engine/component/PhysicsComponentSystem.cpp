@@ -219,18 +219,33 @@ void PhysicsComponentSystem::update(float deltaTime) {
                     btVector3(transformComponent.position.x, transformComponent.position.y, transformComponent.position.z)
             ));
 
+            btVector3 inertia(0, 0,0);
+            physicsComponent.compoundShape->calculateLocalInertia(physicsComponent.mass, inertia);
+
+            Logger::Debug("X: "  + std::to_string(inertia.getX()));
+            Logger::Debug("Y: "  + std::to_string(inertia.getY()));
+            Logger::Debug("Z: "  + std::to_string(inertia.getZ()));
+
             btRigidBody::btRigidBodyConstructionInfo rigidBodyCI(
                     physicsComponent.mass,
                     motionState,
-                    physicsComponent.compoundShape
+                    physicsComponent.compoundShape,
+                    inertia
             );
 
-
-            rigidBodyCI.m_friction = physicsComponent.friction;
-            rigidBodyCI.m_restitution = 0.0f;
-            rigidBodyCI.m_linearDamping = 0.0f;
+//            rigidBodyCI.m_friction = physicsComponent.friction;
+//            rigidBodyCI.m_rollingFriction = physicsComponent.rollingFriction;
+//            rigidBodyCI.m_spinningFriction = physicsComponent.spinningFriction;
+//            rigidBodyCI.m_restitution = 0.0f;
+//            rigidBodyCI.m_linearDamping = 0.0f;
+//            rigidBodyCI.m_angularDamping = 0.0f;
 
             auto *rigidBody = new btRigidBody(rigidBodyCI);
+
+            rigidBody->setFriction(physicsComponent.friction);
+            rigidBody->setRollingFriction(physicsComponent.rollingFriction);
+            rigidBody->setSpinningFriction(physicsComponent.spinningFriction);
+            rigidBody->setAnisotropicFriction(physicsComponent.compoundShape->getAnisotropicRollingFrictionDirection(), btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
 
 //            rigidBody->setFlags(rigidBody->getFlags() | btCollisionObject::CollisionFlags::CF_DYNAMIC_OBJECT);
 

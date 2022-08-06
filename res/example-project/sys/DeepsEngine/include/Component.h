@@ -733,6 +733,7 @@ namespace DeepsEngine::Component {
             this->compoundShape = new btCompoundShape();
             this->rigidBody = nullptr;
             this->friction = 0.0f;
+            this->rollingFriction = 0.0f;
         }
 
         PhysicsComponent(YAML::Node yamlData) {
@@ -761,10 +762,29 @@ namespace DeepsEngine::Component {
                     }
 
                     if (colliderYaml["collider"] && colliderYaml["collider"]["type"]) {
-                        auto colliderType = colliderYaml["collider"]["type"].as<std::string>();
+                        auto colliderData = colliderYaml["collider"];
+                        auto colliderType = colliderData["type"].as<std::string>();
+                        btCollisionShape* collisionShape = nullptr;
+
                         if (colliderType == "box") {
-                            glm::vec3 boxColliderShape = yamlToGlmVec3(colliderYaml["collider"]);
-                            btCollisionShape* collisionShape = new btBoxShape(btVector3(boxColliderShape.x / 2, boxColliderShape.y / 2, boxColliderShape.z / 2));
+                            if (colliderData["boxHalfExtents"]) {
+                                glm::vec3 boxColliderShape = yamlToGlmVec3(colliderData["boxHalfExtents"]);
+                                collisionShape = new btBoxShape(btVector3(boxColliderShape.x, boxColliderShape.y, boxColliderShape.z));
+                            }
+                        } else if(colliderType == "sphere") {
+                            if (colliderData["radius"]) {
+                                auto radius = colliderData["radius"].as<float>();
+                                collisionShape = new btSphereShape(radius);
+                            }
+                        } else if(colliderType == "capsule") {
+                            if (colliderData["radius"] && colliderData["height"]) {
+                                auto radius = colliderData["radius"].as<float>();
+                                auto height = colliderData["height"].as<float>();
+                                collisionShape = new btCapsuleShape(radius, height);
+                            }
+                        }
+
+                        if (collisionShape) {
                             compoundShape->addChildShape(t, collisionShape);
                         } else {
                             Logger::Error("Unknown collider type: " + colliderType);
@@ -777,6 +797,18 @@ namespace DeepsEngine::Component {
                 this->friction = yamlData["friction"].as<float>();
             } else {
                 this->friction = 0.0f;
+            }
+
+            if (yamlData["rollingFriction"]) {
+                this->rollingFriction = yamlData["rollingFriction"].as<float>();
+            } else {
+                this->rollingFriction = 0.0f;
+            }
+
+            if (yamlData["spinningFriction"]) {
+                this->spinningFriction = yamlData["spinningFriction"].as<float>();
+            } else {
+                this->spinningFriction = 0.0f;
             }
 
             this->rigidBody = nullptr;
@@ -801,6 +833,8 @@ namespace DeepsEngine::Component {
         btRigidBody *rigidBody;
         float mass;
         float friction;
+        float rollingFriction;
+        float spinningFriction;
     };
 }
 

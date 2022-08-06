@@ -1130,15 +1130,14 @@ Entities:
     Tag:
       tag: Sphere
     PhysicsComponent:
-      friction: 5.000000
+      friction: 1.0
+      rollingFriction: 5.0
+      spinningFriction: 5.0
       mass: 40
       collisionShapes:
         - collider:
-            type: box
-            boxHalfExtents:
-              x: 1.0
-              y: 1.0
-              z: 1.0
+            type: sphere
+            radius: 0.5
           transform:
             position:
               x: 0.0
@@ -1148,10 +1147,6 @@ Entities:
               x: 0.0
               y: 0.0
               z: 0.0
-            scale:
-              x: 1.0
-              y: 1.0
-              z: 1.0
     Transform:
       position:
         x: 5.000000
@@ -1183,9 +1178,9 @@ Entities:
         - collider:
             type: box
             boxHalfExtents:
-              x: 20.0
-              y: 1.0
-              z: 20.0
+              x: 10.0
+              y: 0.5
+              z: 10.0
           transform:
             position:
               x: 0.0
@@ -1202,7 +1197,7 @@ Entities:
         z: -5.000000
       rotation:
         x: 0.000000
-        y: 31.275002
+        y: 0.0
         z: 0.000000
       scale:
         x: 20.000000
@@ -1333,11 +1328,9 @@ Entities:
       mass: 40
       collisionShapes:
         - collider:
-            type: box
-            boxHalfExtents:
-              x: 1.0
-              y: 1.0
-              z: 1.0
+            type: capsule
+            radius: 0.25
+            height: 0.5
           transform:
             position:
               x: 0.0
@@ -1347,10 +1340,6 @@ Entities:
               x: 0.0
               y: 0.0
               z: 0.0
-            scale:
-              x: 1.0
-              y: 1.0
-              z: 1.0
     Transform:
       position:
         x: 2.000000
