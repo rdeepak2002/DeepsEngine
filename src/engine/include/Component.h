@@ -761,9 +761,10 @@ namespace DeepsEngine::Component {
                     }
 
                     if (colliderYaml["collider"] && colliderYaml["collider"]["type"]) {
-                        auto colliderType = colliderYaml["collider"]["type"].as<std::string>();
-                        if (colliderType == "box") {
-                            glm::vec3 boxColliderShape = yamlToGlmVec3(colliderYaml["collider"]);
+                        auto colliderData = colliderYaml["collider"];
+                        auto colliderType = colliderData["type"].as<std::string>();
+                        if (colliderType == "box" && colliderData["boxHalfExtents"]) {
+                            glm::vec3 boxColliderShape = yamlToGlmVec3(colliderData["boxHalfExtents"]);
                             btCollisionShape* collisionShape = new btBoxShape(btVector3(boxColliderShape.x / 2, boxColliderShape.y / 2, boxColliderShape.z / 2));
                             compoundShape->addChildShape(t, collisionShape);
                         } else {

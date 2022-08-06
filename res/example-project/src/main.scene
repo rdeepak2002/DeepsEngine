@@ -1135,9 +1135,10 @@ Entities:
       collisionShapes:
         - collider:
             type: box
-            x: 1.0
-            y: 1.0
-            z: 1.0
+            boxHalfExtents:
+              x: 1.0
+              y: 1.0
+              z: 1.0
           transform:
             position:
               x: 0.0
@@ -1181,9 +1182,10 @@ Entities:
       collisionShapes:
         - collider:
             type: box
-            x: 20.0
-            y: 1.0
-            z: 20.0
+            boxHalfExtents:
+              x: 20.0
+              y: 1.0
+              z: 20.0
           transform:
             position:
               x: 0.0
@@ -1332,9 +1334,10 @@ Entities:
       collisionShapes:
         - collider:
             type: box
-            x: 1.0
-            y: 1.0
-            z: 1.0
+            boxHalfExtents:
+              x: 1.0
+              y: 1.0
+              z: 1.0
           transform:
             position:
               x: 0.0
