@@ -115,12 +115,12 @@ void OpenGLRenderer::initialize() {
     // -------------
     std::vector<std::string> faces
             {
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.tga")
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.png")
             };
     cubemapTexture = loadCubemap(faces);
 
@@ -364,7 +364,7 @@ unsigned int OpenGLRenderer::loadCubemap(vector<std::string> faces)
         unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             stbi_image_free(data);
         }
         else
