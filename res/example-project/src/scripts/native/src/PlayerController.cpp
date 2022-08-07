@@ -41,6 +41,20 @@ void PlayerController::update(double dt) {
                 glm::vec3 velocityDirection = glm::vec3(0.0f, 0.0f, 0.0f);
 
                 // move player forward relative to camera
+                if (Input::GetButtonDown(DeepsEngine::Key::Space)) {
+                    btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
+
+                    // TODO: jump
+                    // TODO: jump
+                    // TODO: jump
+                    // TODO: jump
+                    // TODO: jump
+                    // TODO: jump
+                    // TODO: jump
+
+                    physicsComponent.rigidBody->setLinearVelocity(btVector3(currentLinVel.getX(), 5.0f, currentLinVel.getZ()));
+                }
+
                 if (Input::GetButtonDown(DeepsEngine::Key::W)) {
                     velocityDirection += cameraFront;
                 }

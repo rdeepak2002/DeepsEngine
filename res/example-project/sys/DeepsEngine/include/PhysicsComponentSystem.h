@@ -15,12 +15,13 @@ public:
     void init() override;
     void destroy() override;
     void update(float deltaTime) override;
+    btDiscreteDynamicsWorld* dynamicsWorld;
 private:
     btBroadphaseInterface* broadphase;
     btDefaultCollisionConfiguration* collisionConfiguration;
     btCollisionDispatcher* dispatcher;
     btSequentialImpulseConstraintSolver* solver;
-//    btDiscreteDynamicsWorld* dynamicsWorld;
+    BulletDebugDrawer_OpenGL mydebugdrawer;
 };
 
 #endif //DEEPSENGINE_PHYSICSCOMPONENTSYSTEM_H

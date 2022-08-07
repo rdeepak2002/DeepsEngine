@@ -47,7 +47,7 @@ void Application::update(bool clearScreen) {
         lag -= timestep;
 
         for (auto& componentSystem : componentSystems) {
-            componentSystem->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
+            componentSystem.second->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
         }
     }
 
@@ -80,9 +80,9 @@ void Application::initialize() {
 
     // add component systems
     componentSystems.clear();
-    componentSystems.push_back(std::make_unique<NativeScriptComponentSystem>());
-    componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
-    componentSystems.push_back(std::make_unique<PhysicsComponentSystem>());
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("NativeScriptComponentSystem", new NativeScriptComponentSystem()));
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("LuaScriptComponentSystem", new LuaScriptComponentSystem()));
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("PhysicsComponentSystem", new PhysicsComponentSystem()));
 
     // create window
     window->createWindow();
@@ -95,7 +95,7 @@ void Application::initialize() {
 
     // initialize component systems
     for (auto& componentSystem : componentSystems) {
-        componentSystem->init();
+        componentSystem.second->init();
     }
 
     using clock = std::chrono::high_resolution_clock;
@@ -106,7 +106,7 @@ void Application::initialize() {
 void Application::close() {
     Logger::Debug("Destroying engine");
     for (auto& componentSystem : componentSystems) {
-        componentSystem->destroy();
+        componentSystem.second->destroy();
     }
 
     renderer->deinit();

@@ -21,9 +21,9 @@ void PhysicsComponentSystem::init() {
     solver = new btSequentialImpulseConstraintSolver;
 
     // The world.
-    Application::getInstance().dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver, collisionConfiguration);
-    Application::getInstance().dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
-    Application::getInstance().dynamicsWorld->setDebugDrawer(&Application::getInstance().mydebugdrawer);
+    dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver, collisionConfiguration);
+    dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
+    dynamicsWorld->setDebugDrawer(&mydebugdrawer);
 }
 
 void PhysicsComponentSystem::destroy() {
@@ -89,7 +89,7 @@ void PhysicsComponentSystem::update(float deltaTime) {
 
             rigidBody->activate();
             rigidBody->setActivationState(DISABLE_DEACTIVATION);
-            Application::getInstance().dynamicsWorld->addRigidBody(rigidBody);
+            dynamicsWorld->addRigidBody(rigidBody);
             physicsComponent.rigidBody = rigidBody;
         }
     }
@@ -98,5 +98,5 @@ void PhysicsComponentSystem::update(float deltaTime) {
     if (Application::getInstance().playing) {
         timeStep = deltaTime;
     }
-    Application::getInstance().dynamicsWorld->stepSimulation(timeStep, 10);
+    dynamicsWorld->stepSimulation(timeStep, 10);
 }

@@ -12,7 +12,7 @@
 void MainCameraController::init() {
     NativeScript::init();
 
-    radius = 8.0f;
+    radius = 12.0f;
 
     phi = 0.0f;
     phiSpeed = 0.2f;
