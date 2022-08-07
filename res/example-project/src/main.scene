@@ -1352,12 +1352,12 @@ Entities:
         y: 0.000000
         z: 0.000000
       scale:
-        x: 20.000000
-        y: 20.000000
-        z: 20.000000
+        x: 1.000000
+        y: 1.000000
+        z: 1.000000
     MeshFilter:
       mesh: animated-model
-      meshPath: src/models/fox/animation/idle/Idle.dae
+      meshPath: src/models/fox/fbx/wait-1/fox-c00-no-facial-animations-wait-1.fbx
       flipTextures: true
     Material:
       diffuseTexturePath: src/textures/container2.png

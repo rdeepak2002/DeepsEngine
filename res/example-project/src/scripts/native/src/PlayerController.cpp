@@ -11,13 +11,13 @@
 void PlayerController::init() {
     NativeScript::init();
 
-    this->speed = 5.0f;
+    this->speed = 10.0f;
     this->rotationSpeed = 5.0f;
     this->currentState = "Idle";
 
     auto& meshFilter = self.GetComponent<DeepsEngine::Component::MeshFilter>();
-    runningAnimation = meshFilter.getAnimation("src/models/fox/animation/running/Running.dae");
-    idleAnimation = meshFilter.getAnimation("src/models/fox/animation/idle/Idle.dae");
+    runningAnimation = meshFilter.getAnimation("src/models/fox/fbx/running/fox-c00-no-facial-animations-running.fbx");
+    idleAnimation = meshFilter.getAnimation("src/models/fox/fbx/wait-1/fox-c00-no-facial-animations-wait-1.fbx");
 }
 
 void PlayerController::update(double dt) {

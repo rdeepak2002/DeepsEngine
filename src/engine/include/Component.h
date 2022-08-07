@@ -472,7 +472,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = "";
             this->setMeshType(mesh);
-            this->flipTextures = false;
+            this->flipTextures = true;
         }
 
         MeshFilter(std::string mesh, std::string meshPath, std::string entityGuid) {
@@ -480,7 +480,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = meshPath;
             this->setMeshType(mesh);
-            this->flipTextures = false;
+            this->flipTextures = true;
         }
 
         MeshFilter(YAML::Node yamlData, std::string entityGuid) {
@@ -497,7 +497,7 @@ namespace DeepsEngine::Component {
             if (yamlData["flipTextures"]) {
                 this->flipTextures = yamlData["flipTextures"].as<bool>();
             } else {
-                this->flipTextures = false;
+                this->flipTextures = true;
             }
 
             this->setMeshType(yamlData["mesh"].as<std::string>());

@@ -15,12 +15,12 @@ void MainCameraController::init() {
     radius = 8.0f;
 
     phi = 0.0f;
-    phiSpeed = 0.1f;
+    phiSpeed = 0.2f;
 
     theta = -M_PI / 4;
     minTheta = -0.95 * M_PI;
     maxTheta = -0.05f;
-    thetaSpeed = 0.1f;
+    thetaSpeed = 0.2f;
 
     oldMousePosition = {0.0f, 0.0f};
 
@@ -59,7 +59,8 @@ void MainCameraController::update(double dt) {
 
                 // move camera around player in spherical manner
                 glm::vec3 offsetPosition = glm::vec3(radius * sin(theta) * cos(phi), radius * cos(theta), radius * sin(theta) * sin(phi));
-                transform.position = playerTransform.position + offsetPosition;
+                glm::vec3 cameraTargetOffset = glm::vec3(0, 0.8, 0);
+                transform.position = playerTransform.position + cameraTargetOffset + offsetPosition;
 
                 // update camera position variables based off user input
 //                if (Input::GetButtonDown(DeepsEngine::Key::Left)) {
