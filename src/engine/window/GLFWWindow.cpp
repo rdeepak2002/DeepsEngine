@@ -87,6 +87,17 @@ void GLFWWindow::closeWindow() {
 
 void GLFWWindow::processInput() {
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1)) {
+        int axisCount;
+        const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axisCount);
+        const char* name = glfwGetJoystickName(GLFW_JOYSTICK_1);
+        std::cout << std::endl;
+        std::cout << "Name: " << name << std::endl;
+        std::cout << "Left joystick: " << axes[0] << ", " << axes[1] << std::endl;
+        std::cout << "Right joystick: " << axes[2] << std::endl;
+        std::cout << "R2: " << axes[4] << std::endl;
+    }
+
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 #endif
