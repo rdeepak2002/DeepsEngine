@@ -173,9 +173,8 @@ void OpenGLRenderer::update() {
             physicsDebugShader->use();
             glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
             glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-//            Application::getInstance().dynamicsWorld->debugDrawWorld();
             ComponentSystem* componentSystem = Application::getInstance().componentSystems["PhysicsComponentSystem"];
-            PhysicsComponentSystem* physicsComponentSystem = dynamic_cast<PhysicsComponentSystem*>(componentSystem);
+            auto* physicsComponentSystem = dynamic_cast<PhysicsComponentSystem*>(componentSystem);
             physicsComponentSystem->dynamicsWorld->debugDrawWorld();
         }
 

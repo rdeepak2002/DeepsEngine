@@ -14,9 +14,11 @@
 
 extern "C" class CLASS_NAME : public NativeScript {
 private:
-    float speed;
-    float rotationSpeed;
-    std::string currentState;
+    float speed = 8.0f;
+    float jumpSpeedReductionFactor = 0.7f;
+    float jumpSpeed = 9.0f;
+    float rotationSpeed = 5.0f;
+    std::string currentState = "Idle";
     Animation* idleAnimation;
     Animation* runningAnimation;
 public:

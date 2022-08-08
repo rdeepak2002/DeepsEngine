@@ -1134,6 +1134,8 @@ Entities:
       rollingFriction: 0.1
       spinningFriction: 0.1
       mass: 1
+      linearDamping: 0.7
+      angularDamping: 0.7
       collisionShapes:
         - collider:
             type: sphere

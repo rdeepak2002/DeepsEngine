@@ -22,7 +22,7 @@ void PhysicsComponentSystem::init() {
 
     // The world.
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver, collisionConfiguration);
-    dynamicsWorld->setGravity(btVector3(0, -9.81f, 0));
+    dynamicsWorld->setGravity(btVector3(0, -18.0f, 0));
     dynamicsWorld->setDebugDrawer(&mydebugdrawer);
 }
 
@@ -69,20 +69,14 @@ void PhysicsComponentSystem::update(float deltaTime) {
                     localInertia
             );
 
-//            rigidBodyCI.m_friction = physicsComponent.friction;
-//            rigidBodyCI.m_rollingFriction = physicsComponent.rollingFriction;
-//            rigidBodyCI.m_spinningFriction = physicsComponent.spinningFriction;
-//            rigidBodyCI.m_restitution = 0.0f;
-//            rigidBodyCI.m_linearDamping = 0.0f;
-//            rigidBodyCI.m_angularDamping = 0.0f;
-
             auto *rigidBody = new btRigidBody(rigidBodyCI);
 
             rigidBody->setFriction(physicsComponent.friction);
             rigidBody->setRollingFriction(physicsComponent.rollingFriction);
 //            rigidBody->setSpinningFriction(physicsComponent.spinningFriction);
             rigidBody->setAnisotropicFriction(physicsComponent.compoundShape->getAnisotropicRollingFrictionDirection(), btCollisionObject::CF_ANISOTROPIC_ROLLING_FRICTION);
-
+            rigidBody->setDamping(physicsComponent.linearDamping, physicsComponent.angularDamping);
+            rigidBody->setRestitution(physicsComponent.restitution);
 //            rigidBody->setFlags(rigidBody->getFlags() | btCollisionObject::CollisionFlags::CF_DYNAMIC_OBJECT);
 
             rigidBody->setAngularFactor(0.0f);

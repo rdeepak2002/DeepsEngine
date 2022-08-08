@@ -735,6 +735,9 @@ namespace DeepsEngine::Component {
             this->friction = 0.0f;
             this->rollingFriction = 0.0f;
             this->spinningFriction = 0.0f;
+            this->linearDamping = 0.0f;
+            this->angularDamping = 0.0f;
+            this->restitution = 0.0f;
         }
 
         PhysicsComponent(YAML::Node yamlData) {
@@ -802,16 +805,32 @@ namespace DeepsEngine::Component {
 
             if (yamlData["rollingFriction"]) {
                 this->rollingFriction = yamlData["rollingFriction"].as<float>();
-                Logger::Debug(std::to_string(this->rollingFriction));
             } else {
                 this->rollingFriction = 0.0f;
             }
 
             if (yamlData["spinningFriction"]) {
                 this->spinningFriction = yamlData["spinningFriction"].as<float>();
-                Logger::Debug(std::to_string(this->spinningFriction));
             } else {
                 this->spinningFriction = 0.0f;
+            }
+
+            if (yamlData["linearDamping"]) {
+                this->linearDamping = yamlData["linearDamping"].as<float>();
+            } else {
+                this->linearDamping = 0.0f;
+            }
+
+            if (yamlData["angularDamping"]) {
+                this->angularDamping = yamlData["angularDamping"].as<float>();
+            } else {
+                this->angularDamping = 0.0f;
+            }
+
+            if (yamlData["restitution"]) {
+                this->restitution = yamlData["restitution"].as<float>();
+            } else {
+                this->restitution = 0.0f;
             }
 
             this->rigidBody = nullptr;
@@ -838,6 +857,9 @@ namespace DeepsEngine::Component {
         float friction;
         float rollingFriction;
         float spinningFriction;
+        float linearDamping;
+        float angularDamping;
+        float restitution;
     };
 }
 

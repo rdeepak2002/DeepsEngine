@@ -7,13 +7,11 @@
 #include "Input.h"
 #include "KeyCodes.h"
 #include "DeepsMath.h"
+#include "Application.h"
+#include "PhysicsComponentSystem.h"
 
 void PlayerController::init() {
     NativeScript::init();
-
-    this->speed = 10.0f;
-    this->rotationSpeed = 5.0f;
-    this->currentState = "Idle";
 
     auto& meshFilter = self.GetComponent<DeepsEngine::Component::MeshFilter>();
     runningAnimation = meshFilter.getAnimation("src/models/fox/fbx/running/fox-c00-no-facial-animations-running.fbx");
@@ -23,6 +21,7 @@ void PlayerController::init() {
 void PlayerController::update(double dt) {
     NativeScript::update(dt);
 
+    auto& transform = self.GetComponent<DeepsEngine::Component::Transform>();
     auto& physicsComponent = self.GetComponent<DeepsEngine::Component::PhysicsComponent>();
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::Transform>();
 
@@ -31,30 +30,46 @@ void PlayerController::update(double dt) {
 
         if (entity.HasComponent<DeepsEngine::Component::Tag>()) {
             if (entity.GetComponent<DeepsEngine::Component::Tag>().tag == "Main Camera") {
+                // check if grounded
+                btTransform btTrans = physicsComponent.rigidBody->getWorldTransform();
+                btVector3 btFrom(btTrans.getOrigin().getX(), btTrans.getOrigin().getY() + 0.02f, btTrans.getOrigin().getZ());
+                btVector3 btTo(btTrans.getOrigin().getX(), -5, btTrans.getOrigin().getZ());
+                btCollisionWorld::ClosestRayResultCallback groundRaycastResult(btFrom, btTo);
+                ComponentSystem* componentSystem = Application::getInstance().componentSystems["PhysicsComponentSystem"];
+                auto* physicsComponentSystem = dynamic_cast<PhysicsComponentSystem*>(componentSystem);
+                physicsComponentSystem->dynamicsWorld->rayTest(btFrom, btTo, groundRaycastResult); // m_btWorld is btDiscreteDynamicsWorld
+                bool grounded = false;
+
+                if (groundRaycastResult.hasHit()) {
+                    btVector3 hitPoint = groundRaycastResult.m_hitPointWorld;
+                    glm::vec3 hitPointGlm = glm::vec3(hitPoint.getX(), hitPoint.getY(), hitPoint.getZ());
+                    glm::vec3 btFromGlm = glm::vec3(btFrom.getX(), btFrom.getY(), btFrom.getZ());
+                    float distanceToGround = glm::distance(hitPointGlm, btFromGlm);
+                    if (distanceToGround < 0.02) {
+                        grounded = true;
+                    }
+                } else {
+                    grounded = false;
+                }
+
+                // allow player to jump
+                if (Input::GetButtonDown(DeepsEngine::Key::Space)) {
+                    if (grounded) {
+                        btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
+                        physicsComponent.rigidBody->setLinearVelocity(btVector3(currentLinVel.getX() * jumpSpeedReductionFactor, jumpSpeed, currentLinVel.getZ() * jumpSpeedReductionFactor));
+                        grounded = false;
+                    }
+                }
+
                 // get camera entity front vector
                 DeepsEngine::Component::Transform mainCameraTransformComponent = entity.GetComponent<DeepsEngine::Component::Transform>();
                 glm::vec3 cameraFront = mainCameraTransformComponent.front();
                 glm::vec3 cameraRight = mainCameraTransformComponent.right();
-                auto& transform = self.GetComponent<DeepsEngine::Component::Transform>();
 
                 // calculate running velocity vector
                 glm::vec3 velocityDirection = glm::vec3(0.0f, 0.0f, 0.0f);
 
                 // move player forward relative to camera
-                if (Input::GetButtonDown(DeepsEngine::Key::Space)) {
-                    btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
-
-                    // TODO: jump
-                    // TODO: jump
-                    // TODO: jump
-                    // TODO: jump
-                    // TODO: jump
-                    // TODO: jump
-                    // TODO: jump
-
-                    physicsComponent.rigidBody->setLinearVelocity(btVector3(currentLinVel.getX(), 5.0f, currentLinVel.getZ()));
-                }
-
                 if (Input::GetButtonDown(DeepsEngine::Key::W)) {
                     velocityDirection += cameraFront;
                 }
@@ -72,9 +87,14 @@ void PlayerController::update(double dt) {
                 }
 
                 velocityDirection.y = 0.0f;
+                velocityDirection = glm::normalize(velocityDirection);
 
                 if (glm::length2(velocityDirection) > 0.0f) {
-                    glm::vec3 velocity = glm::normalize(velocityDirection) * this->speed;
+                    glm::vec3 velocity = velocityDirection * this->speed;
+                    if (!grounded) {
+                        velocity.x *= jumpSpeedReductionFactor;
+                        velocity.z *= jumpSpeedReductionFactor;
+                    }
                     btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
                     physicsComponent.rigidBody->setLinearVelocity(btVector3(velocity.x, currentLinVel.getY(), velocity.z));
 
