@@ -39,7 +39,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
 
                 DeepsEngine::Entity thisEntity = Application::getInstance().scene.findEntityByGuid(entityGuid);
                 thisEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().addChild(boneEntity);
-            } else {
+            } else if (Application::getInstance().scene.entityExists(entityGuid)){
                 // add new bone entity
                 DeepsEngine::Entity boneEntity = Application::getInstance().scene.CreateEntity(nodeName, boneEntityGuid);
                 boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = true;
@@ -50,7 +50,7 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
             }
         } else {
             // bone entity already present in scene
-            auto boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
+            DeepsEngine::Entity boneEntity = Application::getInstance().scene.findEntityByGuid(boneEntityGuid);
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().overrideModelMatrix = true;
             boneEntity.GetComponent<DeepsEngine::Component::Transform>().modelMatrixOverride = globalTransformation;
         }

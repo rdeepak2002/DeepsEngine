@@ -140,24 +140,26 @@ namespace DeepsEngine {
         });
     }
 
-    Entity& Scene::findEntityByGuid(std::string guid) {
+    entt::entity Scene::findEntityByGuid(std::string guid) {
         // TODO: make this faster by looking up in map of entity guids
-        Entity* returnEntity = nullptr;
+        entt::entity result;
+        bool entityFound = false;
 
         registry.each([&](entt::entity entityHandle) {
             auto* entity = new Entity(entityHandle);
 
             if (entity->HasComponent<Component::Id>() && entity->GetComponent<Component::Id>().id == guid) {
-                returnEntity = entity;
+                entityFound = true;
+                result = entityHandle;
             }
         });
 
-        if (!returnEntity) {
-            Logger::Error("Entity not found for id " + guid);
-            exit(1);
+        if (entityFound) {
+            return result;
         }
 
-        return *returnEntity;
+        Logger::Error("Entity not found for id " + guid);
+        exit(EXIT_FAILURE);
     }
 
     bool Scene::entityExists(std::string guid) {
@@ -166,9 +168,6 @@ namespace DeepsEngine {
         // TODO: make this faster by looking up in map of entity guids
         registry.each([&](entt::entity entityHandle) {
             DeepsEngine::Entity entity = {entityHandle};
-
-//            Logger::Debug("Found entity with id: " + entity.GetComponent<Component::Id>().id);
-
             if (entity.HasComponent<Component::Id>() && entity.GetComponent<Component::Id>().id == guid) {
                 result = true;
             }
