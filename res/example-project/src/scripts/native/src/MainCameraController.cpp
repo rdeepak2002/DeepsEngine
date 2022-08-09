@@ -72,9 +72,9 @@ void MainCameraController::update(double dt) {
                 theta = min(theta, maxTheta);
             }
         }
-
-        if (!foundTarget) {
-            Logger::Warn("MainCameraController cannot find target");
-        }
+    }
+    
+    if (!foundTarget) {
+        Logger::Warn("MainCameraController cannot find target");
     }
 }

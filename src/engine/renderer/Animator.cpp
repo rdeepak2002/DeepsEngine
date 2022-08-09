@@ -69,3 +69,21 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
     for (int i = 0; i < node->childrenCount; i++)
         CalculateBoneTransform(&node->children[i], globalTransformation);
 }
+
+void Animator::UpdateAnimation(float dt)
+{
+    m_DeltaTime = dt;
+    if (m_CurrentAnimation)
+    {
+        m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt * m_CurrentAnimation->GetSpeed();
+
+        if (m_CurrentTime > m_CurrentAnimation->GetDuration()) {
+            if (m_CurrentAnimation->IsLooped()) {
+                m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
+            } else {
+                m_CurrentTime = min(m_CurrentTime, m_CurrentAnimation->GetDuration() - 0.01f);
+            }
+        }
+        CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
+    }
+}

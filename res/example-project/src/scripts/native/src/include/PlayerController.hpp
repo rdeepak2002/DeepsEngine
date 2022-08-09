@@ -16,11 +16,12 @@ extern "C" class CLASS_NAME : public NativeScript {
 private:
     float speed = 8.0f;
     float jumpSpeedReductionFactor = 0.7f;
-    float jumpSpeed = 9.0f;
+    float jumpSpeed = 14.0f;
     float rotationSpeed = 5.0f;
     std::string currentState = "Idle";
     Animation* idleAnimation;
     Animation* runningAnimation;
+    Animation* jumpForwardAnimation;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 

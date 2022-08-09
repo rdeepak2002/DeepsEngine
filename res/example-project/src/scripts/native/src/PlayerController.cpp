@@ -17,7 +17,10 @@ void PlayerController::init() {
 
     auto& meshFilter = self.GetComponent<DeepsEngine::Component::MeshFilter>();
     runningAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/run/samus-c00-combined-run.fbx");
+    runningAnimation->SetSpeed(2.0f);
     idleAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/wait-1/samus-c00-combined-wait-1.fbx");
+    jumpForwardAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/jumpaerialf/samus-c00-combined-jumpaerialf.fbx");
+    jumpForwardAnimation->SetLooped(false);
 }
 
 void PlayerController::update(double dt) {
@@ -111,15 +114,22 @@ void PlayerController::update(double dt) {
                 // set animation based off state
                 bool moving = glm::length2(velocityDirection) > 0.0001f;
 
-                if (moving) {
-                    if (currentState != "Running") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(runningAnimation);
-                        currentState = "Running";
+                if (grounded) {
+                    if (moving) {
+                        if (currentState != "Running") {
+                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(runningAnimation);
+                            currentState = "Running";
+                        }
+                    } else {
+                        if (currentState != "Idle") {
+                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(idleAnimation);
+                            currentState = "Idle";
+                        }
                     }
                 } else {
-                    if (currentState != "Idle") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(idleAnimation);
-                        currentState = "Idle";
+                    if (currentState != "JumpingForward") {
+                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(jumpForwardAnimation);
+                        currentState = "JumpingForward";
                     }
                 }
             }

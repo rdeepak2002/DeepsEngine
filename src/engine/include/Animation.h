@@ -41,6 +41,8 @@ public:
         globalTransformation = globalTransformation.Inverse();
         ReadHeirarchyData(m_RootNode, scene->mRootNode);
         ReadMissingBones(animation, *model);
+        speed = 1.0f;
+        looped = true;
     }
 
     ~Animation()
@@ -68,6 +70,21 @@ public:
         return m_BoneInfoMap;
     }
 
+    void SetSpeed(float speedIn) {
+        this->speed = speedIn;
+    }
+
+    float GetSpeed() {
+        return this->speed;
+    }
+
+    void SetLooped(bool loopedIn) {
+        this->looped = loopedIn;
+    }
+
+    bool IsLooped() {
+        return this->looped;
+    }
 private:
     void ReadMissingBones(const aiAnimation* animation, AnimatedModel& model)
     {
@@ -109,7 +126,9 @@ private:
             dest.children.push_back(newData);
         }
     }
+    bool looped;
     float m_Duration;
+    float speed;
     int m_TicksPerSecond;
     std::vector<Bone> m_Bones;
     AssimpNodeData m_RootNode;
