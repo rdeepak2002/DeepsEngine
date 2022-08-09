@@ -13,9 +13,11 @@
 void PlayerController::init() {
     NativeScript::init();
 
+    Logger::Debug("Init PlayerController");
+
     auto& meshFilter = self.GetComponent<DeepsEngine::Component::MeshFilter>();
-    runningAnimation = meshFilter.getAnimation("src/models/fox/fbx/running/fox-c00-no-facial-animations-running.fbx");
-    idleAnimation = meshFilter.getAnimation("src/models/fox/fbx/wait-1/fox-c00-no-facial-animations-wait-1.fbx");
+    runningAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/run/samus-c00-combined-run.fbx");
+    idleAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/wait-1/samus-c00-combined-wait-1.fbx");
 }
 
 void PlayerController::update(double dt) {

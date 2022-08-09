@@ -26,30 +26,23 @@ void MainCameraController::init() {
 
     firstMouse = false;
 
-    Logger::Debug("Init main camera controller");
+    Logger::Debug("Init MainCameraController");
 }
 
 void MainCameraController::update(double dt) {
     NativeScript::init();
 
     glm::vec2 dMousePos = Input::GetMouseMovement();
-//    glm::vec2 dMousePos = {0.0f, 0.0f};
-//
-//    if (firstMouse) {
-//        oldMousePosition = Input::GetMousePosition();
-//        firstMouse = false;
-//    } else {
-//        dMousePos = Input::GetMousePosition() - oldMousePosition;
-//        oldMousePosition = Input::GetMousePosition();
-//    }
 
     auto entityHandles = Application::getInstance().scene.registry.view<DeepsEngine::Component::Transform>();
+    bool foundTarget = false;
 
     for(auto entityHandle : entityHandles) {
         DeepsEngine::Entity entity = {entityHandle};
 
         if (entity.HasComponent<DeepsEngine::Component::Tag>()) {
-            if (entity.GetComponent<DeepsEngine::Component::Tag>().tag == "Fox") {
+            if (entity.GetComponent<DeepsEngine::Component::Tag>().tag == "Samus") {
+                foundTarget = true;
                 auto& playerTransform = entity.GetComponent<DeepsEngine::Component::Transform>();
                 auto& transform = self.GetComponent<DeepsEngine::Component::Transform>();
 
@@ -63,14 +56,6 @@ void MainCameraController::update(double dt) {
                 transform.position = playerTransform.position + cameraTargetOffset + offsetPosition;
 
                 // update camera position variables based off user input
-//                if (Input::GetButtonDown(DeepsEngine::Key::Left)) {
-//                    phi += phiSpeed * float(dt);
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::Right)) {
-//                    phi -= phiSpeed * float(dt);
-//                }
-
                 phi += phiSpeed * float(dt) * dMousePos.x;
 
                 if (phi > 2 * M_PI) {
@@ -81,19 +66,15 @@ void MainCameraController::update(double dt) {
                     phi += 2 * M_PI;
                 }
 
-//                if (Input::GetButtonDown(DeepsEngine::Key::Up)) {
-//                    theta += thetaSpeed * float(dt);
-//                }
-//
-//                if (Input::GetButtonDown(DeepsEngine::Key::Down)) {
-//                    theta -= thetaSpeed * float(dt);
-//                }
-
                 theta += thetaSpeed * float(dt) * dMousePos.y;
 
                 theta = max(theta, minTheta);
                 theta = min(theta, maxTheta);
             }
+        }
+
+        if (!foundTarget) {
+            Logger::Warn("MainCameraController cannot find target");
         }
     }
 }

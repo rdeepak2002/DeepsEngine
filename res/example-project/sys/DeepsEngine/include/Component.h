@@ -107,7 +107,8 @@ namespace DeepsEngine::Component {
         void addChild(Entity &childEntity) {
             childEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().parentGuid = entityGuid;
             if (!std::count(childrenGuids.begin(), childrenGuids.end(), childEntity.GetComponent<DeepsEngine::Component::Id>().id)) {
-                childrenGuids.push_back(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+                std::string childId = std::string(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+                childrenGuids.push_back(childId);
             }
         }
 
@@ -846,7 +847,74 @@ namespace DeepsEngine::Component {
 
             out << YAML::Key << "mass" << YAML::Value << mass;
             out << YAML::Key << "friction" << YAML::Value << friction;
-            // TODO: serialize compound shape and its transform
+            out << YAML::Key << "rollingFriction" << YAML::Value << rollingFriction;
+            out << YAML::Key << "spinningFriction" << YAML::Value << spinningFriction;
+            out << YAML::Key << "linearDamping" << YAML::Value << linearDamping;
+            out << YAML::Key << "angularDamping" << YAML::Value << angularDamping;
+            out << YAML::Key << "restitution" << YAML::Value << restitution;
+
+            out << YAML::Key << "collisionShapes" << YAML::Value << YAML::BeginSeq;
+            for(int i = 0; i < compoundShape->getNumChildShapes(); i++) {
+                btCollisionShape* colShape = compoundShape->getChildShape(i);
+                btTransform& colShapeTransform = compoundShape->getChildTransform(i);
+
+                if (!colShape) {
+                    continue;
+                }
+
+                out << YAML::BeginMap;
+
+                if (colShape->getShapeType() == BOX_SHAPE_PROXYTYPE) {
+                    auto* colBoxShape = dynamic_cast<btBoxShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+
+                    out << YAML::Key << "type" << YAML::Value << "box";
+
+                    out << YAML::Key << "boxHalfExtents";
+                    glmVec3ToYaml(out, glm::vec3(colBoxShape->getHalfExtentsWithMargin().getX(),
+                                            colBoxShape->getHalfExtentsWithMargin().getY(),
+                                            colBoxShape->getHalfExtentsWithMargin().getZ()));
+                    out << YAML::EndMap;
+                } else if (colShape->getShapeType() == SPHERE_SHAPE_PROXYTYPE) {
+                    auto* colSphereShape = dynamic_cast<btSphereShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+                    out << YAML::Key << "type" << YAML::Value << "sphere";
+                    out << YAML::Key << "radius" << YAML::Value << colSphereShape->getRadius();
+                    out << YAML::EndMap;
+                } else if (colShape->getShapeType() == CAPSULE_SHAPE_PROXYTYPE) {
+                    auto* colCapsuleShape = dynamic_cast<btCapsuleShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+                    out << YAML::Key << "type" << YAML::Value << "capsule";
+                    out << YAML::Key << "radius" << YAML::Value << colCapsuleShape->getRadius();
+                    out << YAML::Key << "height" << YAML::Value << (colCapsuleShape->getHalfHeight() * 2);
+                    out << YAML::EndMap;
+                } else {
+                    Logger::Error("Unknown collision shape type: " + std::to_string(colShape->getShapeType()));
+                }
+
+                out << YAML::Key << "transform";
+                out << YAML::BeginMap;
+                out <<  YAML::Key << "position";
+                glmVec3ToYaml(out, glm::vec3(colShapeTransform.getOrigin().getX(),
+                                             colShapeTransform.getOrigin().getY(),
+                                             colShapeTransform.getOrigin().getZ()));
+                out <<  YAML::Key << "rotation";
+                glm::vec3 eulerRot = glm::eulerAngles(glm::quat(colShapeTransform.getRotation().getW(),
+                                                                colShapeTransform.getRotation().getX(),
+                                                                colShapeTransform.getRotation().getY(),
+                                                                colShapeTransform.getRotation().getZ()));
+                glmVec3ToYaml(out, eulerRot);
+                out << YAML::EndMap;
+
+                out << YAML::EndMap;
+            }
+            out << YAML::EndSeq;
 
             out << YAML::EndMap;
         }

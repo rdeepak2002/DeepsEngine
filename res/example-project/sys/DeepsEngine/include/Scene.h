@@ -23,7 +23,7 @@ namespace DeepsEngine {
         std::tuple<std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>, std::vector<DeepsEngine::Entity>> GetLightEntities();
         void DestroyEntity(DeepsEngine::Entity entity);
         void DestroyAllEntities();
-        Entity& findEntityByGuid(std::string guid);
+        entt::entity findEntityByGuid(std::string guid);
         bool entityExists(std::string guid);
     };
 }
