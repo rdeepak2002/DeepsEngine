@@ -92,8 +92,10 @@ void PlayerController::update(double dt) {
                     velocityDirection -= cameraRight;
                 }
 
+                bool firing = false;
+
                 if (Input::GetButtonDown(DeepsEngine::Key::MouseLeft)) {
-                    Logger::Debug("TODO: fire");
+                    firing = true;
                 }
 
                 velocityDirection.y = 0.0f;
@@ -121,20 +123,41 @@ void PlayerController::update(double dt) {
 
                 if (grounded) {
                     if (moving) {
-                        if (currentState != "Running") {
-                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(runningAnimation);
-                            currentState = "Running";
+                        if (firing) {
+                            if (currentState != "RunningFiring") {
+                                self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(specialNeutral);
+                                currentState = "RunningFiring";
+                            }
+                        } else {
+                            if (currentState != "Running") {
+                                self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(runningAnimation);
+                                currentState = "Running";
+                            }
                         }
                     } else {
-                        if (currentState != "Idle") {
-                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(idleAnimation);
-                            currentState = "Idle";
+                        if (firing) {
+                            if (currentState != "IdleFiring") {
+                                self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(specialNeutral);
+                                currentState = "IdleFiring";
+                            }
+                        } else {
+                            if (currentState != "Idle") {
+                                self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(idleAnimation);
+                                currentState = "Idle";
+                            }
                         }
                     }
                 } else {
-                    if (currentState != "JumpingForward") {
-                        self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(jumpForwardAnimation);
-                        currentState = "JumpingForward";
+                    if (firing) {
+                        if (currentState != "JumpingForwardFiring") {
+                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(specialNeutral);
+                            currentState = "JumpingForwardFiring";
+                        }
+                    } else {
+                        if (currentState != "JumpingForward") {
+                            self.GetComponent<DeepsEngine::Component::MeshFilter>().playAnimation(jumpForwardAnimation);
+                            currentState = "JumpingForward";
+                        }
                     }
                 }
             }
