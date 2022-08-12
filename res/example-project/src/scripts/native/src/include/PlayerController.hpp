@@ -22,6 +22,7 @@ private:
     Animation* idleAnimation;
     Animation* runningAnimation;
     Animation* jumpForwardAnimation;
+    Animation* specialNeutral;
 public:
     CLASS_NAME(DeepsEngine::Entity &entity) : NativeScript(entity) {
 

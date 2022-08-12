@@ -21,6 +21,7 @@ void PlayerController::init() {
     idleAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/wait-1/samus-c00-combined-wait-1.fbx");
     jumpForwardAnimation = meshFilter.getAnimation("src/models/samus/motion/body/c00/jumpaerialf/samus-c00-combined-jumpaerialf.fbx");
     jumpForwardAnimation->SetLooped(false);
+    specialNeutral = meshFilter.getAnimation("src/models/samus/motion/body/c00/special-n/samus-c00-combined-special-n.fbx");
 }
 
 void PlayerController::update(double dt) {
@@ -89,6 +90,10 @@ void PlayerController::update(double dt) {
 
                 if (Input::GetButtonDown(DeepsEngine::Key::A)) {
                     velocityDirection -= cameraRight;
+                }
+
+                if (Input::GetButtonDown(DeepsEngine::Key::MouseLeft)) {
+                    Logger::Debug("TODO: fire");
                 }
 
                 velocityDirection.y = 0.0f;

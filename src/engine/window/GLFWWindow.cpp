@@ -32,6 +32,20 @@ void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
     }
 }
 
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (action == GLFW_PRESS) {
+        if (button == GLFW_MOUSE_BUTTON_LEFT) {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+        Input::SetButtonDown(button, true);
+    }
+
+    if (action == GLFW_RELEASE) {
+        Input::SetButtonDown(button, false);
+    }
+}
+
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
 {
 
@@ -55,12 +69,13 @@ void GLFWWindow::createWindow() {
     // --------------------
     window = glfwCreateWindow(Application::getInstance().getWindowDimensions().first, Application::getInstance().getWindowDimensions().second, "Deeps Engine", NULL, NULL);
     if (window == nullptr) {
-    Logger::Debug("Failed to create GLFW window");
-    glfwTerminate();
+        Logger::Debug("Failed to create GLFW window");
+        glfwTerminate();
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
     glfwSetKeyCallback(window, keyCallback);
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
     glfwSetCursorPosCallback(window, cursorPosCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

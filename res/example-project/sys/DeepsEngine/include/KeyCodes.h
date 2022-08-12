@@ -17,6 +17,9 @@ namespace DeepsEngine
     {
         enum : KeyCode
         {
+            MouseLeft          = 0,
+            MouseRight         = 1,
+
             // From glfw3.h
             Space               = 32,
             Apostrophe          = 39, /* ' */
