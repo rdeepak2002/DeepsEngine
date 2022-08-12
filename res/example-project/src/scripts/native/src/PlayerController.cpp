@@ -62,7 +62,7 @@ void PlayerController::update(double dt) {
                     if (grounded) {
                         btVector3 currentLinVel = physicsComponent.rigidBody->getLinearVelocity();
                         physicsComponent.rigidBody->setLinearVelocity(btVector3(currentLinVel.getX() * jumpSpeedReductionFactor, jumpSpeed, currentLinVel.getZ() * jumpSpeedReductionFactor));
-                        grounded = false;
+//                        grounded = false;
                     }
                 }
 
