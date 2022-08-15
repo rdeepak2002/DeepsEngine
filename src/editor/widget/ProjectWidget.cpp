@@ -85,8 +85,8 @@ ProjectWidget::ProjectWidget(QWidget *parent) {
     inspectorWidgetScrollWrapper->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded );
     inspectorWidgetScrollWrapper->setWidgetResizable(true );
     inspectorWidgetScrollWrapper->setWidget(inspectorWidget);
-    inspectorWidgetScrollWrapper->setMaximumWidth(330);
-    inspectorWidgetScrollWrapper->setMinimumWidth(330);
+    inspectorWidgetScrollWrapper->setMaximumWidth(400);
+    inspectorWidgetScrollWrapper->setMinimumWidth(400);
 
     // outer horizontal layout
     hLayout->addWidget(sceneViewWidget);

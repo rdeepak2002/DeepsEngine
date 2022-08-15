@@ -17,6 +17,9 @@
 #include <glm/gtx/string_cast.hpp>
 #include "Entity.h"
 #include "NativeScript.h"
+#include "btBulletDynamicsCommon.h"
+#include "CubeMesh.h"
+#include "SphereMesh.h"
 
 using std::filesystem::exists;
 
@@ -104,7 +107,8 @@ namespace DeepsEngine::Component {
         void addChild(Entity &childEntity) {
             childEntity.GetComponent<DeepsEngine::Component::HierarchyComponent>().parentGuid = entityGuid;
             if (!std::count(childrenGuids.begin(), childrenGuids.end(), childEntity.GetComponent<DeepsEngine::Component::Id>().id)) {
-                childrenGuids.push_back(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+                std::string childId = std::string(childEntity.GetComponent<DeepsEngine::Component::Id>().id);
+                childrenGuids.push_back(childId);
             }
         }
 
@@ -469,7 +473,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = "";
             this->setMeshType(mesh);
-            this->flipTextures = false;
+            this->flipTextures = true;
         }
 
         MeshFilter(std::string mesh, std::string meshPath, std::string entityGuid) {
@@ -477,7 +481,7 @@ namespace DeepsEngine::Component {
             loadMissingTextures();
             this->meshPath = meshPath;
             this->setMeshType(mesh);
-            this->flipTextures = false;
+            this->flipTextures = true;
         }
 
         MeshFilter(YAML::Node yamlData, std::string entityGuid) {
@@ -494,7 +498,7 @@ namespace DeepsEngine::Component {
             if (yamlData["flipTextures"]) {
                 this->flipTextures = yamlData["flipTextures"].as<bool>();
             } else {
-                this->flipTextures = false;
+                this->flipTextures = true;
             }
 
             this->setMeshType(yamlData["mesh"].as<std::string>());
@@ -507,7 +511,7 @@ namespace DeepsEngine::Component {
         Animator* animator;
         AnimatedModel *animatedModel;
         Model *model;
-        unsigned int VBO, VAO;
+        unsigned int VBO, VAO, numIndices;
         unsigned int missingTextureDiffuse, missingTextureSpecular;
 
         void loadMissingTextures() {
@@ -532,64 +536,14 @@ namespace DeepsEngine::Component {
             this->mesh = meshType;
 
             if (mesh == "cube") {
-                float cubeVertices[] = {
-                        // positions          // normals           // texture coords
-                        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-                        0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-                        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-                        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-                        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
-                        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-
-                        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-                        0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-                        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-                        0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-                        -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-                        -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-
-                        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-                        -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-                        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-                        -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-                        -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                        -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-                        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-                        0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-                        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-                        0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-                        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-                        0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-
-                        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-                        0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-                        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-                        0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-                        -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-                        -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-
-                        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-                        0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-                        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-                        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-                        -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-                        -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f
-                };
-
-                glGenVertexArrays(1, &VAO);
-                glGenBuffers(1, &VBO);
-
-                glBindBuffer(GL_ARRAY_BUFFER, VBO);
-                glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
-
-                glBindVertexArray(VAO);
-                glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) 0);
-                glEnableVertexAttribArray(0);
-                glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
-                glEnableVertexAttribArray(1);
-                glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
-                glEnableVertexAttribArray(2);
+                CubeMesh cubeMesh = {};
+                VAO = cubeMesh.VAO;
+                VBO = cubeMesh.VBO;
+            } else if (mesh == "sphere") {
+                SphereMesh sphereMesh = {};
+                VAO = sphereMesh.VAO;
+                VBO = sphereMesh.VBO;
+                numIndices = sphereMesh.Indices.size();
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
                     stbi_set_flip_vertically_on_load(flipTextures);
@@ -608,6 +562,22 @@ namespace DeepsEngine::Component {
                 Logger::Error("Unknown mesh type: " + mesh);
                 exit(1);
             }
+        }
+
+        void playAnimation(Animation* animation) {
+            if (animator) {
+                if (animatedModel) {
+                    animator->PlayAnimation(animation);
+                } else {
+                    Logger::Error("No animated model to change animation");
+                }
+            } else {
+                Logger::Error("No animator to change animation");
+            }
+        }
+
+        Animation* getAnimation(std::string animationPath) {
+            return new Animation(Application::getInstance().getProjectPath().append(animationPath), animatedModel);
         }
 
         void setMeshPath(std::string newMeshPath) {
@@ -644,6 +614,10 @@ namespace DeepsEngine::Component {
             if (mesh == "cube") {
                 glBindVertexArray(VAO);
                 glDrawArrays(GL_TRIANGLES, 0, 36);
+            } else if (mesh == "sphere") {
+                glBindVertexArray(VAO);
+                glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, 0);
+                glBindVertexArray(0);
             } else if (mesh == "static-model") {
                 if (!meshPath.empty()) {
                     if (!model) {
@@ -682,6 +656,13 @@ namespace DeepsEngine::Component {
 
         SceneCameraComponent(YAML::Node yamlData) {
             this->sceneCamera = yamlData["sceneCamera"].as<bool>();
+        }
+
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "SceneCamera";
+            out << YAML::BeginMap;
+            out << YAML::Key << "sceneCamera" << YAML::Value << sceneCamera;
+            out << YAML::EndMap;
         }
 
         bool sceneCamera;
@@ -745,6 +726,208 @@ namespace DeepsEngine::Component {
 
             out << YAML::EndMap;
         }
+    };
+
+    struct PhysicsComponent : Component {
+        PhysicsComponent() {
+            this->mass = 0;
+            this->compoundShape = new btCompoundShape();
+            this->rigidBody = nullptr;
+            this->friction = 0.0f;
+            this->rollingFriction = 0.0f;
+            this->spinningFriction = 0.0f;
+            this->linearDamping = 0.0f;
+            this->angularDamping = 0.0f;
+            this->restitution = 0.0f;
+        }
+
+        PhysicsComponent(YAML::Node yamlData) {
+            this->mass = yamlData["mass"].as<float>();
+            this->compoundShape = new btCompoundShape();
+
+            if (yamlData["collisionShapes"]) {
+                std::vector<YAML::Node> collidersYaml = yamlData["collisionShapes"].as<std::vector<YAML::Node>>();
+                for (YAML::Node colliderYaml : collidersYaml) {
+                    btTransform t;
+                    t.setIdentity();
+
+                    if (colliderYaml["transform"]) {
+                        YAML::Node colliderTransform = colliderYaml["transform"];
+
+                        if (colliderTransform["position"]) {
+                            glm::vec3 transformPosition = yamlToGlmVec3(colliderTransform["position"]);
+                            t.setOrigin(btVector3(transformPosition.x, transformPosition.y, transformPosition.z));
+                        }
+
+                        if (colliderTransform["rotation"]) {
+                            glm::vec3 transformRotation = yamlToGlmVec3(colliderTransform["rotation"]);
+                            auto transformQuaternion = glm::quat(transformRotation);
+                            t.setRotation(btQuaternion(transformQuaternion.x, transformQuaternion.y, transformQuaternion.z, transformQuaternion.w));
+                        }
+                    }
+
+                    if (colliderYaml["collider"] && colliderYaml["collider"]["type"]) {
+                        auto colliderData = colliderYaml["collider"];
+                        auto colliderType = colliderData["type"].as<std::string>();
+                        btCollisionShape* collisionShape = nullptr;
+
+                        if (colliderType == "box") {
+                            if (colliderData["boxHalfExtents"]) {
+                                glm::vec3 boxColliderShape = yamlToGlmVec3(colliderData["boxHalfExtents"]);
+                                collisionShape = new btBoxShape(btVector3(boxColliderShape.x, boxColliderShape.y, boxColliderShape.z));
+                            }
+                        } else if(colliderType == "sphere") {
+                            if (colliderData["radius"]) {
+                                auto radius = colliderData["radius"].as<float>();
+                                collisionShape = new btSphereShape(radius);
+                            }
+                        } else if(colliderType == "capsule") {
+                            if (colliderData["radius"] && colliderData["height"]) {
+                                auto radius = colliderData["radius"].as<float>();
+                                auto height = colliderData["height"].as<float>();
+                                collisionShape = new btCapsuleShape(radius, height);
+                            }
+                        }
+
+                        if (collisionShape) {
+                            compoundShape->addChildShape(t, collisionShape);
+                        } else {
+                            Logger::Error("Unknown collider type: " + colliderType);
+                        }
+                    }
+                }
+            }
+
+            if (yamlData["friction"]) {
+                this->friction = yamlData["friction"].as<float>();
+            } else {
+                this->friction = 0.0f;
+            }
+
+            if (yamlData["rollingFriction"]) {
+                this->rollingFriction = yamlData["rollingFriction"].as<float>();
+            } else {
+                this->rollingFriction = 0.0f;
+            }
+
+            if (yamlData["spinningFriction"]) {
+                this->spinningFriction = yamlData["spinningFriction"].as<float>();
+            } else {
+                this->spinningFriction = 0.0f;
+            }
+
+            if (yamlData["linearDamping"]) {
+                this->linearDamping = yamlData["linearDamping"].as<float>();
+            } else {
+                this->linearDamping = 0.0f;
+            }
+
+            if (yamlData["angularDamping"]) {
+                this->angularDamping = yamlData["angularDamping"].as<float>();
+            } else {
+                this->angularDamping = 0.0f;
+            }
+
+            if (yamlData["restitution"]) {
+                this->restitution = yamlData["restitution"].as<float>();
+            } else {
+                this->restitution = 0.0f;
+            }
+
+            this->rigidBody = nullptr;
+        }
+
+        ~PhysicsComponent() {
+
+        }
+
+        virtual void Serialize(YAML::Emitter &out) override {
+            out << YAML::Key << "PhysicsComponent";
+            out << YAML::BeginMap;
+
+            out << YAML::Key << "mass" << YAML::Value << mass;
+            out << YAML::Key << "friction" << YAML::Value << friction;
+            out << YAML::Key << "rollingFriction" << YAML::Value << rollingFriction;
+            out << YAML::Key << "spinningFriction" << YAML::Value << spinningFriction;
+            out << YAML::Key << "linearDamping" << YAML::Value << linearDamping;
+            out << YAML::Key << "angularDamping" << YAML::Value << angularDamping;
+            out << YAML::Key << "restitution" << YAML::Value << restitution;
+
+            out << YAML::Key << "collisionShapes" << YAML::Value << YAML::BeginSeq;
+            for(int i = 0; i < compoundShape->getNumChildShapes(); i++) {
+                btCollisionShape* colShape = compoundShape->getChildShape(i);
+                btTransform& colShapeTransform = compoundShape->getChildTransform(i);
+
+                if (!colShape) {
+                    continue;
+                }
+
+                out << YAML::BeginMap;
+
+                if (colShape->getShapeType() == BOX_SHAPE_PROXYTYPE) {
+                    auto* colBoxShape = dynamic_cast<btBoxShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+
+                    out << YAML::Key << "type" << YAML::Value << "box";
+
+                    out << YAML::Key << "boxHalfExtents";
+                    glmVec3ToYaml(out, glm::vec3(colBoxShape->getHalfExtentsWithMargin().getX(),
+                                            colBoxShape->getHalfExtentsWithMargin().getY(),
+                                            colBoxShape->getHalfExtentsWithMargin().getZ()));
+                    out << YAML::EndMap;
+                } else if (colShape->getShapeType() == SPHERE_SHAPE_PROXYTYPE) {
+                    auto* colSphereShape = dynamic_cast<btSphereShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+                    out << YAML::Key << "type" << YAML::Value << "sphere";
+                    out << YAML::Key << "radius" << YAML::Value << colSphereShape->getRadius();
+                    out << YAML::EndMap;
+                } else if (colShape->getShapeType() == CAPSULE_SHAPE_PROXYTYPE) {
+                    auto* colCapsuleShape = dynamic_cast<btCapsuleShape*>(colShape);
+
+                    out << YAML::Key << "collider";
+                    out << YAML::BeginMap;
+                    out << YAML::Key << "type" << YAML::Value << "capsule";
+                    out << YAML::Key << "radius" << YAML::Value << colCapsuleShape->getRadius();
+                    out << YAML::Key << "height" << YAML::Value << (colCapsuleShape->getHalfHeight() * 2);
+                    out << YAML::EndMap;
+                } else {
+                    Logger::Error("Unknown collision shape type: " + std::to_string(colShape->getShapeType()));
+                }
+
+                out << YAML::Key << "transform";
+                out << YAML::BeginMap;
+                out <<  YAML::Key << "position";
+                glmVec3ToYaml(out, glm::vec3(colShapeTransform.getOrigin().getX(),
+                                             colShapeTransform.getOrigin().getY(),
+                                             colShapeTransform.getOrigin().getZ()));
+                out <<  YAML::Key << "rotation";
+                glm::vec3 eulerRot = glm::eulerAngles(glm::quat(colShapeTransform.getRotation().getW(),
+                                                                colShapeTransform.getRotation().getX(),
+                                                                colShapeTransform.getRotation().getY(),
+                                                                colShapeTransform.getRotation().getZ()));
+                glmVec3ToYaml(out, eulerRot);
+                out << YAML::EndMap;
+
+                out << YAML::EndMap;
+            }
+            out << YAML::EndSeq;
+
+            out << YAML::EndMap;
+        }
+
+        btCompoundShape* compoundShape;
+        btRigidBody *rigidBody;
+        float mass;
+        float friction;
+        float rollingFriction;
+        float spinningFriction;
+        float linearDamping;
+        float angularDamping;
+        float restitution;
     };
 }
 

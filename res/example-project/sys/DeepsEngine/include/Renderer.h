@@ -7,8 +7,8 @@
 
 class Renderer {
 public:
-    unsigned int SCR_WIDTH = 800;
-    unsigned int SCR_HEIGHT = 600;
+    unsigned int SCR_WIDTH = 1600;
+    unsigned int SCR_HEIGHT = 1200;
 
     virtual void initialize() {
 

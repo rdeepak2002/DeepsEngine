@@ -3,8 +3,29 @@
 //
 
 #include "ProjectsWidget.h"
+#include "ProjectListWidgetItem.h"
+
+#ifdef __APPLE__
+extern "C" void changeTitleBarColor(WId winId, double red, double green, double blue);
+#endif
+
+QString readStyleSheet(QString styleSheetName) {
+    QFile file(qApp->applicationDirPath().append(QDir::separator())
+        .append("assets").append(QDir::separator())
+        .append("res").append(QDir::separator())
+        .append("style").append(QDir::separator())
+        .append(styleSheetName));
+    file.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(file.readAll());
+    return styleSheet;
+}
 
 ProjectsWidget::ProjectsWidget(QWidget *parent) {
+#ifdef __APPLE__
+    changeTitleBarColor(winId(), 59.0/255.0, 64.0/255.0, 65.0/255.0);
+#endif
+    this->setStyleSheet(readStyleSheet("ProjectWindow.qss"));
+
     // reference to project window to modify menu bar
     projectWindow = dynamic_cast<ProjectWindow*>(parent);
 
@@ -12,8 +33,8 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
     connect(this, SIGNAL(showProjectWindow()), projectWindow, SLOT(showProjectWindow()));
 
     // set initial window size
-    double startWidth = 800.0;
-    double startHeight = 650.0;
+    double startWidth = 830.0;
+    double startHeight = 625.0;
     resize(startWidth, startHeight);
 
     // move window to center of screen
@@ -33,20 +54,70 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
     projectWindow->close();
 
     // outer Layer
-    auto *mainLayout = new QVBoxLayout;
+    auto *mainLayout = new QHBoxLayout;
+    mainLayout->setContentsMargins(0, 0, 0, 0);
+    mainLayout->setSpacing(0);
+
+    auto vLayoutLeft = new QVBoxLayout;
+    auto vLayoutRight = new QVBoxLayout;
+    vLayoutRight->setContentsMargins(10, 10, 10, 10);
+
+    QWidget* leftWidget = new QWidget(this);
+    leftWidget->setFixedWidth(215);
+    leftWidget->setObjectName("leftPanel");
+
+    auto hLayoutLogo = new QHBoxLayout;
+
+    QSvgWidget* logoWidget = new QSvgWidget(qApp->applicationDirPath().append(QDir::separator())
+                                                    .append("assets").append(QDir::separator())
+                                                    .append("res").append(QDir::separator())
+                                                    .append("logo").append(QDir::separator())
+                                                    .append("logo.svg"));
+    double scale = 0.3;
+    logoWidget->setFixedSize(169.85991 * scale, 113.07558 * scale);
+    hLayoutLogo->addWidget(logoWidget);
+    hLayoutLogo->setAlignment(Qt::AlignLeft);
+    vLayoutLeft->addLayout(hLayoutLogo);
+
+    auto vLayoutNameAndVersion = new QVBoxLayout;
+    vLayoutNameAndVersion->setAlignment(Qt::AlignTop);
+    vLayoutNameAndVersion->setSpacing(0);
+
+    QLabel* programNameLabel = new QLabel("DeepsEngine");
+    programNameLabel->setObjectName("programNameLabel");
+    vLayoutNameAndVersion->addWidget(programNameLabel);
+
+    QLabel* programVersionLabel = new QLabel(QString::fromStdString(static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION))));
+    programVersionLabel->setObjectName("programVersionLabel");
+    vLayoutNameAndVersion->addWidget(programVersionLabel);
+
+    hLayoutLogo->addLayout(vLayoutNameAndVersion);
+
+    vLayoutLeft->setAlignment(Qt::AlignTop);
+    leftWidget->setLayout(vLayoutLeft);
+
+    // button header with open and new buttons
+    auto *buttonHeader = new QHBoxLayout;
+    buttonHeader->setAlignment(Qt::AlignRight);
 
     QPushButton *newProjectButton = new QPushButton("New Project", this);
+    newProjectButton->setFixedSize(110, 45);
     connect(newProjectButton, &QPushButton::released, this, &ProjectsWidget::createProject);
-    mainLayout->addWidget(newProjectButton);
+    buttonHeader->addWidget(newProjectButton);
 
-    QPushButton *openProjectButton = new QPushButton("Open Project", this);
+    QPushButton *openProjectButton = new QPushButton("Open", this);
+    openProjectButton->setFixedSize(80, 45);
     connect(openProjectButton, &QPushButton::released, this, &ProjectsWidget::promptOpenProject);
-    mainLayout->addWidget(openProjectButton);
+    buttonHeader->addWidget(openProjectButton);
 
+    vLayoutRight->addLayout(buttonHeader);
+
+    // list of projects
     QListWidget* qListWidget = new QListWidget();
-    qListWidget->setStyleSheet(qListWidget->styleSheet().append("background-color: transparent;"));
-    mainLayout->addWidget(qListWidget);
+    vLayoutRight->addWidget(qListWidget);
 
+    mainLayout->addWidget(leftWidget);
+    mainLayout->addLayout(vLayoutRight);
     setLayout(mainLayout);
 
     QSettings settings("DeepDev", "DeepsEngine");
@@ -55,7 +126,9 @@ ProjectsWidget::ProjectsWidget(QWidget *parent) {
         QString filePrefix = QDir::separator();
         QFileInfo projectDirectoryInfo = QFileInfo(filePrefix + projectFilePath);
         if (projectDirectoryInfo.exists() && projectDirectoryInfo.isDir()) {
-            qListWidget->addItem(projectFilePath);
+            ProjectListWidgetItem* projectListWidgetItem = new ProjectListWidgetItem(this, projectDirectoryInfo.absoluteFilePath());
+            qListWidget->addItem(projectListWidgetItem->getItem());
+            qListWidget->setItemWidget(projectListWidgetItem->getItem(), projectListWidgetItem);
         } else {
             Logger::Warn("Removing non existent file path: " + projectFilePath.toStdString());
             settings.remove(projectFilePath);

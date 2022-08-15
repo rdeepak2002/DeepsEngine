@@ -6,15 +6,15 @@
 #define EDITOR_APPLICATION_H
 
 #include "Scene.h"
-#include "LuaScriptComponentSystem.h"
-#include "NativeScriptComponentSystem.h"
 #include "OpenGLRenderer.h"
 #include "GLFWWindow.h"
 #include "Window.h"
 #include "Renderer.h"
+#include "ComponentSystem.h"
 #include <fstream>
 #include <chrono>
 #include <ctime>
+#include "BulletDebugDrawer_OpenGL.h"
 
 using namespace std::chrono_literals;
 
@@ -43,13 +43,13 @@ public:
     std::unique_ptr<Renderer> renderer;
     bool playing;
     float deltaTime;
+    std::map<std::string, ComponentSystem*> componentSystems;
 private:
     Application() {
         renderer = std::make_unique<OpenGLRenderer>();
         window = std::make_unique<GLFWWindow>();
     }
     std::unique_ptr<Window> window;
-    std::vector<std::unique_ptr<ComponentSystem>> componentSystems;
     std::string projectPath;
     std::chrono::nanoseconds lag;
     std::chrono::time_point<std::chrono::high_resolution_clock> time_start;

@@ -121,9 +121,9 @@ void LuaScriptComponentSystem::update(float deltaTime) {
     ComponentSystem::update(deltaTime);
 
     for(auto entity : Application::getInstance().scene.GetScriptableEntities()) {
-        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
-            continue;
-        }
+//        if (!Application::getInstance().playing && !entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>()) {
+//            continue;
+//        }
 
         auto &luaScriptComponent = entity.GetComponent<DeepsEngine::Component::LuaScript>();
 
@@ -155,7 +155,9 @@ void LuaScriptComponentSystem::update(float deltaTime) {
             auto f = lua["update"];
 
             if (f.valid()) {
-                f(entity, deltaTime);
+                if (Application::getInstance().playing || (!Application::getInstance().playing && entity.HasComponent<DeepsEngine::Component::SceneCameraComponent>())) {
+                    f(entity, deltaTime);
+                }
             } else {
                 Logger::Warn("Invalid update function in script");
             }

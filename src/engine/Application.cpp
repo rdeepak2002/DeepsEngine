@@ -6,9 +6,13 @@
 #include "Entity.h"
 #include "Component.h"
 #include <iostream>
-#include <glm/ext.hpp>
 #include <yaml-cpp/yaml.h>
+#include <vector>
+#include <algorithm>
 #include "Input.h"
+#include "LuaScriptComponentSystem.h"
+#include "NativeScriptComponentSystem.h"
+#include "PhysicsComponentSystem.h"
 
 #define XSTR(x) STR(x)
 #define STR(x) #x
@@ -43,7 +47,7 @@ void Application::update(bool clearScreen) {
         lag -= timestep;
 
         for (auto& componentSystem : componentSystems) {
-            componentSystem->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
+            componentSystem.second->update(std::chrono::duration_cast<std::chrono::milliseconds>(timestep).count() * 0.001);
         }
     }
 
@@ -76,8 +80,9 @@ void Application::initialize() {
 
     // add component systems
     componentSystems.clear();
-    componentSystems.push_back(std::make_unique<LuaScriptComponentSystem>());
-    componentSystems.push_back(std::make_unique<NativeScriptComponentSystem>());
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("NativeScriptComponentSystem", new NativeScriptComponentSystem()));
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("LuaScriptComponentSystem", new LuaScriptComponentSystem()));
+    componentSystems.insert(std::pair<std::string, ComponentSystem*>("PhysicsComponentSystem", new PhysicsComponentSystem()));
 
     // create window
     window->createWindow();
@@ -90,7 +95,7 @@ void Application::initialize() {
 
     // initialize component systems
     for (auto& componentSystem : componentSystems) {
-        componentSystem->init();
+        componentSystem.second->init();
     }
 
     using clock = std::chrono::high_resolution_clock;
@@ -101,7 +106,7 @@ void Application::initialize() {
 void Application::close() {
     Logger::Debug("Destroying engine");
     for (auto& componentSystem : componentSystems) {
-        componentSystem->destroy();
+        componentSystem.second->destroy();
     }
 
     renderer->deinit();
@@ -202,6 +207,8 @@ void Application::saveProject() {
 
     out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
 
+    std::vector<Entity> entities;
+
     scene.registry.each([&](auto entityId) {
         Entity entity = { entityId };
 
@@ -209,8 +216,14 @@ void Application::saveProject() {
             return;
         }
 
-        entity.Serialize(out);
+        entities.push_back(entity);
     });
+
+    std::sort( entities.begin( ), entities.end( ));
+
+    for (DeepsEngine::Entity entity : entities) {
+        entity.Serialize(out);
+    }
 
     out << YAML::EndSeq;
     out << YAML::EndMap;

@@ -11,7 +11,7 @@ MeshFilterComponentWidget::MeshFilterComponentWidget(QWidget *parent) {
     this->setVisible(false);
 
     // file select widget
-    fileSelectWidget = new FileSelectWidget(this, "3D Model (*.obj *.fbx *.dae)");
+    fileSelectWidget = new FileSelectWidget(this, "3D Model (*.obj *.fbx *.dae *.blend *.gltf *.glb)");
     connect(fileSelectWidget, SIGNAL(fileSelected(std::string, std::string)), this, SLOT(onFileSelected(std::string, std::string)));
 
     // dropdown to select type of mesh filter

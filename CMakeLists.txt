@@ -8,7 +8,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 include(DeepsEngineSetup)
 
 # Basic information about project
-set(DEEPS_ENGINE_VERSION "0.1")
+set(DEEPS_ENGINE_VERSION "2022.0.1")
 project(DeepsEngine VERSION ${DEEPS_ENGINE_VERSION})
 
 # find the libraries for running deeps engine
@@ -23,6 +23,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/engine/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
+        src/engine/renderer/primitive/*.cpp
         src/engine/window/*.cpp
         src/engine/scene/*.cpp
         src/engine/util/*.cpp
@@ -31,6 +32,11 @@ FILE(GLOB ENGINE_SOURCE_FILES
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
 if(WITH_EDITOR)
+    if (APPLE)
+        FIND_LIBRARY(CARBON_LIBRARY Carbon)
+        set(EXTRA_LIBS ${CARBON_LIBRARY})
+    endif()
+
     find_package(Qt5 COMPONENTS Widgets Concurrent OpenGL CONFIG REQUIRED)
 
     include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
@@ -45,17 +51,27 @@ if(WITH_EDITOR)
             src/editor/widget/component/*.cpp
             src/editor/include/*.h)
 
+    if(APPLE)
+        FILE(GLOB MACOS_SOURCE_FILES
+                src/editor/changetitlebarcolor.mm)
+    endif()
+
     add_project_meta(META_FILES_TO_INCLUDE)
 
     set(RESOURCE_FILES src/editor/example.qrc)
 
     source_group("UI Files" FILES ${UI_FILES})
 
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} src/main.cpp ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+    add_executable(${PROJECT_NAME} ${OS_BUNDLE} src/main.cpp ${MACOS_SOURCE_FILES} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
 
     target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
 
     target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL yaml-cpp)
+
+    if (APPLE)
+        message(STATUS CARBON_LIBRARY=${CARBON_LIBRARY})
+        target_link_libraries(${PROJECT_NAME} ${CARBON_LIBRARY})
+    endif()
 
     add_custom_command(
             TARGET ${PROJECT_NAME} PRE_BUILD

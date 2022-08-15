@@ -45,6 +45,7 @@ private:
     Shader* animatedMeshShader;
     Shader* lightCubeShader;
     Shader* skyboxShader;
+    Shader* physicsDebugShader;
     unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
 };
 

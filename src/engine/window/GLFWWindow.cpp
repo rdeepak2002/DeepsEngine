@@ -32,6 +32,20 @@ void cursorPosCallback(GLFWwindow* window, double xpos, double ypos)
     }
 }
 
+void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (action == GLFW_PRESS) {
+        if (button == GLFW_MOUSE_BUTTON_LEFT) {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+        Input::SetButtonDown(button, true);
+    }
+
+    if (action == GLFW_RELEASE) {
+        Input::SetButtonDown(button, false);
+    }
+}
+
 void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
 {
 
@@ -55,12 +69,13 @@ void GLFWWindow::createWindow() {
     // --------------------
     window = glfwCreateWindow(Application::getInstance().getWindowDimensions().first, Application::getInstance().getWindowDimensions().second, "Deeps Engine", NULL, NULL);
     if (window == nullptr) {
-    Logger::Debug("Failed to create GLFW window");
-    glfwTerminate();
+        Logger::Debug("Failed to create GLFW window");
+        glfwTerminate();
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
     glfwSetKeyCallback(window, keyCallback);
+    glfwSetMouseButtonCallback(window, mouseButtonCallback);
     glfwSetCursorPosCallback(window, cursorPosCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -87,8 +102,19 @@ void GLFWWindow::closeWindow() {
 
 void GLFWWindow::processInput() {
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
+    if (glfwJoystickPresent(GLFW_JOYSTICK_1)) {
+        int axisCount;
+        const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axisCount);
+        const char* name = glfwGetJoystickName(GLFW_JOYSTICK_1);
+        std::cout << std::endl;
+        std::cout << "Name: " << name << std::endl;
+        std::cout << "Left joystick: " << axes[0] << ", " << axes[1] << std::endl;
+        std::cout << "Right joystick: " << axes[2] << std::endl;
+        std::cout << "R2: " << axes[4] << std::endl;
+    }
+
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 #endif
 }
 

@@ -70,6 +70,8 @@ echo "Installing dependencies via vcpkg"
 ./vcpkg/vcpkg install lua
 ./vcpkg/vcpkg install glfw3
 ./vcpkg/vcpkg install yaml-cpp
+./vcpkg/vcpkg install bullet3
 ./vcpkg/vcpkg install qt5
 
-./vcpkg/vcpkg install assimp
+# TODO: enable this on windows and linux
+#./vcpkg/vcpkg install assimp (version 5.0.1)

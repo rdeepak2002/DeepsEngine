@@ -1,0 +1,56 @@
+ProjectsWidget {
+    background-color : #313335;
+}
+
+QListWidget::item {
+    color : transparent;
+    margin-top: 10px;
+}
+
+QListWidget::item:hover {
+    background-color : #454a4d;
+}
+
+QLabel#imagePreviewLabel {
+    border-radius: 100px;
+}
+
+QLabel#projectNameLabel {
+    font-size: 13px;
+    color : #b9b8b9;
+}
+
+QLabel#projectFilePathLabel {
+    font-size: 11px;
+    color : #777778;
+}
+
+QLabel#programNameLabel {
+    color : #b0b1b2;
+}
+
+QLabel#programVersionLabel {
+    color : #808080;
+}
+
+QListWidget {
+    margin-top : 10px;
+    background-color : #313335;
+    border : 0px solid black;
+    border-top : 1px solid #474b4e;
+}
+
+QWidget#leftPanel {
+    background-color: #3D3F41;
+}
+
+QPushButton {
+    background-color : #4b5052;
+    border : 1px solid #5e6060;
+    border-radius: 3px;
+    color : #b9b8b9;
+    margin-top : 10px;
+    margin-bottom : 10px;
+    margin-right : 7px;
+    font-size: 13px;
+}

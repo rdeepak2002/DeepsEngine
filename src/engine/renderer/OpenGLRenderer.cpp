@@ -16,6 +16,7 @@
 #include "Application.h"
 #include "Input.h"
 #include "glm/gtx/compatibility.hpp"
+#include "PhysicsComponentSystem.h"
 
 float skyboxVertices[] = {
         // positions
@@ -79,6 +80,9 @@ void OpenGLRenderer::initialize() {
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
     simpleMeshShader = new Shader(
             Application::getInstance().getProjectPath().append("src").append("shaders").append("simpleMeshShader.vert").c_str(),
@@ -96,6 +100,10 @@ void OpenGLRenderer::initialize() {
             Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.vert").c_str(),
             Application::getInstance().getProjectPath().append("src").append("shaders").append("skybox.frag").c_str());
 
+    physicsDebugShader = new Shader(
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("physics.vert").c_str(),
+            Application::getInstance().getProjectPath().append("src").append("shaders").append("physics.frag").c_str());
+
     // skybox VAO
     glGenVertexArrays(1, &skyboxVAO);
     glGenBuffers(1, &skyboxVBO);
@@ -109,12 +117,12 @@ void OpenGLRenderer::initialize() {
     // -------------
     std::vector<std::string> faces
             {
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.tga"),
-                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.tga")
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/right.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/left.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/top.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/bottom.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/front.png"),
+                    Application::getInstance().getProjectPath().append("src/textures/skybox/back.png")
             };
     cubemapTexture = loadCubemap(faces);
 
@@ -131,13 +139,13 @@ void OpenGLRenderer::clear() {
 void OpenGLRenderer::update() {
     // TODO: figure out why we need this here for QT renderer
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ZERO);
 
     // clear screen
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // update model animation
-//    animator->UpdateAnimation(Application::getInstance().deltaTime);
 
     // get all cameras in scene
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
@@ -160,6 +168,16 @@ void OpenGLRenderer::update() {
 
         // view matrix
         view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+
+        // draw physics debug
+        if (!Application::getInstance().playing) {
+            physicsDebugShader->use();
+            glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+            glUniformMatrix4fv(glGetUniformLocation(physicsDebugShader->ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+            ComponentSystem* componentSystem = Application::getInstance().componentSystems["PhysicsComponentSystem"];
+            auto* physicsComponentSystem = dynamic_cast<PhysicsComponentSystem*>(componentSystem);
+            physicsComponentSystem->dynamicsWorld->debugDrawWorld();
+        }
 
         // get all entities with meshes
         auto meshEntities = Application::getInstance().scene.GetMeshEntities();
@@ -215,6 +233,7 @@ void OpenGLRenderer::update() {
         view = glm::mat4(glm::mat3(view));
         projection = glm::perspective(glm::radians(mainCameraComponent.fov), (float)SCR_WIDTH / (float)SCR_HEIGHT, mainCameraComponent.zNear, mainCameraComponent.zFar);
 
+        // draw skybox
         glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
         skyboxShader->use();
         skyboxShader->setMat4("view", view);
@@ -349,7 +368,7 @@ unsigned int OpenGLRenderer::loadCubemap(vector<std::string> faces)
         unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
         if (data)
         {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
             stbi_image_free(data);
         }
         else

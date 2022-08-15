@@ -55,6 +55,14 @@ namespace DeepsEngine {
             GetComponent<Component::NativeScriptComponent>().Serialize(out);
         }
 
+        if (HasComponent<Component::SceneCameraComponent>()) {
+            GetComponent<Component::SceneCameraComponent>().Serialize(out);
+        }
+
+        if (HasComponent<Component::PhysicsComponent>()) {
+            GetComponent<Component::PhysicsComponent>().Serialize(out);
+        }
+
         out << YAML::EndMap;
     }
 
@@ -116,6 +124,11 @@ namespace DeepsEngine {
             RemoveComponent<Component::SceneCameraComponent>();
             AddComponent<Component::SceneCameraComponent>(entityYaml["SceneCamera"]);
         }
+
+        if(entityYaml["PhysicsComponent"]) {
+            RemoveComponent<Component::PhysicsComponent>();
+            AddComponent<Component::PhysicsComponent>(entityYaml["PhysicsComponent"]);
+        }
     }
 
     void Entity::Destroy() {
@@ -160,5 +173,17 @@ namespace DeepsEngine {
         }
 
         Application::getInstance().scene.registry.destroy(entity);
+    }
+
+    // overload the operator<
+    bool Entity::operator<(const Entity &r) const
+    {
+        return GetComponent<DeepsEngine::Component::Id>().id < r.GetComponent<DeepsEngine::Component::Id>().id;
+    }
+
+    // overload the operator> (if required)
+    bool Entity::operator>(const Entity &r) const
+    {
+        return GetComponent<DeepsEngine::Component::Id>().id > r.GetComponent<DeepsEngine::Component::Id>().id;
     }
 }
