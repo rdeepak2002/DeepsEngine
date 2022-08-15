@@ -265,9 +265,21 @@ void OpenGLRenderer::update() {
     }
 
     // render your GUI
-    ImGui::Begin("Demo window");
-    ImGui::Button("Hello!");
-    ImGui::End();
+    if(ImGui::Begin("DeepsEngine", NULL, 0))
+    {
+        // Using a Child allow to fill all the space of the window.
+        // It also allows customization
+        if(ImGui::BeginChild("GameRender"))
+        {
+            ImGui::Button("Hello!");
+//            // Because I use the texture from OpenGL, I need to invert the V from the UV.
+//            ImGui::Image(reinterpret_cast<ImTextureID>(GL_TEXTURE_HANDLE), wsize, ImVec2(0, 1), ImVec2(1, 0));
+//            ImGui::EndChild();
+        }
+
+        ImGui::End();
+    }
+
 
     // Render dear imgui into screen
     ImGui::Render();
