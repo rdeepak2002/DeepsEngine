@@ -342,14 +342,22 @@ void OpenGLRenderer::update() {
 
 #ifdef WITH_EDITOR
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
-    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+//    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+//    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
     // render your GUI
     if(ImGui::Begin("DeepsEngine", NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize))
     {
+        if(ImGui::Begin("Scene")) {
+            if(ImGui::BeginChild("Test")) {
+                ImGui::Text("txt");
+                ImGui::EndChild();
+            }
+            ImGui::End();
+        }
+
         // Using a Child allow to fill all the space of the window.
         // It also allows customization
-        if(ImGui::BeginChild("GameRender"))
+        if(ImGui::Begin("Renderer"))
         {
             if (Application::getInstance().playing) {
                 if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
@@ -363,22 +371,14 @@ void OpenGLRenderer::update() {
                 }
             }
             // Get the size of the child (i.e. the whole draw size of the windows).
-//            ImVec2 wsize = ImGui::GetWindowSize();
             ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
-            // Because I use the texture from OpenGL, I need to invert the V from the UV.
-//            ImGui::Image((ImTextureID)framebuffer, wsize, ImVec2(0, 1), ImVec2(1, 0));
             ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), wsize, ImVec2(0, 1), ImVec2(1, 0));
-
-            if (ImGui::IsItemHovered() || (!ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0))) {
-                Logger::Debug("Test");
-            }
-
-            ImGui::EndChild();
+            ImGui::End();
         }
 
         ImGui::End();
     }
-    ImGui::PopStyleVar(1);
+//    ImGui::PopStyleVar(1);
 
     // Render dear imgui into screen
     ImGui::Render();

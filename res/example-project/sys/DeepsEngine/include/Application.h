@@ -55,9 +55,6 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> time_start;
     bool firstMouse = true;
     glm::vec2 oldMousePosition;
-#if defined(WITH_EDITOR)
-    QElapsedTimer timer;
-#endif
 public:
     void saveProject();
     void loadProject();

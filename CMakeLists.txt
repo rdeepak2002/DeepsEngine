@@ -20,9 +20,9 @@ include_directories(${PROJECT_SOURCE_DIR}/src/engine/include)
 # source files for engine code
 FILE(GLOB ENGINE_SOURCE_FILES
         src/engine/renderer/glad.c
-        src/engine/external/imgui-1.88/*.cpp
-        src/engine/external/imgui-1.88/backends/imgui_impl_glfw.cpp
-        src/engine/external/imgui-1.88/backends/imgui_impl_opengl3.cpp
+        src/engine/external/imgui-docking/*.cpp
+        src/engine/external/imgui-docking/backends/imgui_impl_glfw.cpp
+        src/engine/external/imgui-docking/backends/imgui_impl_opengl3.cpp
         src/engine/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
