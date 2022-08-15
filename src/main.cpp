@@ -14,7 +14,7 @@ extern "C" {
 }
 #endif
 
-#if defined(STANDALONE)
+//#if defined(STANDALONE)
 void mainLoop() {
     Application::getInstance().update();
 }
@@ -32,6 +32,10 @@ void startUpdateLoop() {
 }
 
 int main() {
+#ifdef WITH_EDITOR
+    Application::getInstance().setProjectPath("/Users/deepakramalingam/Documents/Projects/Deeps_Engine_Game_Projects/example-project");
+#endif
+
     Application::getInstance().initialize();
     startUpdateLoop();
     Application::getInstance().close();
@@ -39,24 +43,24 @@ int main() {
     return 0;
 }
 
-#else
-
-#include <QApplication>
-#include "ProjectWindow.h"
-
-int main(int argc, char *argv[])
-{
-    // set gl version
-    QSurfaceFormat glFormat;
-    glFormat.setVersion(3, 3);
-    glFormat.setProfile(QSurfaceFormat::CoreProfile);
-    QSurfaceFormat::setDefaultFormat(glFormat);
-
-    // launch qt application
-    QApplication app(argc, argv);
-    ProjectWindow mainWindow;
-//    mainWindow.show();
-    return app.exec();
-}
-
-#endif
+//#else
+//
+//#include <QApplication>
+//#include "ProjectWindow.h"
+//
+//int main(int argc, char *argv[])
+//{
+//    // set gl version
+//    QSurfaceFormat glFormat;
+//    glFormat.setVersion(3, 3);
+//    glFormat.setProfile(QSurfaceFormat::CoreProfile);
+//    QSurfaceFormat::setDefaultFormat(glFormat);
+//
+//    // launch qt application
+//    QApplication app(argc, argv);
+//    ProjectWindow mainWindow;
+////    mainWindow.show();
+//    return app.exec();
+//}
+//
+//#endif

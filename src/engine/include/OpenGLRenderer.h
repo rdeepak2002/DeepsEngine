@@ -5,7 +5,6 @@
 #ifndef EXAMPLE_RENDERER_H
 #define EXAMPLE_RENDERER_H
 
-#if defined(STANDALONE)
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES
@@ -14,9 +13,6 @@
 #else
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#endif
-#else
-#include <QOpenGLExtraFunctions>
 #endif
 
 #include "Shader.h"
@@ -27,11 +23,7 @@
 #include "Animation.h"
 #include "Animator.h"
 
-#if defined(STANDALONE)
 class OpenGLRenderer: public Renderer {
-#else
-class OpenGLRenderer: public Renderer, QOpenGLExtraFunctions {
-#endif
 public:
     void initialize() override;
     void deinit() override;

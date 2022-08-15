@@ -69,13 +69,12 @@ void Application::initialize() {
     Logger::Debug("DeepsEngine Version " + static_cast<std::string>(XSTR(DEEPS_ENGINE_VERSION)));
     Logger::Debug("Initializing engine");
 
-    // start qt timer
-#if defined(WITH_EDITOR)
-    // start timer for qt to keep track of delta time
-    timer.start();
-    playing = false;
-#else
+#ifdef STANDALONE
     playing = true;
+#endif
+
+#ifdef WITH_EDITOR
+    playing = false;
 #endif
 
     // add component systems
@@ -241,9 +240,5 @@ void Application::setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursorMode) {
 }
 
 float Application::getCurrentTime() {
-#if defined(WITH_EDITOR)
-    return static_cast<float>(timer.elapsed()) / 1000.0f;
-#else
     return static_cast<float>(glfwGetTime());
-#endif
 }

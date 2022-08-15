@@ -23,7 +23,6 @@ bool GLFWWindow::initializeDearImGui()
     return true;
 }
 
-#if defined(STANDALONE)
 void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
@@ -52,7 +51,9 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS) {
         if (button == GLFW_MOUSE_BUTTON_LEFT) {
-//            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#ifdef STANDALONE
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+#endif
         }
         Input::SetButtonDown(button, true);
     }
@@ -66,10 +67,8 @@ void glfwSetWindowSizeCallback(GLFWwindow* window, int width, int height)
 {
 
 }
-#endif
 
 void GLFWWindow::createWindow() {
-#if defined(STANDALONE)
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -97,7 +96,6 @@ void GLFWWindow::createWindow() {
     glfwSetCursorPosCallback(window, cursorPosCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
 //    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-#endif
 
 //#if defined(STANDALONE) and !defined(EMSCRIPTEN)
 //    // glad: load all OpenGL function pointers
@@ -116,19 +114,15 @@ void GLFWWindow::createWindow() {
 }
 
 bool GLFWWindow::shouldCloseWindow() {
-#if defined(STANDALONE)
     if (window) {
         return glfwWindowShouldClose(window);
     } else {
         return true;
     }
-#else
-    return false;
-#endif
 }
 
 void GLFWWindow::closeWindow() {
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
+#if !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     glfwTerminate();
 #endif
     ImGui_ImplOpenGL3_Shutdown();
@@ -137,7 +131,7 @@ void GLFWWindow::closeWindow() {
 }
 
 void GLFWWindow::processInput() {
-#if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
+#if !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     if (glfwJoystickPresent(GLFW_JOYSTICK_1)) {
         int axisCount;
         const float *axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axisCount);
@@ -155,17 +149,13 @@ void GLFWWindow::processInput() {
 }
 
 void GLFWWindow::swapBuffers() {
-#if defined(STANDALONE)
     // glfw swap buffers
     glfwSwapBuffers(window);
-#endif
 }
 
 void GLFWWindow::pollEvents() {
-#if defined(STANDALONE)
     // glfw poll IO events (keys pressed/released, mouse moved etc.)
     glfwPollEvents();
-#endif
 }
 
 void GLFWWindow::setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursor) {

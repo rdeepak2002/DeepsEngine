@@ -5,7 +5,6 @@
 #ifndef DEEPSENGINE_GLFWWINDOW_H
 #define DEEPSENGINE_GLFWWINDOW_H
 
-#if defined(STANDALONE)
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES
@@ -14,11 +13,6 @@
 #else
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Window.h"
-#endif
-#else
-#include <QOpenGLExtraFunctions>
-#include <QElapsedTimer>
 #endif
 
 #include "Window.h"
@@ -34,9 +28,7 @@ public:
     void setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursor) override;
     bool initializeDearImGui();
 private:
-#if defined(STANDALONE)
     GLFWwindow* window;
-#endif
 };
 
 

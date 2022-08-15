@@ -5,7 +5,6 @@
 #ifndef MESH_H
 #define MESH_H
 
-#if defined(STANDALONE)
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES
@@ -14,9 +13,6 @@
 #else
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#endif
-#else
-#include <QOpenGLExtraFunctions>
 #endif
 
 

@@ -5,7 +5,6 @@
 #ifndef OPENGLCUBE_SHADER_H
 #define OPENGLCUBE_SHADER_H
 
-#if defined(STANDALONE)
 #if defined(EMSCRIPTEN)
 #include <emscripten.h>
 #define GL_GLEXT_PROTOTYPES
@@ -16,9 +15,6 @@
 #include <glad/glad.h>
 
 #endif
-#elif defined(WITH_EDITOR)
-#include <QOpenGLExtraFunctions>
-#endif
 
 #include <fstream>
 #include <glm/glm.hpp>
@@ -27,22 +23,13 @@
 #include <string>
 #include "Logger.h"
 
-#if defined(STANDALONE)
-
 class Shader {
-#else
-    class Shader: protected QOpenGLExtraFunctions {
-#endif
 public:
     unsigned int ID;
 
     // constructor generates the shader on the fly
     // ------------------------------------------------------------------------
     Shader(const char *vertexPath, const char *fragmentPath) {
-#if defined(WITH_EDITOR)
-        initializeOpenGLFunctions();
-#endif
-
         // TODO: return the shader ID and once that is retrieved in renderer, do not
         // create more shaders
         Logger::Debug("vertex shader path " + std::string(vertexPath));

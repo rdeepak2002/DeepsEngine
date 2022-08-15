@@ -35,52 +35,61 @@ FILE(GLOB ENGINE_SOURCE_FILES
 message(STATUS "Engine source files: ${ENGINE_SOURCE_FILES}")
 
 if(WITH_EDITOR)
-    if (APPLE)
-        FIND_LIBRARY(CARBON_LIBRARY Carbon)
-        set(EXTRA_LIBS ${CARBON_LIBRARY})
+#    if (APPLE)
+#        FIND_LIBRARY(CARBON_LIBRARY Carbon)
+#        set(EXTRA_LIBS ${CARBON_LIBRARY})
+#    endif()
+#
+#    find_package(Qt5 COMPONENTS Widgets Concurrent OpenGL CONFIG REQUIRED)
+#
+#    include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
+#
+#    include(QtCommon)
+#    fix_project_version()
+#
+#    FILE(GLOB EDITOR_SOURCE_FILES
+#            src/editor/*.cpp
+#            src/editor/widget/*.cpp
+#            src/editor/widget/common/*.cpp
+#            src/editor/widget/component/*.cpp
+#            src/editor/include/*.h)
+#
+#    if(APPLE)
+#        FILE(GLOB MACOS_SOURCE_FILES
+#                src/editor/changetitlebarcolor.mm)
+#    endif()
+#
+#    add_project_meta(META_FILES_TO_INCLUDE)
+#
+#    set(RESOURCE_FILES src/editor/example.qrc)
+#
+#    source_group("UI Files" FILES ${UI_FILES})
+#
+#    add_executable(${PROJECT_NAME} ${OS_BUNDLE} src/main.cpp ${MACOS_SOURCE_FILES} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
+#
+#    target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
+#
+#    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL yaml-cpp)
+#
+#    if (APPLE)
+#        message(STATUS CARBON_LIBRARY=${CARBON_LIBRARY})
+#        target_link_libraries(${PROJECT_NAME} ${CARBON_LIBRARY})
+#    endif()
+#
+#    add_custom_command(
+#            TARGET ${PROJECT_NAME} PRE_BUILD
+#            COMMAND ${CMAKE_COMMAND} -E copy_directory
+#            ${PROJECT_SOURCE_DIR}/res
+#            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.app/Contents/MacOS/assets/res)
+    # create executable application
+    add_executable(${PROJECT_NAME} src/main.cpp ${ENGINE_SOURCE_FILES})
+
+    if(NOT EMSCRIPTEN)
+        # standalone build
+        target_link_libraries(${PROJECT_NAME} PUBLIC glfw)
     endif()
 
-    find_package(Qt5 COMPONENTS Widgets Concurrent OpenGL CONFIG REQUIRED)
-
-    include_directories(${PROJECT_SOURCE_DIR}/src/editor/include)
-
-    include(QtCommon)
-    fix_project_version()
-
-    FILE(GLOB EDITOR_SOURCE_FILES
-            src/editor/*.cpp
-            src/editor/widget/*.cpp
-            src/editor/widget/common/*.cpp
-            src/editor/widget/component/*.cpp
-            src/editor/include/*.h)
-
-    if(APPLE)
-        FILE(GLOB MACOS_SOURCE_FILES
-                src/editor/changetitlebarcolor.mm)
-    endif()
-
-    add_project_meta(META_FILES_TO_INCLUDE)
-
-    set(RESOURCE_FILES src/editor/example.qrc)
-
-    source_group("UI Files" FILES ${UI_FILES})
-
-    add_executable(${PROJECT_NAME} ${OS_BUNDLE} src/main.cpp ${MACOS_SOURCE_FILES} ${ENGINE_SOURCE_FILES} ${EDITOR_SOURCE_FILES} ${META_FILES_TO_INCLUDE} ${RESOURCE_FILES})
-
-    target_precompile_headers(${PROJECT_NAME} INTERFACE QtWidgets.h)
-
-    target_link_libraries(${PROJECT_NAME} Qt5::Widgets Qt5::OpenGL yaml-cpp)
-
-    if (APPLE)
-        message(STATUS CARBON_LIBRARY=${CARBON_LIBRARY})
-        target_link_libraries(${PROJECT_NAME} ${CARBON_LIBRARY})
-    endif()
-
-    add_custom_command(
-            TARGET ${PROJECT_NAME} PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${PROJECT_SOURCE_DIR}/res
-            ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.app/Contents/MacOS/assets/res)
+    DEEPS_ENGINE_LINK_LIBRARIES_TO_TARGET()
 else()
     if (AS_LIBRARY)
         # create shared library
