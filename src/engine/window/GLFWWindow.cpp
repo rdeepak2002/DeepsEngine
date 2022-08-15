@@ -7,6 +7,25 @@
 #include "Input.h"
 #include "Application.h"
 
+// Dear ImGui
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_glfw.h>
+
+bool GLFWWindow::initializeDearImGui()
+{
+    // Setup Dear ImGui context
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO &io = ImGui::GetIO();
+    // Setup Platform/Renderer bindings
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+    return true;
+}
+
 #if defined(STANDALONE)
 void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
@@ -71,6 +90,8 @@ void GLFWWindow::createWindow() {
     if (window == nullptr) {
         Logger::Debug("Failed to create GLFW window");
         glfwTerminate();
+    } else {
+        Logger::Debug("Created GLFW window");
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallback);
@@ -80,6 +101,21 @@ void GLFWWindow::createWindow() {
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif
+
+#if defined(STANDALONE) and !defined(EMSCRIPTEN)
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        Logger::Debug("Failed to initialize GLAD");
+    } else {
+        Logger::Debug("Initialized GLAD");
+    }
+#elif defined(WITH_EDITOR)
+    // have qt initialize opengl functions
+    initializeOpenGLFunctions();
+#endif
+
+    initializeDearImGui();
 }
 
 bool GLFWWindow::shouldCloseWindow() {
@@ -98,6 +134,9 @@ void GLFWWindow::closeWindow() {
 #if defined(STANDALONE) and !(defined(EMSCRIPTEN) or (DEVELOP_WEB))
     glfwTerminate();
 #endif
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
 }
 
 void GLFWWindow::processInput() {

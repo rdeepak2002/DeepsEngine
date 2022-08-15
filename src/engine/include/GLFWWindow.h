@@ -31,6 +31,7 @@ public:
     void processInput() override;
     void swapBuffers() override;
     void pollEvents() override;
+    bool initializeDearImGui();
 private:
 #if defined(STANDALONE)
     GLFWwindow* window;

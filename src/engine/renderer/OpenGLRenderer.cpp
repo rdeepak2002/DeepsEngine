@@ -18,6 +18,11 @@
 #include "glm/gtx/compatibility.hpp"
 #include "PhysicsComponentSystem.h"
 
+// Dear ImGui
+#include <imgui.h>
+#include <imgui_impl_opengl3.h>
+#include <imgui_impl_glfw.h>
+
 float skyboxVertices[] = {
         // positions
         -1.0f,  1.0f, -1.0f,
@@ -66,16 +71,18 @@ float skyboxVertices[] = {
 void OpenGLRenderer::initialize() {
     Logger::Debug("Initializing renderer");
 
-#if defined(STANDALONE) and !defined(EMSCRIPTEN)
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        Logger::Debug("Failed to initialize GLAD");
-    }
-#elif defined(WITH_EDITOR)
-    // have qt initialize opengl functions
-    initializeOpenGLFunctions();
-#endif
+//#if defined(STANDALONE) and !defined(EMSCRIPTEN)
+//    // glad: load all OpenGL function pointers
+//    // ---------------------------------------
+//    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+//        Logger::Debug("Failed to initialize GLAD");
+//    } else {
+//        Logger::Debug("Initialized GLAD");
+//    }
+//#elif defined(WITH_EDITOR)
+//    // have qt initialize opengl functions
+//    initializeOpenGLFunctions();
+//#endif
 
     // configure global opengl state
     // -----------------------------
@@ -146,6 +153,11 @@ void OpenGLRenderer::update() {
     // clear screen
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // feed inputs to dear imgui, start new frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
 
     // get all cameras in scene
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
@@ -251,6 +263,15 @@ void OpenGLRenderer::update() {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // TODO: write text there is no camera
     }
+
+    // render your GUI
+    ImGui::Begin("Demo window");
+    ImGui::Button("Hello!");
+    ImGui::End();
+
+    // Render dear imgui into screen
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void OpenGLRenderer::applyLighting(Shader* shader) {

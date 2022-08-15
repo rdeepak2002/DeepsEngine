@@ -25,8 +25,10 @@
       <file path="$PROJECT_DIR$/src/engine/external/bullet-2.82" />
       <file path="$PROJECT_DIR$/src/engine/external/bullet3" />
       <file path="$PROJECT_DIR$/src/engine/external/bullet3-3.22b" />
+      <file path="$PROJECT_DIR$/src/engine/external/imgui-1.88" />
       <file path="$PROJECT_DIR$/src/engine/external/lua-5.4.4" />
       <file path="$PROJECT_DIR$/src/engine/include/AL" />
+      <file path="$PROJECT_DIR$/src/engine/include/DearImGui" />
       <file path="$PROJECT_DIR$/src/engine/include/GLFW" />
       <file path="$PROJECT_DIR$/src/engine/include/KHR" />
       <file path="$PROJECT_DIR$/src/engine/include/assimp" />

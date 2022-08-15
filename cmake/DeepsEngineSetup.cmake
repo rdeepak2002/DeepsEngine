@@ -24,6 +24,9 @@ macro(DEEPS_ENGINE_DEFINITIONS)
 endmacro()
 
 macro(DEEPS_ENGINE_FIND_THIRD_PARTY_LIBRARIES)
+    include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/imgui-1.88)
+    include_directories(${PROJECT_SOURCE_DIR}/src/engine/external/imgui-1.88/backends)
+
     # find packages
     if (NOT EMSCRIPTEN)
         find_package(OpenGL REQUIRED)
