@@ -343,7 +343,7 @@ void OpenGLRenderer::update() {
 #ifdef WITH_EDITOR
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
     ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
-//    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
     // render your GUI
     if(ImGui::Begin("DeepsEngine", NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize))
     {
@@ -362,7 +362,6 @@ void OpenGLRenderer::update() {
                     Application::getInstance().playing = true;
                 }
             }
-
             // Get the size of the child (i.e. the whole draw size of the windows).
 //            ImVec2 wsize = ImGui::GetWindowSize();
             ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
@@ -379,7 +378,7 @@ void OpenGLRenderer::update() {
 
         ImGui::End();
     }
-//    ImGui::PopStyleVar(2);
+    ImGui::PopStyleVar(1);
 
     // Render dear imgui into screen
     ImGui::Render();
