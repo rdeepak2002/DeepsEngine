@@ -341,21 +341,26 @@ void OpenGLRenderer::update() {
 #endif
 
 #ifdef WITH_EDITOR
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+//    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
     // render your GUI
-    if(ImGui::Begin("DeepsEngine", NULL, 0))
+    if(ImGui::Begin("DeepsEngine", NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize))
     {
         // Using a Child allow to fill all the space of the window.
         // It also allows customization
         if(ImGui::BeginChild("GameRender"))
         {
-            if (ImGui::Button("Play")) { // Buttons return true when clicked (most widgets return true when edited/activated)
-                Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_DISABLED);
-                Application::getInstance().playing = true;
-            }
-
-            if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
-                Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_NORMAL);
-                Application::getInstance().playing = false;
+            if (Application::getInstance().playing) {
+                if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
+                    Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_NORMAL);
+                    Application::getInstance().playing = false;
+                }
+            } else {
+                if (ImGui::Button("Play")) { // Buttons return true when clicked (most widgets return true when edited/activated)
+                    Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_DISABLED);
+                    Application::getInstance().playing = true;
+                }
             }
 
             // Get the size of the child (i.e. the whole draw size of the windows).
@@ -374,6 +379,7 @@ void OpenGLRenderer::update() {
 
         ImGui::End();
     }
+//    ImGui::PopStyleVar(2);
 
     // Render dear imgui into screen
     ImGui::Render();
