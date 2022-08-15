@@ -20,9 +20,6 @@ bool GLFWWindow::initializeDearImGui()
     ImGuiIO &io = ImGui::GetIO();
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
-    ImGui_ImplOpenGL3_Init("#version 330");
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
     return true;
 }
 
@@ -55,7 +52,7 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS) {
         if (button == GLFW_MOUSE_BUTTON_LEFT) {
-            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
         Input::SetButtonDown(button, true);
     }
@@ -99,21 +96,21 @@ void GLFWWindow::createWindow() {
     glfwSetMouseButtonCallback(window, mouseButtonCallback);
     glfwSetCursorPosCallback(window, cursorPosCallback);
     glfwSetWindowSizeCallback(window, glfwSetWindowSizeCallback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+//    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 #endif
 
-#if defined(STANDALONE) and !defined(EMSCRIPTEN)
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        Logger::Debug("Failed to initialize GLAD");
-    } else {
-        Logger::Debug("Initialized GLAD");
-    }
-#elif defined(WITH_EDITOR)
-    // have qt initialize opengl functions
-    initializeOpenGLFunctions();
-#endif
+//#if defined(STANDALONE) and !defined(EMSCRIPTEN)
+//    // glad: load all OpenGL function pointers
+//    // ---------------------------------------
+//    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+//        Logger::Debug("Failed to initialize GLAD");
+//    } else {
+//        Logger::Debug("Initialized GLAD");
+//    }
+//#elif defined(WITH_EDITOR)
+//    // have qt initialize opengl functions
+//    initializeOpenGLFunctions();
+//#endif
 
     initializeDearImGui();
 }
@@ -169,4 +166,8 @@ void GLFWWindow::pollEvents() {
     // glfw poll IO events (keys pressed/released, mouse moved etc.)
     glfwPollEvents();
 #endif
+}
+
+void GLFWWindow::setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursor) {
+    glfwSetInputMode(window, GLFW_CURSOR, cursor);
 }

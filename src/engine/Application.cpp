@@ -236,6 +236,10 @@ std::pair<unsigned int, unsigned int> Application::getWindowDimensions() {
     return {renderer->SCR_WIDTH, renderer->SCR_HEIGHT};
 }
 
+void Application::setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursorMode) {
+    window->setCursorMode(cursorMode);
+}
+
 float Application::getCurrentTime() {
 #if defined(WITH_EDITOR)
     return static_cast<float>(timer.elapsed()) / 1000.0f;

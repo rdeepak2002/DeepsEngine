@@ -82,18 +82,22 @@ float quadVertices[] = { // vertex attributes for a quad that fills the entire s
 void OpenGLRenderer::initialize() {
     Logger::Debug("Initializing renderer");
 
-//#if defined(STANDALONE) and !defined(EMSCRIPTEN)
-//    // glad: load all OpenGL function pointers
-//    // ---------------------------------------
-//    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-//        Logger::Debug("Failed to initialize GLAD");
-//    } else {
-//        Logger::Debug("Initialized GLAD");
-//    }
-//#elif defined(WITH_EDITOR)
-//    // have qt initialize opengl functions
-//    initializeOpenGLFunctions();
-//#endif
+    ImGui_ImplOpenGL3_Init("#version 330");
+    // Setup Dear ImGui style
+    ImGui::StyleColorsDark();
+
+#if defined(STANDALONE) and !defined(EMSCRIPTEN)
+    // glad: load all OpenGL function pointers
+    // ---------------------------------------
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        Logger::Debug("Failed to initialize GLAD");
+    } else {
+        Logger::Debug("Initialized GLAD");
+    }
+#elif defined(WITH_EDITOR)
+    // have qt initialize opengl functions
+    initializeOpenGLFunctions();
+#endif
 
     // screen quad VAO
     glGenVertexArrays(1, &quadVAO);
@@ -344,12 +348,21 @@ void OpenGLRenderer::update() {
         // It also allows customization
         if(ImGui::BeginChild("GameRender"))
         {
+            if (ImGui::Button("Play")) { // Buttons return true when clicked (most widgets return true when edited/activated)
+                Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_DISABLED);
+            }
+
             // Get the size of the child (i.e. the whole draw size of the windows).
 //            ImVec2 wsize = ImGui::GetWindowSize();
-            ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 4, float(SCR_HEIGHT) / 4);
+            ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
             // Because I use the texture from OpenGL, I need to invert the V from the UV.
 //            ImGui::Image((ImTextureID)framebuffer, wsize, ImVec2(0, 1), ImVec2(1, 0));
             ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), wsize, ImVec2(0, 1), ImVec2(1, 0));
+
+            if (ImGui::IsItemHovered() || (!ImGui::IsAnyItemActive() && !ImGui::IsMouseClicked(0))) {
+                Logger::Debug("Test");
+            }
+
             ImGui::EndChild();
         }
 

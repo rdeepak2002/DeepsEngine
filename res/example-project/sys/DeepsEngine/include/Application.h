@@ -61,6 +61,7 @@ private:
 public:
     void saveProject();
     void loadProject();
+    void setCursorMode(DeepsEngine::Cursor::CURSOR_TYPE cursorMode);
     Application(Application const&)  = delete;
     void operator=(Application const&)  = delete;
 };

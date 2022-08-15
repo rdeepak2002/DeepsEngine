@@ -40,13 +40,18 @@ public:
     unsigned int loadTexture(char const * path) override;
     void applyLighting(Shader* shader);
     unsigned int loadCubemap(vector<std::string> faces);
+    void updateFrameBuffer();
 private:
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;
     Shader* lightCubeShader;
     Shader* skyboxShader;
     Shader* physicsDebugShader;
-    unsigned int skyboxVAO, skyboxVBO, cubemapTexture;
+    Shader* screenShader;
+    unsigned int skyboxVAO, skyboxVBO, cubemapTexture, framebuffer, textureColorbuffer;
+    unsigned int quadVAO, quadVBO;
+    unsigned int rbo;
+    bool needToUpdateFrameBuffer;
 };
 
 #endif //EXAMPLE_RENDERER_H
