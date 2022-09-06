@@ -22,6 +22,7 @@
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
 #include <imgui_impl_glfw.h>
+#include <imgui_internal.h>
 
 float skyboxVertices[] = {
         // positions
@@ -217,11 +218,6 @@ void OpenGLRenderer::update() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // feed inputs to dear imgui, start new frame
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
     // get all cameras in scene
     std::vector<DeepsEngine::Entity> cameraEntities = Application::getInstance().scene.GetCameraEntities();
 
@@ -341,44 +337,102 @@ void OpenGLRenderer::update() {
 #endif
 
 #ifdef WITH_EDITOR
-    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    // feed inputs to dear imgui, start new frame
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+//    bool show_demo_window = true;
+//    ImGui::ShowDemoWindow(&show_demo_window);
+
+//    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
 //    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
-//    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-    // render your GUI
-    if(ImGui::Begin("DeepsEngine", NULL, ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize))
-    {
-        if(ImGui::Begin("Scene")) {
-            if(ImGui::BeginChild("Test")) {
-                ImGui::Text("txt");
-                ImGui::EndChild();
-            }
-            ImGui::End();
-        }
 
-        // Using a Child allow to fill all the space of the window.
-        // It also allows customization
-        if(ImGui::Begin("Renderer"))
-        {
-            if (Application::getInstance().playing) {
-                if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
-                    Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_NORMAL);
-                    Application::getInstance().playing = false;
-                }
-            } else {
-                if (ImGui::Button("Play")) { // Buttons return true when clicked (most widgets return true when edited/activated)
-                    Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_DISABLED);
-                    Application::getInstance().playing = true;
-                }
-            }
-            // Get the size of the child (i.e. the whole draw size of the windows).
-            ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
-            ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), wsize, ImVec2(0, 1), ImVec2(1, 0));
-            ImGui::End();
-        }
+    ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None;
+    ImGuiID dockspaceID = ImGui::GetID("DeepsEngine");
 
+    if (!ImGui::DockBuilderGetNode(dockspaceID)) {
+        ImGui::DockBuilderRemoveNode(dockspaceID);
+        ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_None);
+//        ImGui::DockBuilderSetNodePos(dockspaceID, ImVec2(0.0f, 0.0f));
+//        ImGui::DockBuilderSetNodeSize(dockspaceID, ImGui::GetIO().DisplaySize);
+
+        ImGuiID dock_main_id = dockspaceID;
+        ImGuiID dock_up_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Up, 0.05f, nullptr, &dock_main_id);
+        ImGuiID dock_right_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
+        ImGuiID dock_left_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.2f, nullptr, &dock_main_id);
+        ImGuiID dock_down_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.2f, nullptr, &dock_main_id);
+        ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.6f, nullptr, &dock_down_id);
+
+        ImGui::DockBuilderDockWindow("Inspector", dock_right_id);
+        ImGui::DockBuilderDockWindow("Scene", dock_left_id);
+        ImGui::DockBuilderDockWindow("Console", dock_down_id);
+        ImGui::DockBuilderDockWindow("Renderer", dock_main_id);
+
+        // Disable tab bar for custom toolbar
+        ImGuiDockNode* node = ImGui::DockBuilderGetNode(dock_up_id);
+        node->LocalFlags |= ImGuiDockNodeFlags_NoTabBar;
+
+        ImGui::DockBuilderFinish(dock_main_id);
+    }
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+    ImGuiWindowFlags host_window_flags = 0;
+    host_window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoDocking;
+    host_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+    ImGui::Begin("DeepsEngine", nullptr, host_window_flags);
+    ImGui::PopStyleVar(3);
+    ImGui::DockSpace(dockspaceID, ImGui::GetIO().DisplaySize, dockspaceFlags);
+    ImGui::End();
+
+    ImGuiWindowFlags scene_window_flags = 0;
+    scene_window_flags |= ImGuiWindowFlags_NoCollapse;
+    if(ImGui::Begin("Scene", nullptr, scene_window_flags)) {
+        if(ImGui::BeginChild("Test")) {
+            ImGui::Text("txt");
+            ImGui::EndChild();
+        }
         ImGui::End();
     }
-//    ImGui::PopStyleVar(1);
+
+    if(ImGui::Begin("Renderer"))
+    {
+        if (Application::getInstance().playing) {
+            if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
+                Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_NORMAL);
+                Application::getInstance().playing = false;
+            }
+        } else {
+            if (ImGui::Button("Play")) { // Buttons return true when clicked (most widgets return true when edited/activated)
+                Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_DISABLED);
+                Application::getInstance().playing = true;
+            }
+        }
+        // Get the size of the child (i.e. the whole draw size of the windows).
+        ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
+        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), wsize, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::End();
+    }
+
+    if(ImGui::Begin("Inspector")) {
+        if(ImGui::BeginChild("Test")) {
+            ImGui::Text("txt");
+            ImGui::EndChild();
+        }
+        ImGui::End();
+    }
+
+    if(ImGui::Begin("Console")) {
+        if(ImGui::BeginChild("Test")) {
+            ImGui::Text("txt");
+            ImGui::EndChild();
+        }
+        ImGui::End();
+    }
 
     // Render dear imgui into screen
     ImGui::Render();

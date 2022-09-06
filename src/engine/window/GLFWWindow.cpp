@@ -19,6 +19,7 @@ bool GLFWWindow::initializeDearImGui()
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.IniFilename = nullptr;
 //    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
