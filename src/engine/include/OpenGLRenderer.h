@@ -32,7 +32,7 @@ public:
     unsigned int loadTexture(char const * path) override;
     void applyLighting(Shader* shader);
     unsigned int loadCubemap(vector<std::string> faces);
-    void updateFrameBuffer();
+    void updateFrameBuffer() override;
 private:
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;

@@ -32,6 +32,7 @@ void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
     Application::getInstance().resizeWindow(width, height, true);
+    Application::getInstance().renderer->updateFrameBuffer();
 }
 
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)

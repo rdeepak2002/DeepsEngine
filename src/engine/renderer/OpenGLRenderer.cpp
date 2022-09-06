@@ -329,6 +329,7 @@ void OpenGLRenderer::update() {
     // clear all relevant buffers
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // set clear color to black (not really necessary actually, since we won't be able to see behind the quad anyways)
     glClear(GL_COLOR_BUFFER_BIT);
+
 #ifdef STANDALONE
     screenShader->use();
     glBindVertexArray(quadVAO);
@@ -341,6 +342,14 @@ void OpenGLRenderer::update() {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
+
+    ///
+
+
+
+    ///
+
+
 
 //    bool show_demo_window = true;
 //    ImGui::ShowDemoWindow(&show_demo_window);
@@ -420,9 +429,19 @@ void OpenGLRenderer::update() {
     renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
     if(ImGui::Begin("Renderer", nullptr, renderer_window_flags))
     {
-        SCR_WIDTH = floor(ImGui::GetWindowContentRegionWidth());
-        SCR_HEIGHT = floor(ImGui::GetWindowContentRegionMax().y - ImGui::GetWindowContentRegionMin().y);
-        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), ImVec2(float(SCR_WIDTH), float(SCR_HEIGHT)), ImVec2(0, 1), ImVec2(1, 0));
+        ImVec2 vMin = ImGui::GetWindowContentRegionMin();
+        ImVec2 vMax = ImGui::GetWindowContentRegionMax();
+
+        vMin.x += ImGui::GetWindowPos().x;
+        vMin.y += ImGui::GetWindowPos().y;
+        vMax.x += ImGui::GetWindowPos().x;
+        vMax.y += ImGui::GetWindowPos().y;
+
+        float width = vMax.x - vMin.x;
+        float height = vMax.y - vMin.y;
+        SCR_WIDTH = floor(width);
+        SCR_HEIGHT = floor(height);
+        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), ImVec2(width, height), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
     }
 

@@ -25,6 +25,9 @@ public:
     virtual unsigned int loadTexture(char const * path) {
         return 0;
     }
+    virtual void updateFrameBuffer() {
+        
+    }
 };
 
 #endif //DEEPSENGINE_RENDERER_H
