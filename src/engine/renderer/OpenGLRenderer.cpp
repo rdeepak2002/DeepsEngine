@@ -358,16 +358,16 @@ void OpenGLRenderer::update() {
 //        ImGui::DockBuilderSetNodeSize(dockspaceID, ImGui::GetIO().DisplaySize);
 
         ImGuiID dock_main_id = dockspaceID;
-        ImGuiID dock_up_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Up, 0.05f, nullptr, &dock_main_id);
-        ImGuiID dock_right_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
         ImGuiID dock_left_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.2f, nullptr, &dock_main_id);
+        ImGuiID dock_right_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
+        ImGuiID dock_up_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Up, 0.05f, nullptr, &dock_main_id);
         ImGuiID dock_down_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.2f, nullptr, &dock_main_id);
-        ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.6f, nullptr, &dock_down_id);
 
-        ImGui::DockBuilderDockWindow("Inspector", dock_right_id);
-        ImGui::DockBuilderDockWindow("Scene", dock_left_id);
-        ImGui::DockBuilderDockWindow("Console", dock_down_id);
         ImGui::DockBuilderDockWindow("Renderer", dock_main_id);
+        ImGui::DockBuilderDockWindow("Scene", dock_left_id);
+        ImGui::DockBuilderDockWindow("Inspector", dock_right_id);
+        ImGui::DockBuilderDockWindow("Actions", dock_up_id);
+        ImGui::DockBuilderDockWindow("Console", dock_down_id);
 
         // Disable tab bar for custom toolbar
         ImGuiDockNode* node = ImGui::DockBuilderGetNode(dock_up_id);
@@ -399,8 +399,9 @@ void OpenGLRenderer::update() {
         ImGui::End();
     }
 
-    if(ImGui::Begin("Renderer"))
-    {
+    ImGuiWindowFlags actions_window_flags = 0;
+    actions_window_flags |= ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize;
+    if(ImGui::Begin("Actions", nullptr, actions_window_flags)) {
         if (Application::getInstance().playing) {
             if (ImGui::Button("Stop")) { // Buttons return true when clicked (most widgets return true when edited/activated)
                 Application::getInstance().setCursorMode(DeepsEngine::Cursor::CURSOR_NORMAL);
@@ -412,9 +413,16 @@ void OpenGLRenderer::update() {
                 Application::getInstance().playing = true;
             }
         }
-        // Get the size of the child (i.e. the whole draw size of the windows).
-        ImVec2 wsize = ImVec2(float(SCR_WIDTH) / 2, float(SCR_HEIGHT) / 2);
-        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), wsize, ImVec2(0, 1), ImVec2(1, 0));
+        ImGui::End();
+    }
+
+    ImGuiWindowFlags renderer_window_flags = 0;
+    renderer_window_flags |= ImGuiWindowFlags_NoScrollbar;
+    if(ImGui::Begin("Renderer", nullptr, renderer_window_flags))
+    {
+        SCR_WIDTH = floor(ImGui::GetWindowContentRegionWidth());
+        SCR_HEIGHT = floor(ImGui::GetWindowContentRegionMax().y - ImGui::GetWindowContentRegionMin().y);
+        ImGui::Image(reinterpret_cast<ImTextureID>(textureColorbuffer), ImVec2(float(SCR_WIDTH), float(SCR_HEIGHT)), ImVec2(0, 1), ImVec2(1, 0));
         ImGui::End();
     }
 
