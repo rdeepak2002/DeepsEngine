@@ -23,6 +23,7 @@ void PhysicsComponentSystem::init() {
     // The world.
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher,broadphase,solver, collisionConfiguration);
     dynamicsWorld->setGravity(btVector3(0, -18.0f, 0));
+//    mydebugdrawer.setDebugMode(btIDebugDraw::DBG_MAX_DEBUG_DRAW_MODE);
     dynamicsWorld->setDebugDrawer(&mydebugdrawer);
 }
 
