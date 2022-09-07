@@ -20,6 +20,20 @@ bool GLFWWindow::initializeDearImGui()
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.IniFilename = nullptr;
+    io.Fonts->AddFontDefault();
+    // TODO: fix path (notice we go one out)
+    // TODO: fix path (notice we go one out)
+    // TODO: fix path (notice we go one out)
+    std::string fontPath = std::filesystem::current_path().append("..").append("res").append("font").append("SF-Pro.ttf");
+    ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 16.0f);
+    Application::getInstance().renderer->setDefaultEditorFont(font);
+
+//    std::string fontPath = std::filesystem::current_path().append("assets").append("res").append("font").append("SF-Pro.ttf");
+//    ImFont* font12 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 12);
+//    ImFont* font10 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 10);
+//    ImFont* font14 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 14);
+//    ImFont* font18 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18);
+
 //    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -30,8 +44,12 @@ void frameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
+
+    // TODO: fix this causing janky issues when resizing entire window
+#ifndef WITH_EDITOR
     glViewport(0, 0, width, height);
     Application::getInstance().resizeWindow(width, height, true);
+#endif
     Application::getInstance().renderer->updateFrameBuffer();
 }
 

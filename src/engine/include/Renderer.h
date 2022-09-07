@@ -4,6 +4,7 @@
 
 #ifndef DEEPSENGINE_RENDERER_H
 #define DEEPSENGINE_RENDERER_H
+#include <imgui.h>
 
 class Renderer {
 public:
@@ -26,7 +27,10 @@ public:
         return 0;
     }
     virtual void updateFrameBuffer() {
-        
+
+    }
+    virtual void setDefaultEditorFont(ImFont* font) {
+
     }
 };
 
