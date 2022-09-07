@@ -21,6 +21,7 @@ bool GLFWWindow::initializeDearImGui()
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.IniFilename = nullptr;
     io.Fonts->AddFontDefault();
+    ImGui::StyleColorsDark();
     // TODO: fix path (notice we go one out)
     // TODO: fix path (notice we go one out)
     // TODO: fix path (notice we go one out)
