@@ -5,6 +5,10 @@
 #include "Editor.h"
 #include "Application.h"
 
+void Editor::init() {
+    ImGui::StyleColorsDark();
+}
+
 void Editor::draw(unsigned int textureColorbuffer) {
     ImGui::NewFrame();
 

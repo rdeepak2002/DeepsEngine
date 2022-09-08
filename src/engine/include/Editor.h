@@ -17,6 +17,7 @@ public:
         static Editor instance;
         return instance;
     }
+    void init();
     void draw(unsigned int textureColorbuffer);
     void setDefaultEditorFont(ImFont* font);
 private:

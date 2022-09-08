@@ -20,8 +20,6 @@
 
 #include <imgui.h>
 #include <imgui_impl_opengl3.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_internal.h>
 #include "Editor.h"
 
 float skyboxVertices[] = {
@@ -84,7 +82,7 @@ void OpenGLRenderer::initialize() {
     Logger::Debug("Initializing renderer");
 
     ImGui_ImplOpenGL3_Init("#version 330");
-    ImGui::StyleColorsDark();
+    Editor::getInstance().init();
 
 #if !defined(EMSCRIPTEN)
     // glad: load all OpenGL function pointers
