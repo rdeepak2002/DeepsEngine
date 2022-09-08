@@ -6,6 +6,7 @@
 #include "Logger.h"
 #include "Input.h"
 #include "Application.h"
+#include "Editor.h"
 
 // Dear ImGui
 #include <imgui.h>
@@ -27,7 +28,7 @@ bool GLFWWindow::initializeDearImGui()
     // TODO: fix path (notice we go one out)
     std::string fontPath = std::filesystem::current_path().append("..").append("res").append("font").append("OpenSans-Regular.ttf");
     ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18.0f);
-    Application::getInstance().renderer->setDefaultEditorFont(font);
+    Editor::getInstance().setDefaultEditorFont(font);
 
 //    std::string fontPath = std::filesystem::current_path().append("assets").append("res").append("font").append("SF-Pro.ttf");
 //    ImFont* font12 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 12);

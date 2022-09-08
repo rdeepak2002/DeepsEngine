@@ -33,7 +33,6 @@ public:
     void applyLighting(Shader* shader);
     unsigned int loadCubemap(vector<std::string> faces);
     void updateFrameBuffer() override;
-    void setDefaultEditorFont(ImFont* font) override;
 private:
     Shader* simpleMeshShader;
     Shader* animatedMeshShader;
@@ -44,8 +43,6 @@ private:
     unsigned int skyboxVAO, skyboxVBO, cubemapTexture, framebuffer, textureColorbuffer;
     unsigned int quadVAO, quadVBO;
     unsigned int rbo;
-    bool needToUpdateFrameBuffer;
-    ImFont* defaultFont = nullptr;
 };
 
 #endif //EXAMPLE_RENDERER_H

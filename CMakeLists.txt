@@ -24,6 +24,7 @@ FILE(GLOB ENGINE_SOURCE_FILES
         src/engine/external/imgui-docking/backends/imgui_impl_glfw.cpp
         src/engine/external/imgui-docking/backends/imgui_impl_opengl3.cpp
         src/engine/*.cpp
+        src/engine/editor/*.cpp
         src/engine/component/*.cpp
         src/engine/renderer/*.cpp
         src/engine/renderer/primitive/*.cpp
