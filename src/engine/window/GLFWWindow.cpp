@@ -20,23 +20,9 @@ bool GLFWWindow::initializeDearImGui()
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    // io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.IniFilename = nullptr;
     io.Fonts->AddFontDefault();
-    ImGui::StyleColorsDark();
-    // TODO: fix path (notice we go one out)
-    // TODO: fix path (notice we go one out)
-    // TODO: fix path (notice we go one out)
-    std::string fontPath = std::filesystem::current_path().append("..").append("res").append("font").append("OpenSans-Regular.ttf");
-    ImFont* font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18.0f);
-    Editor::getInstance().setDefaultEditorFont(font);
-
-//    std::string fontPath = std::filesystem::current_path().append("assets").append("res").append("font").append("SF-Pro.ttf");
-//    ImFont* font12 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 12);
-//    ImFont* font10 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 10);
-//    ImFont* font14 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 14);
-//    ImFont* font18 = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18);
-
-//    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     return true;

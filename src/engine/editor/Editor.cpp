@@ -7,13 +7,13 @@
 
 void Editor::init() {
     ImGui::StyleColorsDark();
+    ImGuiIO &io = ImGui::GetIO();
+    // TODO: fix path so it can work on any system (notice we go one out)
+    std::string fontPath = std::filesystem::current_path().append("..").append("res").append("font").append("OpenSans-Regular.ttf");
+    this->font = io.Fonts->AddFontFromFileTTF(fontPath.c_str(), 18.0f);
 }
 
-void Editor::draw(unsigned int textureColorbuffer) {
-    ImGui::NewFrame();
-
-    ///
-
+void Editor::style() {
     auto& colors = ImGui::GetStyle().Colors;
     colors[ImGuiCol_WindowBg] = ImVec4{ 0.1f, 0.105f, 0.11f, 1.0f };
 
@@ -43,11 +43,15 @@ void Editor::draw(unsigned int textureColorbuffer) {
     colors[ImGuiCol_TitleBg] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
     colors[ImGuiCol_TitleBgActive] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
     colors[ImGuiCol_TitleBgCollapsed] = ImVec4{ 0.15f, 0.1505f, 0.151f, 1.0f };
+}
 
-    ///
+void Editor::draw(unsigned int textureColorbuffer) {
+    ImGui::NewFrame();
 
-    if (defaultFont) {
-        ImGui::PushFont(defaultFont);
+    style();
+
+    if (font) {
+        ImGui::PushFont(font);
     }
 
     ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None;
@@ -153,7 +157,7 @@ void Editor::draw(unsigned int textureColorbuffer) {
         ImGui::End();
     }
 
-    if (defaultFont) {
+    if (font) {
         ImGui::PopFont();
     }
 
@@ -161,6 +165,6 @@ void Editor::draw(unsigned int textureColorbuffer) {
     ImGui::Render();
 }
 
-void Editor::setDefaultEditorFont(ImFont* font) {
-    this->defaultFont = font;
+void Editor::setFont(ImFont* font) {
+    this->font = font;
 }

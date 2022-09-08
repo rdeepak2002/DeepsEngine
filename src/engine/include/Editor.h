@@ -19,12 +19,13 @@ public:
     }
     void init();
     void draw(unsigned int textureColorbuffer);
-    void setDefaultEditorFont(ImFont* font);
+    void setFont(ImFont* font);
 private:
     Editor() {
 
     }
-    ImFont* defaultFont = nullptr;
+    ImFont* font = nullptr;
+    void style();
 public:
     Editor(Editor const&)  = delete;
     void operator=(Editor const&)  = delete;
